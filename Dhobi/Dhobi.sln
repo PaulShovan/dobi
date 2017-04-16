@@ -1,0 +1,93 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{C6A6B33A-5213-4EF5-A1A8-EE723B7FBB31}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{882B0346-0EAB-4184-B5FF-9357A6A6A4D4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{42A4E584-B148-432F-9043-BB5B3D509E03}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAccess", "DataAccess", "{C406676B-A070-4940-B6FC-DDA1EC95E632}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Contracts", "Contracts", "{BA46CD54-C3B7-4A2C-B59A-33ACBAEF9341}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DependencyInjection", "DependencyInjection", "{844FDA6F-B553-4D9B-AE9A-14156A3FFC90}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dhobi.Core", "Dhobi.Core\Dhobi.Core.csproj", "{404C3FCF-1350-4E7B-A072-B840B0DCDEB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dhobi.Business.Interface", "Dhobi.Business.Interface\Dhobi.Business.Interface.csproj", "{71CA52CF-C47B-4852-B111-879D27312DE8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dhobi.Repository.Interface", "Dhobi.Repository.Interface\Dhobi.Repository.Interface.csproj", "{F3BBC6E3-9A99-451C-9B93-8C0A5458E3E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dhobi.Business.Implementation", "Dhobi.Business.Implementation\Dhobi.Business.Implementation.csproj", "{61AFBDE6-ABE6-46D9-B579-517BCB4180F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dhobi.Repository.Implementation", "Dhobi.Repository.Implementation\Dhobi.Repository.Implementation.csproj", "{5A152FE4-CE9A-4F9F-87F8-A00B08C3BB8A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dhobi.DependencyInjection", "Dhobi.DependencyInjection\Dhobi.DependencyInjection.csproj", "{4F411BA4-9CCE-4454-90FF-40C08062A1CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dhobi.Api", "Dhobi.Api\Dhobi.Api.csproj", "{60107832-E491-4E89-B889-E1D595BD3C31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dhobi.Admin.Api", "Dhobi.Admin.Api\Dhobi.Admin.Api.csproj", "{AB783205-EDA1-473C-B39B-9635C4B8C70D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dhobi.Common", "Dhobi.Common\Dhobi.Common.csproj", "{B559768E-27B5-47C0-AE30-0F113B02CEAF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{404C3FCF-1350-4E7B-A072-B840B0DCDEB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{404C3FCF-1350-4E7B-A072-B840B0DCDEB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{404C3FCF-1350-4E7B-A072-B840B0DCDEB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{404C3FCF-1350-4E7B-A072-B840B0DCDEB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71CA52CF-C47B-4852-B111-879D27312DE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71CA52CF-C47B-4852-B111-879D27312DE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71CA52CF-C47B-4852-B111-879D27312DE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71CA52CF-C47B-4852-B111-879D27312DE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3BBC6E3-9A99-451C-9B93-8C0A5458E3E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3BBC6E3-9A99-451C-9B93-8C0A5458E3E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3BBC6E3-9A99-451C-9B93-8C0A5458E3E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3BBC6E3-9A99-451C-9B93-8C0A5458E3E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61AFBDE6-ABE6-46D9-B579-517BCB4180F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61AFBDE6-ABE6-46D9-B579-517BCB4180F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61AFBDE6-ABE6-46D9-B579-517BCB4180F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61AFBDE6-ABE6-46D9-B579-517BCB4180F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A152FE4-CE9A-4F9F-87F8-A00B08C3BB8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A152FE4-CE9A-4F9F-87F8-A00B08C3BB8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A152FE4-CE9A-4F9F-87F8-A00B08C3BB8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A152FE4-CE9A-4F9F-87F8-A00B08C3BB8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F411BA4-9CCE-4454-90FF-40C08062A1CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F411BA4-9CCE-4454-90FF-40C08062A1CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F411BA4-9CCE-4454-90FF-40C08062A1CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F411BA4-9CCE-4454-90FF-40C08062A1CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60107832-E491-4E89-B889-E1D595BD3C31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60107832-E491-4E89-B889-E1D595BD3C31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60107832-E491-4E89-B889-E1D595BD3C31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60107832-E491-4E89-B889-E1D595BD3C31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB783205-EDA1-473C-B39B-9635C4B8C70D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB783205-EDA1-473C-B39B-9635C4B8C70D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB783205-EDA1-473C-B39B-9635C4B8C70D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB783205-EDA1-473C-B39B-9635C4B8C70D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B559768E-27B5-47C0-AE30-0F113B02CEAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B559768E-27B5-47C0-AE30-0F113B02CEAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B559768E-27B5-47C0-AE30-0F113B02CEAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B559768E-27B5-47C0-AE30-0F113B02CEAF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{404C3FCF-1350-4E7B-A072-B840B0DCDEB6} = {C6A6B33A-5213-4EF5-A1A8-EE723B7FBB31}
+		{71CA52CF-C47B-4852-B111-879D27312DE8} = {BA46CD54-C3B7-4A2C-B59A-33ACBAEF9341}
+		{F3BBC6E3-9A99-451C-9B93-8C0A5458E3E1} = {BA46CD54-C3B7-4A2C-B59A-33ACBAEF9341}
+		{61AFBDE6-ABE6-46D9-B579-517BCB4180F8} = {42A4E584-B148-432F-9043-BB5B3D509E03}
+		{5A152FE4-CE9A-4F9F-87F8-A00B08C3BB8A} = {C406676B-A070-4940-B6FC-DDA1EC95E632}
+		{4F411BA4-9CCE-4454-90FF-40C08062A1CA} = {844FDA6F-B553-4D9B-AE9A-14156A3FFC90}
+		{60107832-E491-4E89-B889-E1D595BD3C31} = {882B0346-0EAB-4184-B5FF-9357A6A6A4D4}
+		{AB783205-EDA1-473C-B39B-9635C4B8C70D} = {882B0346-0EAB-4184-B5FF-9357A6A6A4D4}
+		{B559768E-27B5-47C0-AE30-0F113B02CEAF} = {C6A6B33A-5213-4EF5-A1A8-EE723B7FBB31}
+	EndGlobalSection
+EndGlobal
