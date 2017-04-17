@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dhobi.Admin.Api", "Dhobi.Ad
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dhobi.Common", "Dhobi.Common\Dhobi.Common.csproj", "{B559768E-27B5-47C0-AE30-0F113B02CEAF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dhobi.Admin.Web", "Dhobi.Admin.Web\Dhobi.Admin.Web.csproj", "{A361EE35-3AC6-45C0-A2BE-2D8588A48AD9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{B559768E-27B5-47C0-AE30-0F113B02CEAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B559768E-27B5-47C0-AE30-0F113B02CEAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B559768E-27B5-47C0-AE30-0F113B02CEAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A361EE35-3AC6-45C0-A2BE-2D8588A48AD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A361EE35-3AC6-45C0-A2BE-2D8588A48AD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A361EE35-3AC6-45C0-A2BE-2D8588A48AD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A361EE35-3AC6-45C0-A2BE-2D8588A48AD9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,5 +95,6 @@ Global
 		{60107832-E491-4E89-B889-E1D595BD3C31} = {882B0346-0EAB-4184-B5FF-9357A6A6A4D4}
 		{AB783205-EDA1-473C-B39B-9635C4B8C70D} = {882B0346-0EAB-4184-B5FF-9357A6A6A4D4}
 		{B559768E-27B5-47C0-AE30-0F113B02CEAF} = {C6A6B33A-5213-4EF5-A1A8-EE723B7FBB31}
+		{A361EE35-3AC6-45C0-A2BE-2D8588A48AD9} = {882B0346-0EAB-4184-B5FF-9357A6A6A4D4}
 	EndGlobalSection
 EndGlobal
