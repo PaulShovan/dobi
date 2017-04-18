@@ -22,7 +22,8 @@
         //Theme
         
         //Directives
-        
+        'common-directives': 'directives/common/commonDirectives',
+
         //Factories
 
         //Services

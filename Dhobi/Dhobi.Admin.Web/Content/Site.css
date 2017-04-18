@@ -1,1 +1,6 @@
-﻿
+﻿.has-error input {
+    background-color: rgb(251, 227, 228);
+}
+.help-block p {
+    font-size: 14px;
+}
