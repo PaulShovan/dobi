@@ -43,14 +43,14 @@ namespace Dhobi.Api.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Ok(new ResponseModel<string>(ResponseStatus.BadRequest, "Invalid user data."));
+                return Ok(new ResponseModel<string>(ResponseStatus.BadRequest, null, "Invalid user data."));
             }
             var response = await _userBusiness.AddUser(user);
             if(response == null)
             {
-                return Ok(new ResponseModel<string>(ResponseStatus.BadRequest, "Invalid user data."));
+                return Ok(new ResponseModel<string>(ResponseStatus.BadRequest, null, "Invalid user data."));
             }
-            return Ok(new ResponseModel<string>(ResponseStatus.Ok, response.UserId));
+            return Ok(new ResponseModel<string>(ResponseStatus.Ok, response.UserId, "User added successfully."));
         }
 
         [HttpGet]
@@ -64,11 +64,12 @@ namespace Dhobi.Api.Controllers
             var response = await _userBusiness.ValidateRegisteredUser(code, userId);
             if (response == null)
             {
-                return Ok(new ResponseModel<string>(ResponseStatus.NotFound, "Invalid user."));
+                return Ok(new ResponseModel<string>(ResponseStatus.NotFound,null, "Invalid user."));
             }
             var user = await _userBusiness.GetUserById(userId);
             var token = _tokenGenerator.GenerateUserToken(user);
-            return Ok(new ResponseModel<string>(ResponseStatus.Ok, token));
+            var validatedUser = new ValidatedUserResponse(user.Name, token);
+            return Ok(new ResponseModel<ValidatedUserResponse>(ResponseStatus.Ok, validatedUser, "User has been authenticated successfully."));
         }
 
     }

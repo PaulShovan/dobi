@@ -8,10 +8,12 @@ namespace Dhobi.Api.Models
     {
         public T Data;
         public string ResponseStatus;
-        public ResponseModel(ResponseStatus status, T responseData)
+        public string Message;
+        public ResponseModel(ResponseStatus status, T responseData, string message = "")
         {
             ResponseStatus = Enum.GetName(typeof(ResponseStatus), status);
             Data = responseData;
+            Message = message;
         }
     }
 }
