@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Dhobi.Core;
+using Dhobi.Core.Dobi.DbModels;
+using Dhobi.Core.Manager.DbModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +11,6 @@ namespace Dhobi.Business.Interface
 {
     public interface IDobiBusiness
     {
+        Task<GenericResponse<string>> AddDobi(Dobi dobi);
     }
 }

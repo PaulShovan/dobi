@@ -5,9 +5,9 @@
     <Setting Name="ConnectionString" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;mongodb://localhost:27017&lt;/ConnectionString&gt;
+  &lt;ConnectionString&gt;mongodb://gypsy:gypsy066@dobidb-shard-00-00-utq3d.mongodb.net:27017,dobidb-shard-00-01-utq3d.mongodb.net:27017,dobidb-shard-00-02-utq3d.mongodb.net:27017/&amp;lt;DATABASE&amp;gt;?ssl=true&amp;amp;replicaSet=dobidb-shard-0&amp;amp;authSource=admin&lt;/ConnectionString&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">mongodb://localhost:27017</Value>
+      <Value Profile="(Default)">mongodb://gypsy:gypsy066@dobidb-shard-00-00-utq3d.mongodb.net:27017,dobidb-shard-00-01-utq3d.mongodb.net:27017,dobidb-shard-00-02-utq3d.mongodb.net:27017/&lt;DATABASE&gt;?ssl=true&amp;replicaSet=dobidb-shard-0&amp;authSource=admin</Value>
     </Setting>
     <Setting Name="Database" Type="System.String" Scope="Application">
       <Value Profile="(Default)">dobidb</Value>

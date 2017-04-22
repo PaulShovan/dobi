@@ -26,7 +26,9 @@ namespace Dhobi.Repository.Implementation.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("mongodb://localhost:27017")]
+        [global::System.Configuration.DefaultSettingValueAttribute("mongodb://gypsy:gypsy066@dobidb-shard-00-00-utq3d.mongodb.net:27017,dobidb-shard-" +
+            "00-01-utq3d.mongodb.net:27017,dobidb-shard-00-02-utq3d.mongodb.net:27017/<DATABA" +
+            "SE>?ssl=true&replicaSet=dobidb-shard-0&authSource=admin")]
         public string ConnectionString {
             get {
                 return ((string)(this["ConnectionString"]));

@@ -44,12 +44,15 @@
     <Compile Include="Dobi\DbModels\Dobi.cs" />
     <Compile Include="Dobi\DbModels\DobiBasicInformation.cs" />
     <Compile Include="Dobi\ViewModels\DobiViewModel.cs" />
+    <Compile Include="GenericResponse.cs" />
     <Compile Include="Manager\DbModels\Manager.cs" />
     <Compile Include="Manager\DbModels\ManagerBasicInformation.cs" />
     <Compile Include="Manager\ViewModels\LoginViewModel.cs" />
     <Compile Include="Manager\ViewModels\ManagerViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResponseModel.cs" />
+    <Compile Include="RegistrationSms\RegistrationSms.cs" />
+    <Compile Include="UserModel\DbModels\User.cs" />
+    <Compile Include="UserModel\ViewModels\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

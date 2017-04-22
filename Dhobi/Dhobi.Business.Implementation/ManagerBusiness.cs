@@ -27,17 +27,17 @@ namespace Dhobi.Business.Implementation
         {
             return await _managerRepository.IsUserNameAvailable(userName);
         }
-        public async Task<ResponseModel<string>> AddManager(ManagerViewModel managerViewModel, ManagerBasicInformation addedBy)
+        public async Task<GenericResponse<string>> AddManager(ManagerViewModel managerViewModel, ManagerBasicInformation addedBy)
         {
             try
             {
                 if(!await IsEmailAvailable(managerViewModel.Email))
                 {
-                    return new ResponseModel<string>(false, "Email is not available.");
+                    return new GenericResponse<string>(false, "Email is not available.");
                 }
                 if (!await IsUserNameAvailable(managerViewModel.UserName))
                 {
-                    return new ResponseModel<string>(false, "Username is not available");
+                    return new GenericResponse<string>(false, "Username is not available.");
                 }
                 var manager = new Manager();
                 manager.UserId = Guid.NewGuid().ToString();
@@ -51,8 +51,11 @@ namespace Dhobi.Business.Implementation
                 manager.AddedBy = addedBy;
 
                 var response = await _managerRepository.AddManager(manager);
-
-                return new ResponseModel<string>(response, "Manager added successfully.");
+                if (!response)
+                {
+                    return new GenericResponse<string>(false, "Error adding user");
+                }
+                return new GenericResponse<string>(false, "Manager added successfully.");
             }
             catch (Exception exception)
             {

@@ -47,7 +47,7 @@ namespace Dhobi.Admin.Api.Controllers
                 return BadRequest("Invalid data.");
             }
             var addedBy = GetManagerInformationFromToken();
-            if(addedBy == null)
+            if (addedBy == null)
             {
                 return BadRequest("Invalid admin token.");
             }
@@ -95,7 +95,7 @@ namespace Dhobi.Admin.Api.Controllers
                 return NotFound();
             }
             var token = _tokenGenerator.GenerateUserToken(loggedInUser);
-            var response = new ResponseModel<string>(true, token);
+            var response = new GenericResponse<string>(true, token);
             return Ok(response);
         }
     }

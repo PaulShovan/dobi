@@ -19,6 +19,13 @@ namespace Dhobi.DependencyInjection
             kernel.Bind<IDobiBusiness>().To<DobiBusiness>();
             kernel.Bind<IDobiRepository>().To<DobiRepository>();
             #endregion
+            #region User
+            kernel.Bind<IUserBusiness>().To<UserBusiness>();
+            kernel.Bind<IUserRepository>().To<UserRepository>();
+            #endregion
+            #region SMS
+            kernel.Bind<IRegistrationSmsRepository>().To<RegistrationSmsRepository>();
+            #endregion
         }
     }
 }
