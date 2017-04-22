@@ -10,10 +10,12 @@ namespace Dhobi.Core
     {
         public T Data;
         public bool ResponseStatus;
-        public GenericResponse(bool status, T responseData)
+        public string Message;
+        public GenericResponse(bool status, T responseData, string message = "")
         {
             ResponseStatus = status;
             Data = responseData;
+            Message = message;
         }
     }
 }
