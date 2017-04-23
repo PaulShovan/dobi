@@ -7,11 +7,11 @@ namespace Dhobi.Api.Models
     public class ResponseModel<T> where T : class
     {
         public T Data;
-        public string ResponseStatus;
+        public int ResponseStatus;
         public string Message;
         public ResponseModel(ResponseStatus status, T responseData, string message = "")
         {
-            ResponseStatus = Enum.GetName(typeof(ResponseStatus), status);
+            ResponseStatus = (int)status;
             Data = responseData;
             Message = message;
         }

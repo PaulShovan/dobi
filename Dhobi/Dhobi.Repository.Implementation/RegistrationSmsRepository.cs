@@ -22,8 +22,10 @@ namespace Dhobi.Repository.Implementation
             var filter3 = Builders<RegistrationSms>.Filter.Eq(d => d.Status, 0);
             var filter = Builders<RegistrationSms>.Filter.And(filter1, filter2, filter3);
             var update = Builders<RegistrationSms>.Update.Set(u => u.Status, 1);
+            var projection = Builders<RegistrationSms>.Projection.Exclude("_id");
             var options = new FindOneAndUpdateOptions<RegistrationSms, RegistrationSms>();
             options.ReturnDocument = ReturnDocument.After;
+            options.Projection = projection;
             var result = await Collection.FindOneAndUpdateAsync(filter, update, options);
             return !string.IsNullOrWhiteSpace(result.UserId);
         }

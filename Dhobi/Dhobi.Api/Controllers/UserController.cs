@@ -66,9 +66,8 @@ namespace Dhobi.Api.Controllers
             {
                 return Ok(new ResponseModel<string>(ResponseStatus.NotFound,null, "Invalid user."));
             }
-            var user = await _userBusiness.GetUserById(userId);
-            var token = _tokenGenerator.GenerateUserToken(user);
-            var validatedUser = new ValidatedUserResponse(user.Name, token);
+            var token = _tokenGenerator.GenerateUserToken(response);
+            var validatedUser = new ValidatedUserResponse(response.Name, token);
             return Ok(new ResponseModel<ValidatedUserResponse>(ResponseStatus.Ok, validatedUser, "User has been authenticated successfully."));
         }
 

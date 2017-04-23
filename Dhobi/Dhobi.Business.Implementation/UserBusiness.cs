@@ -63,7 +63,7 @@ namespace Dhobi.Business.Implementation
                 var user = new User
                 {
                     UserId = Guid.NewGuid().ToString(),
-                    Name = userModel.PhoneNumber,
+                    Name = userModel.Name,
                     PhoneNumber = userModel.PhoneNumber,
                     IsVerified = false
                 };
