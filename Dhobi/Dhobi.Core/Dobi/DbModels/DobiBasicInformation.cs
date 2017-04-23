@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Dhobi.Core.Dobi.DbModels
+﻿namespace Dhobi.Core.Dobi.DbModels
 {
     public class DobiBasicInformation
     {

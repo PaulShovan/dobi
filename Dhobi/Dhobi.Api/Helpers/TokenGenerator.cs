@@ -7,6 +7,7 @@ using Microsoft.Owin.Security.DataHandler.Encoder;
 using Newtonsoft.Json;
 using Thinktecture.IdentityModel.Tokens;
 using Dhobi.Core.UserModel.DbModels;
+using Dhobi.Core.Dobi.DbModels;
 
 namespace Dhobi.Api.Helpers
 {
@@ -24,9 +25,44 @@ namespace Dhobi.Api.Helpers
                 var identity = new ClaimsIdentity("JWT");
 
                 identity.AddClaim(new Claim("userId", user.UserId));
-                identity.AddClaim(new Claim("userName", user.Name));
-                identity.AddClaim(new Claim("phone", user.PhoneNumber));
+                identity.AddClaim(new Claim("name", user.Name));
+                identity.AddClaim(new Claim("phoneNumber", user.PhoneNumber));
                 identity.AddClaim(new Claim(ClaimTypes.Role, "user"));
+
+                var now = DateTime.UtcNow;
+                var expires = now.AddDays(Validity);
+                var symmetricKeyAsBase64 = key;
+
+                var keyByteArray = TextEncodings.Base64Url.Decode(symmetricKeyAsBase64);
+
+                var signingKey = new HmacSigningCredentials(keyByteArray);
+                var token = new JwtSecurityToken(issuer, audience, identity.Claims, now, expires, signingKey);
+
+                var handler = new JwtSecurityTokenHandler();
+                var jwtToken = handler.WriteToken(token);
+
+                return jwtToken;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+        public string GenerateDobiToken(DobiBasicInformation dobi)
+        {
+            try
+            {
+                var issuer = WebConfigurationManager.AppSettings["issuer"];
+                var audience = WebConfigurationManager.AppSettings["aud"];
+                var key = WebConfigurationManager.AppSettings["secret"];
+
+                var identity = new ClaimsIdentity("JWT");
+
+                identity.AddClaim(new Claim("dobiId", dobi.DobiId));
+                identity.AddClaim(new Claim("name", dobi.Name));
+                identity.AddClaim(new Claim("phone", dobi.Phone));
+                identity.AddClaim(new Claim("photo", dobi.Photo ?? ""));
+                identity.AddClaim(new Claim(ClaimTypes.Role, "dobi"));
 
                 var now = DateTime.UtcNow;
                 var expires = now.AddDays(Validity);
@@ -54,6 +90,20 @@ namespace Dhobi.Api.Helpers
                 var tokenOnly = token.Replace("Bearer", "").Trim();
                 var jwtDecoded = JWT.JsonWebToken.Decode(tokenOnly, TextEncodings.Base64Url.Decode(WebConfigurationManager.AppSettings["secret"]));
                 var user = JsonConvert.DeserializeObject<User>(jwtDecoded);
+                return user;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public Dobi GetDobiFromToken(string token)
+        {
+            try
+            {
+                var tokenOnly = token.Replace("Bearer", "").Trim();
+                var jwtDecoded = JWT.JsonWebToken.Decode(tokenOnly, TextEncodings.Base64Url.Decode(WebConfigurationManager.AppSettings["secret"]));
+                var user = JsonConvert.DeserializeObject<Dobi>(jwtDecoded);
                 return user;
             }
             catch (Exception)

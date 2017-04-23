@@ -1,18 +1,18 @@
 ﻿using Dhobi.Admin.Api.Helpers;
+using Dhobi.Admin.Api.Models;
 using Dhobi.Business.Interface;
+using Dhobi.Common;
+using Dhobi.Core;
 using Dhobi.Core.Dobi.DbModels;
-using Dhobi.Core.Dobi.ViewModels;
 using Dhobi.Core.Manager.DbModels;
-using Newtonsoft.Json;
+using Dhobi.Repository.Interface;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 
 namespace Dhobi.Admin.Api.Controllers
@@ -21,11 +21,13 @@ namespace Dhobi.Admin.Api.Controllers
     public class DobiController : ApiController
     {
         private IDobiBusiness _dobiBusiness;
+        private IDobiRepository _dobiRepository;
         private TokenGenerator _tokenGenerator;
         private StorageService _storageService;
-        public DobiController(IDobiBusiness dobiBusiness)
+        public DobiController(IDobiBusiness dobiBusiness, IDobiRepository dobiRepository)
         {
             _dobiBusiness = dobiBusiness;
+            _dobiRepository = dobiRepository;
             _tokenGenerator = new TokenGenerator();
         }
         private ManagerBasicInformation GetManagerInformationFromToken()
@@ -43,23 +45,89 @@ namespace Dhobi.Admin.Api.Controllers
             var user = _tokenGenerator.GetUserFromToken(token);
             return user;
         }
+        [Route("v1/dobi/validity/email")]
+        [HttpGet]
+        [Authorize(Roles = "Admin,Superadmin")]
+        public async Task<IHttpActionResult> CheckEmailAvailability(string email)
+        {
+            if (!Utilities.IsValidEmailAddress(email))
+            {
+                return BadRequest("Invalid email address.");
+            }
+            var response = await _dobiRepository.IsEmailAvailable(email);
+            return Ok(new GenericResponse<bool>(true, response));
+        }
+        [Route("v1/dobi/validity/phone")]
+        [HttpGet]
+        [Authorize(Roles = "Admin,Superadmin")]
+        public async Task<IHttpActionResult> CheckPhoneNumberAvailability(string phone)
+        {
+            if (string.IsNullOrWhiteSpace(phone))
+            {
+                return BadRequest("Invalid phone number.");
+            }
+            var response = await _dobiRepository.IsPhoneNumberAvailable(phone);
+            return Ok(new GenericResponse<bool>(true, response));
+        }
+        [Route("v1/dobi/validity/passport")]
+        [HttpGet]
+        [Authorize(Roles = "Admin,Superadmin")]
+        public async Task<IHttpActionResult> CheckPassportAvailability(string passport)
+        {
+            if (string.IsNullOrWhiteSpace(passport))
+            {
+                return BadRequest("Invalid passport number.");
+            }
+            var response = await _dobiRepository.IsPassportNumberAvailable(passport);
+            return Ok(new GenericResponse<bool>(true, response));
+        }
+        [Route("v1/dobi/validity/icnumber")]
+        [HttpGet]
+        [Authorize(Roles = "Admin,Superadmin")]
+        public async Task<IHttpActionResult> CheckIcNumberAvailability(string icnumber)
+        {
+            if (string.IsNullOrWhiteSpace(icnumber))
+            {
+                return BadRequest("Invalid ic number.");
+            }
+            var response = await _dobiRepository.IsIcNumberAvailable(icnumber);
+            return Ok(new GenericResponse<bool>(true, response));
+        }
+        [Route("v1/dobi/validity/icnumber")]
+        [HttpGet]
+        [Authorize(Roles = "Admin,Superadmin")]
+        public async Task<IHttpActionResult> CheckDrivingLicenseAvailability(string drivingLicense)
+        {
+            if (string.IsNullOrWhiteSpace(drivingLicense))
+            {
+                return BadRequest("Invalid driving license.");
+            }
+            var response = await _dobiRepository.IsDrivingLicenseAvailable(drivingLicense);
+            return Ok(new GenericResponse<bool>(true, response));
+        }
+        [Route("v1/dobi")]
+        [HttpGet]
+        [Authorize(Roles = "Admin,Superadmin")]
+        public async Task<IHttpActionResult> GetDobi(int skip=0, int limit=10)
+        {
+            if(skip < 0 || limit < 1)
+            {
+                return BadRequest("Invalid pagination data.");
+            }
+            var dobi = await _dobiRepository.GetDobi(skip, limit);
+            var totalDobi = await _dobiRepository.GetDobiCount();
+            var response = new DobiListResponse
+            {
+                DobiList = dobi,
+                TotalDobi = totalDobi
+            };
+            return Ok(new GenericResponse<DobiListResponse>(true, response));
+        }
         [HttpPost]
         [Route("v1/dobi")]
-        //[Authorize(Roles = "Admin,Superadmin")]
+        [Authorize(Roles = "Admin,Superadmin")]
         public async Task<IHttpActionResult> AddDobi()
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return BadRequest("Invalid data.");
-            //}
-            //var addedBy = GetManagerInformationFromToken();
-            //if (addedBy == null)
-            //{
-            //    return BadRequest("Invalid admin token.");
-            //}
-            //var response = await _managerBusiness.AddManager(manager, addedBy);
-            //return Ok(response);
-
             if (!Request.Content.IsMimeMultipartContent("form-data"))
             {
                 this.Request.CreateResponse(HttpStatusCode.UnsupportedMediaType);
@@ -150,7 +218,7 @@ namespace Dhobi.Admin.Api.Controllers
                     }
                 }
             }
-            dobi.DobiId = new Guid().ToString();
+            var response = await _dobiBusiness.AddDobi(dobi);
             //_storageService = new StorageService();
             //foreach (var file in provider.Files)
             //{
@@ -160,7 +228,7 @@ namespace Dhobi.Admin.Api.Controllers
             //    dobi.Photo = s3Prefix + photoUrl;
             //}
 
-            return Ok();
+            return Ok(response);
         }
     }
 }

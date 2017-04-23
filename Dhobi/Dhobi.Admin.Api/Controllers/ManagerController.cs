@@ -1,4 +1,5 @@
 ﻿using Dhobi.Admin.Api.Helpers;
+using Dhobi.Admin.Api.Models;
 using Dhobi.Business.Interface;
 using Dhobi.Common;
 using Dhobi.Core;
@@ -57,7 +58,7 @@ namespace Dhobi.Admin.Api.Controllers
 
         //[Authorize]
         
-        [Route("v1/validity/email")]
+        [Route("v1/manager/validity/email")]
         [HttpGet]
         public async Task<IHttpActionResult> CheckEmailAvailability(string email)
         {
@@ -69,7 +70,7 @@ namespace Dhobi.Admin.Api.Controllers
             return Ok(response);
         }
 
-        [Route("v1/validity/username")]
+        [Route("v1/manager/validity/username")]
         [HttpGet]
         public async Task<IHttpActionResult> CheckUserNameAvailability(string userName)
         {
@@ -95,7 +96,12 @@ namespace Dhobi.Admin.Api.Controllers
                 return NotFound();
             }
             var token = _tokenGenerator.GenerateUserToken(loggedInUser);
-            var response = new GenericResponse<string>(true, token);
+            var managerLoginResponse = new ManagerLoginResponse
+            {
+                Token = token,
+                Name = loggedInUser.Name
+            };
+            var response = new GenericResponse<ManagerLoginResponse>(true, managerLoginResponse);
             return Ok(response);
         }
     }

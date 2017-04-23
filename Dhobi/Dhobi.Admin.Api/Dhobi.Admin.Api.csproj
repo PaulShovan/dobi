@@ -221,6 +221,8 @@
     <Compile Include="Helpers\InMemoryMultipartStreamProvider.cs" />
     <Compile Include="Helpers\StorageService.cs" />
     <Compile Include="Helpers\TokenGenerator.cs" />
+    <Compile Include="Models\DobiListResponse.cs" />
+    <Compile Include="Models\ManagerLoginResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -240,7 +242,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dhobi.Business.Interface\Dhobi.Business.Interface.csproj">
@@ -258,6 +259,10 @@
     <ProjectReference Include="..\Dhobi.DependencyInjection\Dhobi.DependencyInjection.csproj">
       <Project>{4f411ba4-9cce-4454-90ff-40c08062a1ca}</Project>
       <Name>Dhobi.DependencyInjection</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dhobi.Repository.Interface\Dhobi.Repository.Interface.csproj">
+      <Project>{F3BBC6E3-9A99-451C-9B93-8C0A5458E3E1}</Project>
+      <Name>Dhobi.Repository.Interface</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

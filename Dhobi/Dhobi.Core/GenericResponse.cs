@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dhobi.Core
 {
-    public class GenericResponse<T> where T : class
+    public class GenericResponse<T>
     {
         public T Data;
         public bool ResponseStatus;
