@@ -192,6 +192,8 @@
     <Content Include="WebApp\directives\loader\loader.html" />
     <Content Include="WebApp\directives\loader\loader.js" />
     <Content Include="WebApp\directives\loader\xloader.css" />
+    <Content Include="WebApp\directives\topMenu\topMenu.html" />
+    <Content Include="WebApp\directives\topMenu\topMenu.js" />
     <Content Include="WebApp\factories\http\httpFactory.js" />
     <Content Include="WebApp\factories\modal\modalFactory.js" />
     <Content Include="WebApp\factories\utility.js" />

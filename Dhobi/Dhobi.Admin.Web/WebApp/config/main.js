@@ -37,7 +37,7 @@
         //Directives
         'common-directives': 'directives/commonDirective',
         'http-loader': 'directives/loader/loader',
-
+        'top-menu': 'directives/topMenu/topMenu',
 
         //Factories
         'http-service': 'factories/http/httpFactory',

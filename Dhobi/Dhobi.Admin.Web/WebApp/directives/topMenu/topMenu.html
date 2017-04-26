@@ -1,0 +1,42 @@
+﻿<nav role="navigation" class="navbar navbar-default">
+    <div class="navbar-header">
+        <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a href="#" class="navbar-brand">DOBI</a>
+    </div>
+
+    <div id="navbarCollapse" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+            <li ng-if="TopMenuData.ViewName == 'SuperAdmin'" ng-repeat="item in TopMenuData.SuperAdminMenues" ng-class="{active: $root.CURRENTSTATE.indexOf(item.Link)>-1}">
+                <a role="button" ui-sref="{{item.Link}}"><i class="fa {{item.Cls}}"></i> <span class="nav-label">{{item.Title}}</span></a>
+
+                <ul ng-if="item.Submenu.length>0" class="nav nav-second-level collapse in">
+                    <li ng-repeat="submenu in item.Submenu" ui-sref-active="active"><a ui-sref="{{submenu.Link}}">{{submenu.Title}}</a></li>
+                </ul>
+            </li>
+
+            <li ng-if="TopMenuData.ViewName == 'Admin'" ng-repeat="item in TopMenuData.AdminMenues" ng-class="{active: $root.CURRENTSTATE.indexOf(item.Link)>-1}">
+                <a role="button" ui-sref="{{item.Link}}"><i class="fa {{item.Cls}}"></i> <span class="nav-label">{{item.Title}}</span></a>
+
+                <ul ng-if="item.Submenu.length>0" class="nav nav-second-level collapse in">
+                    <li ng-repeat="submenu in item.Submenu" ui-sref-active="active"><a ui-sref="{{submenu.Link}}">{{submenu.Title}}</a></li>
+                </ul>
+            </li>
+
+            <li ng-if="TopMenuData.ViewName == 'Manager'" ng-repeat="item in TopMenuData.ManagerMenues" ng-class="{active: $root.CURRENTSTATE.indexOf(item.Link)>-1}">
+                <a role="button" ui-sref="{{item.Link}}"><i class="fa {{item.Cls}}"></i> <span class="nav-label">{{item.Title}}</span></a>
+
+                <ul ng-if="item.Submenu.length>0" class="nav nav-second-level collapse in">
+                    <li ng-repeat="submenu in item.Submenu" ui-sref-active="active"><a ui-sref="{{submenu.Link}}">{{submenu.Title}}</a></li>
+                </ul>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Welcome</a></li>
+        </ul>
+    </div>
+</nav>
