@@ -1,11 +1,10 @@
 ﻿define(['app', 'jquery', 'bootstrap'], function (app, $) {
     app = app || angular.module("topMenuModule", []);
-    app.controller("topMenuController", function ($scope, $localStorage, $cookieStore, roleConstant, httpService, apiConstant, $rootScope, $location, $state) {
+    app.controller("topMenuController", function ($scope, $localStorage, $cookieStore, roleConstant) {
         "use strict";
         $scope.TopMenuData = {
             TopMenuUrl: '',
             User: $localStorage.UserInfo,
-            //IsOpusView: $localStorage.IsOpusView,
             ViewName: $localStorage.ViewName,
 
             SuperAdminMenues: [
@@ -49,6 +48,12 @@
                 } else if (role === roleConstant.Manager) {
                     $scope.TopMenuData.TopMenuUrl = '/WebApp/directives/topMenu/managerMenu.html';
                 }
+            },
+
+            Logout: function () {
+                $cookieStore.remove('accessToken');
+                $localStorage.$reset();
+                window.location.href = '/Login';
             }
         };
 
