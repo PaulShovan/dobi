@@ -93,7 +93,7 @@ namespace Dhobi.Admin.Api.Controllers
             var response = await _dobiRepository.IsIcNumberAvailable(icnumber);
             return Ok(new GenericResponse<bool>(true, response));
         }
-        [Route("v1/dobi/validity/icnumber")]
+        [Route("v1/dobi/validity/drivinglicense")]
         [HttpGet]
         [Authorize(Roles = "Admin,Superadmin")]
         public async Task<IHttpActionResult> CheckDrivingLicenseAvailability(string drivingLicense)

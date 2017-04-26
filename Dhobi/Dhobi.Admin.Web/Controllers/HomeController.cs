@@ -6,8 +6,13 @@ namespace Dhobi.Admin.Web.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "Dhobi | Home";
+            ViewBag.Title = "Dobi | Home";
             return View("Login");
+        }
+        public ActionResult Admin()
+        {
+            ViewBag.Title = "Dobi | Admin";
+            return View("Admin");
         }
     }
 }
