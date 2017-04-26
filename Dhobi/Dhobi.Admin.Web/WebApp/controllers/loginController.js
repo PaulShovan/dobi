@@ -18,11 +18,14 @@ app.controller("loginCtrl", ['$scope', '$http', '$cookieStore', '$localStorage',
                     .success(function (result) {
                         if (!result.ResponseStatus) { return; }
                         if (result.Data.Token) {
-                            $cookieStore.put('Token', result.Data.Token);
+                            $cookieStore.put('accessToken', result.Data.Token);
                             var userInfo = {
-                                Name: result.Data.Name
+                                Name: result.Data.Name,
+                                Role: result.Data.Role
                             }
                             $localStorage.UserInfo = userInfo;
+                            $localStorage.ViewName = userInfo.Role;
+
                             window.location.href = '/Admin';
                         } else if (result.ResponseStatus) {
                             $scope.errorMsg = result.Message;

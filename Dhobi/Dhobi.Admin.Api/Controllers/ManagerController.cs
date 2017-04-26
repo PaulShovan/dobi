@@ -99,7 +99,8 @@ namespace Dhobi.Admin.Api.Controllers
             var managerLoginResponse = new ManagerLoginResponse
             {
                 Token = token,
-                Name = loggedInUser.Name
+                Name = loggedInUser.Name,
+                Role = "Admin"
             };
             var response = new GenericResponse<ManagerLoginResponse>(true, managerLoginResponse);
             return Ok(response);

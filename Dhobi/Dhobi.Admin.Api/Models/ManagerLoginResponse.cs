@@ -9,5 +9,6 @@ namespace Dhobi.Admin.Api.Models
     {
         public string Token;
         public string Name;
+        public string Role;
     }
 }
