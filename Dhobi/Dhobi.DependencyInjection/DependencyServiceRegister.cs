@@ -26,6 +26,10 @@ namespace Dhobi.DependencyInjection
             #region SMS
             kernel.Bind<IRegistrationSmsRepository>().To<RegistrationSmsRepository>();
             #endregion
+            #region PromoOffer
+            kernel.Bind<IPromoOfferRepository>().To<PromoOfferRepository>();
+            kernel.Bind<IPromoOfferBusiness>().To<PromoOfferBusiness>();
+            #endregion
         }
     }
 }

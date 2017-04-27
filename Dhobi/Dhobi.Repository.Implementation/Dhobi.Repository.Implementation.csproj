@@ -61,6 +61,7 @@
     <Compile Include="Base\Repository.cs" />
     <Compile Include="DobiRepository.cs" />
     <Compile Include="ManagerRepository.cs" />
+    <Compile Include="PromoOfferRepository.cs" />
     <Compile Include="Properties\DbSettings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>

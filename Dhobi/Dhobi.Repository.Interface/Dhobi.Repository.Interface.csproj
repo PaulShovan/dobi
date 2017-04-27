@@ -43,6 +43,7 @@
     <Compile Include="Base\IRepository.cs" />
     <Compile Include="IDobiRepository.cs" />
     <Compile Include="IManagerRepository.cs" />
+    <Compile Include="IPromoOfferRepository.cs" />
     <Compile Include="IRegistrationSmsRepository.cs" />
     <Compile Include="IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

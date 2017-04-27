@@ -7,6 +7,7 @@ namespace Dhobi.Repository.Interface
     public interface IDobiRepository
     {
         Task<bool> AddDobi(Dobi dobi);
+        Task<Dobi> UpdateDobi(Dobi dobi);
         Task<bool> IsEmailAvailable(string email);
         Task<bool> IsPhoneNumberAvailable(string phone);
         Task<bool> IsPassportNumberAvailable(string passport);
@@ -15,5 +16,6 @@ namespace Dhobi.Repository.Interface
         Task<DobiBasicInformation> DobiLogin(string phone);
         Task<List<Dobi>> GetDobi(int skip, int limit);
         Task<int> GetDobiCount();
+        Task<Dobi> GetDobiById(string dobiId);
     }
 }

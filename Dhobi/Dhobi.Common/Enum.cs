@@ -17,4 +17,9 @@ namespace Dhobi.Common
         BadRequest = 400,
         NotFound = 404
     }
+    public enum PromoStatus
+    {
+        Active = 1,
+        InActive = 2
+    }
 }

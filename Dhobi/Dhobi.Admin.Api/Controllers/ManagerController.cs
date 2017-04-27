@@ -37,7 +37,7 @@ namespace Dhobi.Admin.Api.Controllers
             var user = _tokenGenerator.GetUserFromToken(token);
             return user;
         }
-        //[Authorize]
+
         [HttpPost]
         [Route("v1/manager")]
         [Authorize(Roles = "Superadmin")]
@@ -56,8 +56,7 @@ namespace Dhobi.Admin.Api.Controllers
             return Ok(response);
         }
 
-        //[Authorize]
-        
+        [Authorize]
         [Route("v1/manager/validity/email")]
         [HttpGet]
         public async Task<IHttpActionResult> CheckEmailAvailability(string email)

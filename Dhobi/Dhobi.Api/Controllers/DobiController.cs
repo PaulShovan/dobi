@@ -30,7 +30,7 @@ namespace Dhobi.Api.Controllers
                 return BadRequest("Invalid login data");
             }
             var loggedInDobi = await _dobiRepository.DobiLogin(phone);
-            if (string.IsNullOrWhiteSpace(loggedInDobi.DobiId))
+            if (loggedInDobi == null || string.IsNullOrWhiteSpace(loggedInDobi.DobiId))
             {
                 return Ok(new ResponseModel<string>(ResponseStatus.NotFound, null, "Dobi Not found"));
             }

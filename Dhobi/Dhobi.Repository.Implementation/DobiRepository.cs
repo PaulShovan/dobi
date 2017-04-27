@@ -52,6 +52,22 @@ namespace Dhobi.Repository.Implementation
             }
         }
 
+        public async Task<Dobi> GetDobiById(string dobiId)
+        {
+            try
+            {
+                var builder = Builders<Dobi>.Filter;
+                var filter = builder.Eq(d => d.DobiId, dobiId);
+                var projection = Builders<Dobi>.Projection.Exclude("_id");
+                var result = await Collection.Find(filter).Project<Dobi>(projection).FirstOrDefaultAsync();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error in getting user" + ex);
+            }
+        }
+
         public async Task<int> GetDobiCount()
         {
             var count = await Collection.CountAsync(dobi => dobi.DobiId != "");
@@ -106,6 +122,30 @@ namespace Dhobi.Repository.Implementation
                 return false;
             }
             return true;
+        }
+
+        public async Task<Dobi> UpdateDobi(Dobi dobi)
+        {
+            var update = Builders<Dobi>.Update.Set(d => d.Name, dobi.Name)
+                                                .Set(d => d.Phone, dobi.Phone)
+                                                .Set(d => d.Email, dobi.Email)
+                                                .Set(d => d.Address, dobi.Address)
+                                                .Set(d => d.EmergencyContactNumber, dobi.EmergencyContactNumber)
+                                                .Set(d => d.PassportNumber, dobi.PassportNumber)
+                                                .Set(d => d.IcNumber, dobi.IcNumber)
+                                                .Set(d => d.DrivingLicense, dobi.DrivingLicense)
+                                                .Set(d => d.Age, dobi.Age)
+                                                .Set(d => d.Sex, dobi.Sex)
+                                                .Set(d => d.Salary, dobi.Salary);
+                                                
+            var filter = Builders<Dobi>.Filter.Eq(d => d.DobiId, dobi.DobiId);
+            var projection = Builders<Dobi>.Projection.Exclude("_id");
+            var options = new FindOneAndUpdateOptions<Dobi, Dobi>();
+            options.IsUpsert = false;
+            options.ReturnDocument = ReturnDocument.After;
+            options.Projection = projection;
+            var result = await Collection.FindOneAndUpdateAsync(filter, update, options);
+            return result;
         }
     }
 }

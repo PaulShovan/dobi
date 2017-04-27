@@ -49,6 +49,8 @@
     <Compile Include="Manager\DbModels\ManagerBasicInformation.cs" />
     <Compile Include="Manager\ViewModels\LoginViewModel.cs" />
     <Compile Include="Manager\ViewModels\ManagerViewModel.cs" />
+    <Compile Include="PromoOffer\DbModels\Promo.cs" />
+    <Compile Include="PromoOffer\ViewModels\PromoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegistrationSms\RegistrationSms.cs" />
     <Compile Include="UserModel\DbModels\User.cs" />
