@@ -14,7 +14,7 @@
     <link href="~/Content/Site.css" rel="stylesheet" />
 </head>
 <body ng-app="app" ng-controller="loginCtrl">
-    <h1 class="text-center">Welcome to Dhobi Admin</h1>
+    <h1 class="text-center">Welcome to Dobi Admin</h1>
 
     <div class="row">
         <div class="col-md-4"></div>
@@ -23,10 +23,9 @@
                 <form name="loginForm">
                     <fieldset style="padding: 15px">
                         <div class="form-group" ng-class="{ 'has-error': loginForm.username.$touched && loginForm.username.$invalid }">
-                            <input type="email" name="username" class="form-control" placeholder="Username" required ng-model="Data.Username" validate-email>
+                            <input type="text" name="username" class="form-control" placeholder="Username" required ng-model="Data.UserName">
                             <div class="help-block" ng-messages="loginForm.username.$error" ng-if="loginForm.username.$touched">
-                                <p ng-message="required">Email is required.</p>
-                                <p ng-message="email">Invalid email address.</p>
+                                <p ng-message="required">UserName is required.</p>
                             </div>
                         </div>
                         <div class="form-group" ng-class="{ 'has-error': loginForm.password.$touched && loginForm.password.$invalid }">
@@ -44,7 +43,6 @@
         </div>
         <div class="col-md-4"></div>
     </div>
-
 
     <script src="~/Scripts/urlConfig.js"></script>
     <script src="~/Scripts/jquery-3.1.1.min.js"></script>

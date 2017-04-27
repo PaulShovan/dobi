@@ -19,14 +19,34 @@
 
         'bootstrap': "lib/bootstrap",
         
+        //Necessary Plugins
+        'bootstrap-ui': 'lib/ui-bootstrap-tpls-1.3.3.min',
+        'angular-loading-bar': 'lib/plugins/angular-loading-bar/loading-bar.min',
+        'angular-toastr': 'lib/angular-toastr.tpls',
+        'angular-confirm': 'lib/angular-confirm.min',
+        'moment': 'lib/plugins/datepicker/moment',
+        'angular-datepicker': 'lib/plugins/datepicker/angular-datepicker',
+        'ng-file-upload': 'lib/plugins/ng-file-upload/ng-file-upload',
+
+        
         //Theme
         
+        //Constants
+        'role-constant': 'constants/roleConstant',
+
         //Directives
-        'common-directives': 'directives/common/commonDirectives',
+        'common-directives': 'directives/commonDirective',
+        'http-loader': 'directives/loader/loader',
+        'top-menu': 'directives/topMenu/topMenu',
 
         //Factories
+        'http-service': 'factories/http/httpFactory',
+        'modal-factory': 'factories/modal/modalFactory',
+        'utility': 'factories/utility',
+
 
         //Services
+        'api-constant': 'services/apiConstant',
 
         //Controllers
     },
@@ -49,7 +69,15 @@
         'underscore': {
             exports: "_"
         },
-        'bootstrap': { deps: ["jquery"] }
+        'bootstrap': { deps: ["jquery"] },
+
+        //Necessary Plugins
+        'bootstrap-ui': { deps: ['angular'] },
+        'angular-loading-bar': { deps: ['angular'] },
+        'angular-toastr': { deps: ['angular', 'bootstrap'] },
+        'angular-confirm': { deps: ['angular'] },
+        'angular-datepicker': { deps: ['angular', 'moment'] },
+        'ng-file-upload': { deps: ['angular'] }
     },
 
     // kick start application

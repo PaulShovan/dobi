@@ -1,0 +1,35 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    @*<link href="~/Content/font-awesome/css/font-awesome.min.css" rel="stylesheet" />*@
+    <link href="~/WebApp/lib/plugins/angular-loading-bar/loading-bar.css" rel="stylesheet" />
+    <link href="~/Content/plugins/toastr/angular-toastr.css" rel="stylesheet" />
+
+    <link href="~/Content/Site.css" rel="stylesheet" />
+</head>
+<body>
+    <topmenu></topmenu>
+
+    <div class="row" style="margin-top: 200px">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <a href="" class="btn btn-block btn-gray">New Orders</a>
+            <a href="" class="btn btn-block btn-gray">Order Accepted</a>
+            <a href="" class="btn btn-block btn-gray">Order Delivered</a>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+    <script src="~/Scripts/urlConfig.js"></script>
+    <script src="/WebApp/lib/require.js"></script>
+    <script src="~/WebApp/config/main.js"></script>
+</body>
+</html>

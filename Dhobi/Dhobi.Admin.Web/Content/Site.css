@@ -1,6 +1,35 @@
 ﻿.has-error input {
     background-color: rgb(251, 227, 228);
 }
+
 .help-block p {
     font-size: 14px;
 }
+
+
+.btn-gray {
+    color: #fff;
+    background-color: #828282;
+    border-color: #606060;
+}
+.btn-gray:hover {
+    color: #fff;
+    background-color: #666666;
+    border-color: #484646;
+}
+
+/* Custom Helpers Css */
+.m-t-xs {
+    margin-top: 5px;
+}
+.m-t-sm {
+    margin-top: 10px;
+}
+.m-t-md {
+    margin-top: 15px;
+}
+.m-t-lg {
+    margin-top: 20px;
+}
+
+
