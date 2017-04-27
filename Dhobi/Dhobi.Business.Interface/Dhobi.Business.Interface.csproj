@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="IDobiBusiness.cs" />
     <Compile Include="IManagerBusiness.cs" />
+    <Compile Include="IPromoOfferBusiness.cs" />
     <Compile Include="IUserBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

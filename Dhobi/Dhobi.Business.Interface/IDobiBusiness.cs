@@ -12,5 +12,6 @@ namespace Dhobi.Business.Interface
     public interface IDobiBusiness
     {
         Task<GenericResponse<string>> AddDobi(Dobi dobi);
+        Task<GenericResponse<string>> UpdateDobi(Dobi dobi);
     }
 }

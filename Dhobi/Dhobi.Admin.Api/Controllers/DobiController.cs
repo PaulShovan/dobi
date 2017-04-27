@@ -230,5 +230,123 @@ namespace Dhobi.Admin.Api.Controllers
 
             return Ok(response);
         }
+
+
+
+        [HttpPut]
+        [Route("v1/dobi")]
+        [Authorize(Roles = "Admin,Superadmin")]
+        public async Task<IHttpActionResult> UpdateDobi()
+        {
+            if (!Request.Content.IsMimeMultipartContent("form-data"))
+            {
+                this.Request.CreateResponse(HttpStatusCode.UnsupportedMediaType);
+            }
+            var addedBy = GetManagerInformationFromToken();
+            if (addedBy == null)
+            {
+                return BadRequest("Invalid admin token.");
+            }
+
+            var dobi = new Dobi();
+
+            string s3Prefix = ConfigurationManager.AppSettings["S3Prefix"];
+            var provider = await Request.Content.ReadAsMultipartAsync(new InMemoryMultipartStreamProvider());
+
+            foreach (var key in provider.FormData.AllKeys)
+            {
+                foreach (var val in provider.FormData.GetValues(key))
+                {
+                    if (key == "DobiId")
+                    {
+                        dobi.DobiId = val.ToString().Trim();
+                        if (string.IsNullOrWhiteSpace(dobi.DobiId))
+                        {
+                            return BadRequest("Dobi Id Is Required.");
+                        }
+                    }
+                    else if (key == "Name")
+                    {
+                        dobi.Name = val.ToString().Trim();
+                        if (string.IsNullOrWhiteSpace(dobi.Name))
+                        {
+                            return BadRequest("Name Is Required.");
+                        }
+                    }
+                    else if (key == "Phone")
+                    {
+                        dobi.Phone = val.ToString().Trim();
+                        if (string.IsNullOrWhiteSpace(dobi.Phone))
+                        {
+                            return BadRequest("Phone Number Is Required");
+                        }
+                    }
+                    else if (key == "Email")
+                    {
+                        dobi.Email = val.ToString().Trim();
+                        if (string.IsNullOrWhiteSpace(dobi.Email))
+                        {
+                            return BadRequest("Email Is Required");
+                        }
+                    }
+                    else if (key == "Address")
+                    {
+                        dobi.Address = val.ToString().Trim();
+                    }
+                    else if (key == "EmergencyContactNumber")
+                    {
+                        dobi.EmergencyContactNumber = val.ToString().Trim();
+                        if (string.IsNullOrWhiteSpace(dobi.EmergencyContactNumber))
+                        {
+                            return BadRequest("Emergency Contact Number Is Required");
+                        }
+                    }
+                    else if (key == "PassportNumber")
+                    {
+                        dobi.PassportNumber = val.ToString().Trim();
+                    }
+                    else if (key == "IcNumber")
+                    {
+                        dobi.IcNumber = val.ToString().Trim();
+                        if (string.IsNullOrWhiteSpace(dobi.IcNumber))
+                        {
+                            return BadRequest("IC Number Is Required");
+                        }
+                    }
+                    else if (key == "DrivingLicense")
+                    {
+                        dobi.DrivingLicense = val.ToString().Trim();
+                    }
+                    else if (key == "Age")
+                    {
+                        dobi.Age = int.Parse(val.ToString().Trim());
+                        if (dobi.Age < 0)
+                        {
+                            return BadRequest("Invalid Age");
+                        }
+                    }
+                    else if (key == "Sex")
+                    {
+                        dobi.Sex = val.ToString().Trim();
+                    }
+                    else if (key == "Salary")
+                    {
+                        dobi.Salary = double.Parse(val.ToString().Trim());
+                    }
+                }
+            }
+            var response = await _dobiBusiness.UpdateDobi(dobi);
+            //_storageService = new StorageService();
+            //foreach (var file in provider.Files)
+            //{
+            //    var photoUrl = dobi.DobiId + "/profile/" + "profile_pic.png";
+            //    Stream stream = await file.ReadAsStreamAsync();
+            //    _storageService.UploadFile("dobiadmin", photoUrl, stream);
+            //    dobi.Photo = s3Prefix + photoUrl;
+            //}
+
+            return Ok(response);
+        }
+
     }
 }
