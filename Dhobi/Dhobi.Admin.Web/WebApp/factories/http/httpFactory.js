@@ -94,10 +94,10 @@
                     });
             },
 
-            uploadPic: function (api, files, data, successMessage, onResponse) {
+            postMultipart: function (api, files, data, successMessage, onResponse) {
                 cfpLoadingBar.start();
                 //Upload.setDefaults({ ngfMinSize: 20000, ngfMaxSize: 20000000 });
-                var obj = { files: files};
+                var obj = { Files: files};
 
                 for (var key in data) {
                     if (data.hasOwnProperty(key)) {
@@ -116,14 +116,14 @@
                             if (onResponse) {
                                 onResponse(response);
                             }
-                            toastr.success("Image Uploaded Successfully.", 'Success');
+                            //toastr.success("Image Uploaded Successfully.", 'Success');
                             cfpLoadingBar.complete();
                         }
                     });
                 }, function (response) {
                     if (response.status !== 200) {
                         response.errorMsg = response.status + ': ' + response.data;
-                        toastr.error("Failed Uploading Image.", 'Error!');
+                        //toastr.error("Failed Uploading Image.", 'Error!');
                         cfpLoadingBar.complete();
                     }
                 }, function (evt) {

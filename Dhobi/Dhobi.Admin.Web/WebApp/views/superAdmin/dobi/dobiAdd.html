@@ -3,13 +3,13 @@
         <div class="col-md-6">
             <form name="dobiAddForm" novalidate>
                 <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.fullName.$touched && dobiAddForm.fullName.$invalid }">
-                    <input type="text" name="fullName" class="form-control" placeholder="Full Name" ng-model="Data.Dobi.FullName" required>
+                    <input type="text" name="fullName" class="form-control" placeholder="Full Name" ng-model="Data.Dobi.Name" required>
                     <div class="help-block" ng-messages="dobiAddForm.fullName.$error" ng-if="dobiAddForm.fullName.$touched">
                         <p ng-message="required">Full Name is required.</p>
                     </div>
                 </div>
                 <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.phoneNumber.$touched && dobiAddForm.phoneNumber.$invalid }">
-                    <input type="text" name="phoneNumber" class="form-control" placeholder="Phone Number" ng-model="Data.Dobi.PhoneNumber" required>
+                    <input type="text" name="phoneNumber" class="form-control" placeholder="Phone Number" ng-model="Data.Dobi.Phone" required>
                     <div class="help-block" ng-messages="dobiAddForm.phoneNumber.$error" ng-if="dobiAddForm.phoneNumber.$touched">
                         <p ng-message="required">Phone Number is required.</p>
                     </div>
@@ -28,21 +28,21 @@
                     </div>
                 </div>
                 <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.emergencyContact.$touched && dobiAddForm.emergencyContact.$invalid }">
-                    <input type="text" name="emergencyContact" class="form-control" placeholder="Emergency Contact Number" ng-model="Data.Dobi.EmergencyContactNo" required>
+                    <input type="text" name="emergencyContact" class="form-control" placeholder="Emergency Contact Number" ng-model="Data.Dobi.EmergencyContactNumber" required>
                     <div class="help-block" ng-messages="dobiAddForm.emergencyContact.$error" ng-if="dobiAddForm.emergencyContact.$touched">
                         <p ng-message="required">Emergency Contact is required.</p>
                     </div>
                 </div>
                 <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.passportNo.$touched && dobiAddForm.passportNo.$invalid }">
-                    <input type="text" name="passportNo" class="form-control" placeholder="Passport Number" ng-model="Data.Dobi.PassportNo" required>
+                    <input type="text" name="passportNo" class="form-control" placeholder="Passport Number" ng-model="Data.Dobi.PassportNumber" required>
                     <div class="help-block" ng-messages="dobiAddForm.passportNo.$error" ng-if="dobiAddForm.passportNo.$touched">
                         <p ng-message="required">Passport No. is required.</p>
                     </div>
                 </div>
-                <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.icNo.$touched && dobiAddForm.icNo.$invalid }">
-                    <input type="text" name="icNo" class="form-control" placeholder="IC No." ng-model="Data.Dobi.ICNo" required>
-                    <div class="help-block" ng-messages="dobiAddForm.icNo.$error" ng-if="dobiAddForm.icNo.$touched">
-                        <p ng-message="required">ICNo is required.</p>
+                <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.icNumber.$touched && dobiAddForm.icNumber.$invalid }">
+                    <input type="text" name="icNumber" class="form-control" placeholder="IC No." ng-model="Data.Dobi.IcNumber" required>
+                    <div class="help-block" ng-messages="dobiAddForm.icNumber.$error" ng-if="dobiAddForm.icNumber.$touched">
+                        <p ng-message="required">IC Number is required.</p>
                     </div>
                 </div>
                 <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.drivingLicense.$touched && dobiAddForm.drivingLicense.$invalid }">
@@ -94,7 +94,7 @@
     <div class="row m-t-lg">
         <div class="col-md-4"></div>
         <div class="col-md-4">
-            <button type="submit" class="btn btn-gray btn-block center-block">Add</button>
+            <button type="submit" class="btn btn-gray btn-block center-block" ng-click="Methods.AddNewDobi(files)" ng-disabled="dobiAddForm.$invalid">Add</button>
         </div>
         <div class="col-md-4"></div>
     </div>

@@ -10,7 +10,8 @@
         //var dobiBase = baseUrl + "Manage/";
 
         return {
-            getAllDobi: baseUrl + "dobi"
+            getAllDobi: baseUrl + "dobi",
+            addNewDobi: baseUrl + "dobi"
 
 
             //login: host + "token",

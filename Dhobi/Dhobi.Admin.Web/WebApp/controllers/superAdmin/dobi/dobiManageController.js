@@ -7,19 +7,20 @@
 
         $scope.Data = {
             Dobies: [],
-            TotalDobies: 0
+            TotalDobies: null
         };
 
         $scope.Methods = {
             Init: function () {
                 $scope.Methods.GetAllDobi($scope.currentPage);
             },
-            GetAllDobi: function(pageNumber) {
-                httpService.get(apiConstant.getAllDobi, function (dobi) {
+            GetAllDobi: function (pageNumber) {
+                var skip = (pageNumber-1) * $scope.pageSize;
+                httpService.get(apiConstant.getAllDobi + "?skip=" + skip , function (dobi) {
                     $timeout(function() {
                         $scope.Data.Dobies = dobi.Data.DobiList;
-                        //$scope.Data.TotalDobies = dobi.Total;
-                    })
+                        $scope.Data.TotalDobies = dobi.Data.TotalDobi;
+                    });
                 }, true);
             },
             PageChangeHandler: function (pageNum) {
