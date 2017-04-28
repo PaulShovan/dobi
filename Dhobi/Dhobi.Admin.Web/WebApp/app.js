@@ -10,12 +10,12 @@
 
         $stateProvider.state('viewswich', angularAMD.route({
             url: '/viewswich',
-            templateUrl: '/WebApp/views/dashboard/dashboard.html',
+            //templateUrl: '/WebApp/views/dashboard/dashboard.html',
             controllerUrl: 'controllers/viewSwitchController',
             controller: 'viewSwichController',
             authorization: {
                 role: [app.RoleName.SuperAdmin, app.RoleName.Admin, app.RoleName.Manager]
-            },
+            }
         }));
 
         app.registerSuperAdminRoute($stateProvider);
@@ -79,11 +79,29 @@
 
     app.registerSuperAdminRoute = function (stateProvider) {
         stateProvider
-            .state('clients', angularAMD.route({
-                url: '/clients',
-                templateUrl: '/WebApp/views/superAdmin/clients/clientList.html',
-                controllerUrl: 'controllers/superAdmin/clientController',
-                controller: 'clientController',
+            .state('dashboard', angularAMD.route({
+                url: '/dashboard',
+                templateUrl: '/WebApp/views/dashboard/dashboard.html',
+                controllerUrl: 'controllers/dashboard/dashboardController',
+                controller: 'dashboardController',
+                authorization: {
+                    role: [app.RoleName.SuperAdmin]
+                }
+            }))
+            .state('dobiadd', angularAMD.route({
+                url: '/dobi/add',
+                templateUrl: '/WebApp/views/superAdmin/dobi/dobiAdd.html',
+                controllerUrl: 'controllers/superAdmin/dobi/dobiAddController',
+                controller: 'dobiAddController',
+                authorization: {
+                    role: [app.RoleName.SuperAdmin]
+                }
+            }))
+            .state('dobimanage', angularAMD.route({
+                url: '/dobi/manage',
+                templateUrl: '/WebApp/views/superAdmin/dobi/dobiManage.html',
+                controllerUrl: 'controllers/superAdmin/dobi/dobiManageController',
+                controller: 'dobiManageController',
                 authorization: {
                     role: [app.RoleName.SuperAdmin]
                 }

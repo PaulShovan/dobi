@@ -153,10 +153,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\animate.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\images\fallback-dobi.png" />
     <Content Include="Content\plugins\toastr\angular-toastr.css" />
     <Content Include="Content\plugins\toastr\toastr.min.css" />
     <Content Include="favicon.ico" />
@@ -186,12 +188,17 @@
     <Content Include="WebApp\app.js" />
     <Content Include="WebApp\config\main.js" />
     <Content Include="WebApp\constants\roleConstant.js" />
+    <Content Include="WebApp\controllers\dashboard\dashboardController.js" />
     <Content Include="WebApp\controllers\loginController.js" />
+    <Content Include="WebApp\controllers\superAdmin\dobi\dobiAddController.js" />
+    <Content Include="WebApp\controllers\superAdmin\dobi\dobiManageController.js" />
     <Content Include="WebApp\controllers\viewSwitchController.js" />
     <Content Include="WebApp\directives\commonDirective.js" />
     <Content Include="WebApp\directives\loader\loader.html" />
     <Content Include="WebApp\directives\loader\loader.js" />
     <Content Include="WebApp\directives\loader\xloader.css" />
+    <Content Include="WebApp\directives\pager\dirPagination.js" />
+    <Content Include="WebApp\directives\pager\dirPagination.tpl.html" />
     <Content Include="WebApp\directives\topMenu\topMenu.html" />
     <Content Include="WebApp\directives\topMenu\topMenu.js" />
     <Content Include="WebApp\factories\http\httpFactory.js" />
@@ -225,12 +232,12 @@
     <Content Include="WebApp\lib\underscore.js" />
     <Content Include="WebApp\services\apiConstant.js" />
     <Content Include="WebApp\views\dashboard\dashboard.html" />
+    <Content Include="WebApp\views\superAdmin\dobi\dobiAdd.html" />
+    <Content Include="WebApp\views\superAdmin\dobi\dobiManage.html" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="WebApp\controllers\dobi\" />
-    <Folder Include="WebApp\views\dobi\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

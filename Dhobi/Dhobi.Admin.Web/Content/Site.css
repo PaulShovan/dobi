@@ -17,6 +17,31 @@
     background-color: #666666;
     border-color: #484646;
 }
+.drop-box {
+    background: #ffffff;
+    border: 1px dashed #DDD;
+    min-height: 225px;
+    text-align: center;
+    padding-top: 4em;
+    cursor: pointer;
+}
+.dragover {
+    border: 2px dashed #21b9bb;
+}
+.ng-img-preview {
+    margin:0 auto; 
+    width: 200px;
+    height: 180px;
+    margin-left: -3%;
+    margin-top: -10%;
+}
+.mid-icon {
+  font-size: 66px;
+}
+.dobi-pic {
+    width: 20px;
+    height: 20px;
+}
 
 /* Custom Helpers Css */
 .m-t-xs {

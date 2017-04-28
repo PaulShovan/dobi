@@ -3,17 +3,21 @@
     app.constant('apiConstant', (function () {
         'use strict';
 
-        var host = window.dhobiUrlConfig.baseUrl + '/';
-        var baseUrl = host + "api/";
+        var version = "v1";
+        var host = window.dhobiUrlConfig.baseUrl + "/";
+        var baseUrl = host + "api/" + version + "/";
 
-        var accountBase = baseUrl + "Account/";
+        //var dobiBase = baseUrl + "Manage/";
 
         return {
-            login: host + "token",
-            switchAccount: accountBase + "Switch",
+            getAllDobi: baseUrl + "dobi"
 
-            approveOrchestraClient: accountBase + "OrchestraRequestApprove",
-            denyOrchestraClient: accountBase + "OrchestraRequestDenied",
+
+            //login: host + "token",
+            //switchAccount: accountBase + "Switch",
+
+            //approveOrchestraClient: accountBase + "OrchestraRequestApprove",
+            //denyOrchestraClient: accountBase + "OrchestraRequestDenied",
 
             //getAllOrchestra: orchestraBase + "GetAll",
             //activeOrchestra: orchestraBase + "Active",
