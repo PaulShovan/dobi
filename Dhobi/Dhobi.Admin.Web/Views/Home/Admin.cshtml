@@ -14,12 +14,24 @@
     <link href="~/WebApp/lib/plugins/angular-loading-bar/loading-bar.css" rel="stylesheet" />
     <link href="~/Content/plugins/toastr/angular-toastr.css" rel="stylesheet" />
     <link href="~/Content/animate.css" rel="stylesheet" />
+    <link href="~/Content/inspinia.css" rel="stylesheet" />
     <link href="~/Content/Site.css" rel="stylesheet" />
 </head>
-<body>
-    <topmenu></topmenu>
+<body class="white-bg">
+    <div id="wrapper">
+        <topmenu></topmenu>
 
-    <div data-ui-view></div>
+        <div class="gray-bg">
+            <div class="wrapper wrapper-content wrapper-height">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="animated fadeIn" data-ui-view></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 
     <script src="~/Scripts/urlConfig.js"></script>
     <script src="/WebApp/lib/require.js"></script>

@@ -1,12 +1,13 @@
-﻿.has-error input {
+﻿.wrapper-height {
+    min-height: 85vh;
+    height: auto;
+}
+.has-error input {
     background-color: rgb(251, 227, 228);
 }
-
 .help-block p {
     font-size: 14px;
 }
-
-
 .btn-gray {
     color: #fff;
     background-color: #828282;
