@@ -1,5 +1,5 @@
 ﻿define(['app', 'underscore', 'dir-pagination'], function (app, _) {
-    app.controller('dobiManageController', ['$scope', 'apiConstant', 'httpService', function ($scope, apiConstant, httpService) {
+    app.controller('dobiManageController', ['$scope', 'apiConstant', 'httpService', '$timeout', function ($scope, apiConstant, httpService, $timeout) {
         "use strict";
 
         $scope.currentPage = 1;
@@ -16,8 +16,10 @@
             },
             GetAllDobi: function(pageNumber) {
                 httpService.get(apiConstant.getAllDobi, function (dobi) {
-                    $scope.Data.Dobies = dobi.Data.DobiList;
-                    //$scope.Data.TotalDobies = dobi.Total;
+                    $timeout(function() {
+                        $scope.Data.Dobies = dobi.Data.DobiList;
+                        //$scope.Data.TotalDobies = dobi.Total;
+                    })
                 }, true);
             },
             PageChangeHandler: function (pageNum) {

@@ -1,4 +1,4 @@
-﻿<nav role="navigation" class="navbar navbar-default">
+﻿<nav role="navigation" class="navbar navbar-default m-b-none">
     <div class="navbar-header">
         <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
             <span class="sr-only">Toggle navigation</span>
@@ -9,7 +9,7 @@
         <a href="#" class="navbar-brand">DOBI</a>
     </div>
 
-    <div id="navbarCollapse" class="collapse navbar-collapse">
+    <div id="navbarCollapse" class="collapse navbar-collapse navbar-top-links">
         <ul class="nav navbar-nav">
             <li ng-if="TopMenuData.ViewName == 'SuperAdmin'" ng-repeat="item in TopMenuData.SuperAdminMenues" ng-class="{active: $root.CURRENTSTATE.indexOf(item.Link)>-1}">
                 <a role="button" ui-sref="{{item.Link}}"><i class="fa {{item.Cls}}"></i> <span class="nav-label">{{item.Title}}</span></a>
