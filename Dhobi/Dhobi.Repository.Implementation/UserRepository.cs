@@ -56,5 +56,24 @@ namespace Dhobi.Repository.Implementation
             var result = await Collection.FindOneAndUpdateAsync(filter, update, options);
             return result;
         }
+
+        public async Task<User> UserLogin(string phone)
+        {
+            try
+            {
+                var builder = Builders<User>.Filter;
+                var filter = builder.Eq(user => user.PhoneNumber, phone);
+                var projection = Builders<User>.Projection.Exclude("_id")
+                    .Include(u => u.Name)
+                    .Include(u => u.UserId)
+                    .Include(u => u.PhoneNumber);
+                var result = await Collection.Find(filter).Project<User>(projection).FirstOrDefaultAsync();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error in getting user" + ex);
+            }
+        }
     }
 }

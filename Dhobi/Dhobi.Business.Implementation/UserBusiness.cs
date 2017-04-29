@@ -5,7 +5,7 @@ using Dhobi.Core.UserModel.DbModels;
 using Dhobi.Core.UserModel.ViewModels;
 using Dhobi.Core;
 using Dhobi.Repository.Interface;
-using Dhobi.Core.RegistrationSms;
+using Dhobi.Core.UserSms;
 using Dhobi.Common;
 
 namespace Dhobi.Business.Implementation
@@ -13,11 +13,11 @@ namespace Dhobi.Business.Implementation
     public class UserBusiness : IUserBusiness
     {
         private IUserRepository _userRepository;
-        private IRegistrationSmsRepository _registrationSmsRepository;
-        public UserBusiness(IUserRepository userRepository, IRegistrationSmsRepository registrationSmsRepository)
+        private IUserSmsRepository _userSmsRepository;
+        public UserBusiness(IUserRepository userRepository, IUserSmsRepository userSmsRepository)
         {
             _userRepository = userRepository;
-            _registrationSmsRepository = registrationSmsRepository;
+            _userSmsRepository = userSmsRepository;
         }
         private string GetRandomApprovalCode()
         {
@@ -27,7 +27,7 @@ namespace Dhobi.Business.Implementation
         }
         private string GetSmsText(string approvalCode)
         {
-            var smsTextTemplate = Constants.NEWREGISTERSMS;
+            var smsTextTemplate = Constants.USERVERIFYSMS;
             var smsText = smsTextTemplate.Replace("__CODE__", approvalCode);
             return smsText;
         }
@@ -39,18 +39,20 @@ namespace Dhobi.Business.Implementation
             }
             return await _userRepository.IsPhoneNumberAvailable(phoneNumber);
         }
-        private async Task<bool> SendRegistrationSms(User user)
+        private async Task<bool> SendUserSms(User user, SmsType smsType)
         {
             var approvalCode = GetRandomApprovalCode();
-            var registrationSms = new RegistrationSms
+            var userSms = new UserSms
             {
                 UserId = user.UserId,
                 PhoneNumber = user.PhoneNumber,
                 ApprovalCode = approvalCode,
                 Text = GetSmsText(approvalCode),
-                Status = (int)RegistrationSmsStatus.Unapproved
+                Status = (int)SmsStatus.Unapproved,
+                SmsType = (int)smsType,
+                IsSent = 0
             };
-            return await _registrationSmsRepository.AddRegistrationSms(registrationSms);
+            return await _userSmsRepository.AddUserSms(userSms);
         }
         public async Task<User> AddUser(UserViewModel userModel)
         {
@@ -68,7 +70,7 @@ namespace Dhobi.Business.Implementation
                     IsVerified = false
                 };
                 var response = await _userRepository.AddUser(user);
-                var sendSmsResponse = await SendRegistrationSms(user);
+                var sendSmsResponse = await SendUserSms(user, SmsType.NewRegistration);
                 if (!response || !sendSmsResponse)
                 {
                     return null;
@@ -86,7 +88,7 @@ namespace Dhobi.Business.Implementation
         {
             try
             {
-                var isCodeValid = await _registrationSmsRepository.ValidateRegisteredUser(code, userId);
+                var isCodeValid = await _userSmsRepository.ValidateUser(code, userId);
                 if (!isCodeValid)
                 {
                     return null;
@@ -113,6 +115,28 @@ namespace Dhobi.Business.Implementation
             {
 
                 throw new Exception("Error getting user" + exception);
+            }
+        }
+
+        public async Task<User> UserLogin(string phone, bool isVerificationRequired)
+        {
+            try
+            {
+                var user = await _userRepository.UserLogin(phone);
+                if(user == null)
+                {
+                    return null;
+                }
+                if (isVerificationRequired)
+                {
+                    await SendUserSms(user, SmsType.NewLogin);
+                }
+                return user;
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
     }

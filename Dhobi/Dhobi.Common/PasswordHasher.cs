@@ -21,7 +21,7 @@ namespace Dhobi.Common
             }
             catch (Exception e)
             {
-                throw;
+                throw new Exception("Exception in password hasher" + e);
             }
         }
     }

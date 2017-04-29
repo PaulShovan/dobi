@@ -14,5 +14,6 @@ namespace Dhobi.Repository.Interface
         Task<bool> IsPhoneNumberAvailable(string phoneNumber);
         Task<User> GetUserById(string userId);
         Task<User> UpdateUserAsVerified(string userId);
+        Task<User> UserLogin(string phone);
     }
 }

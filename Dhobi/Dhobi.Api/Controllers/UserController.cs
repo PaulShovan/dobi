@@ -71,5 +71,28 @@ namespace Dhobi.Api.Controllers
             return Ok(new ResponseModel<ValidatedUserResponse>(ResponseStatus.Ok, validatedUser, "User has been authenticated successfully."));
         }
 
+        [Route("v1/user/login")]
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> Login(string phone, bool isVerificationRequired = false)
+        {
+            if (string.IsNullOrWhiteSpace(phone))
+            {
+                return BadRequest("Invalid login data");
+            }
+            var loggedInUser = await _userBusiness.UserLogin(phone, isVerificationRequired);
+            if (loggedInUser == null || string.IsNullOrWhiteSpace(loggedInUser.UserId))
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.NotFound, null, "User Not found"));
+            }
+            ValidatedUserResponse validatedUser = null;
+            if (isVerificationRequired)
+            {
+                validatedUser = new ValidatedUserResponse(loggedInUser.Name, null, loggedInUser.UserId);
+            }
+            var token = _tokenGenerator.GenerateUserToken(loggedInUser);
+            validatedUser = new ValidatedUserResponse(loggedInUser.Name, token, null);
+            return Ok(new ResponseModel<ValidatedUserResponse>(ResponseStatus.Ok, validatedUser, ""));
+        }
     }
 }

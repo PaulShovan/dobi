@@ -52,7 +52,7 @@
     <Compile Include="PromoOffer\DbModels\Promo.cs" />
     <Compile Include="PromoOffer\ViewModels\PromoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegistrationSms\RegistrationSms.cs" />
+    <Compile Include="UserSms\UserSms.cs" />
     <Compile Include="UserModel\DbModels\User.cs" />
     <Compile Include="UserModel\ViewModels\UserViewModel.cs" />
   </ItemGroup>
