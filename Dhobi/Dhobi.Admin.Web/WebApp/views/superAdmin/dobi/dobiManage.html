@@ -2,14 +2,14 @@
     
     <div class="row">
         <div class="col-md-4">
-            <a class="btn btn-primary btn-sm m-b-sm"><i class="fa fa-plus-circle"></i> ADD NEW DOBI</a>
+            <a class="btn btn-primary btn-sm m-b-sm" ui-sref="dobiadd"><i class="fa fa-plus-circle"></i> ADD NEW DOBI</a>
         </div>
         
         <div class="col-md-4"></div>
 
         <div class="col-md-4">
             <div class="input-group">
-                <input type="text" placeholder="Search" class="input-sm form-control" ng-model="q"> <span class="input-group-btn">
+                <input type="text" placeholder="Search dobi" class="input-sm form-control" ng-model="q"> <span class="input-group-btn">
                     <button type="button" class="btn btn-sm btn-primary"> Go!</button>
                 </span>
             </div>
@@ -35,7 +35,7 @@
                                 <tbody>
                                     <tr dir-paginate="dobi in Data.Dobies | filter:q | itemsPerPage: pageSize" current-page="currentPage" total-items="Data.TotalDobies" id="highlight{{$index}}">
                                         <td>
-                                            <img class="img-circle img-responsive dobi-pic" fallback-src="../../../../Content/images/fallback-dobi.png" ng-src="dobi.Image" alt="{{dobi.FullName}}" />
+                                            <img class="img-circle img-responsive dobi-pic" fallback-src="../../../../Content/images/fallback-dobi.png" ng-src="dobi.Photo" alt="{{dobi.FullName}}" />
                                             <span class="m-l-sm">{{dobi.FullName}}</span>
                                         </td>
                                         <td>{{dobi.DobiId}}</td>
