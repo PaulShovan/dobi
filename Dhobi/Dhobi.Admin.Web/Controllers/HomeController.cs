@@ -4,10 +4,16 @@ namespace Dhobi.Admin.Web.Controllers
 {
     public class HomeController : Controller
     {
-        [Route("~/Login")]
+        [Route()]
         public ActionResult Index()
         {
-            ViewBag.Title = "Dobi | Home";
+            return RedirectPermanent("/Login");
+        }
+
+        [Route("~/Login")]
+        public ActionResult Login()
+        {
+            ViewBag.Title = "Dobi | Login";
             return View("Login");
         }
 
