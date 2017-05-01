@@ -257,7 +257,7 @@
     <Content Include="Content\font-awesome\fonts\FontAwesome.otf" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Home\Admin.cshtml" />
-    <None Include="Views\Home\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\dobi-admin-web.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dhobi.Core\Dhobi.Core.csproj">
