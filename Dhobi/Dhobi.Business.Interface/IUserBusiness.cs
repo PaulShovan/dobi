@@ -10,5 +10,6 @@ namespace Dhobi.Business.Interface
         Task<User> AddUser(UserViewModel userModel);
         Task<User> ValidateRegisteredUser(string code, string userId);
         Task<User> GetUserById(string userId);
+        Task<User> UserLogin(string phone, bool isVerificationRequired);
     }
 }

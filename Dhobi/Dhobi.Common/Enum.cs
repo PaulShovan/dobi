@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Dhobi.Common
+﻿namespace Dhobi.Common
 {
-    public enum RegistrationSmsStatus
+    public enum SmsStatus
     {
         Unapproved = 0,
         Approved = 1
@@ -21,5 +15,10 @@ namespace Dhobi.Common
     {
         Active = 1,
         InActive = 2
+    }
+    public enum SmsType
+    {
+        NewRegistration = 1,
+        NewLogin = 2
     }
 }
