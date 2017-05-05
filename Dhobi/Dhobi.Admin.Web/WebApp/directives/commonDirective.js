@@ -28,9 +28,13 @@
 
     function fallbackSrc() {
         var fallbackSrc = {
-            link: function postLink(scope, iElement, iAttrs) {
-                iElement.bind('error', function() {
-                    angular.element(this).attr("src", iAttrs.fallbackSrc);
+            restrict: 'A',
+            link: function postLink(scope, element, attrs) {
+                if (_.isEmpty(attrs.ngSrc)) {
+                    element.attr('src', attrs.fallbackSrc);
+                }
+                element.bind('error', function () {
+                    element.attr('src', attrs.fallbackSrc);
                 });
             }
         }

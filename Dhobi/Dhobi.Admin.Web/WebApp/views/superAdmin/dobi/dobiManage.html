@@ -36,7 +36,7 @@
                                 <tbody>
                                     <tr dir-paginate="dobi in Data.Dobies | filter:q | itemsPerPage: pageSize" current-page="currentPage" total-items="Data.TotalDobies" id="highlight{{$index}}">
                                         <td>
-                                            <img class="img-circle img-responsive dobi-pic" fallback-src="../../../../Content/images/fallback-dobi.png" ng-src="dobi.Photo" alt="{{dobi.FullName}}" />
+                                            <img class="img-circle img-responsive dobi-pic" fallback-src="../../../../Content/images/fallback-dobi.png" ng-src="{{dobi.Photo}}" alt="{{dobi.FullName}}" />
                                             <span class="m-l-sm">{{dobi.FullName}}</span>
                                         </td>
                                         <td>{{dobi.Name}}</td>

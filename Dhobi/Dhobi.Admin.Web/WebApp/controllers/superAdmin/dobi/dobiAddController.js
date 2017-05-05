@@ -26,6 +26,9 @@
 
                 },
                 AddNewDobi: function (files) {
+                    if (!files || files.length <= 0) {
+                        $scope.Data.FileErrorMsg = "";
+                    }
                     $scope.Data.Dobi.Photo = files;
                     httpService.postMultipart(apiConstant.addNewDobi, { Files: files }, $scope.Data.Dobi, "New Dobi Added Successfully", function (response) {
                         if (response.status === 200) {

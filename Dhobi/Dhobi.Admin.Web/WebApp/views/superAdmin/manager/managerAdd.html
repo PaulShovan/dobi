@@ -86,15 +86,14 @@
             <div class="form-group">
                 <div ngf-drop ngf-select ng-model="files" class="drop-box" name="file"
                      ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true"
-                     accept="image/*,application/pdf" ngf-validate="{size: {min: 10, max: '20MB'}}"
-                     ngf-pattern="'image/*'" required>
+                     accept="image/*" ngf-validate="{size: {min: 10, max: '20MB'}}"
+                     ngf-pattern="'image/*'" required ngf-model-invalid="errorFile">
                     <span ng-if="!files.length"><i class="fa fa-user mid-icon"></i><br>UPLOAD IMAGE</span>
                     <span><img class="animated fadeIn ng-img-preview" ngf-src="!files[0].$error && files[0]"></span>
                 </div>
                 <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
                 <div class="help-block">
                     <p class="text-error" ng-if="!files.length && Data.FileErrorMsg">{{Data.FileErrorMsg}}</p>
-                    <p ng-show="managerAddForm.file.$error.required">Please upload a file</p>
                 </div>
             </div>
             <div class="form-group">
