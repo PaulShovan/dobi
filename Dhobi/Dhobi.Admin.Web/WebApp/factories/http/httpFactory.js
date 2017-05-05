@@ -111,6 +111,10 @@
                 });
                 files.upload.then(function (response) {
                     $timeout(function () {
+                        if (response.data.ResponseStatus === false) {
+                            toastr.error(response.data.Message, 'Error!');
+                            return;
+                        }
                         files.result = response.data;
                         if (response.status === 200) {
                             if (onResponse) {

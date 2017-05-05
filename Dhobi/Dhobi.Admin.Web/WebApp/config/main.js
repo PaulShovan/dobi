@@ -25,6 +25,7 @@
         'angular-toastr': 'lib/angular-toastr.tpls',
         'angular-confirm': 'lib/angular-confirm.min',
         'moment': 'lib/plugins/datepicker/moment',
+        'angular-moment': 'lib/angular-moment',
         'angular-datepicker': 'lib/plugins/datepicker/angular-datepicker',
         'ng-file-upload': 'lib/plugins/ng-file-upload/ng-file-upload',
         'i-check': 'lib/plugins/iCheck/icheck.min',
@@ -79,6 +80,7 @@
         'angular-loading-bar': { deps: ['angular'] },
         'angular-toastr': { deps: ['angular', 'bootstrap'] },
         'angular-confirm': { deps: ['angular'] },
+        'angular-moment': { deps: ['angular', 'moment'] },
         'angular-datepicker': { deps: ['angular', 'moment'] },
         'ng-file-upload': { deps: ['angular'] }
     },

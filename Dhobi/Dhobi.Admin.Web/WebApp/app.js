@@ -1,5 +1,5 @@
-﻿define(['angularAMD', 'angular-route', 'angular-ui-router', 'angular-resource', 'angular-cookies', 'angular-ngStorage', 'ng-messages', 'bootstrap-ui', 'angular-toastr', 'angular-confirm', 'modal-factory', 'role-constant', 'api-constant', 'http-service', 'top-menu', /*'footer', */'common-directives', 'angular-loading-bar', 'angular-datepicker', 'ng-file-upload', 'utility'], function (angularAMD) {
-    var app = angular.module("ngreq-app", ['ui.router', 'ngResource', 'ngCookies', 'ngStorage', 'ngMessages', 'ui.bootstrap', 'toastr', 'angular-confirm', 'modalPropertiesModule', 'roleConstantModule', 'apiConstantModule', 'httpServiceModule', 'topMenuModule', /*'footerModule',*/ 'commonDirectiveModule', 'angular-loading-bar', 'datePicker', 'ngFileUpload', 'appUtilityModule']);
+﻿define(['angularAMD', 'angular-route', 'angular-ui-router', 'angular-resource', 'angular-cookies', 'angular-ngStorage', 'ng-messages', 'bootstrap-ui', 'angular-toastr', 'angular-confirm', 'modal-factory', 'role-constant', 'api-constant', 'http-service', 'top-menu', /*'footer', */'common-directives', 'angular-loading-bar', 'angular-datepicker', 'ng-file-upload', 'utility', 'angular-moment'], function (angularAMD) {
+    var app = angular.module("ngreq-app", ['ui.router', 'ngResource', 'ngCookies', 'ngStorage', 'ngMessages', 'ui.bootstrap', 'toastr', 'angular-confirm', 'modalPropertiesModule', 'roleConstantModule', 'apiConstantModule', 'httpServiceModule', 'topMenuModule', /*'footerModule',*/ 'commonDirectiveModule', 'angular-loading-bar', 'datePicker', 'ngFileUpload', 'appUtilityModule', 'angularMoment']);
 
     app.config(['cfpLoadingBarProvider', function (cfpLoadingBarProvider) {
         cfpLoadingBarProvider.includeSpinner = false;
@@ -90,8 +90,8 @@
             }))
             .state('dobiadd', angularAMD.route({
                 url: '/dobi/add',
-                templateUrl: '/WebApp/views/superAdmin/dobi/dobiAdd.html',
-                controllerUrl: 'controllers/superAdmin/dobi/dobiAddController',
+                templateUrl: '/WebApp/views/dobi/dobiAdd.html',
+                controllerUrl: 'controllers/dobi/dobiAddController',
                 controller: 'dobiAddController',
                 authorization: {
                     role: [app.RoleName.SuperAdmin]
@@ -99,8 +99,8 @@
             }))
             .state('dobimanage', angularAMD.route({
                 url: '/dobi/manage',
-                templateUrl: '/WebApp/views/superAdmin/dobi/dobiManage.html',
-                controllerUrl: 'controllers/superAdmin/dobi/dobiManageController',
+                templateUrl: '/WebApp/views/dobi/dobiManage.html',
+                controllerUrl: 'controllers/dobi/dobiManageController',
                 controller: 'dobiManageController',
                 authorization: {
                     role: [app.RoleName.SuperAdmin]
@@ -117,9 +117,18 @@
             }))
             .state('managepromo', angularAMD.route({
                 url: '/promo/manage',
-                templateUrl: '/WebApp/views/superAdmin/promo/managePromo.html',
-                controllerUrl: 'controllers/superAdmin/promo/managePromoController',
+                templateUrl: '/WebApp/views/promo/managePromo.html',
+                controllerUrl: 'controllers/promo/managePromoController',
                 controller: 'managePromoController',
+                authorization: {
+                    role: [app.RoleName.SuperAdmin]
+                }
+            }))
+            .state('orders', angularAMD.route({
+                url: '/orders',
+                templateUrl: '/WebApp/views/orders/order.html',
+                controllerUrl: 'controllers/orders/orderController',
+                controller: 'orderController',
                 authorization: {
                     role: [app.RoleName.SuperAdmin]
                 }

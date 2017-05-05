@@ -1,0 +1,66 @@
+﻿<div class="container m-t-xl">
+
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                <button type="button" class="btn btn-outline btn-primary">New Orders</button>
+                <button type="button" class="btn btn-outline btn-primary">Order Accepted</button>
+                <button type="button" class="btn btn-outline btn-primary">Delivered</button>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-content" id="ng-loading-spinner">
+                    <div class="full-height-scroll">
+                        <div class="table-responsive">
+                            <!--<table class="table table-responsive table-hover" ng-if="Data.Dobies.length > 0">-->
+                            <table class="table table-responsive table-hover">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Client Name</th>
+                                        <th>Address</th>
+                                        <th>Phone</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="order in Data.Orders | filter:q | itemsPerPage: pageSize" current-page="currentPage" total-items="Data.TotalDobies" id="highlight{{$index}}">
+                                        <td>
+                                            <img class="img-circle img-responsive dobi-pic" fallback-src="../../../../Content/images/fallback-dobi.png" ng-src="{{order.ClientPhoto}}" alt="{{order.ClientName}}" />
+                                            <span class="m-l-sm">{{order.ClientName}}</span>
+                                        </td>
+                                        <td>{{order.ClientName}}</td>
+                                        <td>{{order.ClientAddress}}</td>
+                                        <td>{{order.Phone}}</td>
+                                        <td>
+                                            <a class="btn btn-default btn-xs" href="#/dobi/details/{{order.OrderId}}">Details</a> |
+                                            <a class="btn btn-default btn-xs" href="#/dobi/edit/{{order.OrderId}}">Edit</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!--<div ng-if="!Data.Dobies.length">
+                                <div class="col-lg-12">
+                                    <h2 class="text-center">No Order is available.</h2>
+                                </div>
+                            </div>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            <div class="text">
+                <div class="text-center">
+                    <dir-pagination-controls boundary-links="true" on-page-change="Methods.PageChangeHandler(newPageNumber)" template-url="WebApp/directives/pager/dirPagination.tpl.html"></dir-pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

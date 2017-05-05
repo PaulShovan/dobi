@@ -27,13 +27,17 @@
 
                 },
                 AddNewManager: function (files) {
-                    $scope.Data.Manager.Photo = files;
-                    httpService.postMultipart(apiConstant.addNewManager, { Files: files }, $scope.Data.Manager, "New Manager Added Successfully", function (response) {
-                        if (response.status === 200) {
-                            toastr.success(response.Message, "Success!");
-                            //$state.go('dobimanage');
-                        }
-                    });
+                    if (!files || files.length <= 0) {
+                        $scope.Data.FileErrorMsg = "Please Upload a file";
+                        return;
+                    } else {
+                        httpService.postMultipart(apiConstant.addNewManager, { Files: files }, $scope.Data.Manager, "New Manager Added Successfully", function (response) {
+                            if (response.status === 200) {
+                                toastr.success(response.Message, "Success!");
+                                //$state.go('managermanage');
+                            }
+                        });
+                    }
                 }
             };
 

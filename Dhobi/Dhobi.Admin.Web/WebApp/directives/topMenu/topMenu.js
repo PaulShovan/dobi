@@ -13,6 +13,7 @@
                 { Title: 'ADD MANAGER', Link: 'manageradd', Cls: 'fa-chevron-right', Submenu: [] },
                 { Title: 'PAYMENTS', Link: 'payments', Cls: 'fa-chevron-right', Submenu: [] },
                 { Title: 'MANAGE PROMO OFFERS', Link: 'managepromo', Cls: 'fa-chevron-right', Submenu: [] },
+                { Title: 'ORDERS', Link: 'orders', Cls: 'fa-chevron-right', Submenu: [] }
             ],
 
             AdminMenues: [

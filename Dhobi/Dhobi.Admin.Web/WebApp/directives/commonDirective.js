@@ -26,6 +26,9 @@
         }
     };
 
+    /**
+     * fallbackSrc - Directive for optional image when ng-src is not available or null
+     */
     function fallbackSrc() {
         var fallbackSrc = {
             restrict: 'A',
@@ -41,6 +44,24 @@
         return fallbackSrc;
     };
 
+    /**
+     * autofocus - Directive for autofocus input
+     */
+    function autofocus($timeout) {
+        "use strict";
+        return {
+            restrict: 'A',
+            link: function ($scope, $element) {
+                $timeout(function () {
+                    $element[0].focus();
+                });
+            }
+        }
+    };
+
+    /**
+     * iCheck - Directive to work iCheck with angularjs
+     */
     function iCheck($timeout, $parse) {
         return {
             require: 'ngModel',
