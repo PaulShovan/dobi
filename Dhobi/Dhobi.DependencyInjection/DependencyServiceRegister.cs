@@ -14,7 +14,6 @@ namespace Dhobi.DependencyInjection
             kernel.Bind<IManagerBusiness>().To<ManagerBusiness>();
             kernel.Bind<IManagerRepository>().To<ManagerRepository>();
             #endregion
-
             #region Dobi
             kernel.Bind<IDobiBusiness>().To<DobiBusiness>();
             kernel.Bind<IDobiRepository>().To<DobiRepository>();
@@ -29,6 +28,10 @@ namespace Dhobi.DependencyInjection
             #region PromoOffer
             kernel.Bind<IPromoOfferRepository>().To<PromoOfferRepository>();
             kernel.Bind<IPromoOfferBusiness>().To<PromoOfferBusiness>();
+            #endregion
+            #region Device
+            kernel.Bind<IDeviceStausRepository>().To<DeviceStatusRepository>();
+            kernel.Bind<IDeviceStatusBusiness>().To<DeviceStatusBusiness>();
             #endregion
         }
     }

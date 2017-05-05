@@ -41,8 +41,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\IRepository.cs" />
+    <Compile Include="IDeviceStausRepository.cs" />
     <Compile Include="IDobiRepository.cs" />
     <Compile Include="IManagerRepository.cs" />
+    <Compile Include="IOrderRepository.cs" />
     <Compile Include="IPromoOfferRepository.cs" />
     <Compile Include="IUserSmsRepository.cs" />
     <Compile Include="IUserRepository.cs" />

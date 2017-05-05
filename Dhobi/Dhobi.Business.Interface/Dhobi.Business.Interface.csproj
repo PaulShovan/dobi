@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IDeviceStatusBusiness.cs" />
     <Compile Include="IDobiBusiness.cs" />
     <Compile Include="IManagerBusiness.cs" />
     <Compile Include="IPromoOfferBusiness.cs" />

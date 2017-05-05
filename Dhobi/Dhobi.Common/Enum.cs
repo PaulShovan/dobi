@@ -21,4 +21,9 @@
         NewRegistration = 1,
         NewLogin = 2
     }
+    public enum DeviceOnlineStatus
+    {
+        Active = 1,
+        Inactive = 2
+    }
 }

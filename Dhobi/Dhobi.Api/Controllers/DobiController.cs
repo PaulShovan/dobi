@@ -39,7 +39,11 @@ namespace Dhobi.Api.Controllers
             {
                 Token = token,
                 Name = loggedInDobi.Name,
-                Photo = loggedInDobi.Photo
+                Photo = loggedInDobi.Photo,
+                DobiId = loggedInDobi.DobiId,
+                Phone = loggedInDobi.Phone,
+                IcNumber = loggedInDobi.IcNumber,
+                DrivingLicense = loggedInDobi.DrivingLicense
             };
             var response = new ResponseModel<DobiLoginResponse>(ResponseStatus.Ok, dobiLoginResponse);
             return Ok(response);
