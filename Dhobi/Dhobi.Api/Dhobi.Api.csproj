@@ -210,9 +210,11 @@
     <Compile Include="App_Start\NinjectConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\DobiController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Helpers\TokenGenerator.cs" />
     <Compile Include="Models\DobiLoginResponse.cs" />
+    <Compile Include="Models\PromoOfferResponse.cs" />
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\ValidatedUserResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

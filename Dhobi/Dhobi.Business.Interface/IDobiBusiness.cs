@@ -13,5 +13,6 @@ namespace Dhobi.Business.Interface
     {
         Task<GenericResponse<string>> AddDobi(Dobi dobi);
         Task<GenericResponse<string>> UpdateDobi(Dobi dobi);
+        Task<string> GenerateDobiId();
     }
 }

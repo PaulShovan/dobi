@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeviceStatusBusiness.cs" />
     <Compile Include="DobiBusiness.cs" />
     <Compile Include="ManagerBusiness.cs" />
     <Compile Include="PromoOfferBusiness.cs" />

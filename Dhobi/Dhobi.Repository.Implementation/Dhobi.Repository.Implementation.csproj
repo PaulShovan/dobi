@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Base\DhobiContext.cs" />
     <Compile Include="Base\Repository.cs" />
+    <Compile Include="DeviceStatusRepository.cs" />
     <Compile Include="DobiRepository.cs" />
     <Compile Include="ManagerRepository.cs" />
     <Compile Include="PromoOfferRepository.cs" />

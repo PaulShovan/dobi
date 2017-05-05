@@ -16,7 +16,7 @@ namespace Dhobi.Admin.Api.Helpers
             string secretKey = ConfigurationManager.AppSettings["AWSSecretKey"];
             if (this.client == null)
             {
-                this.client = Amazon.AWSClientFactory.CreateAmazonS3Client(accessKey, secretKey, RegionEndpoint.USWest2);
+                this.client = Amazon.AWSClientFactory.CreateAmazonS3Client(accessKey, secretKey, RegionEndpoint.USEast1);
             }
         }
 

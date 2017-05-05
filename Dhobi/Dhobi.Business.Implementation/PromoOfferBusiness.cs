@@ -20,6 +20,13 @@ namespace Dhobi.Business.Implementation
         {
             _promoOfferRepository = promoOfferRepository;
         }
+        private long GetPresentDate()
+        {
+            var timeZone = TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time");
+            var singaporetime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZone);
+            var nowDate = (long)singaporetime.Date.Subtract(new DateTime(1970, 1, 1, 0, 0, 0)).TotalMilliseconds;
+            return nowDate;
+        }
         private bool IsDateOverlapped(long BS, long BE, long TS, long TE)
         {
             return (
@@ -77,7 +84,7 @@ namespace Dhobi.Business.Implementation
                 foreach (var promo in promos)
                 {
                     var excludedPromos = promos.FindAll(p => p.PromoId != promo.PromoId);
-                    var nowDate = (long)DateTime.UtcNow.Date.Subtract(new DateTime(1970, 1, 1, 0, 0, 0)).TotalMilliseconds;
+                    var nowDate = GetPresentDate();
                     if (!IsValidOfferPeriod(nowDate, promo.StartDate, promo.EndDate))
                     {
                         return new GenericResponse<string>(false, null, "Invalid promo date");
@@ -104,6 +111,19 @@ namespace Dhobi.Business.Implementation
             catch (Exception exception)
             {
                 throw new Exception("Error in adding promo" + exception);
+            }
+        }
+
+        public async Task<Promo> GetPromoOfferForUser()
+        {
+            try
+            {
+                var nowDate = GetPresentDate();
+                return await _promoOfferRepository.GetPromoOfferForUser(nowDate);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error in getting promo offer." + ex);
             }
         }
     }

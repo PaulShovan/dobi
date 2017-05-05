@@ -8,11 +8,13 @@ using Dhobi.Core;
 using Dhobi.Core.Dobi.DbModels;
 using Dhobi.Core.Manager.DbModels;
 using Dhobi.Repository.Interface;
+using Dhobi.Common;
 
 namespace Dhobi.Business.Implementation
 {
     public class DobiBusiness : IDobiBusiness
     {
+        private const int DobiIdLength = 5;
         private IDobiRepository _dobiRepository;
         public DobiBusiness(IDobiRepository dobiRepository)
         {
@@ -42,7 +44,6 @@ namespace Dhobi.Business.Implementation
                 {
                     return new GenericResponse<string>(false, null, "Driving license is not available");
                 }
-                dobi.DobiId = Guid.NewGuid().ToString();
                 dobi.JoinDate = (long)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1, 0, 0, 0)).TotalMilliseconds;
                 var response = await _dobiRepository.AddDobi(dobi);
                 if (!response)
@@ -55,6 +56,23 @@ namespace Dhobi.Business.Implementation
             {
                 throw new Exception("Error adding dobi" + exception);
             }
+        }
+
+        public async Task<string> GenerateDobiId()
+        {
+            try
+            {
+                var totalDobi = await _dobiRepository.GetDobiCount();
+                var newDobiId = (totalDobi + 1).ToString().PadLeft(DobiIdLength, '0');
+                var dobiIdTermplate = Constants.DOBIID;
+                var dobiId = dobiIdTermplate.Replace("__ID__", newDobiId);
+                return dobiId;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error in generating dobi id" + ex);
+            }
+            
         }
 
         public async Task<GenericResponse<string>> UpdateDobi(Dobi dobi)

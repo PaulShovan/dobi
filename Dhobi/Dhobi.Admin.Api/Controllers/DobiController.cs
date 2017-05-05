@@ -6,9 +6,9 @@ using Dhobi.Core;
 using Dhobi.Core.Dobi.DbModels;
 using Dhobi.Core.Manager.DbModels;
 using Dhobi.Repository.Interface;
-using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -139,6 +139,7 @@ namespace Dhobi.Admin.Api.Controllers
             }
 
             var dobi = new Dobi();
+            dobi.DobiId = await _dobiBusiness.GenerateDobiId();
             dobi.AddedBy = addedBy;
 
             string s3Prefix = ConfigurationManager.AppSettings["S3Prefix"];
@@ -218,16 +219,15 @@ namespace Dhobi.Admin.Api.Controllers
                     }
                 }
             }
+            _storageService = new StorageService();
+            foreach (var file in provider.Files)
+            {
+                var photoUrl = dobi.DobiId + "/profile/" + "profile_pic.png";
+                Stream stream = await file.ReadAsStreamAsync();
+                _storageService.UploadFile("dhobi", photoUrl, stream);
+                dobi.Photo = s3Prefix + photoUrl;
+            }
             var response = await _dobiBusiness.AddDobi(dobi);
-            //_storageService = new StorageService();
-            //foreach (var file in provider.Files)
-            //{
-            //    var photoUrl = dobi.DobiId + "/profile/" + "profile_pic.png";
-            //    Stream stream = await file.ReadAsStreamAsync();
-            //    _storageService.UploadFile("dobiadmin", photoUrl, stream);
-            //    dobi.Photo = s3Prefix + photoUrl;
-            //}
-
             return Ok(response);
         }
 
@@ -335,16 +335,15 @@ namespace Dhobi.Admin.Api.Controllers
                     }
                 }
             }
+            _storageService = new StorageService();
+            foreach (var file in provider.Files)
+            {
+                var photoUrl = dobi.DobiId + "/profile/" + "profile_pic.png";
+                Stream stream = await file.ReadAsStreamAsync();
+                _storageService.UploadFile("dhobi", photoUrl, stream);
+                dobi.Photo = s3Prefix + photoUrl;
+            }
             var response = await _dobiBusiness.UpdateDobi(dobi);
-            //_storageService = new StorageService();
-            //foreach (var file in provider.Files)
-            //{
-            //    var photoUrl = dobi.DobiId + "/profile/" + "profile_pic.png";
-            //    Stream stream = await file.ReadAsStreamAsync();
-            //    _storageService.UploadFile("dobiadmin", photoUrl, stream);
-            //    dobi.Photo = s3Prefix + photoUrl;
-            //}
-
             return Ok(response);
         }
 

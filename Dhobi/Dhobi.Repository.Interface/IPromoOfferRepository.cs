@@ -11,5 +11,6 @@ namespace Dhobi.Repository.Interface
     {
         Task<bool> AddPromoOffer(List<Promo> promoOffers);
         Task<bool> IsOverlappedPromoOffer(Promo promo);
+        Task<Promo> GetPromoOfferForUser(long nowDate);
     }
 }

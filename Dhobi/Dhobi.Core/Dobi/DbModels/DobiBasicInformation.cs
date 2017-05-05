@@ -6,5 +6,7 @@
         public string Phone;
         public string DobiId;
         public string Photo;
+        public string IcNumber;
+        public string DrivingLicense;
     }
 }

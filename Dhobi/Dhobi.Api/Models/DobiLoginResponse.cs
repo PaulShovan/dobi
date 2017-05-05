@@ -10,5 +10,9 @@ namespace Dhobi.Api.Models
         public string Name;
         public string Photo;
         public string Token;
+        public string DobiId;
+        public string Phone;
+        public string IcNumber;
+        public string DrivingLicense;
     }
 }

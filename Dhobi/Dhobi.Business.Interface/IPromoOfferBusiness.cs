@@ -12,5 +12,6 @@ namespace Dhobi.Business.Interface
     public interface IPromoOfferBusiness
     {
         Task<GenericResponse<string>> AddPromoOffer(List<PromoViewModel> promoOffers);
+        Task<Promo> GetPromoOfferForUser();
     }
 }
