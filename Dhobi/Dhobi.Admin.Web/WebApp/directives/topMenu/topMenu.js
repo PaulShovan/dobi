@@ -10,6 +10,7 @@
             SuperAdminMenues: [
                 { Title: 'ADD NEW DOBI', Link: 'dobiadd', Cls: 'fa-chevron-right', Submenu: [] },
                 { Title: 'MANAGE DOBI', Link: 'dobimanage', Cls: 'fa-chevron-right', Submenu: [] },
+                { Title: 'ADD MANAGER', Link: 'manageradd', Cls: 'fa-chevron-right', Submenu: [] },
                 { Title: 'PAYMENTS', Link: 'payments', Cls: 'fa-chevron-right', Submenu: [] },
                 { Title: 'MANAGE PROMO OFFERS', Link: 'managepromo', Cls: 'fa-chevron-right', Submenu: [] },
             ],

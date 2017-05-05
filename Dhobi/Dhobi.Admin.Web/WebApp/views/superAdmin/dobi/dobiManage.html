@@ -25,6 +25,7 @@
                             <table class="table table-responsive table-hover" ng-if="Data.Dobies.length > 0">
                                 <thead>
                                     <tr>
+                                        <th></th>
                                         <th>Name</th>
                                         <th>ID</th>
                                         <th>Phone</th>
@@ -38,6 +39,7 @@
                                             <img class="img-circle img-responsive dobi-pic" fallback-src="../../../../Content/images/fallback-dobi.png" ng-src="dobi.Photo" alt="{{dobi.FullName}}" />
                                             <span class="m-l-sm">{{dobi.FullName}}</span>
                                         </td>
+                                        <td>{{dobi.Name}}</td>
                                         <td>{{dobi.DobiId}}</td>
                                         <td>{{dobi.Phone}}</td>
                                         <td>{{dobi.DrivingLicense}}</td>

@@ -27,6 +27,7 @@
         'moment': 'lib/plugins/datepicker/moment',
         'angular-datepicker': 'lib/plugins/datepicker/angular-datepicker',
         'ng-file-upload': 'lib/plugins/ng-file-upload/ng-file-upload',
+        'i-check': 'lib/plugins/iCheck/icheck.min',
 
         
         //Theme

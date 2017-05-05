@@ -1,10 +1,10 @@
 ﻿define(['app', 'underscore', 'i-check'], function (app, _) {
-    app.controller('dobiAddController', ['$scope', 'apiConstant', 'httpService', '$state', 'toastr',
+    app.controller('managerAddController', ['$scope', 'apiConstant', 'httpService', '$state', 'toastr',
         function ($scope, apiConstant, httpService, $state, toastr) {
             "use strict";
 
             $scope.Data = {
-                Dobi: {
+                Manager: {
                     Name: "",
                     Phone: "",
                     Email: "",
@@ -16,7 +16,8 @@
                     Age: "",
                     Sex: "male",
                     Salary: "",
-                    Photo: []
+                    Photo: [],
+                    SelectedRole: "admin"
                 },
                 FileErrorMsg: null
             };
@@ -25,19 +26,18 @@
                 Init: function () {
 
                 },
-                AddNewDobi: function (files) {
-                    $scope.Data.Dobi.Photo = files;
-                    httpService.postMultipart(apiConstant.addNewDobi, { Files: files }, $scope.Data.Dobi, "New Dobi Added Successfully", function (response) {
+                AddNewManager: function (files) {
+                    $scope.Data.Manager.Photo = files;
+                    httpService.postMultipart(apiConstant.addNewManager, { Files: files }, $scope.Data.Manager, "New Manager Added Successfully", function (response) {
                         if (response.status === 200) {
                             toastr.success(response.Message, "Success!");
-                            $state.go('dobimanage');
+                            //$state.go('dobimanage');
                         }
                     });
                 }
             };
 
-            console.log("Add Dobi Controller");
+            console.log("Add Manager Controller");
             $scope.Methods.Init();
         }]);
-
 });

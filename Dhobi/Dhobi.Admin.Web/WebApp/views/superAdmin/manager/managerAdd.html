@@ -1,0 +1,125 @@
+﻿<div class="container">
+    <div class="row m-t-lg">
+        <div class="col-md-6">
+            <form name="managerAddForm" novalidate>
+                <div class="form-group" ng-class="{ 'has-error' : managerAddForm.fullName.$touched && managerAddForm.fullName.$invalid }">
+                    <input type="text" name="fullName" class="form-control" placeholder="Full Name" ng-model="Data.Manager.Name" required>
+                    <div class="help-block" ng-messages="managerAddForm.fullName.$error" ng-if="managerAddForm.fullName.$touched">
+                        <p ng-message="required">Full Name is required.</p>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error' : managerAddForm.phoneNumber.$touched && managerAddForm.phoneNumber.$invalid }">
+                    <input type="text" name="phoneNumber" class="form-control" placeholder="Phone Number" ng-model="Data.Manager.Phone" required>
+                    <div class="help-block" ng-messages="managerAddForm.phoneNumber.$error" ng-if="managerAddForm.phoneNumber.$touched">
+                        <p ng-message="required">Phone Number is required.</p>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error' : managerAddForm.email.$touched && managerAddForm.email.$invalid }">
+                    <input type="email" name="email" class="form-control" placeholder="Email Address" ng-model="Data.Manager.Email" required validate-email>
+                    <div class="help-block" ng-messages="managerAddForm.email.$error" ng-if="managerAddForm.email.$touched">
+                        <p ng-message="required">Email is required.</p>
+                        <p ng-message="email">Invalid email address.</p>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error' : managerAddForm.address.$touched && managerAddForm.address.$invalid }">
+                    <input type="text" name="address" class="form-control" placeholder="Address" ng-model="Data.Manager.Address" required>
+                    <div class="help-block" ng-messages="managerAddForm.address.$error" ng-if="managerAddForm.address.$touched">
+                        <p ng-message="required">Address is required.</p>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error' : managerAddForm.emergencyContact.$touched && managerAddForm.emergencyContact.$invalid }">
+                    <input type="text" name="emergencyContact" class="form-control" placeholder="Emergency Contact Number" ng-model="Data.Manager.EmergencyContactNumber" required>
+                    <div class="help-block" ng-messages="managerAddForm.emergencyContact.$error" ng-if="managerAddForm.emergencyContact.$touched">
+                        <p ng-message="required">Emergency Contact is required.</p>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error' : managerAddForm.passportNo.$touched && managerAddForm.passportNo.$invalid }">
+                    <input type="text" name="passportNo" class="form-control" placeholder="Passport Number" ng-model="Data.Manager.PassportNumber" required>
+                    <div class="help-block" ng-messages="managerAddForm.passportNo.$error" ng-if="managerAddForm.passportNo.$touched">
+                        <p ng-message="required">Passport No. is required.</p>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error' : managerAddForm.icNumber.$touched && managerAddForm.icNumber.$invalid }">
+                    <input type="text" name="icNumber" class="form-control" placeholder="IC No." ng-model="Data.Manager.IcNumber" required>
+                    <div class="help-block" ng-messages="managerAddForm.icNumber.$error" ng-if="managerAddForm.icNumber.$touched">
+                        <p ng-message="required">IC Number is required.</p>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error' : managerAddForm.drivingLicense.$touched && managerAddForm.drivingLicense.$invalid }">
+                    <input type="text" name="drivingLicense" class="form-control" placeholder="Driving License" ng-model="Data.Manager.DrivingLicense" required>
+                    <div class="help-block" ng-messages="managerAddForm.drivingLicense.$error" ng-if="managerAddForm.drivingLicense.$touched">
+                        <p ng-message="required">Driving License is required.</p>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error' : managerAddForm.age.$touched && managerAddForm.age.$invalid }">
+                    <input type="text" name="age" class="form-control" placeholder="Age" ng-model="Data.Manager.Age" required>
+                    <div class="help-block" ng-messages="managerAddForm.age.$error" ng-if="managerAddForm.age.$touched">
+                        <p ng-message="required">Age is required.</p>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error' : managerAddForm.sex.$touched && managerAddForm.sex.$invalid }">
+                    <!--<input type="text" name="sex" class="form-control" placeholder="Sex" ng-model="Data.Manager.Sex" required>-->
+                    <div class="form-group form-inline">
+                        <div class="checkbox-inline i-checks">
+                            <label> <input type="radio" value="male" name="gender" ng-model="Data.Manager.Sex" i-check> <i></i> Male </label>
+                        </div>
+                        <div class="checkbox-inline i-checks">
+                            <label> <input type="radio" value="female" name="gender" ng-model="Data.Manager.Sex" i-check> <i></i> Female </label>
+                        </div>
+                    </div>
+                    <div class="help-block" ng-messages="managerAddForm.sex.$error" ng-if="managerAddForm.sex.$touched">
+                        <p ng-message="required">Sex is required.</p>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error' : managerAddForm.salary.$touched && managerAddForm.salary.$invalid }">
+                    <input type="text" name="salary" class="form-control" placeholder="Salary" ng-model="Data.Manager.Salary" required>
+                    <div class="help-block" ng-messages="managerAddForm.salary.$error" ng-if="managerAddForm.salary.$touched">
+                        <p ng-message="required">Salary is required.</p>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-2"></div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <div ngf-drop ngf-select ng-model="files" class="drop-box" name="file"
+                     ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true"
+                     accept="image/*,application/pdf" ngf-validate="{size: {min: 10, max: '20MB'}}"
+                     ngf-pattern="'image/*'" required>
+                    <span ng-if="!files.length"><i class="fa fa-user mid-icon"></i><br>UPLOAD IMAGE</span>
+                    <span><img class="animated fadeIn ng-img-preview" ngf-src="!files[0].$error && files[0]"></span>
+                </div>
+                <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+                <div class="help-block">
+                    <p class="text-error" ng-if="!files.length && Data.FileErrorMsg">{{Data.FileErrorMsg}}</p>
+                    <p ng-show="managerAddForm.file.$error.required">Please upload a file</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="i-checks">
+                    <label> <input type="radio" value="superAdmin" name="privilegeCheckbox" ng-model="Data.Manager.SelectedRole" i-check> <i></i> Super Admin </label>
+                </div>
+                <div class="i-checks">
+                    <label> <input type="radio" value="admin" name="privilegeCheckbox" ng-model="Data.Manager.SelectedRole" i-check> <i></i> Admin </label>
+                </div>
+                <div class="i-checks">
+                    <label> <input type="radio" value="manager" name="privilegeCheckbox" ng-model="Data.Manager.SelectedRole" i-check> <i></i> Manager </label>
+                </div>
+                <div class="i-checks">
+                    <label> <input type="radio" value="dobi" name="privilegeCheckbox" ng-model="Data.Manager.SelectedRole" i-check> <i></i> Dobi </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row m-t-lg">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-gray btn-block center-block" ng-click="Methods.AddNewManager(files)" ng-disabled="managerAddForm.$invalid">Add</button>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+
+</div>

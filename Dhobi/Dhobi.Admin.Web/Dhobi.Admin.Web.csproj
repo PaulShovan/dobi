@@ -160,6 +160,9 @@
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\images\fallback-dobi.png" />
     <Content Include="Content\inspinia.css" />
+    <Content Include="Content\plugins\iCheck\custom.css" />
+    <Content Include="Content\plugins\iCheck\green%402x.png" />
+    <Content Include="Content\plugins\iCheck\green.png" />
     <Content Include="Content\plugins\ladda\ladda-themeless.min.css" />
     <Content Include="Content\plugins\ladda\ladda.min.css" />
     <Content Include="Content\plugins\toastr\angular-toastr.css" />
@@ -195,6 +198,8 @@
     <Content Include="WebApp\controllers\loginController.js" />
     <Content Include="WebApp\controllers\superAdmin\dobi\dobiAddController.js" />
     <Content Include="WebApp\controllers\superAdmin\dobi\dobiManageController.js" />
+    <Content Include="WebApp\controllers\superAdmin\manager\managerAddController.js" />
+    <Content Include="WebApp\controllers\superAdmin\promo\managePromoController.js" />
     <Content Include="WebApp\controllers\viewSwitchController.js" />
     <Content Include="WebApp\directives\commonDirective.js" />
     <Content Include="WebApp\directives\loader\loader.html" />
@@ -226,6 +231,7 @@
     <Content Include="WebApp\lib\plugins\angular-loading-bar\loading-bar.min.js" />
     <Content Include="WebApp\lib\plugins\datepicker\angular-datepicker.js" />
     <Content Include="WebApp\lib\plugins\datepicker\moment.js" />
+    <Content Include="WebApp\lib\plugins\iCheck\icheck.min.js" />
     <Content Include="WebApp\lib\plugins\ladda\ladda.jquery.min.js" />
     <Content Include="WebApp\lib\plugins\ladda\ladda.min.js" />
     <Content Include="WebApp\lib\plugins\ladda\spin.min.js" />
@@ -240,6 +246,8 @@
     <Content Include="WebApp\views\dashboard\dashboard.html" />
     <Content Include="WebApp\views\superAdmin\dobi\dobiAdd.html" />
     <Content Include="WebApp\views\superAdmin\dobi\dobiManage.html" />
+    <Content Include="WebApp\views\superAdmin\manager\managerAdd.html" />
+    <Content Include="WebApp\views\superAdmin\promo\managePromo.html" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

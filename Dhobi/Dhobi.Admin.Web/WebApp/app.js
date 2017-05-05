@@ -106,6 +106,24 @@
                     role: [app.RoleName.SuperAdmin]
                 }
             }))
+            .state('manageradd', angularAMD.route({
+                url: '/manager/add',
+                templateUrl: '/WebApp/views/superAdmin/manager/managerAdd.html',
+                controllerUrl: 'controllers/superAdmin/manager/managerAddController',
+                controller: 'managerAddController',
+                authorization: {
+                    role: [app.RoleName.SuperAdmin]
+                }
+            }))
+            .state('managepromo', angularAMD.route({
+                url: '/promo/manage',
+                templateUrl: '/WebApp/views/superAdmin/promo/managePromo.html',
+                controllerUrl: 'controllers/superAdmin/promo/managePromoController',
+                controller: 'managePromoController',
+                authorization: {
+                    role: [app.RoleName.SuperAdmin]
+                }
+            }))
         ;
     }
     app.registerAdminRoute = function (stateProvider) {
