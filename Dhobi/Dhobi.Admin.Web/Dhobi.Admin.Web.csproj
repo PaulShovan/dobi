@@ -160,6 +160,8 @@
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\images\fallback-dobi.png" />
     <Content Include="Content\inspinia.css" />
+    <Content Include="Content\plugins\ladda\ladda-themeless.min.css" />
+    <Content Include="Content\plugins\ladda\ladda.min.css" />
     <Content Include="Content\plugins\toastr\angular-toastr.css" />
     <Content Include="Content\plugins\toastr\toastr.min.css" />
     <Content Include="favicon.ico" />
@@ -224,6 +226,9 @@
     <Content Include="WebApp\lib\plugins\angular-loading-bar\loading-bar.min.js" />
     <Content Include="WebApp\lib\plugins\datepicker\angular-datepicker.js" />
     <Content Include="WebApp\lib\plugins\datepicker\moment.js" />
+    <Content Include="WebApp\lib\plugins\ladda\ladda.jquery.min.js" />
+    <Content Include="WebApp\lib\plugins\ladda\ladda.min.js" />
+    <Content Include="WebApp\lib\plugins\ladda\spin.min.js" />
     <Content Include="WebApp\lib\plugins\ng-file-upload\ng-file-upload-shim.js" />
     <Content Include="WebApp\lib\plugins\ng-file-upload\ng-file-upload.js" />
     <Content Include="WebApp\lib\plugins\toastr\angular-toastr.tpls.js" />
