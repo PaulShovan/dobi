@@ -56,4 +56,6 @@
 .m-b-sm { margin-bottom: 10px; }
 .m-b-md { margin-bottom: 15px; }
 .m-b-lg { margin-bottom: 20px; }
+.cursor-pointer { cursor: pointer; } 
+.cursor-auto { cursor: auto; } 
 

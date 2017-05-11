@@ -1,0 +1,50 @@
+﻿<link href="../../../../Content/angular-datepicker.css" rel="stylesheet" />
+
+<div class="container">
+    <div class="row m-t-lg">
+        <div class="col-md-12">
+            <a href="javascript:void(0)" ng-click="Methods.AddNewOffer(Data.Navigations)"><i class="fa fa-plus"></i> Add New Offer</a>
+        </div>
+    </div>
+
+    <div class="row m-t-lg">
+        <div ng-repeat="navigation in Data.Navigations" ng-include="'navation-tpl'" onLoad="model = { Nav: navigation, Navigations: Data.Navigations }"></div>
+    </div>
+</div>
+
+
+<script type="text/ng-template" id="navation-tpl">
+    <div class="col-md-12 m-t-md">
+        <form role="form" class="form-inline">
+            <div class="form-group m-r-sm">
+                <input type="text" placeholder="Eid Offer" class="form-control" ng-model="Data.Offer.Text">
+            </div>
+            <div class="form-group m-r-md">
+                <input type="number" class="form-control" ng-model="Data.Offer.Amount" only-digits> <span> % </span>
+            </div>
+            <div class="form-group m-r-sm">
+                From
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <span class="fa fa-calendar-o"></span>
+                    </span>
+                    <input type="datetime" name="fromDate" class="form-control cursor-pointer" date-time ng-model="Data.Offer.StartDate"
+                           view="date" auto-close="true" min-view="date" format="ddd, MMM DD, YYYY" min-date="Data.MinDate" required>
+                </div>
+            </div>
+            <div class="form-group m-r-sm">
+                To
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <span class="fa fa-calendar-o"></span>
+                    </span>
+                    <input type="datetime" name="toDate" class="form-control cursor-pointer bg-white" date-time ng-model="Data.Offer.EndDate"
+                           view="date" auto-close="true" min-view="date" format="ddd, MMM DD, YYYY" min-date="Data.MinDate" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-danger btn-circle btn-outline" type="button" ng-click="Methods.RemoveOffer(Data.Navigations, $index)"><i class="fa fa-close"></i></button>
+            </div>
+        </form>
+    </div>
+</script>

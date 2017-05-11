@@ -3,6 +3,7 @@
     
     app.directive('validateEmail', validateEmail);
     app.directive('fallbackSrc', fallbackSrc);
+    app.directive('iCheck', iCheck);
 
     /**
      * validateEmail - Directive for Validating email
@@ -16,25 +17,79 @@
             link: function (scope, elm, attrs, ctrl) {
                 // only apply the validator if ngModel is present and Angular has added the email validator
                 if (ctrl && ctrl.$validators.email) {
-
                     // this will overwrite the default Angular email validator
                     ctrl.$validators.email = function (modelValue) {
                         return ctrl.$isEmpty(modelValue) || EMAIL_REGEXP.test(modelValue);
                     };
                 }
             }
-        };
-    }
+        }
+    };
 
+    /**
+     * fallbackSrc - Directive for optional image when ng-src is not available or null
+     */
     function fallbackSrc() {
         var fallbackSrc = {
-            link: function postLink(scope, iElement, iAttrs) {
-                iElement.bind('error', function() {
-                    angular.element(this).attr("src", iAttrs.fallbackSrc);
+            restrict: 'A',
+            link: function postLink(scope, element, attrs) {
+                if (_.isEmpty(attrs.ngSrc)) {
+                    element.attr('src', attrs.fallbackSrc);
+                }
+                element.bind('error', function () {
+                    element.attr('src', attrs.fallbackSrc);
                 });
             }
         }
         return fallbackSrc;
+    };
+
+    /**
+     * autofocus - Directive for autofocus input
+     */
+    function autofocus($timeout) {
+        "use strict";
+        return {
+            restrict: 'A',
+            link: function ($scope, $element) {
+                $timeout(function () {
+                    $element[0].focus();
+                });
+            }
+        }
+    };
+
+    /**
+     * iCheck - Directive to work iCheck with angularjs
+     */
+    function iCheck($timeout, $parse) {
+        return {
+            require: 'ngModel',
+            link: function ($scope, element, $attrs, ngModel) {
+                return $timeout(function () {
+                    var value = $attrs.value;
+                    var $element = $(element);
+                    // Instantiate the iCheck control.                            
+                    $element.iCheck({
+                        checkboxClass: 'icheckbox_square-green',
+                        radioClass: 'iradio_square-green',
+                        increaseArea: '20%'
+                    });
+                    // If the model changes, update the iCheck control.
+                    $scope.$watch($attrs.ngModel, function (newValue) {
+                        $element.iCheck('update');
+                    });
+                    // If the iCheck control changes, update the model.
+                    $element.on('ifChanged', function (event) {
+                        if ($element.attr('type') === 'radio' && $attrs.ngModel) {
+                            $scope.$apply(function () {
+                                ngModel.$setViewValue(value);
+                            });
+                        }
+                    });
+                });
+            }
+        };
     };
 
 });

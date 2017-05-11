@@ -58,7 +58,15 @@
                     </div>
                 </div>
                 <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.sex.$touched && dobiAddForm.sex.$invalid }">
-                    <input type="text" name="sex" class="form-control" placeholder="Sex" ng-model="Data.Dobi.Sex" required>
+                    <!--<input type="text" name="sex" class="form-control" placeholder="Sex" ng-model="Data.Dobi.Sex" required>-->
+                    <div class="form-group form-inline">
+                        <div class="checkbox-inline i-checks">
+                            <label> <input type="radio" value="male" name="gender" ng-model="Data.Dobi.Sex" i-check> <i></i> Male </label>
+                        </div>
+                        <div class="checkbox-inline i-checks">
+                            <label> <input type="radio" value="female" name="gender" ng-model="Data.Dobi.Sex" i-check> <i></i> Female </label>
+                        </div>
+                    </div>
                     <div class="help-block" ng-messages="dobiAddForm.sex.$error" ng-if="dobiAddForm.sex.$touched">
                         <p ng-message="required">Sex is required.</p>
                     </div>
