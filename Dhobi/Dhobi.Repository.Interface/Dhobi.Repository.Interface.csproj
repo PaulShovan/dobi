@@ -46,6 +46,7 @@
     <Compile Include="IManagerRepository.cs" />
     <Compile Include="IOrderRepository.cs" />
     <Compile Include="IPromoOfferRepository.cs" />
+    <Compile Include="IUserMessageRepository.cs" />
     <Compile Include="IUserSmsRepository.cs" />
     <Compile Include="IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

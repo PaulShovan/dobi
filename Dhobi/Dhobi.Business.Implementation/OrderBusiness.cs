@@ -19,10 +19,12 @@ namespace Dhobi.Business.Implementation
         private const int OrderServiceIdLength = 10;
         private IOrderRepository _orderRepository;
         private IPromoOfferBusiness _promoBusiness;
-        public OrderBusiness(IOrderRepository orderRepository, IPromoOfferBusiness promoOfferBusiness)
+        private IUserMessageBusiness _userMessageBusiness;
+        public OrderBusiness(IOrderRepository orderRepository, IPromoOfferBusiness promoOfferBusiness, IUserMessageBusiness userMessageBusiness)
         {
             _orderRepository = orderRepository;
             _promoBusiness = promoOfferBusiness;
+            _userMessageBusiness = userMessageBusiness;
         }
         private async Task<PromoOfferBasicInformation> GetPromoOffer()
         {
@@ -53,9 +55,10 @@ namespace Dhobi.Business.Implementation
                     Status = (int)OrderStatus.New,
                     OrderPlacingTime = Utilities.GetPresentDateTime()
                 };
-                // TODO Send Inbox Message
-                return await _orderRepository.AddNewOrder(newOrder);
-
+                var addMessageResponse = await _userMessageBusiness.AddUserMessage(orderedBy.UserId, (int)MessageType.NewOrder);
+                var addOrderResponse = await _orderRepository.AddNewOrder(newOrder);
+                //TODO Send Notification
+                return addMessageResponse && addOrderResponse;
             }
             catch (Exception ex)
             {

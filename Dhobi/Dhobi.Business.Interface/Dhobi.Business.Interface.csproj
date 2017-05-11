@@ -46,6 +46,7 @@
     <Compile Include="IOrderBusiness.cs" />
     <Compile Include="IPromoOfferBusiness.cs" />
     <Compile Include="IUserBusiness.cs" />
+    <Compile Include="IUserMessageBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -42,6 +42,10 @@ namespace Dhobi.DependencyInjection
             #region LocationService
             kernel.Bind<ILocationService>().To<LocationService>();
             #endregion
+            #region UserMessage
+            kernel.Bind<IUserMessageRepository>().To<UserMessageRepository>();
+            kernel.Bind<IUserMessageBusiness>().To<UserMessageBusiness>();
+            #endregion
 
         }
     }

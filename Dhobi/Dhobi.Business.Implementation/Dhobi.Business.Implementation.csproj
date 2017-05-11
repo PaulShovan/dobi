@@ -51,6 +51,7 @@
     <Compile Include="PromoOfferBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserBusiness.cs" />
+    <Compile Include="UserMessageBusiness.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dhobi.Business.Interface\Dhobi.Business.Interface.csproj">

@@ -38,4 +38,18 @@
         OnTheWay = 8,
         Delivered = 9
     }
+    public enum MessageStatus
+    {
+        Unread = 1,
+        Read = 2
+    }
+    public enum MessageDeliveryStatus
+    {
+        NotDelivered = 1,
+        Delivered = 2
+    }
+    public enum MessageType
+    {
+        NewOrder = 1
+    }
 }
