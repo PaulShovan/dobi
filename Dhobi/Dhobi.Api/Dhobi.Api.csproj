@@ -213,7 +213,6 @@
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Helpers\TokenGenerator.cs" />
-    <Compile Include="Models\DobiLoginResponse.cs" />
     <Compile Include="Models\PromoOfferResponse.cs" />
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\ValidatedUserResponse.cs" />
@@ -258,6 +257,10 @@
     <ProjectReference Include="..\Dhobi.Repository.Interface\Dhobi.Repository.Interface.csproj">
       <Project>{F3BBC6E3-9A99-451C-9B93-8C0A5458E3E1}</Project>
       <Name>Dhobi.Repository.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dhobi.Service.Interface\Dhobi.Service.Interface.csproj">
+      <Project>{085a72cd-4638-45f6-affa-def8164f2239}</Project>
+      <Name>Dhobi.Service.Interface</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

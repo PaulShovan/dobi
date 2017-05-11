@@ -155,7 +155,7 @@ namespace Dhobi.Api.Controllers
                 return BadRequest("Invalid data.");
             }
             var user = GetUserInformationFromToken();
-            if (string.IsNullOrEmpty(user.UserId))
+            if (user == null || string.IsNullOrEmpty(user.UserId))
             {
                 return BadRequest("Invalid User.");
             }

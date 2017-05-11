@@ -2,6 +2,8 @@
 using Dhobi.Business.Interface;
 using Dhobi.Repository.Implementation;
 using Dhobi.Repository.Interface;
+using Dhobi.Service.Implementation;
+using Dhobi.Service.Interface;
 using Ninject;
 
 namespace Dhobi.DependencyInjection
@@ -33,6 +35,14 @@ namespace Dhobi.DependencyInjection
             kernel.Bind<IDeviceStausRepository>().To<DeviceStatusRepository>();
             kernel.Bind<IDeviceStatusBusiness>().To<DeviceStatusBusiness>();
             #endregion
+            #region Device
+            kernel.Bind<IOrderRepository>().To<OrderRepository>();
+            kernel.Bind<IOrderBusiness>().To<OrderBusiness>();
+            #endregion
+            #region LocationService
+            kernel.Bind<ILocationService>().To<LocationService>();
+            #endregion
+
         }
     }
 }

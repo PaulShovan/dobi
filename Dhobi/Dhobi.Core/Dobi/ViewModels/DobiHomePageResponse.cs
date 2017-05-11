@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Dhobi.Api.Models
+namespace Dhobi.Core.Dobi.ViewModels
 {
-    public class DobiLoginResponse
+    public class DobiHomePageResponse
     {
         public string Name;
         public string Photo;
-        public string Token;
         public string DobiId;
         public string Phone;
         public string IcNumber;
         public string DrivingLicense;
+        public int AcceptedOrderCount;
+        public int NewOrderCount;
     }
 }

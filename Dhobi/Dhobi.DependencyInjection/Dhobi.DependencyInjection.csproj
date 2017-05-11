@@ -68,6 +68,14 @@
       <Project>{f3bbc6e3-9a99-451c-9b93-8c0a5458e3e1}</Project>
       <Name>Dhobi.Repository.Interface</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Dhobi.Service.Implementation\Dhobi.Service.Implementation.csproj">
+      <Project>{ec8de6a5-a871-4cf2-bf50-97e36235e3b2}</Project>
+      <Name>Dhobi.Service.Implementation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dhobi.Service.Interface\Dhobi.Service.Interface.csproj">
+      <Project>{085a72cd-4638-45f6-affa-def8164f2239}</Project>
+      <Name>Dhobi.Service.Interface</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -20,5 +20,20 @@ namespace Dhobi.Common
                 throw new Exception("Error in email validation" + exception);
             }
         }
+        public static long GetPresentDate()
+        {
+            var timeZone = TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time");
+            var singaporetime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZone);
+            var nowDate = (long)singaporetime.Date.Subtract(new DateTime(1970, 1, 1, 0, 0, 0)).TotalMilliseconds;
+            return nowDate;
+        }
+
+        public static long GetPresentDateTime()
+        {
+            var timeZone = TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time");
+            var singaporetime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZone);
+            var nowDateTime = (long)singaporetime.Subtract(new DateTime(1970, 1, 1, 0, 0, 0)).TotalMilliseconds;
+            return nowDateTime;
+        }
     }
 }

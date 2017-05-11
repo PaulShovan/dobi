@@ -26,4 +26,16 @@
         Active = 1,
         Inactive = 2
     }
+    public enum OrderStatus
+    {
+        New = 1,
+        Acknowledged = 2,
+        Confirmed = 3,
+        Cancelled = 4,
+        PickedUp = 5,
+        InProgress = 6,
+        Processed = 7,
+        OnTheWay = 8,
+        Delivered = 9
+    }
 }

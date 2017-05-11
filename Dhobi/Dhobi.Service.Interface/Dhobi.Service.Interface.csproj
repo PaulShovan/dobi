@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{404C3FCF-1350-4E7B-A072-B840B0DCDEB6}</ProjectGuid>
+    <ProjectGuid>{085A72CD-4638-45F6-AFFA-DEF8164F2239}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Dhobi.Core</RootNamespace>
-    <AssemblyName>Dhobi.Core</AssemblyName>
+    <RootNamespace>Dhobi.Service.Interface</RootNamespace>
+    <AssemblyName>Dhobi.Service.Interface</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,7 +31,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,29 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Device\DbModels\DeviceStatus.cs" />
-    <Compile Include="Dobi\DbModels\Dobi.cs" />
-    <Compile Include="Dobi\DbModels\DobiBasicInformation.cs" />
-    <Compile Include="Dobi\ViewModels\DobiHomePageResponse.cs" />
-    <Compile Include="Dobi\ViewModels\DobiViewModel.cs" />
-    <Compile Include="GenericResponse.cs" />
-    <Compile Include="Manager\DbModels\Manager.cs" />
-    <Compile Include="Manager\DbModels\ManagerBasicInformation.cs" />
-    <Compile Include="Manager\ViewModels\LoginViewModel.cs" />
-    <Compile Include="Manager\ViewModels\ManagerViewModel.cs" />
-    <Compile Include="OrderModel\DbModels\Item.cs" />
-    <Compile Include="OrderModel\DbModels\Order.cs" />
-    <Compile Include="OrderModel\DbModels\OrderItem.cs" />
-    <Compile Include="OrderModel\ViewModels\NewOrderViewModel.cs" />
-    <Compile Include="PromoOffer\DbModels\Promo.cs" />
-    <Compile Include="PromoOffer\ViewModels\PromoOfferBasicInformation.cs" />
-    <Compile Include="PromoOffer\ViewModels\PromoViewModel.cs" />
+    <Compile Include="ILocationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserSms\UserSms.cs" />
-    <Compile Include="UserModel\DbModels\User.cs" />
-    <Compile Include="UserModel\ViewModels\UserViewModel.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

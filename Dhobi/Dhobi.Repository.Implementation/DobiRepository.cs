@@ -26,9 +26,7 @@ namespace Dhobi.Repository.Implementation
                     .Include(u => u.Name)
                     .Include(u => u.DobiId)
                     .Include(u => u.Phone)
-                    .Include(u => u.Photo)
-                    .Include(u => u.IcNumber)
-                    .Include(u => u.DrivingLicense);
+                    .Include(u => u.Photo);
                 var result = await Collection.Find(filter).Project<DobiBasicInformation>(projection).FirstOrDefaultAsync();
                 return result;
             }

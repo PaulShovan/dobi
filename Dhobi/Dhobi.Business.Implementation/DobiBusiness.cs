@@ -9,16 +9,19 @@ using Dhobi.Core.Dobi.DbModels;
 using Dhobi.Core.Manager.DbModels;
 using Dhobi.Repository.Interface;
 using Dhobi.Common;
+using Dhobi.Core.Dobi.ViewModels;
 
 namespace Dhobi.Business.Implementation
 {
     public class DobiBusiness : IDobiBusiness
     {
-        private const int DobiIdLength = 5;
+        private const int DobiIdLength = 6;
         private IDobiRepository _dobiRepository;
-        public DobiBusiness(IDobiRepository dobiRepository)
+        private IOrderRepository _orderRepository;
+        public DobiBusiness(IDobiRepository dobiRepository, IOrderRepository orderRepository)
         {
             _dobiRepository = dobiRepository;
+            _orderRepository = orderRepository;
         }
         public async Task<GenericResponse<string>> AddDobi(Dobi dobi)
         {
@@ -73,6 +76,35 @@ namespace Dhobi.Business.Implementation
                 throw new Exception("Error in generating dobi id" + ex);
             }
             
+        }
+
+        public async Task<DobiHomePageResponse> GetDobiHomePageResponse(string dobiId)
+        {
+            try
+            {
+                var dobiInformation = await _dobiRepository.GetDobiById(dobiId);
+                if (dobiInformation == null || string.IsNullOrWhiteSpace(dobiInformation.DobiId))
+                {
+                    return null;
+                }
+                var newOrderCount = await _orderRepository.GetNewOrderCountByStatus((int)OrderStatus.New);
+                var acceptedOrderCount = await _orderRepository.GetNewOrderCountByStatus((int)OrderStatus.Confirmed);
+                return new DobiHomePageResponse
+                {
+                    Name = dobiInformation.Name,
+                    Phone = dobiInformation.Phone,
+                    Photo = dobiInformation.Photo,
+                    DobiId = dobiInformation.DobiId,
+                    IcNumber = dobiInformation.IcNumber,
+                    DrivingLicense = dobiInformation.DrivingLicense,
+                    NewOrderCount = newOrderCount,
+                    AcceptedOrderCount = acceptedOrderCount
+                };
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error getting dobi home page response" + ex);
+            }
         }
 
         public async Task<GenericResponse<string>> UpdateDobi(Dobi dobi)

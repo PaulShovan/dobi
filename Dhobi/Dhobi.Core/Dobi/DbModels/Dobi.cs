@@ -8,6 +8,8 @@ namespace Dhobi.Core.Dobi.DbModels
         public string Address;
         public string EmergencyContactNumber;
         public string PassportNumber;
+        public string IcNumber;
+        public string DrivingLicense;
         public int Age;
         public string Sex;
         public double Salary;
