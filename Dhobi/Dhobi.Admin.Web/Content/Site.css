@@ -1,23 +1,41 @@
-﻿.wrapper-height {
+﻿/**Login Page **/
+.dobi-img {
+    width: 92px;
+    margin: 0 auto;
+    margin-top: -129px;
+    margin-left: 138px;
+}
+
+.loginscreen.middle-box {
+    width: 380px;
+}
+/**Login Page **/
+
+.wrapper-height {
     min-height: 85vh;
     height: auto;
 }
+
 .has-error input {
     background-color: rgb(251, 227, 228);
 }
+
 .help-block p {
     font-size: 14px;
 }
+
 .btn-gray {
     color: #fff;
     background-color: #828282;
     border-color: #606060;
 }
-.btn-gray:hover {
-    color: #fff;
-    background-color: #666666;
-    border-color: #484646;
-}
+
+    .btn-gray:hover {
+        color: #fff;
+        background-color: #666666;
+        border-color: #484646;
+    }
+
 .drop-box {
     background: #ffffff;
     border: 1px dashed #DDD;
@@ -26,36 +44,73 @@
     padding-top: 4em;
     cursor: pointer;
 }
+
 .dragover {
     border: 2px dashed #21b9bb;
 }
+
 .ng-img-preview {
-    margin:0 auto; 
+    margin: 0 auto;
     width: 200px;
     height: 180px;
     margin-left: -3%;
     margin-top: -10%;
 }
+
 .mid-icon {
-  font-size: 66px;
+    font-size: 66px;
 }
+
 .dobi-pic {
     width: 20px;
     height: 20px;
 }
 
 /* Custom Helpers Css */
-.m-t-none { margin-top: 0; }
-.m-t-xs { margin-top: 5px; }
-.m-t-sm { margin-top: 10px; }
-.m-t-md { margin-top: 15px; }
-.m-t-lg { margin-top: 20px; }
+.m-t-none {
+    margin-top: 0;
+}
 
-.m-b-none { margin-bottom: 0; }
-.m-b-xs { margin-bottom: 5px; }
-.m-b-sm { margin-bottom: 10px; }
-.m-b-md { margin-bottom: 15px; }
-.m-b-lg { margin-bottom: 20px; }
-.cursor-pointer { cursor: pointer; } 
-.cursor-auto { cursor: auto; } 
+.m-t-xs {
+    margin-top: 5px;
+}
 
+.m-t-sm {
+    margin-top: 10px;
+}
+
+.m-t-md {
+    margin-top: 15px;
+}
+
+.m-t-lg {
+    margin-top: 20px;
+}
+
+.m-b-none {
+    margin-bottom: 0;
+}
+
+.m-b-xs {
+    margin-bottom: 5px;
+}
+
+.m-b-sm {
+    margin-bottom: 10px;
+}
+
+.m-b-md {
+    margin-bottom: 15px;
+}
+
+.m-b-lg {
+    margin-bottom: 20px;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.cursor-auto {
+    cursor: auto;
+}

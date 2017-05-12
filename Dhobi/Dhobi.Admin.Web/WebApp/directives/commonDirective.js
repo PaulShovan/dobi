@@ -4,11 +4,12 @@
     app.directive('validateEmail', validateEmail);
     app.directive('fallbackSrc', fallbackSrc);
     app.directive('iCheck', iCheck);
+    app.directive("limitTo", limitTo);
 
-    /**
-     * validateEmail - Directive for Validating email
-     */
+
+    /*** validateEmail - Directive for Validating email. Usage [ as attr ] [ validate-email ] will validate email type input. */
     function validateEmail() {
+        "use strict";
         var EMAIL_REGEXP = /^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
 
         return {
@@ -17,18 +18,17 @@
             link: function (scope, elm, attrs, ctrl) {
                 // only apply the validator if ngModel is present and Angular has added the email validator
                 if (ctrl && ctrl.$validators.email) {
+
                     // this will overwrite the default Angular email validator
                     ctrl.$validators.email = function (modelValue) {
                         return ctrl.$isEmpty(modelValue) || EMAIL_REGEXP.test(modelValue);
                     };
                 }
             }
-        }
-    };
+        };
+    }
 
-    /**
-     * fallbackSrc - Directive for optional image when ng-src is not available or null
-     */
+    /*** fallbackSrc - Directive for optional image when ng-src is not available or null */
     function fallbackSrc() {
         var fallbackSrc = {
             restrict: 'A',
@@ -44,9 +44,7 @@
         return fallbackSrc;
     };
 
-    /**
-     * autofocus - Directive for autofocus input
-     */
+    /*** autofocus - Directive for autofocus input. Usage: [as attr]  [ autofocus ] will focus on page load on that input. */
     function autofocus($timeout) {
         "use strict";
         return {
@@ -59,9 +57,7 @@
         }
     };
 
-    /**
-     * iCheck - Directive to work iCheck with angularjs
-     */
+    /*** iCheck - Directive to work iCheck with angularjs */
     function iCheck($timeout, $parse) {
         return {
             require: 'ngModel',
@@ -91,5 +87,19 @@
             }
         };
     };
+
+    /*** limit-to - Directive for input limit. Usage on html: [as attr]  [ limit-to="5" ] will take only 5 characters on that input. */
+    function limitTo() {
+        "use strict";
+        return {
+            restrict: "A",
+            link: function (scope, elem, attrs) {
+                var limit = parseInt(attrs.limitTo);
+                angular.element(elem).on("keypress", function (e) {
+                    if (this.value.length === limit) e.preventDefault();
+                });
+            }
+        }
+    }
 
 });

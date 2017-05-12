@@ -11,37 +11,40 @@
     <title>@ViewBag.Title</title>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/plugins/toastr/angular-toastr.css" rel="stylesheet" />
+    <link href="~/Content/inspinia.css" rel="stylesheet" />
     <link href="~/Content/Site.css" rel="stylesheet" />
 </head>
-<body ng-app="app" ng-controller="loginCtrl">
-    <h1 class="text-center">Welcome to Dobi Admin</h1>
-
-    <div class="row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
-            <div class="jumbotron">
-                <form name="loginForm">
-                    <fieldset style="padding: 15px">
-                        <div class="form-group" ng-class="{ 'has-error': loginForm.username.$touched && loginForm.username.$invalid }">
-                            <input type="text" name="username" class="form-control" placeholder="Username" required ng-model="Data.UserName">
-                            <div class="help-block" ng-messages="loginForm.username.$error" ng-if="loginForm.username.$touched">
-                                <p ng-message="required">UserName is required.</p>
-                            </div>
-                        </div>
-                        <div class="form-group" ng-class="{ 'has-error': loginForm.password.$touched && loginForm.password.$invalid }">
-                            <input type="password" name="password" class="form-control" placeholder="Password" required ng-model="Data.Password" ng-minlength="6" ng-maxlength="64">
-                            <div class="help-block" ng-messages="loginForm.password.$error" ng-if="loginForm.password.$touched">
-                                <p ng-message="required">Password is required.</p>
-                                <div ng-message="minlength">Minimum 6 character required.</div>
-                                <div ng-message="maxlength">Maximum 64 character allowed.</div>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-success pull-right" ng-click="Methods.Login()" ng-disabled="loginForm.$invalid">Login</button>
-                    </fieldset>
-                </form>
+<body ng-app="app" ng-controller="loginCtrl" class="gray-bg">
+    
+    <div class="middle-box text-center loginscreen animated fadeInDown">
+        <div>
+            <div>
+                <h1 class="logo-name">Dobi</h1>
             </div>
+            <div>
+                <img src="~/Content/images/dobi.png" class="img-responsive img-circle dobi-img" alt="Dobi"/>
+            </div>
+            <h3 class="m-t">Login in. To see it in action</h3>
+            <form name="loginForm" class="m-t">
+                <fieldset style="padding: 15px">
+                    <div class="form-group" ng-class="{ 'has-error': loginForm.username.$touched && loginForm.username.$invalid }">
+                        <input type="text" name="username" class="form-control" placeholder="Username" required ng-model="Data.UserName">
+                        <div class="help-block" ng-messages="loginForm.username.$error" ng-if="loginForm.username.$touched">
+                            <p ng-message="required">UserName is required.</p>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error': loginForm.password.$touched && loginForm.password.$invalid }">
+                        <input type="password" name="password" class="form-control" placeholder="Password" required ng-model="Data.Password" ng-minlength="6" ng-maxlength="64">
+                        <div class="help-block" ng-messages="loginForm.password.$error" ng-if="loginForm.password.$touched">
+                            <p ng-message="required">Password is required.</p>
+                            <div ng-message="minlength">Minimum 6 character required.</div>
+                            <div ng-message="maxlength">Maximum 64 character allowed.</div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary block full-width m-b" ng-click="Methods.Login()" ng-disabled="loginForm.$invalid">Login</button>
+                </fieldset>
+            </form>
         </div>
-        <div class="col-md-4"></div>
     </div>
 
     <script src="~/Scripts/urlConfig.js"></script>
