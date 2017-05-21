@@ -229,6 +229,7 @@
     <Content Include="WebApp\lib\ngload.min.js" />
     <Content Include="WebApp\lib\ngMessages.js" />
     <Content Include="WebApp\lib\ngStorage.min.js" />
+    <Content Include="WebApp\lib\plugins\ladda\angular-ladda.js" />
     <Content Include="WebApp\lib\plugins\angular-loading-bar\loading-bar.css" />
     <Content Include="WebApp\lib\plugins\angular-loading-bar\loading-bar.js" />
     <Content Include="WebApp\lib\plugins\angular-loading-bar\loading-bar.min.css" />

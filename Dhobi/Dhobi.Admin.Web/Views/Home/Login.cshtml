@@ -11,6 +11,7 @@
     <title>@ViewBag.Title</title>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/plugins/toastr/angular-toastr.css" rel="stylesheet" />
+    <link href="~/Content/plugins/ladda/ladda-themeless.min.css" rel="stylesheet" />
     <link href="~/Content/inspinia.css" rel="stylesheet" />
     <link href="~/Content/Site.css" rel="stylesheet" />
 </head>
@@ -41,7 +42,7 @@
                             <div ng-message="maxlength">Maximum 64 character allowed.</div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary block full-width m-b" ng-click="Methods.Login()" ng-disabled="loginForm.$invalid">Login</button>
+                    <button type="submit" class="btn btn-primary block full-width m-b" ng-click="Methods.Login()" ng-disabled="loginForm.$invalid" ladda="loginLoading">Login</button>
                 </fieldset>
             </form>
         </div>
@@ -55,6 +56,9 @@
     <script src="~/WebApp/lib/ngMessages.js"></script>
     <script src="~/Scripts/accountDirective.js"></script>
     <script src="~/WebApp/lib/plugins/toastr/angular-toastr.tpls.js"></script>
+    <script src="~/WebApp/lib/plugins/ladda/spin.min.js"></script>
+    <script src="~/WebApp/lib/plugins/ladda/ladda.min.js"></script>
+    <script src="~/WebApp/lib/plugins/ladda/angular-ladda.js"></script>
     <script src="~/WebApp/controllers/loginController.js"></script>
 </body>
 </html>

@@ -29,8 +29,10 @@
         'angular-datepicker': 'lib/plugins/datepicker/angular-datepicker',
         'ng-file-upload': 'lib/plugins/ng-file-upload/ng-file-upload',
         'i-check': 'lib/plugins/iCheck/icheck.min',
+        'spin': 'lib/plugins/ladda/spin.min',
+        'ladda': 'lib/plugins/ladda/ladda.min',
+        'angular-ladda': 'lib/plugins/ladda/angular-ladda',
 
-        
         //Theme
         
         //Constants
@@ -82,7 +84,8 @@
         'angular-confirm': { deps: ['angular'] },
         'angular-moment': { deps: ['angular', 'moment'] },
         'angular-datepicker': { deps: ['angular', 'moment'] },
-        'ng-file-upload': { deps: ['angular'] }
+        'ng-file-upload': { deps: ['angular'] },
+        'angular-ladda': { deps: ['spin', 'ladda'] }
     },
 
     // kick start application
