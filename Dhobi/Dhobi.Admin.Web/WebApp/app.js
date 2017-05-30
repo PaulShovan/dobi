@@ -1,8 +1,14 @@
-﻿define(['angularAMD', 'angular-route', 'angular-ui-router', 'angular-resource', 'angular-cookies', 'angular-ngStorage', 'ng-messages', 'bootstrap-ui', 'angular-toastr', 'angular-confirm', 'modal-factory', 'role-constant', 'api-constant', 'http-service', 'top-menu', /*'footer', */'common-directives', 'angular-loading-bar', 'angular-datepicker', 'ng-file-upload', 'utility', 'angular-moment'], function (angularAMD) {
-    var app = angular.module("ngreq-app", ['ui.router', 'ngResource', 'ngCookies', 'ngStorage', 'ngMessages', 'ui.bootstrap', 'toastr', 'angular-confirm', 'modalPropertiesModule', 'roleConstantModule', 'apiConstantModule', 'httpServiceModule', 'topMenuModule', /*'footerModule',*/ 'commonDirectiveModule', 'angular-loading-bar', 'datePicker', 'ngFileUpload', 'appUtilityModule', 'angularMoment']);
+﻿define(['angularAMD', 'angular-route', 'angular-ui-router', 'angular-resource', 'angular-cookies', 'angular-ngStorage', 'ng-messages', 'bootstrap-ui', 'angular-toastr', 'angular-confirm', 'modal-factory', 'role-constant', 'api-constant', 'http-service', 'top-menu', /*'footer', */'common-directives', 'angular-loading-bar', 'angular-datepicker', 'ng-file-upload', 'utility', 'angular-moment', 'angular-ladda'], function (angularAMD) {
+    var app = angular.module("ngreq-app", ['ui.router', 'ngResource', 'ngCookies', 'ngStorage', 'ngMessages', 'ui.bootstrap', 'toastr', 'angular-confirm', 'modalPropertiesModule', 'roleConstantModule', 'apiConstantModule', 'httpServiceModule', 'topMenuModule', /*'footerModule',*/ 'commonDirectiveModule', 'angular-loading-bar', 'datePicker', 'ngFileUpload', 'appUtilityModule', 'angularMoment', 'angular-ladda']);
 
-    app.config(['cfpLoadingBarProvider', function (cfpLoadingBarProvider) {
+    app.config(['cfpLoadingBarProvider', 'laddaProvider', function (cfpLoadingBarProvider, laddaProvider) {
         cfpLoadingBarProvider.includeSpinner = false;
+
+        laddaProvider.setOption({ /* optional */
+            style: 'expand-right',
+            spinnerSize: 30,
+            spinnerColor: '#ffffff'
+        });
     }]);
     
     app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
@@ -46,8 +52,13 @@
     });
 
     app.run(function ($rootScope, $location, $cookieStore, $localStorage, modalFactory, toastr, $state) {
-        $rootScope.$on('$stateChangeSuccess', function (event, toState) {
+        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+            $("#ui-view").html("");
+            $(".page-loading").removeClass("hidden");
+        });
 
+        $rootScope.$on('$stateChangeSuccess', function (event, toState) {
+            $(".page-loading").addClass("hidden");
             $rootScope.CURRENTSTATE = toState.name;
             var token = $cookieStore.get('accessToken');
             if (!token || token.length < 1) {
@@ -63,6 +74,7 @@
                     $location.path('/login');
                 }
             }
+            
         });
 
         // Modal Popup and If window resize:Modal won't break

@@ -1,4 +1,12 @@
-﻿var app = angular.module("app", ['ngCookies', 'ngStorage', 'ngMessages', 'toastr', 'accountDirectiveModule']);
+﻿var app = angular.module("app", ['ngCookies', 'ngStorage', 'ngMessages', 'toastr', 'accountDirectiveModule', 'angular-ladda']);
+app.config(function(laddaProvider) {
+    laddaProvider.setOption({ /* optional */
+        style: 'expand-right',
+        spinnerSize: 30,
+        spinnerColor: '#ffffff'
+    });
+});
+
 app.controller("loginCtrl", ['$scope', '$http', '$cookieStore', '$localStorage', 'toastr',
     function ($scope, $http, $cookieStore, $localStorage, toastr) {
         var loginUrl = window.dhobiUrlConfig.baseUrl + '/api/v1/manager/login';
@@ -13,6 +21,7 @@ app.controller("loginCtrl", ['$scope', '$http', '$cookieStore', '$localStorage',
                     UserName: $scope.Data.UserName,
                     Password: $scope.Data.Password
                 };
+                $scope.loginLoading = true;
 
                 $http.post(loginUrl, userCredentials, { headers: { 'Content-Type': 'application/json' } })
                     .success(function (result) {
@@ -26,14 +35,17 @@ app.controller("loginCtrl", ['$scope', '$http', '$cookieStore', '$localStorage',
                             $localStorage.UserInfo = userInfo;
                             $localStorage.ViewName = userInfo.Role;
 
+                            $scope.loginLoading = false;
                             window.location.href = '/Admin';
                         } else if (result.ResponseStatus) {
                             $scope.errorMsg = result.Message;
                             toastr.error(result.Message, "Error!");
+                            $scope.loginLoading = false;
                         }
                     })
                     .error(function (result, httpstatus) {
                         toastr.error(result.Message, "Error!");
+                        $scope.loginLoading = false;
                     });
             }
         }

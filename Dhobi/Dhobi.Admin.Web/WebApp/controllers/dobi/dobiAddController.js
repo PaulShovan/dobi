@@ -31,10 +31,12 @@
                         return;
                     } else {
                         $scope.Data.Dobi.Photo = files;
+                        $scope.httpLoading = true;
                         httpService.postMultipart(apiConstant.addNewDobi, { Files: files }, $scope.Data.Dobi, "New Dobi Added Successfully", function (response) {
                             if (response.status === 200) {
                                 toastr.success(response.Message, "Success!");
-                                $state.go('dobimanage');
+                                $scope.httpLoading = false;
+                                //$state.go('dobimanage');
                             }
                         });
                     }
