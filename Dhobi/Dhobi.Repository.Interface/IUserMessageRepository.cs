@@ -10,5 +10,7 @@ namespace Dhobi.Repository.Interface
     public interface IUserMessageRepository
     {
         Task<bool> AddUserMessage(UserMessage message);
+        Task<List<UserMessage>> GetUserMessage(string userId, int skip, int limit);
+        Task<UserMessage> GetMessageById(string messageId);
     }
 }

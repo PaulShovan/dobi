@@ -1,6 +1,8 @@
 ﻿using Dhobi.Core;
+using Dhobi.Core.UserInbox.DbModels;
 using Dhobi.Core.UserModel.DbModels;
 using Dhobi.Core.UserModel.ViewModels;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Dhobi.Business.Interface

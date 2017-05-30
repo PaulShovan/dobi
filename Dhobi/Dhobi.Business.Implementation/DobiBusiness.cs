@@ -89,6 +89,7 @@ namespace Dhobi.Business.Implementation
                 }
                 var newOrderCount = await _orderRepository.GetNewOrderCountByStatus((int)OrderStatus.New);
                 var acceptedOrderCount = await _orderRepository.GetNewOrderCountByStatus((int)OrderStatus.Confirmed);
+                var deliverableOrderCount = await _orderRepository.GetNewOrderCountByStatus((int)OrderStatus.Deliverable);
                 return new DobiHomePageResponse
                 {
                     Name = dobiInformation.Name,
@@ -98,7 +99,8 @@ namespace Dhobi.Business.Implementation
                     IcNumber = dobiInformation.IcNumber,
                     DrivingLicense = dobiInformation.DrivingLicense,
                     NewOrderCount = newOrderCount,
-                    AcceptedOrderCount = acceptedOrderCount
+                    AcceptedOrderCount = acceptedOrderCount,
+                    DeliveravbleOrderCount = deliverableOrderCount
                 };
             }
             catch (Exception ex)

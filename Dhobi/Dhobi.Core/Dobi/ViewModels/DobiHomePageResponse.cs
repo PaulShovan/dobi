@@ -16,5 +16,6 @@ namespace Dhobi.Core.Dobi.ViewModels
         public string DrivingLicense;
         public int AcceptedOrderCount;
         public int NewOrderCount;
+        public int DeliveravbleOrderCount;
     }
 }

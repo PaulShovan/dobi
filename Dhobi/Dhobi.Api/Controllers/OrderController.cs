@@ -44,6 +44,7 @@ namespace Dhobi.Api.Controllers
         }
         [HttpPost]
         [Route("v1/order")]
+        [Authorize]
         public async Task<IHttpActionResult> AddNewOrder(NewOrderViewModel order)
         {
             if (!ModelState.IsValid)

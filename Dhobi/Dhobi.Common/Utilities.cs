@@ -35,5 +35,10 @@ namespace Dhobi.Common
             var nowDateTime = (long)singaporetime.Subtract(new DateTime(1970, 1, 1, 0, 0, 0)).TotalMilliseconds;
             return nowDateTime;
         }
+        public static string GetFormattedDateFromMillisecond(long millisecond)
+        {
+            var date = (new DateTime(1970, 1, 1)).AddMilliseconds(double.Parse(millisecond.ToString()));
+            return date.ToLongDateString();
+        }
     }
 }

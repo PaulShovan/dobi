@@ -7,6 +7,8 @@ using Dhobi.Core;
 using Dhobi.Repository.Interface;
 using Dhobi.Core.UserSms;
 using Dhobi.Common;
+using Dhobi.Core.UserInbox.DbModels;
+using System.Collections.Generic;
 
 namespace Dhobi.Business.Implementation
 {
@@ -14,10 +16,12 @@ namespace Dhobi.Business.Implementation
     {
         private IUserRepository _userRepository;
         private IUserSmsRepository _userSmsRepository;
-        public UserBusiness(IUserRepository userRepository, IUserSmsRepository userSmsRepository)
+        private IUserMessageBusiness _userMessageBusiness;
+        public UserBusiness(IUserRepository userRepository, IUserSmsRepository userSmsRepository, IUserMessageBusiness userMessageBusiness)
         {
             _userRepository = userRepository;
             _userSmsRepository = userSmsRepository;
+            _userMessageBusiness = userMessageBusiness;
         }
         private string GetRandomApprovalCode()
         {

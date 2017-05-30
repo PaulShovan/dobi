@@ -4,6 +4,7 @@ using Dhobi.Business.Interface;
 using Dhobi.Common;
 using Dhobi.Core;
 using Dhobi.Core.Device.DbModels;
+using Dhobi.Core.UserInbox.DbModels;
 using Dhobi.Core.UserModel.DbModels;
 using Dhobi.Core.UserModel.ViewModels;
 using Dhobi.Repository.Interface;
@@ -21,16 +22,19 @@ namespace Dhobi.Api.Controllers
         private IPromoOfferBusiness _promoOfferBusiness;
         private IDeviceStatusBusiness _deviceStatusBusiness;
         private IDeviceStausRepository _deviceStatusRepository;
+        private IUserMessageBusiness _userMessageBusiness;
         private TokenGenerator _tokenGenerator;
         public UserController(IUserBusiness userBusiness, 
             IPromoOfferBusiness promoOfferBusiness,
             IDeviceStatusBusiness deviceStatusBusiness,
-            IDeviceStausRepository deviceStatusRepository)
+            IDeviceStausRepository deviceStatusRepository,
+            IUserMessageBusiness userMessageBusiness)
         {
             _userBusiness = userBusiness;
             _promoOfferBusiness = promoOfferBusiness;
             _deviceStatusBusiness = deviceStatusBusiness;
             _deviceStatusRepository = deviceStatusRepository;
+            _userMessageBusiness = userMessageBusiness;
             _tokenGenerator = new TokenGenerator();
         }
         private User GetUserInformationFromToken()
@@ -166,6 +170,37 @@ namespace Dhobi.Api.Controllers
                 return Ok(new ResponseModel<string>(ResponseStatus.BadRequest, "Device could not be removed.", ""));
             }
             return Ok(new ResponseModel<string>(ResponseStatus.Ok, "Device removes successfully.", ""));
+        }
+
+        [Authorize]
+        [Route("v1/user/message")]
+        [HttpGet]
+        public async Task<IHttpActionResult> GetUserMessage(int skip = 0, int limit = 10)
+        {
+            var user = GetUserInformationFromToken();
+            if(user == null || string.IsNullOrWhiteSpace(user.UserId))
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.BadRequest, null, "Invalid user."));
+            }
+            var messages = await _userMessageBusiness.GetUserMessage(user.UserId, skip, limit);
+            return Ok(new ResponseModel<List<UserMessageBasicInformation>>(ResponseStatus.Ok, messages, ""));
+        }
+        [Authorize]
+        [Route("v1/user/message/{id}")]
+        [HttpGet]
+        public async Task<IHttpActionResult> GetMessageById(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.BadRequest, null, "Invalid message id."));
+            }
+            var user = GetUserInformationFromToken();
+            if (user == null || string.IsNullOrWhiteSpace(user.UserId))
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.BadRequest, null, "Invalid user."));
+            }
+            var message = await _userMessageBusiness.GetMessageById(id);
+            return Ok(new ResponseModel<UserMessageBasicInformation>(ResponseStatus.Ok, message, ""));
         }
     }
 }

@@ -51,5 +51,55 @@ namespace Dhobi.Business.Implementation
                 throw new Exception("Error adding user message" + ex);
             }
         }
+
+        public async Task<List<UserMessageBasicInformation>> GetUserMessage(string userId, int skip, int limit)
+        {
+            try
+            {
+                var userMessage = new List<UserMessageBasicInformation>();
+                var messages = await _userMessageRepository.GetUserMessage(userId, skip, limit);
+                if(messages == null)
+                {
+                    return null;
+                }
+                messages.ForEach(m => userMessage.Add(new UserMessageBasicInformation
+                {
+                    Message = m.Message,
+                    MessageId = m.MessageId,
+                    Title = m.Title,
+                    Time = Utilities.GetFormattedDateFromMillisecond(m.Time),
+                    Status = m.Status
+                }));
+                return userMessage;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error getting user messages" + ex);
+            }
+        }
+
+        public async Task<UserMessageBasicInformation> GetMessageById(string messageId)
+        {
+            try
+            {
+                var message = await _userMessageRepository.GetMessageById(messageId);
+                if (message == null)
+                {
+                    return null;
+                }
+                return new UserMessageBasicInformation
+                {
+                    MessageId = message.MessageId,
+                    Message = message.Message,
+                    Title = message.Title,
+                    Time = Utilities.GetFormattedDateFromMillisecond(message.Time),
+                    Status = message.Status
+                };
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error getting user messages" + ex);
+            }
+        }
     }
 }

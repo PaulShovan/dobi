@@ -60,6 +60,7 @@
     <Compile Include="PromoOffer\ViewModels\PromoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserInbox\DbModels\UserMessage.cs" />
+    <Compile Include="UserInbox\DbModels\UserMessageBasicInformation.cs" />
     <Compile Include="UserSms\UserSms.cs" />
     <Compile Include="UserModel\DbModels\User.cs" />
     <Compile Include="UserModel\ViewModels\UserViewModel.cs" />

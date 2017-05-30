@@ -35,8 +35,9 @@
         PickedUp = 5,
         InProgress = 6,
         Processed = 7,
-        OnTheWay = 8,
-        Delivered = 9
+        Deliverable = 8,
+        OnTheWay = 9,
+        Delivered = 10
     }
     public enum MessageStatus
     {
