@@ -12,17 +12,13 @@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/plugins/toastr/angular-toastr.css" rel="stylesheet" />
     <link href="~/Content/plugins/ladda/ladda-themeless.min.css" rel="stylesheet" />
-    @*<link href="~/Content/inspinia.css" rel="stylesheet" />*@
-    @*<link href="~/Content/helper.css" rel="stylesheet" />
-        <link href="~/Content/Site.css" rel="stylesheet" />*@
     <link href="~/Content/login.css" rel="stylesheet" />
 </head>
-<body ng-app="app" ng-controller="loginCtrl">
 
+<body ng-app="app" ng-controller="loginCtrl">
     <div class="top-content">
         <div class="inner-bg">
             <div class="container">
-
                 <div class="row">
                     <div class="col-sm-5">
                         <div class="form-box">
@@ -38,7 +34,7 @@
                         <div class="form-box">
                             <form name="loginForm" class="dobi-login-form">
                                 <div ng-class="{ 'login-err-msg': loginForm.username.$touched && loginForm.username.$invalid }">
-                                    <label>Username</label> <br/>
+                                    <label>Username</label> <br />
                                     <input type="text" name="username" placeholder="Enter your username" required ng-model="Data.UserName">
                                     <div class="help-block" ng-messages="loginForm.username.$error" ng-if="loginForm.username.$touched">
                                         <p ng-message="required">Username is required.</p>
@@ -46,7 +42,7 @@
                                 </div>
 
                                 <div class="password-div" ng-class="{ 'login-err-msg': loginForm.password.$touched && loginForm.password.$invalid }">
-                                    <label>Password</label> <br/>
+                                    <label>Password</label> <br />
                                     <input type="password" name="password" placeholder="XXXXXXXXXXXX" required ng-model="Data.Password" ng-minlength="6" ng-maxlength="64">
                                     <div class="help-block" ng-messages="loginForm.password.$error" ng-if="loginForm.password.$touched">
                                         <p ng-message="required">Password is required.</p>
@@ -63,71 +59,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-    @*<div class="row login-gap"></div>
-        <div class="row">
-            <div class="col-md-5 login-dobi-img">
-                <img src="~/Content/images/login-dobi.jpg" class="img-responsive" alt="Dobi" />
-            </div>
-            <div class="col-md-1 login-dobi-border"></div>
-            <div class="col-md-3">
-                <form name="loginForm" class="login-form m-t">
-                    <div class="form-group" ng-class="{ 'has-error': loginForm.username.$touched && loginForm.username.$invalid }">
-                        <label>Username</label>
-                        <input type="text" name="username" class="form-control" placeholder="Enter your username" required ng-model="Data.UserName">
-                        <div class="help-block" ng-messages="loginForm.username.$error" ng-if="loginForm.username.$touched">
-                            <p ng-message="required">UserName is required.</p>
-                        </div>
-                    </div>
-                    <div class="form-group m-t-xl" ng-class="{ 'has-error': loginForm.password.$touched && loginForm.password.$invalid }">
-                        <label>Password</label>
-                        <input type="password" name="password" class="form-control" placeholder="XXXXXXXXXXXX" required ng-model="Data.Password" ng-minlength="6" ng-maxlength="64">
-                        <div class="help-block" ng-messages="loginForm.password.$error" ng-if="loginForm.password.$touched">
-                            <p ng-message="required">Password is required.</p>
-                            <div ng-message="minlength">Minimum 6 character required.</div>
-                            <div ng-message="maxlength">Maximum 64 character allowed.</div>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary block full-width m-b" ng-click="Methods.Login()" ng-disabled="loginForm.$invalid" ladda="loginLoading">Login</button>
-                </form>
-            </div>
-            <div class="col-md-3"></div>
-        </div>
-        <div class="row login-gap"></div>*@
-
-    @*<div class="middle-box text-center loginscreen animated fadeInDown">
-            <div>
-                <div>
-                    <h1 class="logo-name">Dobi</h1>
-                </div>
-                <div>
-                    <img src="~/Content/images/dobi.png" class="img-responsive img-circle dobi-img" alt="Dobi"/>
-                </div>
-                <h3 class="m-t">Login in. To see it in action</h3>
-                <form name="loginForm" class="m-t">
-                    <fieldset style="padding: 15px">
-                        <div class="form-group" ng-class="{ 'has-error': loginForm.username.$touched && loginForm.username.$invalid }">
-                            <input type="text" name="username" class="form-control" placeholder="Username" required ng-model="Data.UserName">
-                            <div class="help-block" ng-messages="loginForm.username.$error" ng-if="loginForm.username.$touched">
-                                <p ng-message="required">UserName is required.</p>
-                            </div>
-                        </div>
-                        <div class="form-group" ng-class="{ 'has-error': loginForm.password.$touched && loginForm.password.$invalid }">
-                            <input type="password" name="password" class="form-control" placeholder="Password" required ng-model="Data.Password" ng-minlength="6" ng-maxlength="64">
-                            <div class="help-block" ng-messages="loginForm.password.$error" ng-if="loginForm.password.$touched">
-                                <p ng-message="required">Password is required.</p>
-                                <div ng-message="minlength">Minimum 6 character required.</div>
-                                <div ng-message="maxlength">Maximum 64 character allowed.</div>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary block full-width m-b" ng-click="Methods.Login()" ng-disabled="loginForm.$invalid" ladda="loginLoading">Login</button>
-                    </fieldset>
-                </form>
-            </div>
-        </div>*@
 
     <script src="~/Scripts/urlConfig.js"></script>
     <script src="~/Scripts/jquery-3.1.1.min.js"></script>

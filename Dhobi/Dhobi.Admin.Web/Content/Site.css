@@ -1,42 +1,4 @@
-﻿/**Login Page **/
-.login-body {
-    color: #ffffff;
-    background-color: #E6354F;
-}
-    .login-body .login-gap {
-        min-height: 30vh;
-    }
-    .login-body .login-body {
-        min-height: 40vh;
-    }
-    .login-body .help-block {
-        color: #ffffff;
-    }
-.login-dobi-img img{
-    margin-left: 60%
-}
-.login-dobi-border {
-    border-left: 1px solid;
-    
-}
-.login-form label {
-    text-transform: uppercase;
-}
-.login-form input::-webkit-input-placeholder {
-    color: #ffffff;
-    font-size: 12px;
-}
-.login-form input {
-    background-color: #E6354F;
-    color: #ffffff;
-}
-.login-form input:hover, input:focus, input:after {
-    background-color: #E6354F;
-    color: #ffffff;
-}
-/**Login Page **/
-
-.wrapper-height {
+﻿.wrapper-height {
     min-height: 85vh;
     height: auto;
 }
