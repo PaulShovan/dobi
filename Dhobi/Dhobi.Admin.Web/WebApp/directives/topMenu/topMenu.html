@@ -1,15 +1,24 @@
 ﻿<nav role="navigation" class="navbar navbar-default m-b-none">
     <div class="navbar-header">
-        <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+        <!--<button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
-        </button>
-        <a href="#" class="navbar-brand">DOBI</a>
+        </button>-->
+        <a href="#" class="navbar-brand"><img src="../../../Content/images/dobi-menu.jpg"/></a>
+        <div class="pull-left dobi-title">
+            <div class="dobi-name">User</div>
+            <div class="dobi-role">Super Admin</div>
+        </div>
+
+        <div class="pull-right dobi-menu">
+            <i class="fa fa-home fa-2x cursor-pointer m-r-md" aria-hidden="true"></i>
+            <i class="fa fa-bars fa-2x cursor-pointer" aria-hidden="true"></i>
+        </div>
     </div>
 
-    <div id="navbarCollapse" class="collapse navbar-collapse navbar-top-links">
+    <!--<div id="navbarCollapse" class="collapse navbar-collapse navbar-top-links">
         <ul class="nav navbar-nav">
             <li ng-if="TopMenuData.ViewName == 'SuperAdmin'" ng-repeat="item in TopMenuData.SuperAdminMenues" ng-class="{active: $root.CURRENTSTATE.indexOf(item.Link)>-1}">
                 <a role="button" ui-sref="{{item.Link}}"><i class="fa {{item.Cls}}"></i> <span class="nav-label">{{item.Title}}</span></a>
@@ -39,5 +48,5 @@
             <li><a href="javascript:void(0)">{{TopMenuData.User.Name}}</a></li>
             <li><a href="javascript:void(0)" ng-click="TopMenuMethods.Logout()"><i class="fa fa-sign-out"></i> Logout</a></li>
         </ul>
-    </div>
+    </div>-->
 </nav>

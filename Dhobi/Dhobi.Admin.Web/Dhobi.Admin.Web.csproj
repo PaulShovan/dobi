@@ -162,6 +162,7 @@
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\helper.css" />
     <Content Include="Content\images\dobi-bg.jpg" />
+    <Content Include="Content\images\dobi-menu.jpg" />
     <Content Include="Content\images\dobi.png" />
     <Content Include="Content\images\fallback-dobi.png" />
     <Content Include="Content\images\login-dobi.jpg" />

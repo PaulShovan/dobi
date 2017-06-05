@@ -1,4 +1,4 @@
-﻿.wrapper-height {
+﻿/*.wrapper-height {
     min-height: 85vh;
     height: auto;
 }
@@ -45,4 +45,76 @@
 .dobi-pic {
     width: 20px;
     height: 20px;
+}*/
+
+.navbar {
+    min-height: 100px;
+}
+
+.navbar-header {
+    width: 100%;
+}
+
+.navbar-brand {
+    height: 100px;
+    padding: 20px 15px;
+}
+
+.dobi-title {
+    padding: 18px;
+}
+
+.dobi-name {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.dobi-role {
+    font-size: 20px;
+    font-weight: 600;
+    color: #E6354F;
+}
+
+.dobi-menu {
+    padding: 37px 20px;
+}
+
+.dashboard-wrapper {
+    min-height: 50vh;
+}
+
+    .dashboard-wrapper h1 {
+        font-weight: 800;
+    }
+
+.admin-btn button {
+    font-size: 14px;
+    width: 31.9%;
+    -moz-min-width: 130px;
+    -ms-min-width: 130px;
+    -o-min-width: 130px;
+    -webkit-min-width: 130px;
+    min-width: 130px;
+}
+
+.admin-btn button span {
+    white-space: normal;
+}
+
+
+
+
+
+
+
+@media (max-width: 767px) {
+    .dashboard-wrapper {
+        text-align: center;
+    }
+}
+
+@media (max-width: 415px) {
+    .dashboard-wrapper {
+        text-align: center;
+    }
 }
