@@ -160,8 +160,13 @@
     <Content Include="Content\center-spinner.css" />
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\helper.css" />
+    <Content Include="Content\images\dobi-bg.jpg" />
+    <Content Include="Content\images\dobi.png" />
     <Content Include="Content\images\fallback-dobi.png" />
+    <Content Include="Content\images\login-dobi.jpg" />
     <Content Include="Content\inspinia.css" />
+    <Content Include="Content\login.css" />
     <Content Include="Content\plugins\iCheck\custom.css" />
     <Content Include="Content\plugins\iCheck\green%402x.png" />
     <Content Include="Content\plugins\iCheck\green.png" />

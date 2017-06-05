@@ -1,13 +1,38 @@
 ﻿/**Login Page **/
-.dobi-img {
-    width: 92px;
-    margin: 0 auto;
-    margin-top: -129px;
-    margin-left: 138px;
+.login-body {
+    color: #ffffff;
+    background-color: #E6354F;
 }
-
-.loginscreen.middle-box {
-    width: 380px;
+    .login-body .login-gap {
+        min-height: 30vh;
+    }
+    .login-body .login-body {
+        min-height: 40vh;
+    }
+    .login-body .help-block {
+        color: #ffffff;
+    }
+.login-dobi-img img{
+    margin-left: 60%
+}
+.login-dobi-border {
+    border-left: 1px solid;
+    
+}
+.login-form label {
+    text-transform: uppercase;
+}
+.login-form input::-webkit-input-placeholder {
+    color: #ffffff;
+    font-size: 12px;
+}
+.login-form input {
+    background-color: #E6354F;
+    color: #ffffff;
+}
+.login-form input:hover, input:focus, input:after {
+    background-color: #E6354F;
+    color: #ffffff;
 }
 /**Login Page **/
 
@@ -29,13 +54,11 @@
     background-color: #828282;
     border-color: #606060;
 }
-
-    .btn-gray:hover {
+        .btn-gray:hover {
         color: #fff;
         background-color: #666666;
         border-color: #484646;
     }
-
 .drop-box {
     background: #ffffff;
     border: 1px dashed #DDD;
@@ -44,11 +67,9 @@
     padding-top: 4em;
     cursor: pointer;
 }
-
 .dragover {
     border: 2px dashed #21b9bb;
 }
-
 .ng-img-preview {
     margin: 0 auto;
     width: 200px;
@@ -56,61 +77,10 @@
     margin-left: -3%;
     margin-top: -10%;
 }
-
 .mid-icon {
     font-size: 66px;
 }
-
 .dobi-pic {
     width: 20px;
     height: 20px;
-}
-
-/* Custom Helpers Css */
-.m-t-none {
-    margin-top: 0;
-}
-
-.m-t-xs {
-    margin-top: 5px;
-}
-
-.m-t-sm {
-    margin-top: 10px;
-}
-
-.m-t-md {
-    margin-top: 15px;
-}
-
-.m-t-lg {
-    margin-top: 20px;
-}
-
-.m-b-none {
-    margin-bottom: 0;
-}
-
-.m-b-xs {
-    margin-bottom: 5px;
-}
-
-.m-b-sm {
-    margin-bottom: 10px;
-}
-
-.m-b-md {
-    margin-bottom: 15px;
-}
-
-.m-b-lg {
-    margin-bottom: 20px;
-}
-
-.cursor-pointer {
-    cursor: pointer;
-}
-
-.cursor-auto {
-    cursor: auto;
 }

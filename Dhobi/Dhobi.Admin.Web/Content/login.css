@@ -1,0 +1,169 @@
+﻿body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    color: #888;
+    line-height: 30px;
+    /*background-color: #E6354F;*/
+    background-image: url('images/dobi-bg.jpg');
+    background-repeat: repeat;
+}
+
+.inner-bg {
+    padding: 270px 0 0;
+}
+
+.form-box {
+    margin-top: 70px;
+}
+
+.dobi-image-center {
+    margin: 0 auto;
+}
+
+.middle-border {
+    min-height: 300px;
+    margin-top: 70px;
+    border-right: 1px solid #fff;
+    border-right: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.dobi-login-form {
+    color: #ffffff;
+}
+
+    .dobi-login-form input[type="text"], .dobi-login-form input[type="password"] {
+        outline: none;
+        font-size: 1.1em;
+        padding: 10px 2px 10px 0;
+        border: none;
+        margin: 0 0 5px 0;
+        font-family: 'Open Sans', sans-serif;
+        background: none;
+        border-bottom: 1px solid #eee;
+        color: white;
+        width: 77%;
+    }
+
+    .dobi-login-form label {
+        text-transform: uppercase;
+    }
+
+    .dobi-login-form .password-div {
+        margin-top: 35px;
+    }
+
+    .dobi-login-form .login-btn {
+        margin-top: 20px;
+        width: 78%;
+        height: 55px;
+        color: #ffffff;
+        font-weight: 600;
+        font-size: 20px;
+        -ms-border-radius: 10px;
+        border-radius: 10px;
+        text-transform: uppercase;
+    }
+    .dobi-login-form p {
+        font-size: 12px;
+        color: #d4d4d4;
+    }
+
+.login-err-msg {
+    color: #d4d4d4;
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: #e8dfe6;
+}
+
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #e8dfe6;
+    opacity: 1;
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #e8dfe6;
+    opacity: 1;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #e8dfe6;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: #e8dfe6;
+}
+
+/***** Media queries *****/
+@media (min-width: 1200px) and (max-width: 1366px) {
+    .inner-bg {
+        padding: 150px 0 !important;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+}
+
+@media (max-width: 767px) {
+    .middle-border {
+        min-height: auto;
+        margin: 65px 30px 0 30px;
+        border-right: 0;
+        border-top: 1px solid #fff;
+        border-top: 1px solid rgba(255, 255, 255, 0.6);
+    }
+
+    .inner-bg {
+        padding: 30px 0 !important;
+    }
+
+    .form-box {
+        text-align: center;
+    }
+
+    .dobi-login-form input[type="text"], .dobi-login-form input[type="password"] {
+        text-align: center;
+    }
+
+    ::-webkit-input-placeholder {
+        text-align: center;
+    }
+
+    :-moz-placeholder {
+        text-align: center;
+    }
+
+    ::-moz-placeholder {
+        text-align: center;
+    }
+
+    :-ms-input-placeholder {
+        text-align: center;
+    }
+
+    ::-ms-input-placeholder {
+        text-align: center;
+    }
+}
+
+@media (max-width: 415px) {
+    .inner-bg {
+        padding: 0 !important;
+    }
+
+    .form-box {
+        margin-top: 10px;
+    }
+
+    .middle-border {
+        min-height: auto;
+        margin: 5px 30px 0 30px;
+        border-right: 0;
+        border-top: 1px solid #fff;
+        border-top: 1px solid rgba(255, 255, 255, 0.6);
+    }
+}
