@@ -107,6 +107,25 @@
     min-width: 150px;
     border-radius: 8px;
 }
+
+.dobi-table thead {
+    background-color: #E6354F;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+    .dobi-table thead tr th {
+        height: 60px;
+        padding: 20px 10px;
+        text-transform: uppercase;
+    }
+    .dobi-table tbody tr td {
+        height: 60px;
+        vertical-align: middle;
+    }
+    .dobi-table tbody tr td i{
+        color: #999;
+    }
 /** End: Common **/
 
 
