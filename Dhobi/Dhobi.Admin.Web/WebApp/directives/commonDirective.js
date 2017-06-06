@@ -3,8 +3,10 @@
     
     app.directive('validateEmail', validateEmail);
     app.directive('fallbackSrc', fallbackSrc);
+    app.directive('autofocus', autofocus);
     app.directive('iCheck', iCheck);
     app.directive("limitTo", limitTo);
+    app.directive("onlyDigits", onlyDigits);
 
 
     /*** validateEmail - Directive for Validating email. Usage [ as attr ] [ validate-email ] will validate email type input. */
@@ -101,5 +103,27 @@
             }
         }
     }
+    
+    /*** only-digits - Directive for just input the digits, no special characters. Usage on html: [as attr]  [ only-digits ] will take just digits as input. */
+    function onlyDigits() {
+        return {
+            require: 'ngModel',
+            restrict: 'A',
+            link: function (scope, element, attr, ctrl) {
+                function inputValue(val) {
+                    if (val) {
+                        var digits = (val + '').replace(/[^0-9]/g, '');
 
+                        if (digits !== val) {
+                            ctrl.$setViewValue(digits);
+                            ctrl.$render();
+                        }
+                        return parseInt(digits, 10);
+                    }
+                    return undefined;
+                }
+                ctrl.$parsers.push(inputValue);
+            }
+        };
+    };
 });
