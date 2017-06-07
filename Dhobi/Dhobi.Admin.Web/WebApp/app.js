@@ -127,6 +127,15 @@
                     role: [app.RoleName.SuperAdmin]
                 }
             }))
+            .state('usermanage', angularAMD.route({
+                url: '/user/manage',
+                templateUrl: '/WebApp/views/user/userManage.html',
+                controllerUrl: 'controllers/user/userManageController',
+                controller: 'userManageController',
+                authorization: {
+                    role: [app.RoleName.SuperAdmin]
+                }
+            }))
             .state('managepromo', angularAMD.route({
                 url: '/promo/manage',
                 templateUrl: '/WebApp/views/promo/managePromo.html',

@@ -22,8 +22,10 @@
                                         <th></th>
                                         <th>Name</th>
                                         <th>ID</th>
-                                        <th>Phone</th>
+                                        <th>IC No.</th>
+                                        <th>Phone No.</th>
                                         <th>Driving License</th>
+                                        <th>Address</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -35,8 +37,10 @@
                                         </td>
                                         <td>{{dobi.Name}}</td>
                                         <td>{{dobi.DobiId}}</td>
+                                        <td>{{dobi.IcNumber}}</td>
                                         <td>{{dobi.Phone}}</td>
                                         <td>{{dobi.DrivingLicense}}</td>
+                                        <td>{{dobi.Address}}</td>
                                         <td>
                                             <!--<a class="btn btn-default btn-xs" href="#/dobi/details/{{dobi.DobiId}}">Details</a> |-->
                                             <a href="#/dobi/edit/{{dobi.DobiId}}"><i class="fa fa-pencil fa-2x"></i></a>

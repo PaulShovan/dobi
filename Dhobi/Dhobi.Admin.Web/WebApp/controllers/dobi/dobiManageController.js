@@ -7,7 +7,7 @@
 
         $scope.Data = {
             Dobies: [],
-            TotalDobies: null
+            TotalDobies: 0
         };
 
         $scope.Methods = {
