@@ -1,4 +1,5 @@
-﻿using Dhobi.Core.OrderModel.DbModels;
+﻿using Dhobi.Core.Dobi.DbModels;
+using Dhobi.Core.OrderModel.DbModels;
 using Dhobi.Core.OrderModel.ViewModels;
 using MongoDB.Bson;
 using System;
@@ -16,5 +17,7 @@ namespace Dhobi.Repository.Interface
         Task<int> GetNewOrderCountByStatus(int orderStatus);
         Task<List<BsonDocument>> GetOrdersGroupByZone(int orderStatus);
         Task<List<Order>> GetOrdersByZone(string zone, int orderStatus);
+        Task<Order> GetNewOrderForDobi(string serviceId);
+        Task<bool> SetOrderPickupDateTime(long date, string time, string serviceId, DobiBasicInformation dobi);
     }
 }

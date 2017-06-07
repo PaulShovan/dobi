@@ -58,6 +58,7 @@
     <Compile Include="OrderModel\ViewModels\NewOrderViewModel.cs" />
     <Compile Include="OrderModel\ViewModels\OrderByZoneViewModel.cs" />
     <Compile Include="OrderModel\ViewModels\OrderItemViewModel.cs" />
+    <Compile Include="OrderModel\ViewModels\OrderPickupTimeViewModel.cs" />
     <Compile Include="PromoOffer\DbModels\Promo.cs" />
     <Compile Include="PromoOffer\ViewModels\PromoOfferBasicInformation.cs" />
     <Compile Include="PromoOffer\ViewModels\PromoViewModel.cs" />

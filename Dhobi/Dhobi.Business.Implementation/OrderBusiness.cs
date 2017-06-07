@@ -12,6 +12,7 @@ using Dhobi.Core.UserModel.DbModels;
 using Dhobi.Core.PromoOffer.ViewModels;
 using Dhobi.Common;
 using MongoDB.Bson.Serialization;
+using Dhobi.Core.Dobi.DbModels;
 
 namespace Dhobi.Business.Implementation
 {
@@ -118,6 +119,42 @@ namespace Dhobi.Business.Implementation
             catch (Exception ex)
             {
                 throw new Exception("Error getting order by zone" + ex);
+            }
+        }
+
+        public async Task<OrderItemViewModel> GetNewOrderForDobi(string serviceId)
+        {
+            try
+            {
+                var order = await _orderRepository.GetNewOrderForDobi(serviceId);
+                if (order == null)
+                {
+                    return null;
+                }
+                return new OrderItemViewModel
+                {
+                    ServiceId = order.ServiceId,
+                    Address = order.Address,
+                    Name = order.OrderBy.Name,
+                    Status = order.Status
+                };
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error getting order" + ex);
+            }
+        }
+        public async Task<bool> SetOrderPickupDateTime(OrderPickupTimeViewModel order, Dobi dobi)
+        {
+            try
+            {
+                var orderPickupDate = Utilities.GetMillisecondFromDate(order.PickupDate);
+                var result = await _orderRepository.SetOrderPickupDateTime(orderPickupDate, order.PickupTime, order.ServiceId, dobi);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error setting pickup date time" + ex);
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using Dhobi.Core.OrderModel.DbModels;
+﻿using Dhobi.Core.Dobi.DbModels;
+using Dhobi.Core.OrderModel.DbModels;
 using Dhobi.Core.OrderModel.ViewModels;
 using Dhobi.Core.UserModel.DbModels;
 using System;
@@ -14,5 +15,7 @@ namespace Dhobi.Business.Interface
         Task<bool> AddNewOrder(NewOrderViewModel order, User orderedBy, string zone);
         Task<List<OrderByZoneViewModel>> GetOrdersGroupByZone(int orderStatus);
         Task<OrderByZoneViewModel> GetOrdersByZone(string zone, int orderStatus);
+        Task<OrderItemViewModel> GetNewOrderForDobi(string serviceId);
+        Task<bool> SetOrderPickupDateTime(OrderPickupTimeViewModel order, Dobi dobi);
     }
 }

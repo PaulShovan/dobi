@@ -2,6 +2,7 @@
 using Dhobi.Api.Models;
 using Dhobi.Business.Interface;
 using Dhobi.Common;
+using Dhobi.Core.Dobi.DbModels;
 using Dhobi.Core.OrderModel.ViewModels;
 using Dhobi.Core.UserModel.DbModels;
 using Dhobi.Service.Interface;
@@ -41,6 +42,21 @@ namespace Dhobi.Api.Controllers
             }
             var user = _tokenGenerator.GetUserFromToken(token);
             return user;
+        }
+        private Dobi GetDobiInformationFromToken()
+        {
+            IEnumerable<string> values;
+            var token = "";
+            if (Request.Headers.TryGetValues("Authorization", out values))
+            {
+                token = values.FirstOrDefault();
+            }
+            if (string.IsNullOrWhiteSpace(token))
+            {
+                return null;
+            }
+            var dobi = _tokenGenerator.GetDobiFromToken(token);
+            return dobi;
         }
         [HttpPost]
         [Route("v1/order")]
@@ -111,6 +127,39 @@ namespace Dhobi.Api.Controllers
                 return Ok(new ResponseModel<string>(ResponseStatus.NotFound, null, "No zone available."));
             }
             return Ok(new ResponseModel<List<string>>(ResponseStatus.Ok, zones, ""));
+        }
+        [HttpGet]
+        [Route("v1/order/new")]
+        [Authorize]
+        public async Task<IHttpActionResult> GetNewOrderForDobi(string id)
+        {
+            var order = await _orderBusiness.GetNewOrderForDobi(id);
+            if (order == null)
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.NotFound, null, "No order found."));
+            }
+            return Ok(new ResponseModel<OrderItemViewModel>(ResponseStatus.Ok, order, ""));
+        }
+        [HttpPost]
+        [Route("v1/order/new/setpickup")]
+        [Authorize]
+        public async Task<IHttpActionResult> SetOrderPickupDateTime(OrderPickupTimeViewModel order)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Invalid order pickup date or time.");
+            }
+            var dobi = GetDobiInformationFromToken();
+            if (dobi == null || string.IsNullOrEmpty(dobi.DobiId))
+            {
+                return BadRequest("Invalid User.");
+            }
+            var ack = await _orderBusiness.SetOrderPickupDateTime(order, dobi);
+            if (!ack)
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.BadRequest, null, "Pickup time and date not set."));
+            }
+            return Ok(new ResponseModel<string>(ResponseStatus.Ok, "", "Order pickup date time set successfully."));
         }
     }
 }
