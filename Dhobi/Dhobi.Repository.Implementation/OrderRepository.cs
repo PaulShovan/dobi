@@ -11,6 +11,7 @@ using Dhobi.Common;
 using Dhobi.Core.OrderModel.ViewModels;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
+using Dhobi.Core.Dobi.DbModels;
 
 namespace Dhobi.Repository.Implementation
 {
@@ -75,6 +76,25 @@ namespace Dhobi.Repository.Implementation
                 throw new Exception("Error getting orders"+ex);
             }
         }
+        public async Task<Order> GetNewOrderForDobi(string serviceId)
+        {
+            try
+            {
+                var builder = Builders<Order>.Filter;
+                var filter = builder.Eq(order => order.ServiceId, serviceId);
+                var projection = Builders<Order>.Projection.Exclude("_id")
+                    .Include(u => u.ServiceId)
+                    .Include(u => u.Address)
+                    .Include(u => u.OrderBy)
+                    .Include(u => u.Status);
+                var result = await Collection.Find(filter).Project<Order>(projection).FirstOrDefaultAsync();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error getting orders" + ex);
+            }
+        }
 
         public async Task<List<BsonDocument>> GetOrdersGroupByZone(int orderStatus)
         {
@@ -96,6 +116,28 @@ namespace Dhobi.Repository.Implementation
             {
 
                 throw new Exception("Error getting order by zone" + ex);
+            }
+        }
+
+        public async Task<bool> SetOrderPickupDateTime(long date, string time, string serviceId, DobiBasicInformation dobi)
+        {
+            try
+            {
+                var filter = Builders<Order>.Filter.Eq(d => d.ServiceId, serviceId);
+                var update = Builders<Order>.Update.Set(u => u.Status, (int)OrderStatus.Acknowledged)
+                                                   .Set(u => u.PickUpDate, date)
+                                                   .Set(u => u.PickUpTime, time)
+                                                   .Set(u => u.Dobi, dobi);
+                var projection = Builders<Order>.Projection.Exclude("_id");
+                var options = new FindOneAndUpdateOptions<Order, Order>();
+                options.ReturnDocument = ReturnDocument.After;
+                options.Projection = projection;
+                var result = await Collection.FindOneAndUpdateAsync(filter, update, options);
+                return !string.IsNullOrWhiteSpace(result.ServiceId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error setting pickup date time");
             }
         }
     }

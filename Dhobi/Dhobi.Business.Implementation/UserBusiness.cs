@@ -9,6 +9,8 @@ using Dhobi.Core.UserSms;
 using Dhobi.Common;
 using Dhobi.Core.UserInbox.DbModels;
 using System.Collections.Generic;
+using RestSharp;
+using RestSharp.Authenticators;
 
 namespace Dhobi.Business.Implementation
 {
@@ -43,6 +45,23 @@ namespace Dhobi.Business.Implementation
             }
             return await _userRepository.IsPhoneNumberAvailable(phoneNumber);
         }
+        public void SendSimpleMessage(string message)
+        {
+            RestClient client = new RestClient();
+            client.BaseUrl = new Uri("https://api.mailgun.net/v3");
+            client.Authenticator =
+            new HttpBasicAuthenticator("api",
+                                      "key-d10feb5464252457db5007ae2a9125e8");
+            RestRequest request = new RestRequest();
+            request.AddParameter("domain", "sandboxaeeb2e74c1e944d582c3af720389ff0c.mailgun.org", ParameterType.UrlSegment);
+            request.Resource = "{domain}/messages";
+            request.AddParameter("from", "Mailgun Sandbox <postmaster@sandboxaeeb2e74c1e944d582c3af720389ff0c.mailgun.org>");
+            request.AddParameter("to", "calldobitest@gmail.com");
+            request.AddParameter("subject", "Verification Code");
+            request.AddParameter("text", message);
+            request.Method = Method.POST;
+            client.Execute(request);
+        }
         public async Task<bool> SendUserSms(User user, SmsType smsType)
         {
             var approvalCode = GetRandomApprovalCode();
@@ -56,6 +75,10 @@ namespace Dhobi.Business.Implementation
                 SmsType = (int)smsType,
                 IsSent = 0
             };
+            #region
+            //email for test purpose only. it should be replaced to send SMS
+            SendSimpleMessage(userSms.Text);
+            #endregion
             return await _userSmsRepository.AddUserSms(userSms);
         }
         public async Task<User> AddUser(UserViewModel userModel)

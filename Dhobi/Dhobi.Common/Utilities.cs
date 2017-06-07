@@ -40,5 +40,13 @@ namespace Dhobi.Common
             var date = (new DateTime(1970, 1, 1)).AddMilliseconds(double.Parse(millisecond.ToString()));
             return date.ToLongDateString();
         }
+        public static long GetMillisecondFromDate(string date)
+        {
+            var givenDate = DateTime.Parse(date);
+            var timeZone = TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time");
+            var singaporetime = TimeZoneInfo.ConvertTimeFromUtc(givenDate, timeZone);
+            var nowDate = (long)singaporetime.Date.Subtract(new DateTime(1970, 1, 1, 0, 0, 0)).TotalMilliseconds;
+            return nowDate;
+        }
     }
 }
