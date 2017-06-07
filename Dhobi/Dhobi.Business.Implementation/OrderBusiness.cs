@@ -11,6 +11,7 @@ using Dhobi.Service.Interface;
 using Dhobi.Core.UserModel.DbModels;
 using Dhobi.Core.PromoOffer.ViewModels;
 using Dhobi.Common;
+using MongoDB.Bson.Serialization;
 
 namespace Dhobi.Business.Implementation
 {
@@ -63,6 +64,60 @@ namespace Dhobi.Business.Implementation
             catch (Exception ex)
             {
                 throw new Exception("Error placing order." + ex);
+            }
+        }
+
+        public async Task<List<OrderByZoneViewModel>> GetOrdersGroupByZone(int orderStatus)
+        {
+            try
+            {
+                var orders = new List<OrderByZoneViewModel>();
+                var bsonOrders = await _orderRepository.GetOrdersGroupByZone(orderStatus);
+                foreach (var order in bsonOrders)
+                {
+                    var deserializedOrder = BsonSerializer.Deserialize<OrderByZoneViewModel>(order);
+                    deserializedOrder.Orders = deserializedOrder.Orders.Take(5).ToList();
+                    orders.Add(deserializedOrder);
+                }
+                return orders;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error getting order by zone" + ex);
+            }
+        }
+        private List<OrderItemViewModel> GetOrderItems(List<Order> orders)
+        {
+            var orderItems = new List<OrderItemViewModel>();
+            foreach (var order in orders)
+            {
+                orderItems.Add(new OrderItemViewModel
+                {
+                    Status = order.Status,
+                    Name = order.OrderBy.Name,
+                    Address = order.Address,
+                    ServiceId = order.ServiceId
+                });
+            }
+            return orderItems;
+        }
+        public async Task<OrderByZoneViewModel> GetOrdersByZone(string zone, int orderStatus)
+        {
+            try
+            {
+                var orders = await _orderRepository.GetOrdersByZone(zone, orderStatus);
+                if(orders == null || orders.Count <= 0)
+                {
+                    return null;
+                }
+                return new OrderByZoneViewModel {
+                    Zone = zone,
+                    Orders = GetOrderItems(orders)
+                };
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error getting order by zone" + ex);
             }
         }
     }

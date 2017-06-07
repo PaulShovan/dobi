@@ -53,4 +53,9 @@
     {
         NewOrder = 1
     }
+    public enum LocationStatus
+    {
+        Inactive = 0,
+        Active = 1
+    }
 }

@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AvailableLoacation\DbModels\Location.cs" />
     <Compile Include="Device\DbModels\DeviceStatus.cs" />
     <Compile Include="Dobi\DbModels\Dobi.cs" />
     <Compile Include="Dobi\DbModels\DobiBasicInformation.cs" />
@@ -55,19 +56,20 @@
     <Compile Include="OrderModel\DbModels\Order.cs" />
     <Compile Include="OrderModel\DbModels\OrderItem.cs" />
     <Compile Include="OrderModel\ViewModels\NewOrderViewModel.cs" />
+    <Compile Include="OrderModel\ViewModels\OrderByZoneViewModel.cs" />
+    <Compile Include="OrderModel\ViewModels\OrderItemViewModel.cs" />
     <Compile Include="PromoOffer\DbModels\Promo.cs" />
     <Compile Include="PromoOffer\ViewModels\PromoOfferBasicInformation.cs" />
     <Compile Include="PromoOffer\ViewModels\PromoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserInbox\DbModels\UserMessage.cs" />
     <Compile Include="UserInbox\DbModels\UserMessageBasicInformation.cs" />
+    <Compile Include="UserInbox\ViewModels\UserMessageListViewModel.cs" />
     <Compile Include="UserSms\UserSms.cs" />
     <Compile Include="UserModel\DbModels\User.cs" />
     <Compile Include="UserModel\ViewModels\UserViewModel.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="UserInbox\ViewModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

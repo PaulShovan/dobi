@@ -3,8 +3,11 @@ using Dhobi.Api.Models;
 using Dhobi.Business.Interface;
 using Dhobi.Common;
 using Dhobi.Core;
+using Dhobi.Core.AvailableLoacation;
+using Dhobi.Core.AvailableLoacation.DbModels;
 using Dhobi.Core.Device.DbModels;
 using Dhobi.Core.UserInbox.DbModels;
+using Dhobi.Core.UserInbox.ViewModels;
 using Dhobi.Core.UserModel.DbModels;
 using Dhobi.Core.UserModel.ViewModels;
 using Dhobi.Repository.Interface;
@@ -23,18 +26,21 @@ namespace Dhobi.Api.Controllers
         private IDeviceStatusBusiness _deviceStatusBusiness;
         private IDeviceStausRepository _deviceStatusRepository;
         private IUserMessageBusiness _userMessageBusiness;
+        private IAvailableLocationBusiness _availableLocationBusiness;
         private TokenGenerator _tokenGenerator;
         public UserController(IUserBusiness userBusiness, 
             IPromoOfferBusiness promoOfferBusiness,
             IDeviceStatusBusiness deviceStatusBusiness,
             IDeviceStausRepository deviceStatusRepository,
-            IUserMessageBusiness userMessageBusiness)
+            IUserMessageBusiness userMessageBusiness,
+            IAvailableLocationBusiness availableLocationBusiness)
         {
             _userBusiness = userBusiness;
             _promoOfferBusiness = promoOfferBusiness;
             _deviceStatusBusiness = deviceStatusBusiness;
             _deviceStatusRepository = deviceStatusRepository;
             _userMessageBusiness = userMessageBusiness;
+            _availableLocationBusiness = availableLocationBusiness;
             _tokenGenerator = new TokenGenerator();
         }
         private User GetUserInformationFromToken()
@@ -104,6 +110,7 @@ namespace Dhobi.Api.Controllers
             if (isVerificationRequired)
             {
                 validatedUser = new ValidatedUserResponse(loggedInUser.Name, null, loggedInUser.UserId);
+                return Ok(new ResponseModel<ValidatedUserResponse>(ResponseStatus.Ok, validatedUser, ""));
             }
             var token = _tokenGenerator.GenerateUserToken(loggedInUser);
             validatedUser = new ValidatedUserResponse(loggedInUser.Name, token, null);
@@ -125,6 +132,18 @@ namespace Dhobi.Api.Controllers
                 Amount = promoOffer.Amount
             };
             return Ok(new ResponseModel<PromoOfferResponse>(ResponseStatus.Ok, promo, ""));
+        }
+        [Route("v1/user/availablelocation")]
+        [HttpGet]
+        [Authorize]
+        public async Task<IHttpActionResult> GetAvailableLocations()
+        {
+            var locations = await _availableLocationBusiness.GetLocationByStatus((int)LocationStatus.Active);
+            if (locations == null)
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.NotFound, null, "No location available"));
+            }
+            return Ok(new ResponseModel<List<Location>>(ResponseStatus.Ok, locations, ""));
         }
 
         [Authorize]
@@ -183,7 +202,7 @@ namespace Dhobi.Api.Controllers
                 return Ok(new ResponseModel<string>(ResponseStatus.BadRequest, null, "Invalid user."));
             }
             var messages = await _userMessageBusiness.GetUserMessage(user.UserId, skip, limit);
-            return Ok(new ResponseModel<List<UserMessageBasicInformation>>(ResponseStatus.Ok, messages, ""));
+            return Ok(new ResponseModel<UserMessageListViewModel>(ResponseStatus.Ok, messages, ""));
         }
         [Authorize]
         [Route("v1/user/message/{id}")]
@@ -201,6 +220,23 @@ namespace Dhobi.Api.Controllers
             }
             var message = await _userMessageBusiness.GetMessageById(id);
             return Ok(new ResponseModel<UserMessageBasicInformation>(ResponseStatus.Ok, message, ""));
+        }
+        [Authorize]
+        [Route("v1/user/validate/resend")]
+        [HttpGet]
+        public async Task<IHttpActionResult> ResendVerificationCode()
+        {
+            var user = GetUserInformationFromToken();
+            if (user == null || string.IsNullOrWhiteSpace(user.UserId))
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.BadRequest, null, "Invalid user."));
+            }
+            var message = await _userBusiness.SendUserSms(user, SmsType.NewLogin);
+            if (!message)
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.BadRequest, "Error sending message", ""));
+            }
+            return Ok(new ResponseModel<string>(ResponseStatus.Ok, "Message has been sent", ""));
         }
     }
 }

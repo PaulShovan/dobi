@@ -44,5 +44,17 @@ namespace Dhobi.Repository.Implementation
             }
             return messaages;
         }
+        public async Task<int> GetUserMessageCount(string userId)
+        {
+            try
+            {
+                var count = await Collection.CountAsync(o => o.UserId == userId);
+                return (int)count;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error getting order count" + ex);
+            }
+        }
     }
 }

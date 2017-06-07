@@ -1,4 +1,6 @@
 ﻿using Dhobi.Core.OrderModel.DbModels;
+using Dhobi.Core.OrderModel.ViewModels;
+using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +14,7 @@ namespace Dhobi.Repository.Interface
         Task<bool> AddNewOrder(Order order);
         Task<int> GetOrderCount();
         Task<int> GetNewOrderCountByStatus(int orderStatus);
+        Task<List<BsonDocument>> GetOrdersGroupByZone(int orderStatus);
+        Task<List<Order>> GetOrdersByZone(string zone, int orderStatus);
     }
 }

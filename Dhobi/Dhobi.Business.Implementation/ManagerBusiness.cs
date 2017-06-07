@@ -55,7 +55,7 @@ namespace Dhobi.Business.Implementation
                 {
                     return new GenericResponse<string>(false, "Error adding user");
                 }
-                return new GenericResponse<string>(false, "Manager added successfully.");
+                return new GenericResponse<string>(true, "Manager added successfully.");
             }
             catch (Exception exception)
             {

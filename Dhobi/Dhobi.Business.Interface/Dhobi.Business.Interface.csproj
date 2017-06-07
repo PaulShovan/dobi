@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAvailableLocationBusiness.cs" />
     <Compile Include="IDeviceStatusBusiness.cs" />
     <Compile Include="IDobiBusiness.cs" />
     <Compile Include="IManagerBusiness.cs" />
@@ -50,6 +51,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Dhobi.Common\Dhobi.Common.csproj">
+      <Project>{B559768E-27B5-47C0-AE30-0F113B02CEAF}</Project>
+      <Name>Dhobi.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dhobi.Core\Dhobi.Core.csproj">
       <Project>{404c3fcf-1350-4e7b-a072-b840b0dcdeb6}</Project>
       <Name>Dhobi.Core</Name>

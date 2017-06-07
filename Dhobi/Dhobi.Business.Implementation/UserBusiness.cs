@@ -43,7 +43,7 @@ namespace Dhobi.Business.Implementation
             }
             return await _userRepository.IsPhoneNumberAvailable(phoneNumber);
         }
-        private async Task<bool> SendUserSms(User user, SmsType smsType)
+        public async Task<bool> SendUserSms(User user, SmsType smsType)
         {
             var approvalCode = GetRandomApprovalCode();
             var userSms = new UserSms

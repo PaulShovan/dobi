@@ -1,4 +1,5 @@
 ﻿using Dhobi.Common;
+using Dhobi.Repository.Interface;
 using Dhobi.Service.Interface;
 using System;
 using System.Collections.Generic;
@@ -11,15 +12,27 @@ namespace Dhobi.Service.Implementation
 {
     public class LocationService : ILocationService
     {
-        private List<string> availableZones = new List<string>
+        private IAvailableLoacationRepository _availableLoacationRepository;
+        public LocationService(IAvailableLoacationRepository availableLoacationRepository)
         {
-            "Bukit Bintang"
-        };
+            _availableLoacationRepository = availableLoacationRepository;
+        }
+        private List<string> availableZones = new List<string>();
+        public async Task<List<string>> GetAvailableActiveZones()
+        {
+            var availableLocations = new List<string>();
+            var locations = await _availableLoacationRepository.GetAvailableActiveLocations();
+            foreach (var location in locations)
+            {
+                availableLocations.Add(location.LocationName);
+            }
+            return availableLocations;
+        }
         private string GetZoneNameFromGivenAddress(string address)
         {
             foreach (var zone in availableZones)
             {
-                if (address.Contains(zone))
+                if (address.ToLower().Contains(zone.ToLower()))
                 {
                     return zone;
                 }
@@ -51,9 +64,10 @@ namespace Dhobi.Service.Implementation
             }
             return null;
         }
-        public string GetZoneFromAddress(double lat, double lon, string address)
+        public async Task<string> GetZoneFromAddress(double lat, double lon, string address)
         {
             var zoneName = "";
+            availableZones = await GetAvailableActiveZones();
             zoneName = GetZoneNameFromGivenAddress(address);
             if (zoneName != null)
             {

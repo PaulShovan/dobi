@@ -12,5 +12,6 @@ namespace Dhobi.Repository.Interface
         Task<bool> AddUserMessage(UserMessage message);
         Task<List<UserMessage>> GetUserMessage(string userId, int skip, int limit);
         Task<UserMessage> GetMessageById(string messageId);
+        Task<int> GetUserMessageCount(string userId);
     }
 }

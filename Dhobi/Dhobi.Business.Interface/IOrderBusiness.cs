@@ -12,5 +12,7 @@ namespace Dhobi.Business.Interface
     public interface IOrderBusiness
     {
         Task<bool> AddNewOrder(NewOrderViewModel order, User orderedBy, string zone);
+        Task<List<OrderByZoneViewModel>> GetOrdersGroupByZone(int orderStatus);
+        Task<OrderByZoneViewModel> GetOrdersByZone(string zone, int orderStatus);
     }
 }

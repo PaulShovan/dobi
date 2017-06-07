@@ -46,6 +46,10 @@ namespace Dhobi.DependencyInjection
             kernel.Bind<IUserMessageRepository>().To<UserMessageRepository>();
             kernel.Bind<IUserMessageBusiness>().To<UserMessageBusiness>();
             #endregion
+            #region AvailableLocation
+            kernel.Bind<IAvailableLoacationRepository>().To<AvailableLoacationRepository>();
+            kernel.Bind<IAvailableLocationBusiness>().To<AvailableLocationBusiness>();
+            #endregion
 
         }
     }

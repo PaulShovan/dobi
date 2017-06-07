@@ -52,6 +52,10 @@
       <Project>{404c3fcf-1350-4e7b-a072-b840b0dcdeb6}</Project>
       <Name>Dhobi.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Dhobi.Repository.Interface\Dhobi.Repository.Interface.csproj">
+      <Project>{f3bbc6e3-9a99-451c-9b93-8c0a5458e3e1}</Project>
+      <Name>Dhobi.Repository.Interface</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dhobi.Service.Interface\Dhobi.Service.Interface.csproj">
       <Project>{085a72cd-4638-45f6-affa-def8164f2239}</Project>
       <Name>Dhobi.Service.Interface</Name>

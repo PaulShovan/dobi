@@ -8,6 +8,7 @@ namespace Dhobi.Service.Interface
 {
     public interface ILocationService
     {
-        string GetZoneFromAddress(double lat, double lon, string address);
+        Task<string> GetZoneFromAddress(double lat, double lon, string address);
+        Task<List<string>> GetAvailableActiveZones();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Dhobi.Business.Interface;
 using Dhobi.Common;
 using Dhobi.Core.UserInbox.DbModels;
+using Dhobi.Core.UserInbox.ViewModels;
 using Dhobi.Repository.Interface;
 using System;
 using System.Collections.Generic;
@@ -52,13 +53,14 @@ namespace Dhobi.Business.Implementation
             }
         }
 
-        public async Task<List<UserMessageBasicInformation>> GetUserMessage(string userId, int skip, int limit)
+        public async Task<UserMessageListViewModel> GetUserMessage(string userId, int skip, int limit)
         {
             try
             {
                 var userMessage = new List<UserMessageBasicInformation>();
                 var messages = await _userMessageRepository.GetUserMessage(userId, skip, limit);
-                if(messages == null)
+                var count = await _userMessageRepository.GetUserMessageCount(userId);
+                if(messages == null || count <= 0 || limit <= 0)
                 {
                     return null;
                 }
@@ -70,7 +72,10 @@ namespace Dhobi.Business.Implementation
                     Time = Utilities.GetFormattedDateFromMillisecond(m.Time),
                     Status = m.Status
                 }));
-                return userMessage;
+                return new UserMessageListViewModel {
+                    PageCount = (int)Math.Ceiling((double)count / limit),
+                    Messages = userMessage
+                };
             }
             catch (Exception ex)
             {

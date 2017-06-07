@@ -56,7 +56,7 @@ namespace Dhobi.Api.Controllers
             {
                 return BadRequest("Invalid User.");
             }
-            var zone = _locationService.GetZoneFromAddress(order.Latitude, order.Longitude, order.Address);
+            var zone = await _locationService.GetZoneFromAddress(order.Latitude, order.Longitude, order.Address);
             if(zone == null || string.IsNullOrEmpty(zone))
             {
                 return Ok(new ResponseModel<string>(ResponseStatus.BadRequest, null, "Service is not available for this address."));
@@ -67,6 +67,50 @@ namespace Dhobi.Api.Controllers
                 return Ok(new ResponseModel<string>(ResponseStatus.BadRequest, null, "Order was not processed successfully."));
             }
             return Ok(new ResponseModel<string>(ResponseStatus.Ok, null, "Order placed successfully."));
+        }
+        [HttpGet]
+        [Route("v1/order/groups")]
+        [Authorize]
+        public async Task<IHttpActionResult> GetOrdersGroupByZone(int status = 1)
+        {
+            if(status < 0)
+            {
+                return BadRequest("Invalid Order Status.");
+            }
+            var groupedOrders = await _orderBusiness.GetOrdersGroupByZone(status);
+            if(groupedOrders == null)
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.NotFound, null, "No order available."));
+            }
+            return Ok(new ResponseModel<List<OrderByZoneViewModel>>(ResponseStatus.Ok, groupedOrders, ""));
+        }
+        [HttpGet]
+        [Route("v1/order/groups/zone")]
+        [Authorize]
+        public async Task<IHttpActionResult> GetOrdersByZone(string zone, int status = 1)
+        {
+            if (status < 0 || string.IsNullOrWhiteSpace(zone))
+            {
+                return BadRequest("Invalid order status or zone.");
+            }
+            var groupedOrders = await _orderBusiness.GetOrdersByZone(zone, status);
+            if (groupedOrders == null)
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.NotFound, null, "No order available."));
+            }
+            return Ok(new ResponseModel<OrderByZoneViewModel>(ResponseStatus.Ok, groupedOrders, ""));
+        }
+        [HttpGet]
+        [Route("v1/order/zones")]
+        [Authorize]
+        public async Task<IHttpActionResult> GetAvailableZones()
+        {
+            var zones = await _locationService.GetAvailableActiveZones();
+            if (zones == null)
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.NotFound, null, "No zone available."));
+            }
+            return Ok(new ResponseModel<List<string>>(ResponseStatus.Ok, zones, ""));
         }
     }
 }
