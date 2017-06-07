@@ -80,7 +80,7 @@
 }
 
 .dashboard-wrapper {
-    min-height: 50vh;
+    min-height: 65vh;
 }
 
     .dashboard-wrapper h1 {
@@ -97,24 +97,141 @@
     min-width: 130px;
 }
 
-.admin-btn button span {
-    white-space: normal;
+    .admin-btn button span {
+        white-space: normal;
+    }
+
+
+/** Start: Common **/
+.dobi-submit-btn {
+    min-width: 150px;
+    border-radius: 8px;
 }
 
+.dobi-table thead {
+    background-color: #E6354F;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+    .dobi-table thead tr th {
+        height: 60px;
+        padding: 20px 10px;
+        text-transform: uppercase;
+    }
+    .dobi-table tbody tr td {
+        height: 60px;
+        vertical-align: middle;
+    }
+    .dobi-table tbody tr td i{
+        color: #999;
+    }
+/** End: Common **/
+
+
+/** Start:  Dobi Add **/
+.ibox-height {
+    min-height: 65vh;
+}
+
+.dobi-add-form input {
+    color: #555;
+    outline: none;
+    font-size: 1.1em;
+    padding: 10px 2px 10px 0;
+    border: none;
+    margin: 0 0 5px 0;
+    font-family: 'Open Sans', sans-serif;
+    background: none;
+    border-bottom: 1px solid #eee;
+    width: 85%;
+}
+
+.dobi-add-form .form-group {
+    margin-bottom: 30px;
+}
+
+.dobi-add-form .form-control:focus {
+    -webkit-box-shadow: none;
+    -ms-box-shadow: none;
+    box-shadow: none;
+}
+
+.dobi-add-form .has-error .form-control {
+    -webkit-box-shadow: none;
+    -ms-box-shadow: none;
+    box-shadow: none;
+}
+
+.dobi-add-form label {
+    color: #2470B7;
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.drop-box {
+    background: #ffffff;
+    border: 1px dashed #E6354F;
+    color: #E6354F;
+    min-height: 250px;
+    text-align: center;
+    padding-top: 5em;
+    cursor: pointer;
+    width: 250px;
+}
+
+.dragover {
+    border: 2px dashed #21b9bb;
+}
+
+.ng-img-preview {
+    margin: 0 auto;
+    width: 248px;
+    height: 248px;
+    margin-left: 0%;
+    margin-top: -21%;
+}
+
+.mid-icon {
+    font-size: 66px;
+}
+
+.dobi-pic {
+    width: 20px;
+    height: 20px;
+}
+/** End:  Dobi Add **/
 
 
 
 
 
+
+
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .dobi-add-form input {
+        width: 100%;
+    }
+}
 
 @media (max-width: 767px) {
     .dashboard-wrapper {
         text-align: center;
+    }
+
+    .dobi-add-form input {
+        width: 100%;
     }
 }
 
 @media (max-width: 415px) {
     .dashboard-wrapper {
         text-align: center;
+    }
+
+    .dobi-add-form input {
+        width: 100%;
     }
 }

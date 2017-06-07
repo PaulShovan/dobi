@@ -1,111 +1,123 @@
-﻿<div class="container">
-    <div class="row m-t-lg">
-        <div class="col-md-6">
-            <form name="dobiAddForm" novalidate>
-                <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.fullName.$touched && dobiAddForm.fullName.$invalid }">
-                    <input type="text" name="fullName" class="form-control" placeholder="Full Name" ng-model="Data.Dobi.Name" required>
-                    <div class="help-block" ng-messages="dobiAddForm.fullName.$error" ng-if="dobiAddForm.fullName.$touched">
-                        <p ng-message="required">Full Name is required.</p>
-                    </div>
+﻿<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox">
+            <div class="ibox-content ibox-height">
+                <div class="col-sm-12 m-b-md">
+                    <h2>Add New Dobi</h2>
                 </div>
-                <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.phoneNumber.$touched && dobiAddForm.phoneNumber.$invalid }">
-                    <input type="text" name="phoneNumber" class="form-control" placeholder="Phone Number" ng-model="Data.Dobi.Phone" required>
-                    <div class="help-block" ng-messages="dobiAddForm.phoneNumber.$error" ng-if="dobiAddForm.phoneNumber.$touched">
-                        <p ng-message="required">Phone Number is required.</p>
-                    </div>
-                </div>
-                <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.email.$touched && dobiAddForm.email.$invalid }">
-                    <input type="email" name="email" class="form-control" placeholder="Email Address" ng-model="Data.Dobi.Email" required validate-email>
-                    <div class="help-block" ng-messages="dobiAddForm.email.$error" ng-if="dobiAddForm.email.$touched">
-                        <p ng-message="required">Email is required.</p>
-                        <p ng-message="email">Invalid email address.</p>
-                    </div>
-                </div>
-                <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.address.$touched && dobiAddForm.address.$invalid }">
-                    <input type="text" name="address" class="form-control" placeholder="Address" ng-model="Data.Dobi.Address" required>
-                    <div class="help-block" ng-messages="dobiAddForm.address.$error" ng-if="dobiAddForm.address.$touched">
-                        <p ng-message="required">Address is required.</p>
-                    </div>
-                </div>
-                <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.emergencyContact.$touched && dobiAddForm.emergencyContact.$invalid }">
-                    <input type="text" name="emergencyContact" class="form-control" placeholder="Emergency Contact Number" ng-model="Data.Dobi.EmergencyContactNumber" required>
-                    <div class="help-block" ng-messages="dobiAddForm.emergencyContact.$error" ng-if="dobiAddForm.emergencyContact.$touched">
-                        <p ng-message="required">Emergency Contact is required.</p>
-                    </div>
-                </div>
-                <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.passportNo.$touched && dobiAddForm.passportNo.$invalid }">
-                    <input type="text" name="passportNo" class="form-control" placeholder="Passport Number" ng-model="Data.Dobi.PassportNumber" required>
-                    <div class="help-block" ng-messages="dobiAddForm.passportNo.$error" ng-if="dobiAddForm.passportNo.$touched">
-                        <p ng-message="required">Passport No. is required.</p>
-                    </div>
-                </div>
-                <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.icNumber.$touched && dobiAddForm.icNumber.$invalid }">
-                    <input type="text" name="icNumber" class="form-control" placeholder="IC No." ng-model="Data.Dobi.IcNumber" required>
-                    <div class="help-block" ng-messages="dobiAddForm.icNumber.$error" ng-if="dobiAddForm.icNumber.$touched">
-                        <p ng-message="required">IC Number is required.</p>
-                    </div>
-                </div>
-                <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.drivingLicense.$touched && dobiAddForm.drivingLicense.$invalid }">
-                    <input type="text" name="drivingLicense" class="form-control" placeholder="Driving License" ng-model="Data.Dobi.DrivingLicense" required>
-                    <div class="help-block" ng-messages="dobiAddForm.drivingLicense.$error" ng-if="dobiAddForm.drivingLicense.$touched">
-                        <p ng-message="required">Driving License is required.</p>
-                    </div>
-                </div>
-                <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.age.$touched && dobiAddForm.age.$invalid }">
-                    <input type="text" name="age" class="form-control" placeholder="Age" ng-model="Data.Dobi.Age" required>
-                    <div class="help-block" ng-messages="dobiAddForm.age.$error" ng-if="dobiAddForm.age.$touched">
-                        <p ng-message="required">Age is required.</p>
-                    </div>
-                </div>
-                <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.sex.$touched && dobiAddForm.sex.$invalid }">
-                    <!--<input type="text" name="sex" class="form-control" placeholder="Sex" ng-model="Data.Dobi.Sex" required>-->
-                    <div class="form-group form-inline">
-                        <div class="checkbox-inline i-checks">
-                            <label> <input type="radio" value="male" name="gender" ng-model="Data.Dobi.Sex" i-check> <i></i> Male </label>
+                <form name="dobiAddForm" class="dobi-add-form" novalidate>
+                    <div class="col-sm-12 col-md-4">
+                        <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.fullName.$touched && dobiAddForm.fullName.$invalid }">
+                            <label>Full Name</label>
+                            <input type="text" name="fullName" class="form-control" placeholder="Enter full name" ng-model="Data.Dobi.Name" required>
+                            <div class="help-block" ng-messages="dobiAddForm.fullName.$error" ng-if="dobiAddForm.fullName.$touched">
+                                <p ng-message="required">Full Name is required.</p>
+                            </div>
                         </div>
-                        <div class="checkbox-inline i-checks">
-                            <label> <input type="radio" value="female" name="gender" ng-model="Data.Dobi.Sex" i-check> <i></i> Female </label>
+                        <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.phoneNumber.$touched && dobiAddForm.phoneNumber.$invalid }">
+                            <label>Phone Number</label>
+                            <input type="text" name="phoneNumber" class="form-control" placeholder="Enter phone number" ng-model="Data.Dobi.Phone" required>
+                            <div class="help-block" ng-messages="dobiAddForm.phoneNumber.$error" ng-if="dobiAddForm.phoneNumber.$touched">
+                                <p ng-message="required">Phone Number is required.</p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.email.$touched && dobiAddForm.email.$invalid }">
+                            <label>Email Address</label>
+                            <input type="email" name="email" class="form-control" placeholder="Enter email address" ng-model="Data.Dobi.Email" required validate-email>
+                            <div class="help-block" ng-messages="dobiAddForm.email.$error" ng-if="dobiAddForm.email.$touched">
+                                <p ng-message="required">Email is required.</p>
+                                <p ng-message="email">Invalid email address.</p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.address.$touched && dobiAddForm.address.$invalid }">
+                            <label>Address</label>
+                            <input type="text" name="address" class="form-control" placeholder="Enter address" ng-model="Data.Dobi.Address" required>
+                            <div class="help-block" ng-messages="dobiAddForm.address.$error" ng-if="dobiAddForm.address.$touched">
+                                <p ng-message="required">Address is required.</p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.emergencyContact.$touched && dobiAddForm.emergencyContact.$invalid }">
+                            <label>Emergency Number</label>
+                            <input type="text" name="emergencyContact" class="form-control" placeholder="Enter emergency contact number" ng-model="Data.Dobi.EmergencyContactNumber" required only-digits>
+                            <div class="help-block" ng-messages="dobiAddForm.emergencyContact.$error" ng-if="dobiAddForm.emergencyContact.$touched">
+                                <p ng-message="required">Emergency Contact is required.</p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.passportNo.$touched && dobiAddForm.passportNo.$invalid }">
+                            <label>Passport Number</label>
+                            <input type="text" name="passportNo" class="form-control" placeholder="Enter passport number" ng-model="Data.Dobi.PassportNumber" required only-digits>
+                            <div class="help-block" ng-messages="dobiAddForm.passportNo.$error" ng-if="dobiAddForm.passportNo.$touched">
+                                <p ng-message="required">Passport No. is required.</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="help-block" ng-messages="dobiAddForm.sex.$error" ng-if="dobiAddForm.sex.$touched">
-                        <p ng-message="required">Sex is required.</p>
-                    </div>
-                </div>
-                <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.salary.$touched && dobiAddForm.salary.$invalid }">
-                    <input type="text" name="salary" class="form-control" placeholder="Salary" ng-model="Data.Dobi.Salary" required>
-                    <div class="help-block" ng-messages="dobiAddForm.salary.$error" ng-if="dobiAddForm.salary.$touched">
-                        <p ng-message="required">Salary is required.</p>
-                    </div>
-                </div>
-            </form>
-        </div>
 
-        <div class="col-md-2"></div>
+                    <div class="col-sm-12 col-md-4">
+                        <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.icNumber.$touched && dobiAddForm.icNumber.$invalid }">
+                            <label>IC Number</label>
+                            <input type="text" name="icNumber" class="form-control" placeholder="Enter IC number" ng-model="Data.Dobi.IcNumber" required only-digits>
+                            <div class="help-block" ng-messages="dobiAddForm.icNumber.$error" ng-if="dobiAddForm.icNumber.$touched">
+                                <p ng-message="required">IC Number is required.</p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.drivingLicense.$touched && dobiAddForm.drivingLicense.$invalid }">
+                            <label>Driving License</label>
+                            <input type="text" name="drivingLicense" class="form-control" placeholder="Enter driving license number" ng-model="Data.Dobi.DrivingLicense" required >
+                            <div class="help-block" ng-messages="dobiAddForm.drivingLicense.$error" ng-if="dobiAddForm.drivingLicense.$touched">
+                                <p ng-message="required">Driving License is required.</p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.age.$touched && dobiAddForm.age.$invalid }">
+                            <label>Age</label>
+                            <input type="text" name="age" class="form-control" placeholder="Enter age" ng-model="Data.Dobi.Age" required only-digits limit-to="2">
+                            <div class="help-block" ng-messages="dobiAddForm.age.$error" ng-if="dobiAddForm.age.$touched">
+                                <p ng-message="required">Age is required.</p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.sex.$touched && dobiAddForm.sex.$invalid }">
+                            <!--<input type="text" name="sex" class="form-control" placeholder="Sex" ng-model="Data.Dobi.Sex" required>-->
+                            <div class="form-group form-inline">
+                                <div class="checkbox-inline i-checks">
+                                    <label> <input type="radio" value="male" name="gender" ng-model="Data.Dobi.Sex" i-check> <i></i> Male </label>
+                                </div>
+                                <div class="checkbox-inline i-checks">
+                                    <label> <input type="radio" value="female" name="gender" ng-model="Data.Dobi.Sex" i-check> <i></i> Female </label>
+                                </div>
+                            </div>
+                            <div class="help-block" ng-messages="dobiAddForm.sex.$error" ng-if="dobiAddForm.sex.$touched">
+                                <p ng-message="required">Sex is required.</p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.salary.$touched && dobiAddForm.salary.$invalid }">
+                            <label>Monthly Salary (RM)</label>
+                            <input type="text" name="salary" class="form-control" placeholder="Enter salary" ng-model="Data.Dobi.Salary" required only-digits limit-to="10">
+                            <div class="help-block" ng-messages="dobiAddForm.salary.$error" ng-if="dobiAddForm.salary.$touched">
+                                <p ng-message="required">Salary is required.</p>
+                            </div>
+                        </div>
+                    </div>
 
-        <div class="col-md-4">
-            <div class="form-group">
-                <div ngf-drop ngf-select ng-model="files" class="drop-box"
-                     ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true"
-                     accept="image/*,application/pdf" ngf-validate="{size: {min: 10, max: '20MB'}}"
-                     ngf-pattern="'image/*'">
-                    <span ng-if="!files.length"><i class="fa fa-user mid-icon"></i><br>UPLOAD IMAGE</span>
-                    <span><img class="animated fadeIn ng-img-preview" ngf-src="!files[0].$error && files[0]"></span>
-                </div>
-                <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
-                <div class="help-block">
-                    <p class="text-error" ng-if="!files.length && Data.FileErrorMsg">{{Data.FileErrorMsg}}</p>
-                </div>
+                    <div class="col-sm-12 col-md-4">
+                        <div class="form-group">
+                            <div ngf-drop ngf-select ng-model="files" class="drop-box"
+                                 ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true"
+                                 accept="image/*,application/pdf" ngf-validate="{size: {min: 10, max: '20MB'}}"
+                                 ngf-pattern="'image/*'">
+                                <span ng-if="!files.length"><i class="fa fa-user mid-icon"></i><br>Drag an Image here or<br> browse for an image to upload</span>
+                                <span><img class="animated fadeIn ng-img-preview" ngf-src="!files[0].$error && files[0]"></span>
+                            </div>
+                            <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+                            <div class="help-block">
+                                <p class="text-error" ng-if="!files.length && Data.FileErrorMsg">{{Data.FileErrorMsg}}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-success dobi-submit-btn pull-right" ng-click="Methods.AddNewDobi(files)" ng-disabled="dobiAddForm.$invalid" ladda="httpLoading">SAVE</button>
+                    </div>    
+                </form>
             </div>
         </div>
     </div>
-
-    <div class="row m-t-lg">
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
-            <!--<button type="submit" class="btn btn-gray btn-block center-block" ng-click="Methods.AddNewDobi(files)" ng-disabled="dobiAddForm.$invalid" ladda="httpLoading">Add</button>-->
-            <button type="submit" class="btn btn-primary block full-width m-b" ng-click="Methods.AddNewDobi(files)" ng-disabled="dobiAddForm.$invalid" ladda="httpLoading">Add</button>
-        </div>
-        <div class="col-md-4"></div>
-    </div>
-
 </div>
