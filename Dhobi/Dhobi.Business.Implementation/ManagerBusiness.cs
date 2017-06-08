@@ -27,29 +27,21 @@ namespace Dhobi.Business.Implementation
         {
             return await _managerRepository.IsUserNameAvailable(userName);
         }
-        public async Task<GenericResponse<string>> AddManager(ManagerViewModel managerViewModel, ManagerBasicInformation addedBy)
+        public async Task<GenericResponse<string>> AddManager(Manager manager)
         {
             try
             {
-                if(!await IsEmailAvailable(managerViewModel.Email))
+                if(!await IsEmailAvailable(manager.Email))
                 {
                     return new GenericResponse<string>(false, "Email is not available.");
                 }
-                if (!await IsUserNameAvailable(managerViewModel.UserName))
+                if (!await IsUserNameAvailable(manager.UserName))
                 {
                     return new GenericResponse<string>(false, "Username is not available.");
                 }
-                var manager = new Manager();
                 manager.UserId = Guid.NewGuid().ToString();
-                manager.Password = _passwordHasher.GetHashedPassword(managerViewModel.Password);
+                manager.Password = _passwordHasher.GetHashedPassword(manager.Password);
                 manager.JoinDate = (long)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1, 0, 0, 0)).TotalMilliseconds;
-                manager.Email = managerViewModel.Email;
-                manager.Address = managerViewModel.Address;
-                manager.Name = managerViewModel.Name;
-                manager.Roles = managerViewModel.Roles;
-                manager.UserName = managerViewModel.UserName;
-                manager.AddedBy = addedBy;
-
                 var response = await _managerRepository.AddManager(manager);
                 if (!response)
                 {
