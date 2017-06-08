@@ -45,7 +45,7 @@
                         </div>
                         <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.passportNo.$touched && dobiAddForm.passportNo.$invalid }">
                             <label>Passport Number</label>
-                            <input type="text" name="passportNo" class="form-control" placeholder="Enter passport number" ng-model="Data.Dobi.PassportNumber" required only-digits>
+                            <input type="text" name="passportNo" class="form-control" placeholder="Enter passport number" ng-model="Data.Dobi.PassportNumber" required>
                             <div class="help-block" ng-messages="dobiAddForm.passportNo.$error" ng-if="dobiAddForm.passportNo.$touched">
                                 <p ng-message="required">Passport No. is required.</p>
                             </div>
