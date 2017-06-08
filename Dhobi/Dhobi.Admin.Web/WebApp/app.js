@@ -118,11 +118,11 @@
                     role: [app.RoleName.SuperAdmin]
                 }
             }))
-            .state('manageradd', angularAMD.route({
-                url: '/manager/add',
-                templateUrl: '/WebApp/views/superAdmin/manager/managerAdd.html',
-                controllerUrl: 'controllers/superAdmin/manager/managerAddController',
-                controller: 'managerAddController',
+            .state('useradd', angularAMD.route({
+                url: '/user/add',
+                templateUrl: '/WebApp/views/user/userAdd.html',
+                controllerUrl: 'controllers/user/userAddController',
+                controller: 'userAddController',
                 authorization: {
                     role: [app.RoleName.SuperAdmin]
                 }

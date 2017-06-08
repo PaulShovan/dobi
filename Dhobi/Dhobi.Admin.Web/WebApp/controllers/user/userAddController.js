@@ -1,10 +1,10 @@
 ﻿define(['app', 'underscore', 'i-check'], function (app, _) {
-    app.controller('managerAddController', ['$scope', 'apiConstant', 'httpService', '$state', 'toastr',
+    app.controller('userAddController', ['$scope', 'apiConstant', 'httpService', '$state', 'toastr',
         function ($scope, apiConstant, httpService, $state, toastr) {
             "use strict";
 
             $scope.Data = {
-                Manager: {
+                User: {
                     Name: "",
                     Phone: "",
                     Email: "",
@@ -26,22 +26,23 @@
                 Init: function () {
 
                 },
-                AddNewManager: function (files) {
+
+                AddNewUser: function (files) {
                     if (!files || files.length <= 0) {
                         $scope.Data.FileErrorMsg = "Please Upload a file";
                         return;
                     } else {
-                        httpService.postMultipart(apiConstant.addNewManager, { Files: files }, $scope.Data.Manager, "New Manager Added Successfully", function (response) {
+                        httpService.postMultipart(apiConstant.addNewUser, { Files: files }, $scope.Data.User, "New User Added Successfully", function (response) {
                             if (response.status === 200) {
                                 toastr.success(response.Message, "Success!");
-                                //$state.go('managermanage');
+                                //$state.go('usermanage');
                             }
                         });
                     }
                 }
             };
 
-            console.log("Add Manager Controller");
+            console.log("Add User Controller");
             $scope.Methods.Init();
         }]);
 });

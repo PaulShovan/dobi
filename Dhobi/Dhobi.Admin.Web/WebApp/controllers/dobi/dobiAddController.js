@@ -36,7 +36,7 @@
                             if (response.status === 200) {
                                 toastr.success(response.Message, "Success!");
                                 $scope.httpLoading = false;
-                                //$state.go('dobimanage');
+                                $state.go('dobimanage');
                             }
                         });
                     }
