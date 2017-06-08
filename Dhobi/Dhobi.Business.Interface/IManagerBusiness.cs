@@ -7,7 +7,7 @@ namespace Dhobi.Business.Interface
 {
     public interface IManagerBusiness
     {
-        Task<GenericResponse<string>> AddManager(ManagerViewModel managerViewModel, ManagerBasicInformation addedBy);
+        Task<GenericResponse<string>> AddManager(Manager manager);
         Task<bool> IsEmailAvailable(string email);
         Task<bool> IsUserNameAvailable(string userName);
         Task<ManagerBasicInformation> ManagerLogin(LoginViewModel loginModel);
