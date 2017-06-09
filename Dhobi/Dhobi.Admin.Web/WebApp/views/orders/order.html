@@ -1,23 +1,25 @@
-﻿<div class="container m-t-xl">
+﻿<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox">
+            <div class="ibox-content ibox-height">
+                <div class="col-sm-3 m-b-sm">
+                    <h2>All Orders</h2>
+                </div>
+                <div class="col-sm-6 m-b-sm">
+                    | Date ^ Move To
+                </div>
+                <div class="col-sm-3 m-b-sm">
+                    <div class="input-group">
+                        <input type="text" placeholder="Search order" class="input-sm form-control" ng-model="q"> <span class="input-group-btn">
+                            <button type="button" class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <p>
-                <button type="button" class="btn btn-outline btn-primary">New Orders</button>
-                <button type="button" class="btn btn-outline btn-primary">Order Accepted</button>
-                <button type="button" class="btn btn-outline btn-primary">Delivered</button>
-            </p>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="ibox">
-                <div class="ibox-content" id="ng-loading-spinner">
+                <div class="col-sm-12">
                     <div class="full-height-scroll">
                         <div class="table-responsive">
-                            <!--<table class="table table-responsive table-hover" ng-if="Data.Dobies.length > 0">-->
-                            <table class="table table-responsive table-hover">
+                            <table class="table table-responsive table-striped dobi-table" ng-if="Data.Orders.length > 0">
                                 <thead>
                                     <tr>
                                         <th></th>
@@ -28,39 +30,36 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr dir-paginate="order in Data.Orders | filter:q | itemsPerPage: pageSize" current-page="currentPage" total-items="Data.TotalDobies" id="highlight{{$index}}">
-                                        <td>
-                                            <img class="img-circle img-responsive dobi-pic" fallback-src="../../../../Content/images/fallback-dobi.png" ng-src="{{order.ClientPhoto}}" alt="{{order.ClientName}}" />
-                                            <span class="m-l-sm">{{order.ClientName}}</span>
-                                        </td>
-                                        <td>{{order.ClientName}}</td>
-                                        <td>{{order.ClientAddress}}</td>
-                                        <td>{{order.Phone}}</td>
-                                        <td>
-                                            <a class="btn btn-default btn-xs" href="#/dobi/details/{{order.OrderId}}">Details</a> |
-                                            <a class="btn btn-default btn-xs" href="#/dobi/edit/{{order.OrderId}}">Edit</a>
-                                        </td>
-                                    </tr>
+                                <tr dir-paginate="order in Data.Orders | filter:q | itemsPerPage: pageSize" current-page="currentPage" total-items="Data.TotalOrders" id="highlight{{$index}}">
+                                    <td></td>
+                                    <td>{{order.ClientName}}</td>
+                                    <td>{{order.ClientAddress}}</td>
+                                    <td>{{order.Phone}}</td>
+                                    <td class="text-center">
+                                        <!--<a class="btn btn-default btn-xs" href="#/dobi/details/{{dobi.DobiId}}">Details</a> |-->
+                                        <a href="#/dobi/edit/{{dobi.DobiId}}"><i class="fa fa-pencil fa-2x text-muted"></i></a>
+                                    </td>
+                                </tr>
                                 </tbody>
                             </table>
-                            <!--<div ng-if="!Data.Dobies.length">
+                            <div ng-if="!Data.Orders.length">
                                 <div class="col-lg-12">
                                     <h2 class="text-center">No Order is available.</h2>
                                 </div>
-                            </div>-->
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="col-lg-12">
-            <div class="text">
-                <div class="text-center">
-                    <dir-pagination-controls boundary-links="true" on-page-change="Methods.PageChangeHandler(newPageNumber)" template-url="WebApp/directives/pager/dirPagination.tpl.html"></dir-pagination-controls>
+                <div class="row m-t-md">
+                    <div class="col-sm-12">
+                        <div class="dobi-pi-calc pull-left" ng-if="Data.TotalOrders > 0">Showing {{ Data.ShowingFrom }} - {{ Data.ShowingTo }} of {{Data.TotalOrders}} Orders </div>
+                        <div class="pull-right">
+                            <dir-pagination-controls boundary-links="true" on-page-change="Methods.PageChangeHandler(newPageNumber)" template-url="WebApp/directives/pager/dirPagination.tpl.html"></dir-pagination-controls>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
-
 </div>

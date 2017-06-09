@@ -8,7 +8,9 @@
 
             $scope.Data = {
                 Orders: [],
-                TotalOrders: null
+                TotalOrders: 0,
+                ShowingFrom: 0,
+                ShowingTo: 0
             };
 
             $scope.Methods = {
@@ -21,6 +23,8 @@
                         $timeout(function () {
                             $scope.Data.Orders = orders.Data.OrderList;
                             $scope.Data.TotalOrders = orders.Data.TotalOrders;
+                            $scope.Data.ShowingFrom = skip + 1;
+                            $scope.Data.ShowingTo = skip + orders.Data.OrderList.length;
                         });
                     }, true);
                 },
