@@ -5,6 +5,8 @@ using MongoDB.Driver;
 using System.Threading.Tasks;
 using System;
 using Dhobi.Core.Manager.ViewModels;
+using System.Collections.Generic;
+using Dhobi.Common;
 
 namespace Dhobi.Repository.Implementation
 {
@@ -35,7 +37,38 @@ namespace Dhobi.Repository.Implementation
             }
             return true;
         }
-
+        public async Task<int> GetManagerCount()
+        {
+            var count = await Collection.CountAsync(m => m.Status != (int)ManagerStatus.Removed);
+            return (int)count;
+        }
+        public async Task<bool> RemoveManager(string managerId)
+        {
+            var update = Builders<Manager>.Update.Set(d => d.Status, (int)ManagerStatus.Removed);
+            var filter = Builders<Manager>.Filter.Eq(d => d.UserId, managerId);
+            var projection = Builders<Manager>.Projection.Exclude("_id");
+            var options = new FindOneAndUpdateOptions<Manager, Manager>();
+            options.IsUpsert = false;
+            options.ReturnDocument = ReturnDocument.After;
+            options.Projection = projection;
+            var result = await Collection.FindOneAndUpdateAsync(filter, update, options);
+            return !string.IsNullOrWhiteSpace(result.UserId);
+        }
+        public async Task<List<Manager>> GetManager(int skip, int limit)
+        {
+            try
+            {
+                var sortBuilder = Builders<Manager>.Sort;
+                var sortOrder = sortBuilder.Ascending(s => s.JoinDate);
+                var projection = Builders<Manager>.Projection.Exclude("_id").Exclude(s => s.AddedBy);
+                var managers = await Collection.Find(d => d.Status != (int)ManagerStatus.Removed).Project<Manager>(projection).Sort(sortOrder).Skip(skip).Limit(limit).ToListAsync();
+                return managers;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error getting manager." + ex);
+            }
+        }
         public async Task<ManagerBasicInformation> ManagerLogin(LoginViewModel loginModel)
         {
             try

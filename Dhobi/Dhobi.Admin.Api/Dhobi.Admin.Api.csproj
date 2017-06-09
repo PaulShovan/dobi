@@ -224,6 +224,7 @@
     <Compile Include="Helpers\StorageService.cs" />
     <Compile Include="Helpers\TokenGenerator.cs" />
     <Compile Include="Models\DobiListResponse.cs" />
+    <Compile Include="Models\ManagerListResponse.cs" />
     <Compile Include="Models\ManagerLoginResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />

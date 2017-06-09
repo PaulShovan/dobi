@@ -15,5 +15,6 @@
         public string Sex;
         public double Salary;
         public string Photo;
+        public int Status;
     }
 }

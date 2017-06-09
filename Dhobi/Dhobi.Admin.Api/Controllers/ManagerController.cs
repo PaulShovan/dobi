@@ -5,6 +5,7 @@ using Dhobi.Common;
 using Dhobi.Core;
 using Dhobi.Core.Manager.DbModels;
 using Dhobi.Core.Manager.ViewModels;
+using Dhobi.Repository.Interface;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -20,6 +21,7 @@ namespace Dhobi.Admin.Api.Controllers
     public class ManagerController : ApiController
     {
         private IManagerBusiness _managerBusiness;
+        private IManagerRepository _managerRepository;
         private TokenGenerator _tokenGenerator;
         private StorageService _storageService;
         public ManagerController(IManagerBusiness managerBusiness)
@@ -42,7 +44,38 @@ namespace Dhobi.Admin.Api.Controllers
             var user = _tokenGenerator.GetUserFromToken(token);
             return user;
         }
-
+        [Route("v1/manager")]
+        [HttpGet]
+        [Authorize(Roles = "Superadmin")]
+        public async Task<IHttpActionResult> GetManager(int skip = 0, int limit = 10)
+        {
+            if (skip < 0 || limit < 1)
+            {
+                return BadRequest("Invalid pagination data.");
+            }
+            var managers = await _managerRepository.GetManager(skip, limit);
+            var totalManager = await _managerRepository.GetManagerCount();
+            var response = new ManagerListResponse
+            {
+                ManagerList = managers,
+                TotalManager = totalManager
+            };
+            return Ok(new GenericResponse<ManagerListResponse>(true, response));
+        }
+        //[Route("v1/manager/{id}")]
+        //[HttpDelete]
+        //[Authorize(Roles = "Superadmin")]
+        //public async Task<IHttpActionResult> RemoveManager(string id)
+        //{
+        //    var managers = await _managerRepository.GetManager(skip, limit);
+        //    var totalManager = await _managerRepository.GetManagerCount();
+        //    var response = new ManagerListResponse
+        //    {
+        //        ManagerList = managers,
+        //        TotalManager = totalManager
+        //    };
+        //    return Ok(new GenericResponse<ManagerListResponse>(true, response));
+        //}
         [HttpPost]
         [Route("v1/manager")]
         [Authorize(Roles = "Superadmin")]

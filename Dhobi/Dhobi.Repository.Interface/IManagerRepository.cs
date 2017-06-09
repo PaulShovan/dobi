@@ -1,6 +1,7 @@
 ﻿using Dhobi.Core.Manager.DbModels;
 using Dhobi.Core.Manager.ViewModels;
 using Dhobi.Repository.Interface.Base;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Dhobi.Repository.Interface
@@ -11,5 +12,7 @@ namespace Dhobi.Repository.Interface
         Task<bool> IsEmailAvailable(string email);
         Task<bool> IsUserNameAvailable(string userName);
         Task<ManagerBasicInformation> ManagerLogin(LoginViewModel loginModel);
+        Task<List<Manager>> GetManager(int skip, int limit);
+        Task<int> GetManagerCount();
     }
 }

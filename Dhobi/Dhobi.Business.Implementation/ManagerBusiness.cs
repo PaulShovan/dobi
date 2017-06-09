@@ -42,6 +42,7 @@ namespace Dhobi.Business.Implementation
                 manager.UserId = Guid.NewGuid().ToString();
                 manager.Password = _passwordHasher.GetHashedPassword(manager.Password);
                 manager.JoinDate = (long)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1, 0, 0, 0)).TotalMilliseconds;
+                manager.Status = (int)ManagerStatus.Active;
                 var response = await _managerRepository.AddManager(manager);
                 if (!response)
                 {

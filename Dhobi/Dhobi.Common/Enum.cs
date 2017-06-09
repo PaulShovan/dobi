@@ -58,4 +58,10 @@
         Inactive = 0,
         Active = 1
     }
+    public enum ManagerStatus
+    {
+        Active = 1,
+        Inactive = 2,
+        Removed = 3
+    }
 }
