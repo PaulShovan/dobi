@@ -16,16 +16,18 @@
                 <div class="col-sm-12">
                     <div class="full-height-scroll">
                         <div class="table-responsive">
-                            <table class="table table-responsive table-striped dobi-table" ng-if="Data.Dobies.length > 0">
+                            <table class="table table-responsive table-striped dobi-table" ng-if="Data.Users.length > 0">
                                 <thead>
                                     <tr>
                                         <th></th>
                                         <th>Name</th>
+                                        <th>User Name</th>
                                         <th>ID</th>
                                         <th>IC NO.</th>
                                         <th>Phone</th>
                                         <th>Driving License</th>
                                         <th>Privilege</th>
+                                        <th>Address</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -36,14 +38,16 @@
                                             <span class="m-l-sm">{{user.FullName}}</span>
                                         </td>
                                         <td>{{user.Name}}</td>
-                                        <td>{{user.DobiId}}</td>
+                                        <td>{{user.UserName}}</td>
+                                        <td>{{user.UserId}}</td>
                                         <td>{{user.IcNumber}}</td>
                                         <td>{{user.Phone}}</td>
                                         <td>{{user.DrivingLicense}}</td>
-                                        <td>{{user.Role}}</td>
+                                        <td>{{user.Roles[0]}}</td>
+                                        <td>{{user.Address}}</td>
                                         <td class="text-center">
-                                            <a href="#/dobi/details/{{dobi.DobiId}}"><i class="fa fa-trash fa-2x"></i></a>
-                                            <a href="#/dobi/edit/{{dobi.DobiId}}"><i class="fa fa-pencil fa-2x"></i></a>
+                                            <a href="#/dobi/details/{{dobi.DobiId}}" class="m-r-sm"><i class="fa fa-trash fa-2x text-muted"></i></a>
+                                            <a href="#/dobi/edit/{{dobi.DobiId}}" class="m-l-sm"><i class="fa fa-pencil fa-2x text-muted"></i></a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -57,13 +61,15 @@
                     </div>
                 </div>
 
-                <div class="col-sm-12">
-                    <div class="text">
-                        <div class="text-center">
+                <div class="row m-t-md">
+                    <div class="col-sm-12">
+                        <div class="dobi-pi-calc pull-left" ng-if="Data.TotalUsers > 0">Showing {{ Data.ShowingFrom }} - {{ Data.ShowingTo }} of {{Data.TotalUsers}} Users </div>
+                        <div class="pull-right">
                             <dir-pagination-controls boundary-links="true" on-page-change="Methods.PageChangeHandler(newPageNumber)" template-url="WebApp/directives/pager/dirPagination.tpl.html"></dir-pagination-controls>
                         </div>
                     </div>
                 </div>
+
 
             </div>
         </div>

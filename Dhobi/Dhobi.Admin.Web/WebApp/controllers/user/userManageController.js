@@ -7,7 +7,9 @@
 
         $scope.Data = {
             Users: [],
-            TotalUsers: 0
+            TotalUsers: 0,
+            ShowingFrom: 0,
+            ShowingTo: 0
         };
 
         $scope.Methods = {
@@ -18,8 +20,10 @@
                 var skip = (pageNumber - 1) * $scope.pageSize;
                 httpService.get(apiConstant.getAllUser + "?skip=" + skip, function (user) {
                     $timeout(function () {
-                        $scope.Data.Users = user.Data.DobiList;
-                        $scope.Data.TotalUsers = user.Data.TotalDobi;
+                        $scope.Data.Users = user.Data.ManagerList;
+                        $scope.Data.TotalUsers = user.Data.TotalManager;
+                        $scope.Data.ShowingFrom = skip + 1;
+                        $scope.Data.ShowingTo = skip + user.Data.ManagerList.length;
                     });
                 }, true);
             },

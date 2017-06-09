@@ -8,7 +8,7 @@
                 <div class="col-sm-3 m-b-sm">
                     <div class="input-group">
                         <input type="text" placeholder="Search dobi" class="input-sm form-control" ng-model="q"> <span class="input-group-btn">
-                            <button type="button" class="btn btn-sm btn-primary"> Go!</button>
+                            <button type="button" class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
                         </span>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                 </div>
                 <div class="row m-t-md">
                     <div class="col-sm-12">
-                        <div class="dobi-pi-calc pull-left">Showing {{ Data.ShowingFrom }} - {{ Data.ShowingTo }} of {{Data.TotalDobies}} orders </div>
+                        <div class="dobi-pi-calc pull-left" ng-if="Data.TotalDobies > 0">Showing {{ Data.ShowingFrom }} - {{ Data.ShowingTo }} of {{Data.TotalDobies}} Dobies </div>
                         <div class="pull-right">
                             <dir-pagination-controls boundary-links="true" on-page-change="Methods.PageChangeHandler(newPageNumber)" template-url="WebApp/directives/pager/dirPagination.tpl.html"></dir-pagination-controls>
                         </div>
@@ -68,76 +68,4 @@
             </div>
         </div>
     </div>
-
-
-
-    <!--<div class="row">
-        <div class="col-md-4">
-            <a class="btn btn-primary btn-sm m-b-sm" ui-sref="dobiadd"><i class="fa fa-plus-circle"></i> ADD NEW DOBI</a>
-        </div>
-
-        <div class="col-md-4"></div>
-
-        <div class="col-md-4">
-            <div class="input-group">
-                <input type="text" placeholder="Search dobi" class="input-sm form-control" ng-model="q"> <span class="input-group-btn">
-                    <button type="button" class="btn btn-sm btn-primary"> Go!</button>
-                </span>
-            </div>
-        </div>
-    </div>-->
-    <!--<div class="row">
-        <div class="col-lg-12">
-            <div class="ibox">
-                <div class="ibox-content" id="ng-loading-spinner">
-                    <div class="full-height-scroll">
-                        <div class="table-responsive">
-                            <table class="table table-responsive table-hover" ng-if="Data.Dobies.length > 0">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Name</th>
-                                        <th>ID</th>
-                                        <th>Phone</th>
-                                        <th>Driving License</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr dir-paginate="dobi in Data.Dobies | filter:q | itemsPerPage: pageSize" current-page="currentPage" total-items="Data.TotalDobies" id="highlight{{$index}}">
-                                        <td>
-                                            <img class="img-circle img-responsive dobi-pic" fallback-src="../../../../Content/images/fallback-dobi.png" ng-src="{{dobi.Photo}}" alt="{{dobi.FullName}}" />
-                                            <span class="m-l-sm">{{dobi.FullName}}</span>
-                                        </td>
-                                        <td>{{dobi.Name}}</td>
-                                        <td>{{dobi.DobiId}}</td>
-                                        <td>{{dobi.Phone}}</td>
-                                        <td>{{dobi.DrivingLicense}}</td>
-                                        <td>
-                                            <a class="btn btn-default btn-xs" href="#/dobi/details/{{dobi.DobiId}}">Details</a> |
-                                            <a class="btn btn-default btn-xs" href="#/dobi/edit/{{dobi.DobiId}}">Edit</a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div ng-if="!Data.Dobies.length">
-                                <div class="col-lg-12">
-                                    <h2 class="text-center">No Dobi is available.</h2>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-12">
-            <div class="text">
-                <div class="text-center">
-                    <dir-pagination-controls boundary-links="true" on-page-change="Methods.PageChangeHandler(newPageNumber)" template-url="WebApp/directives/pager/dirPagination.tpl.html"></dir-pagination-controls>
-                </div>
-            </div>
-        </div>
-    </div>-->
-
 </div>

@@ -24,9 +24,10 @@ namespace Dhobi.Admin.Api.Controllers
         private IManagerRepository _managerRepository;
         private TokenGenerator _tokenGenerator;
         private StorageService _storageService;
-        public ManagerController(IManagerBusiness managerBusiness)
+        public ManagerController(IManagerBusiness managerBusiness, IManagerRepository managerRepository)
         {
             _managerBusiness = managerBusiness;
+            _managerRepository = managerRepository;
             _tokenGenerator = new TokenGenerator();
         }
         private ManagerBasicInformation GetManagerInformationFromToken()
