@@ -32,7 +32,6 @@
                     </div>
 
                 </div>
-
             </div>
         </div>
     </div>
@@ -41,15 +40,15 @@
 
 <script type="text/ng-template" id="navation-tpl">
 
-    <td><input type="text" placeholder="Eid Offer" class="form-control" ng-model="model.Nav.Text" required></td>
+    <td><input type="text" placeholder="Eid Offer" class="form-control" ng-model="model.Nav.Text" required autofocus></td>
     <td><input type="number" class="form-control" ng-model="model.Nav.Amount" required only-digits limit-to="3"></td>
     <td>
         <input type="datetime" name="fromDate" class="form-control cursor-pointer" date-time ng-model="model.Nav.StartDate"
-               view="date" auto-close="true" min-view="Data.MinDate" format="ddd, MMM DD, YYYY" min-date="Data.MinDate" required>
+               view="date" auto-close="true" min-view="date" min-date="Data.MinDate" format="ddd, MMM DD, YYYY" required>
     </td>
     <td>
-        <input type="datetime" name="toDate" class="form-control cursor-pointer bg-white" date-time ng-model="model.Nav.EndDate"
-               view="date" auto-close="true" min-view="Data.MinDate" format="ddd, MMM DD, YYYY" min-date="Data.MinDate" required>
+        <input type="datetime" name="toDate" class="form-control cursor-pointer" date-time ng-model="model.Nav.EndDate"
+               view="date" auto-close="true" min-view="date" min-date="Data.MinDate" format="ddd, MMM DD, YYYY" required>
     </td>
     <td><a ng-click="Methods.RemoveOffer(model.Navigations, $index)"><i class="fa fa-trash fa-2x text-danger"></i></a></td>
 

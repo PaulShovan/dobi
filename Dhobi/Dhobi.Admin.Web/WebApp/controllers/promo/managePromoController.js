@@ -23,7 +23,7 @@
 
             $scope.Methods = {
                 Init: function () {
-                    //$scope.Methods.AddNewOffer(new newoffer());
+                    $scope.Methods.AddNewOffer($scope.Data.Offer.Navigations);
                 },
                 AddNewOffer: function (offers) {
                     offers.push(new newoffer());
@@ -34,6 +34,11 @@
                 AddOrUpdatePromo: function () {
                     var api = apiConstant.addPromo;
                     var message = "Promo is Created";
+
+                    _.each($scope.Data.Offer.Navigations, function(navigation) {
+                        navigation.StartDate = moment().valueOf(navigation.StartDate);
+                        navigation.EndDate = moment().valueOf(navigation.EndDate);
+                    });
 
                     var listPromo = $scope.Data.Offer.Navigations;
                     //var obj = { Text: $scope.Data.ConfigId, name: $scope.Data.WebCrawling.Name, config: $scope.Data.WebCrawling };

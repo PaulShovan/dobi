@@ -108,21 +108,28 @@
     border-radius: 8px;
 }
 
-.dobi-table>thead {
+.dobi-table > thead {
     background-color: #E6354F;
     color: #ffffff;
     font-size: 14px;
 }
 
-    .dobi-table thead tr th {
-        height: 60px;
-        padding: 20px 10px;
-        text-transform: uppercase;
-    }
-    .dobi-table tbody tr td {
-        height: 60px;
-        vertical-align: middle;
-    }
+.dobi-table thead tr th {
+    height: 60px;
+    padding: 20px 10px;
+    text-transform: uppercase;
+}
+
+.dobi-table tbody tr td {
+    height: 60px;
+    vertical-align: middle;
+}
+
+.dobi-pi-calc {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2470B7;
+}
 /** End: Common **/
 
 
@@ -206,10 +213,12 @@
     color: #E6354F;
     font-weight: 600;
 }
-.add-offer i {
-    font-size: 18px;
-    color: #2470b7;
-}
+
+    .add-offer i {
+        font-size: 18px;
+        color: #2470b7;
+    }
+
 .dobi-promo-form input {
     color: #555;
     outline: none;

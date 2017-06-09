@@ -20,6 +20,7 @@
                                 <thead>
                                     <tr>
                                         <th></th>
+                                        <th></th>
                                         <th>Name</th>
                                         <th>ID</th>
                                         <th>IC No.</th>
@@ -30,22 +31,23 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr dir-paginate="dobi in Data.Dobies | filter:q | itemsPerPage: pageSize" current-page="currentPage" total-items="Data.TotalDobies" id="highlight{{$index}}">
-                                        <td>
-                                            <img class="img-circle img-responsive dobi-pic" fallback-src="../../../../Content/images/fallback-dobi.png" ng-src="{{dobi.Photo}}" alt="{{dobi.FullName}}" />
-                                            <span class="m-l-sm">{{dobi.FullName}}</span>
-                                        </td>
-                                        <td>{{dobi.Name}}</td>
-                                        <td>{{dobi.DobiId}}</td>
-                                        <td>{{dobi.IcNumber}}</td>
-                                        <td>{{dobi.Phone}}</td>
-                                        <td>{{dobi.DrivingLicense}}</td>
-                                        <td>{{dobi.Address}}</td>
-                                        <td>
-                                            <!--<a class="btn btn-default btn-xs" href="#/dobi/details/{{dobi.DobiId}}">Details</a> |-->
-                                            <a href="#/dobi/edit/{{dobi.DobiId}}"><i class="fa fa-pencil fa-2x text-muted"></i></a>
-                                        </td>
-                                    </tr>
+                                <tr dir-paginate="dobi in Data.Dobies | filter:q | itemsPerPage: pageSize" current-page="currentPage" total-items="Data.TotalDobies" id="highlight{{$index}}">
+                                    <td>{{$index}}</td>
+                                    <td>
+                                        <img class="img-circle img-responsive dobi-pic" fallback-src="../../../../Content/images/fallback-dobi.png" ng-src="{{dobi.Photo}}" alt="{{dobi.FullName}}"/>
+                                        <span class="m-l-sm">{{dobi.FullName}}</span>
+                                    </td>
+                                    <td>{{dobi.Name}}</td>
+                                    <td>{{dobi.DobiId}}</td>
+                                    <td>{{dobi.IcNumber}}</td>
+                                    <td>{{dobi.Phone}}</td>
+                                    <td>{{dobi.DrivingLicense}}</td>
+                                    <td>{{dobi.Address}}</td>
+                                    <td>
+                                        <!--<a class="btn btn-default btn-xs" href="#/dobi/details/{{dobi.DobiId}}">Details</a> |-->
+                                        <a href="#/dobi/edit/{{dobi.DobiId}}"><i class="fa fa-pencil fa-2x text-muted"></i></a>
+                                    </td>
+                                </tr>
                                 </tbody>
                             </table>
                             <div ng-if="!Data.Dobies.length">
@@ -56,10 +58,10 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="col-sm-12">
-                    <div class="text">
-                        <div class="text-center">
+                <div class="row m-t-md">
+                    <div class="col-sm-12">
+                        <div class="dobi-pi-calc">Showing {{ Data.ShowingFrom }} - {{ Data.ShowingTo }} of {{Data.TotalDobies}} orders </div>
+                        <div class="pull-right">
                             <dir-pagination-controls boundary-links="true" on-page-change="Methods.PageChangeHandler(newPageNumber)" template-url="WebApp/directives/pager/dirPagination.tpl.html"></dir-pagination-controls>
                         </div>
                     </div>
