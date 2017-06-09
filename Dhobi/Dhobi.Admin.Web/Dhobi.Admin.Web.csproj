@@ -210,6 +210,7 @@
     <Content Include="WebApp\controllers\orders\orderController.js" />
     <Content Include="WebApp\controllers\user\userAddController.js" />
     <Content Include="WebApp\controllers\promo\managePromoController.js" />
+    <Content Include="WebApp\controllers\user\userManageController.js" />
     <Content Include="WebApp\controllers\viewSwitchController.js" />
     <Content Include="WebApp\directives\commonDirective.js" />
     <Content Include="WebApp\directives\loader\loader.html" />
@@ -261,6 +262,7 @@
     <Content Include="WebApp\views\orders\order.html" />
     <Content Include="WebApp\views\user\userAdd.html" />
     <Content Include="WebApp\views\promo\managePromo.html" />
+    <Content Include="WebApp\views\user\userManage.html" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

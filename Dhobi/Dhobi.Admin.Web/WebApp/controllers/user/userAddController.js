@@ -6,6 +6,8 @@
             $scope.Data = {
                 User: {
                     Name: "",
+                    UserName: "",
+                    Password: "",
                     Phone: "",
                     Email: "",
                     Address: "",
@@ -17,7 +19,7 @@
                     Sex: "male",
                     Salary: "",
                     Photo: [],
-                    SelectedRole: "admin"
+                    Roles: "admin"
                 },
                 FileErrorMsg: null
             };

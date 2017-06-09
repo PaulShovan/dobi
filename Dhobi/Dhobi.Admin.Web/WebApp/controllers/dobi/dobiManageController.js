@@ -7,7 +7,9 @@
 
         $scope.Data = {
             Dobies: [],
-            TotalDobies: null
+            TotalDobies: 0,
+            ShowingFrom: 0,
+            ShowingTo: 0
         };
 
         $scope.Methods = {
@@ -20,6 +22,8 @@
                     $timeout(function() {
                         $scope.Data.Dobies = dobi.Data.DobiList;
                         $scope.Data.TotalDobies = dobi.Data.TotalDobi;
+                        $scope.Data.ShowingFrom = skip + 1;
+                        $scope.Data.ShowingTo = skip + dobi.Data.DobiList.length;
                     });
                 }, true);
             },

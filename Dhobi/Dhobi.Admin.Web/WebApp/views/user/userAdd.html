@@ -15,6 +15,22 @@
                                 <p ng-message="required">Full Name is required.</p>
                             </div>
                         </div>
+                        
+                        <div class="form-group" ng-class="{ 'has-error' : userAddForm.userName.$touched && userAddForm.userName.$invalid }">
+                            <label>UserName</label>
+                            <input type="text" name="userName" class="form-control" placeholder="Enter username" ng-model="Data.User.UserName" required>
+                            <div class="help-block" ng-messages="userAddForm.userName.$error" ng-if="userAddForm.userName.$touched">
+                                <p ng-message="required">UserName is required.</p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : userAddForm.password.$touched && userAddForm.password.$invalid }">
+                            <label>Password</label>
+                            <input type="password" name="password" class="form-control" placeholder="Enter password" ng-model="Data.User.Password" required>
+                            <div class="help-block" ng-messages="userAddForm.password.$error" ng-if="userAddForm.password.$touched">
+                                <p ng-message="required">Password is required.</p>
+                            </div>
+                        </div>
+
                         <div class="form-group" ng-class="{ 'has-error' : userAddForm.phoneNumber.$touched && userAddForm.phoneNumber.$invalid }">
                             <label>Phone Number</label>
                             <input type="text" name="phoneNumber" class="form-control" placeholder="Enter phone number" ng-model="Data.User.Phone" required>
@@ -44,6 +60,9 @@
                                 <p ng-message="required">Emergency Contact is required.</p>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-4">
                         <div class="form-group" ng-class="{ 'has-error' : userAddForm.passportNo.$touched && userAddForm.passportNo.$invalid }">
                             <label>Passport Number</label>
                             <input type="text" name="passportNo" class="form-control" placeholder="Enter Passport number" ng-model="Data.User.PassportNumber" required>
@@ -51,9 +70,6 @@
                                 <p ng-message="required">Passport No. is required.</p>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-sm-12 col-md-4">
                         <div class="form-group" ng-class="{ 'has-error' : userAddForm.icNumber.$touched && userAddForm.icNumber.$invalid }">
                             <label>IC Number</label>
                             <input type="text" name="icNumber" class="form-control" placeholder="Enter IC number" ng-model="Data.User.IcNumber" required>
@@ -70,7 +86,7 @@
                         </div>
                         <div class="form-group" ng-class="{ 'has-error' : userAddForm.age.$touched && userAddForm.age.$invalid }">
                             <label>Age</label>
-                            <input type="text" name="age" class="form-control" placeholder="Enter Age" ng-model="Data.User.Age" required>
+                            <input type="text" name="age" class="form-control" placeholder="Enter Age" ng-model="Data.User.Age" required only-digits limit-to="2">
                             <div class="help-block" ng-messages="userAddForm.age.$error" ng-if="userAddForm.age.$touched">
                                 <p ng-message="required">Age is required.</p>
                             </div>
@@ -100,10 +116,10 @@
                             <label>Privilege</label>
                             <div class="form-group form-inline">
                                 <div class="checkbox-inline i-checks">
-                                    <input type="radio" value="admin" name="previlege" ng-model="Data.User.SelectedRole" i-check> <i></i> Admin
+                                    <input type="radio" value="admin" name="previlege" ng-model="Data.User.Roles" i-check> <i></i> Admin
                                 </div>
                                 <div class="checkbox-inline i-checks">
-                                    <input type="radio" value="female" name="previlege" ng-model="Data.User.SelectedRole" i-check> <i></i> Manager
+                                    <input type="radio" value="female" name="previlege" ng-model="Data.User.Roles" i-check> <i></i> Manager
                                 </div>
                             </div>
                             <div class="help-block" ng-messages="userAddForm.sex.$error" ng-if="userAddForm.sex.$touched">

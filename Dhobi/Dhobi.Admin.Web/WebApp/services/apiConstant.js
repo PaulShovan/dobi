@@ -11,7 +11,11 @@
             getAllDobi: baseUrl + "dobi",
             addNewDobi: baseUrl + "dobi",
 
-            addNewUser: baseUrl + "manager"
+            addNewUser: baseUrl + "manager",
+            getAllUser: baseUrl + "manager",
+
+            addPromo: baseUrl + "promo",
+            updatePromo: baseUrl + "promo"
         }
     })());
 });

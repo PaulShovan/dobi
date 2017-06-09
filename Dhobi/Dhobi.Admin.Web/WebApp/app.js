@@ -1,5 +1,10 @@
-﻿define(['angularAMD', 'angular-route', 'angular-ui-router', 'angular-resource', 'angular-cookies', 'angular-ngStorage', 'ng-messages', 'bootstrap-ui', 'angular-toastr', 'angular-confirm', 'modal-factory', 'role-constant', 'api-constant', 'http-service', 'top-menu', /*'footer', */'common-directives', 'angular-loading-bar', 'angular-datepicker', 'ng-file-upload', 'utility', 'angular-moment', 'angular-ladda'], function (angularAMD) {
-    var app = angular.module("ngreq-app", ['ui.router', 'ngResource', 'ngCookies', 'ngStorage', 'ngMessages', 'ui.bootstrap', 'toastr', 'angular-confirm', 'modalPropertiesModule', 'roleConstantModule', 'apiConstantModule', 'httpServiceModule', 'topMenuModule', /*'footerModule',*/ 'commonDirectiveModule', 'angular-loading-bar', 'datePicker', 'ngFileUpload', 'appUtilityModule', 'angularMoment', 'angular-ladda']);
+﻿define(['angularAMD', 'angular-route', 'angular-ui-router', 'angular-resource', 'angular-cookies', 'angular-ngStorage', 'ng-messages', 'bootstrap-ui',
+    'angular-toastr', 'angular-confirm', 'modal-factory', 'role-constant', 'api-constant', 'http-service', 'top-menu', /*'footer', */
+    'common-directives', 'angular-loading-bar', 'angular-datepicker', 'ng-file-upload', 'utility', 'angular-moment', 'angular-ladda'], function (angularAMD) {
+
+        var app = angular.module("ngreq-app", ['ui.router', 'ngResource', 'ngCookies', 'ngStorage', 'ngMessages', 'ui.bootstrap',
+            'toastr', 'angular-confirm', 'modalPropertiesModule', 'roleConstantModule', 'apiConstantModule', 'httpServiceModule', 'topMenuModule', /*'footerModule',*/
+            'commonDirectiveModule', 'angular-loading-bar', 'datePicker', 'ngFileUpload', 'appUtilityModule', 'angularMoment', 'angular-ladda']);
 
     app.config(['cfpLoadingBarProvider', 'laddaProvider', function (cfpLoadingBarProvider, laddaProvider) {
         cfpLoadingBarProvider.includeSpinner = false;
@@ -123,6 +128,15 @@
                 templateUrl: '/WebApp/views/user/userAdd.html',
                 controllerUrl: 'controllers/user/userAddController',
                 controller: 'userAddController',
+                authorization: {
+                    role: [app.RoleName.SuperAdmin]
+                }
+            }))
+            .state('usermanage', angularAMD.route({
+                url: '/user/manage',
+                templateUrl: '/WebApp/views/user/userManage.html',
+                controllerUrl: 'controllers/user/userManageController',
+                controller: 'userManageController',
                 authorization: {
                     role: [app.RoleName.SuperAdmin]
                 }

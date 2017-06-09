@@ -1,0 +1,71 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox">
+            <div class="ibox-content ibox-height">
+                <div class="col-sm-9 m-b-sm">
+                    <h2>Manage User</h2>
+                </div>
+                <div class="col-sm-3 m-b-sm">
+                    <div class="input-group">
+                        <input type="text" placeholder="Search dobi" class="input-sm form-control" ng-model="q"> <span class="input-group-btn">
+                            <button type="button" class="btn btn-sm btn-primary"> Go!</button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="full-height-scroll">
+                        <div class="table-responsive">
+                            <table class="table table-responsive table-striped dobi-table" ng-if="Data.Dobies.length > 0">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Name</th>
+                                        <th>ID</th>
+                                        <th>IC NO.</th>
+                                        <th>Phone</th>
+                                        <th>Driving License</th>
+                                        <th>Privilege</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="user in Data.Users | filter:q | itemsPerPage: pageSize" current-page="currentPage" total-items="Data.TotalUsers" id="highlight{{$index}}">
+                                        <td>
+                                            <img class="img-circle dobi-pic" fallback-src="../../../../Content/images/fallback-dobi.png" ng-src="{{user.Photo}}" alt="{{user.FullName}}" />
+                                            <span class="m-l-sm">{{user.FullName}}</span>
+                                        </td>
+                                        <td>{{user.Name}}</td>
+                                        <td>{{user.DobiId}}</td>
+                                        <td>{{user.IcNumber}}</td>
+                                        <td>{{user.Phone}}</td>
+                                        <td>{{user.DrivingLicense}}</td>
+                                        <td>{{user.Role}}</td>
+                                        <td class="text-center">
+                                            <a href="#/dobi/details/{{dobi.DobiId}}"><i class="fa fa-trash fa-2x"></i></a>
+                                            <a href="#/dobi/edit/{{dobi.DobiId}}"><i class="fa fa-pencil fa-2x"></i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div ng-if="!Data.Users.length">
+                                <div class="col-lg-12">
+                                    <h2 class="text-center">No User is available.</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="text">
+                        <div class="text-center">
+                            <dir-pagination-controls boundary-links="true" on-page-change="Methods.PageChangeHandler(newPageNumber)" template-url="WebApp/directives/pager/dirPagination.tpl.html"></dir-pagination-controls>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
