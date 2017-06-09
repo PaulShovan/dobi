@@ -1,6 +1,62 @@
 ﻿<link href="../../../../Content/angular-datepicker.css" rel="stylesheet" />
 
-<div class="container">
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox">
+            <div class="ibox-content ibox-height">
+                <div class="col-sm-9 m-b-md">
+                    <h2>Manage Dobi</h2>
+                </div>
+
+                <div class="col-sm-12">
+                    <table class="table table-responsive table-striped dobi-table">
+                        <thead>
+                            <tr>
+                                <th>Offer</th>
+                                <th>Discount(%)</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="navigation in Data.Offer.Navigations" ng-include="'navation-tpl'" onLoad="model = { Nav: navigation, Navigations: Data.Offer.Navigations }" class="dobi-promo-form"></tr>
+                        </tbody>
+                    </table>
+
+                    <div class="row m-t-md">
+                        <div class="col-sm-12">
+                            <a class="add-offer" ng-click="Methods.AddNewOffer(Data.Offer.Navigations)"><i class="fa fa-plus-circle"></i> Add New Offer </a>
+                            <button type="submit" class="btn btn-success dobi-submit-btn pull-right" ng-click="Methods.AddOrUpdatePromo()" ng-disabled="promoForm.$invalid" ladda="httpLoading">SAVE</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/ng-template" id="navation-tpl">
+
+    <td><input type="text" placeholder="Eid Offer" class="form-control" ng-model="model.Nav.Text" required></td>
+    <td><input type="number" class="form-control" ng-model="model.Nav.Amount" required only-digits limit-to="3"></td>
+    <td>
+        <input type="datetime" name="fromDate" class="form-control cursor-pointer" date-time ng-model="model.Nav.StartDate"
+               view="date" auto-close="true" min-view="Data.MinDate" format="ddd, MMM DD, YYYY" min-date="Data.MinDate" required>
+    </td>
+    <td>
+        <input type="datetime" name="toDate" class="form-control cursor-pointer bg-white" date-time ng-model="model.Nav.EndDate"
+               view="date" auto-close="true" min-view="Data.MinDate" format="ddd, MMM DD, YYYY" min-date="Data.MinDate" required>
+    </td>
+    <td><a ng-click="Methods.RemoveOffer(model.Navigations, $index)"><i class="fa fa-trash fa-2x text-danger"></i></a></td>
+
+</script>
+
+
+<!--<div class="container">
     <div class="row m-t-lg">
         <div class="col-md-12">
             <a href="javascript:void(0)" ng-click="Methods.AddNewOffer(Data.Navigations)"><i class="fa fa-plus"></i> Add New Offer</a>
@@ -10,10 +66,8 @@
     <div class="row m-t-lg">
         <div ng-repeat="navigation in Data.Navigations" ng-include="'navation-tpl'" onLoad="model = { Nav: navigation, Navigations: Data.Navigations }"></div>
     </div>
-</div>
-
-
-<script type="text/ng-template" id="navation-tpl">
+</div>-->
+<!--<script type="text/ng-template" id="navation-tpl">
     <div class="col-md-12 m-t-md">
         <form role="form" class="form-inline">
             <div class="form-group m-r-sm">
@@ -47,4 +101,4 @@
             </div>
         </form>
     </div>
-</script>
+</script>-->

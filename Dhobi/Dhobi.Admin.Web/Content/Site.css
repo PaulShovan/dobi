@@ -108,7 +108,7 @@
     border-radius: 8px;
 }
 
-.dobi-table thead {
+.dobi-table>thead {
     background-color: #E6354F;
     color: #ffffff;
     font-size: 14px;
@@ -122,9 +122,6 @@
     .dobi-table tbody tr td {
         height: 60px;
         vertical-align: middle;
-    }
-    .dobi-table tbody tr td i{
-        color: #999;
     }
 /** End: Common **/
 
@@ -203,7 +200,29 @@
 }
 /** End:  Dobi Add **/
 
-
+/** Start: Promo**/
+.add-offer {
+    font-size: 16px;
+    color: #E6354F;
+    font-weight: 600;
+}
+.add-offer i {
+    font-size: 18px;
+    color: #2470b7;
+}
+.dobi-promo-form input {
+    color: #555;
+    outline: none;
+    font-size: 1.1em;
+    padding: 10px 2px 10px 0;
+    border: none;
+    margin: 0 0 5px 0;
+    font-family: 'Open Sans', sans-serif;
+    background: none;
+    border-bottom: 1px solid #eee;
+    width: 85%;
+}
+/** End: Promo**/
 
 
 
