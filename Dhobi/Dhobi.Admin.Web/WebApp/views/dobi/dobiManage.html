@@ -2,10 +2,10 @@
     <div class="col-sm-12">
         <div class="ibox">
             <div class="ibox-content ibox-height">
-                <div class="col-sm-9 m-b-md">
+                <div class="col-sm-9 m-b-sm">
                     <h2>Manage Dobi</h2>
                 </div>
-                <div class="col-sm-3 m-b-md">
+                <div class="col-sm-3 m-b-sm">
                     <div class="input-group">
                         <input type="text" placeholder="Search dobi" class="input-sm form-control" ng-model="q"> <span class="input-group-btn">
                             <button type="button" class="btn btn-sm btn-primary"> Go!</button>
@@ -20,7 +20,6 @@
                                 <thead>
                                     <tr>
                                         <th></th>
-                                        <th></th>
                                         <th>Name</th>
                                         <th>ID</th>
                                         <th>IC No.</th>
@@ -32,9 +31,8 @@
                                 </thead>
                                 <tbody>
                                 <tr dir-paginate="dobi in Data.Dobies | filter:q | itemsPerPage: pageSize" current-page="currentPage" total-items="Data.TotalDobies" id="highlight{{$index}}">
-                                    <td>{{$index}}</td>
                                     <td>
-                                        <img class="img-circle img-responsive dobi-pic" fallback-src="../../../../Content/images/fallback-dobi.png" ng-src="{{dobi.Photo}}" alt="{{dobi.FullName}}"/>
+                                        <img class="img-circle dobi-pic" fallback-src="../../../../Content/images/fallback-dobi.png" ng-src="{{dobi.Photo}}" alt="{{dobi.FullName}}"/>
                                         <span class="m-l-sm">{{dobi.FullName}}</span>
                                     </td>
                                     <td>{{dobi.Name}}</td>
@@ -60,7 +58,7 @@
                 </div>
                 <div class="row m-t-md">
                     <div class="col-sm-12">
-                        <div class="dobi-pi-calc">Showing {{ Data.ShowingFrom }} - {{ Data.ShowingTo }} of {{Data.TotalDobies}} orders </div>
+                        <div class="dobi-pi-calc pull-left">Showing {{ Data.ShowingFrom }} - {{ Data.ShowingTo }} of {{Data.TotalDobies}} orders </div>
                         <div class="pull-right">
                             <dir-pagination-controls boundary-links="true" on-page-change="Methods.PageChangeHandler(newPageNumber)" template-url="WebApp/directives/pager/dirPagination.tpl.html"></dir-pagination-controls>
                         </div>

@@ -2,10 +2,10 @@
     <div class="col-sm-12">
         <div class="ibox">
             <div class="ibox-content ibox-height">
-                <div class="col-sm-9 m-b-md">
+                <div class="col-sm-9 m-b-sm">
                     <h2>Manage User</h2>
                 </div>
-                <div class="col-sm-3 m-b-md">
+                <div class="col-sm-3 m-b-sm">
                     <div class="input-group">
                         <input type="text" placeholder="Search dobi" class="input-sm form-control" ng-model="q"> <span class="input-group-btn">
                             <button type="button" class="btn btn-sm btn-primary"> Go!</button>
@@ -32,7 +32,7 @@
                                 <tbody>
                                     <tr dir-paginate="user in Data.Users | filter:q | itemsPerPage: pageSize" current-page="currentPage" total-items="Data.TotalUsers" id="highlight{{$index}}">
                                         <td>
-                                            <img class="img-circle img-responsive dobi-pic" fallback-src="../../../../Content/images/fallback-dobi.png" ng-src="{{user.Photo}}" alt="{{user.FullName}}" />
+                                            <img class="img-circle dobi-pic" fallback-src="../../../../Content/images/fallback-dobi.png" ng-src="{{user.Photo}}" alt="{{user.FullName}}" />
                                             <span class="m-l-sm">{{user.FullName}}</span>
                                         </td>
                                         <td>{{user.Name}}</td>
