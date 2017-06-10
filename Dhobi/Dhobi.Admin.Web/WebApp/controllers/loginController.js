@@ -25,8 +25,12 @@ app.controller("loginCtrl", ['$scope', '$http', '$cookieStore', '$localStorage',
 
                 $http.post(loginUrl, userCredentials, { headers: { 'Content-Type': 'application/json' } })
                     .success(function (result) {
-                        if (!result.ResponseStatus) { return; }
-                        if (result.Data.Token) {
+                        if (!result.ResponseStatus) {
+                            toastr.warning(result.Message);
+                            $scope.loginLoading = false;
+                            return;
+                        }
+                        else if (result.Data && result.Data.Token) {
                             $cookieStore.put('accessToken', result.Data.Token);
                             var userInfo = {
                                 Name: result.Data.Name,
@@ -36,7 +40,7 @@ app.controller("loginCtrl", ['$scope', '$http', '$cookieStore', '$localStorage',
                             $localStorage.ViewName = userInfo.Role;
 
                             $scope.loginLoading = false;
-                            window.location.href = '/Admin';
+                            window.location.href = '/DobiAdmin';
                         } else if (result.ResponseStatus) {
                             $scope.errorMsg = result.Message;
                             toastr.error(result.Message, "Error!");

@@ -17,7 +17,7 @@ namespace Dhobi.Admin.Web.Controllers
             return View("Login");
         }
 
-        [Route("~/Admin")]
+        [Route("~/DobiAdmin")]
         public ActionResult Admin()
         {
             ViewBag.Title = "Dobi | Admin";

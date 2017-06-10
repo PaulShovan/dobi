@@ -242,9 +242,10 @@ namespace Dhobi.Admin.Api.Controllers
                 return BadRequest("Invalid login data");
             }
             var loggedInUser = await _managerBusiness.ManagerLogin(loginModel);
-            if (string.IsNullOrWhiteSpace(loggedInUser.UserId))
+            if (loggedInUser == null || string.IsNullOrWhiteSpace(loggedInUser.UserId))
             {
-                return NotFound();
+                var notFound = new GenericResponse<ManagerLoginResponse>(false, null, "Invalid Username or Password!");
+                return Ok(notFound);
             }
             var token = _tokenGenerator.GenerateUserToken(loggedInUser);
             var managerLoginResponse = new ManagerLoginResponse
