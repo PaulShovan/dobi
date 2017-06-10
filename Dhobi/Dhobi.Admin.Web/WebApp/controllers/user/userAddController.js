@@ -37,7 +37,7 @@
                         httpService.postMultipart(apiConstant.addNewUser, { Files: files }, $scope.Data.User, "New User Added Successfully", function (response) {
                             if (response.status === 200) {
                                 toastr.success(response.Message, "Success!");
-                                //$state.go('usermanage');
+                                $state.go('usermanage');
                             }
                         });
                     }

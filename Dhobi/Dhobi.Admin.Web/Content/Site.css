@@ -49,6 +49,7 @@
 .wrapper-content {
     padding-top: 5px;
 }
+
 .navbar {
     min-height: 100px;
 }
@@ -234,25 +235,35 @@
     border-bottom: 1px solid #eee;
     width: 85%;
 }
+
 .dobi-promo-form .form-control:focus {
     -webkit-box-shadow: none;
     -ms-box-shadow: none;
     box-shadow: none;
 }
+
 .dobi-promo-form .has-error .form-control {
     -webkit-box-shadow: none;
     -ms-box-shadow: none;
     box-shadow: none;
 }
+
 .dobi-promo-form input:read-only {
     background-color: #f9f9f9;
 }
 /** End: Promo**/
 
 
-/** Start: Pagination **/
-
-/** End : Pagination **/
+/** Start: Logout **/
+.logout-dd {
+    margin-left: -51px;
+    min-width: 80px;
+    cursor: pointer;
+}
+.logout-dd:hover {
+    background-color: #e4e4e4;
+}
+/** End : Logout **/
 
 
 

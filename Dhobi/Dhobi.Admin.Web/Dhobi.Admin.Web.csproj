@@ -283,6 +283,7 @@
     <None Include="Project_Readme.html" />
     <Content Include="Views\Home\Admin.cshtml" />
     <None Include="Properties\PublishProfiles\dobi-admin-web.pubxml" />
+    <None Include="Properties\PublishProfiles\Panday.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dhobi.Core\Dhobi.Core.csproj">
