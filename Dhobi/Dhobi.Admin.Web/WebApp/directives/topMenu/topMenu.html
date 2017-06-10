@@ -6,15 +6,23 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>-->
-        <a href="#" class="navbar-brand"><img src="../../../Content/images/dobi-menu.jpg"/></a>
+        <a href="#" class="navbar-brand"><img src="../../../Content/images/dobi-menu.jpg" /></a>
         <div class="pull-left dobi-title">
             <div class="dobi-name">User</div>
             <div class="dobi-role">Super Admin</div>
         </div>
 
         <div class="pull-right dobi-menu">
-            <i class="fa fa-home fa-2x cursor-pointer m-r-md" aria-hidden="true"></i>
-            <i class="fa fa-bars fa-2x cursor-pointer" aria-hidden="true"></i>
+            <a ui-sref="dashboard"><i class="fa fa-home fa-2x cursor-pointer m-r-md text-muted" aria-hidden="true"></i></a>
+            <span class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">
+                    <i class="fa fa-bars fa-2x cursor-pointer text-muted" aria-hidden="true"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-alerts logout-dd">
+                    <li ng-click="TopMenuMethods.Logout()"> Logout </li>
+                </ul>
+            </span>
+
         </div>
     </div>
 
