@@ -234,6 +234,19 @@
     border-bottom: 1px solid #eee;
     width: 85%;
 }
+.dobi-promo-form .form-control:focus {
+    -webkit-box-shadow: none;
+    -ms-box-shadow: none;
+    box-shadow: none;
+}
+.dobi-promo-form .has-error .form-control {
+    -webkit-box-shadow: none;
+    -ms-box-shadow: none;
+    box-shadow: none;
+}
+.dobi-promo-form input:read-only {
+    background-color: #f9f9f9;
+}
 /** End: Promo**/
 
 

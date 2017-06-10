@@ -41,11 +41,18 @@
                     });
 
                     var listPromo = $scope.Data.Offer.Navigations;
-                    //var obj = { Text: $scope.Data.ConfigId, name: $scope.Data.WebCrawling.Name, config: $scope.Data.WebCrawling };
                     httpService.post(api, listPromo, message, function (response) {
                         console.log(response);
                     });
                 },
+                GetPromoOffers: function() {
+                    httpService.get(apiConstant.getAllPromo, function (offer) {
+                        $timeout(function () {
+                            $scope.Data.Offers = offer.Data.OfferList;
+                            $scope.Data.TotalUsers = offer.Data.TotalOffer;
+                        });
+                    }, true);
+                }
             };
 
             console.log("Manage Promo Controller");

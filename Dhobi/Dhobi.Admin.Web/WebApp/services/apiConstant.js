@@ -14,6 +14,7 @@
             addNewUser: baseUrl + "manager",
             getAllUser: baseUrl + "manager",
 
+            getAllPromo: baseUrl + "promo",
             addPromo: baseUrl + "promo",
             updatePromo: baseUrl + "promo"
         }
