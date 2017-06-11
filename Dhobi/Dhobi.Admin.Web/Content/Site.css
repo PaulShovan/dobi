@@ -1,52 +1,4 @@
-﻿/*.wrapper-height {
-    min-height: 85vh;
-    height: auto;
-}
-
-.has-error input {
-    background-color: rgb(251, 227, 228);
-}
-
-.help-block p {
-    font-size: 14px;
-}
-
-.btn-gray {
-    color: #fff;
-    background-color: #828282;
-    border-color: #606060;
-}
-        .btn-gray:hover {
-        color: #fff;
-        background-color: #666666;
-        border-color: #484646;
-    }
-.drop-box {
-    background: #ffffff;
-    border: 1px dashed #DDD;
-    min-height: 225px;
-    text-align: center;
-    padding-top: 4em;
-    cursor: pointer;
-}
-.dragover {
-    border: 2px dashed #21b9bb;
-}
-.ng-img-preview {
-    margin: 0 auto;
-    width: 200px;
-    height: 180px;
-    margin-left: -3%;
-    margin-top: -10%;
-}
-.mid-icon {
-    font-size: 66px;
-}
-.dobi-pic {
-    width: 20px;
-    height: 20px;
-}*/
-.wrapper-content {
+﻿.wrapper-content {
     padding-top: 5px;
 }
 
@@ -155,7 +107,18 @@
     width: 85%;
 }
 
-.dobi-add-form .form-group {
+.dobi-add-form .phone-number span {
+    outline: none;
+    border: none;
+    font-size: 1.1em;
+    margin: 0 0 5px 0;
+    font-family: 'Open Sans', sans-serif;
+    background: none;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 15px !important;
+    padding: 6px 12px 6px 0;
+}
+.dobi-add-form .form-group, .dobi-add-form .input-group {
     margin-bottom: 30px;
 }
 
@@ -177,6 +140,17 @@
     text-transform: uppercase;
     font-weight: 500;
 }
+
+.dobi-add-form .phone-number {
+    margin-bottom: 5px;
+}
+
+    .dobi-add-form .phone-number input {
+        width: 84%;
+    }
+    .dobi-add-form .phone-number .has-error {
+        border-bottom-color: #ed5565 !important;
+    }
 
 .drop-box {
     background: #ffffff;
@@ -260,9 +234,10 @@
     min-width: 80px;
     cursor: pointer;
 }
-.logout-dd:hover {
-    background-color: #e4e4e4;
-}
+
+    .logout-dd:hover {
+        background-color: #e4e4e4;
+    }
 /** End : Logout **/
 
 

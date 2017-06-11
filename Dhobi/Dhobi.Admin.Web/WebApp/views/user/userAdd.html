@@ -10,12 +10,12 @@
                     <div class="col-sm-12 col-md-4">
                         <div class="form-group" ng-class="{ 'has-error' : userAddForm.fullName.$touched && userAddForm.fullName.$invalid }">
                             <label>Full Name</label>
-                            <input type="text" name="fullName" class="form-control" placeholder="Enter full name" ng-model="Data.User.Name" required>
+                            <input type="text" name="fullName" class="form-control" placeholder="Enter full name" ng-model="Data.User.Name" required autofocus>
                             <div class="help-block" ng-messages="userAddForm.fullName.$error" ng-if="userAddForm.fullName.$touched">
                                 <p ng-message="required">Full Name is required.</p>
                             </div>
                         </div>
-                        
+
                         <div class="form-group" ng-class="{ 'has-error' : userAddForm.userName.$touched && userAddForm.userName.$invalid }">
                             <label>UserName</label>
                             <input type="text" name="userName" class="form-control" placeholder="Enter username" ng-model="Data.User.UserName" required>
@@ -33,9 +33,13 @@
 
                         <div class="form-group" ng-class="{ 'has-error' : userAddForm.phoneNumber.$touched && userAddForm.phoneNumber.$invalid }">
                             <label>Phone Number</label>
-                            <input type="text" name="phoneNumber" class="form-control" placeholder="Enter phone number" ng-model="Data.User.Phone" required>
+                            <div class="input-group phone-number">
+                                <span class="input-group-addon" ng-class="{ 'has-error' : userAddForm.phoneNumber.$touched && userAddForm.phoneNumber.$invalid }">006</span>
+                                <input type="text" name="phoneNumber" class="form-control" placeholder="Enter phone number" ng-model="Data.User.Phone" required ng-pattern="/^\d{10}$/" only-digits limit-to="10">
+                            </div>
                             <div class="help-block" ng-messages="userAddForm.phoneNumber.$error" ng-if="userAddForm.phoneNumber.$touched">
                                 <p ng-message="required">Phone Number is required.</p>
+                                <p ng-message="pattern">Invalid Phone number.</p>
                             </div>
                         </div>
                         <div class="form-group" ng-class="{ 'has-error' : userAddForm.email.$touched && userAddForm.email.$invalid }">
@@ -107,7 +111,7 @@
                         </div>
                         <div class="form-group" ng-class="{ 'has-error' : userAddForm.salary.$touched && userAddForm.salary.$invalid }">
                             <label>Monthly Salary (RM)</label>
-                            <input type="text" name="salary" class="form-control" placeholder="Enter Salary" ng-model="Data.User.Salary" required>
+                            <input type="text" name="salary" class="form-control" placeholder="Enter Salary" ng-model="Data.User.Salary" required only-digits limit-to="10">
                             <div class="help-block" ng-messages="userAddForm.salary.$error" ng-if="userAddForm.salary.$touched">
                                 <p ng-message="required">Salary is required.</p>
                             </div>
@@ -121,9 +125,6 @@
                                 <div class="checkbox-inline i-checks">
                                     <input type="radio" value="Manager" name="previlege" ng-model="Data.User.Roles" i-check> <i></i> Manager
                                 </div>
-                            </div>
-                            <div class="help-block" ng-messages="userAddForm.sex.$error" ng-if="userAddForm.sex.$touched">
-                                <p ng-message="required">Sex is required.</p>
                             </div>
                         </div>
                     </div>
