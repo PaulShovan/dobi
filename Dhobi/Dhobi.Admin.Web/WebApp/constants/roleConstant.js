@@ -5,9 +5,7 @@
 
         return {
             SuperAdmin: "SuperAdmin",
-            Admin: "Admin",
-            Client: 'Client',
-            BroadCaster: 'BroadCaster'
+            Manager: 'Manager'
         }
 
     })());

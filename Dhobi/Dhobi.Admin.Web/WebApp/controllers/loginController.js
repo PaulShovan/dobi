@@ -7,8 +7,8 @@ app.config(function(laddaProvider) {
     });
 });
 
-app.controller("loginCtrl", ['$scope', '$http', '$cookieStore', '$localStorage',
-    function ($scope, $http, $cookieStore, $localStorage) {
+app.controller("loginCtrl", ['$scope', '$http', '$localStorage',
+    function ($scope, $http, $localStorage) {
         var loginUrl = window.dhobiUrlConfig.baseUrl + '/api/v1/manager/login';
 
         $scope.Data = {
@@ -39,7 +39,7 @@ app.controller("loginCtrl", ['$scope', '$http', '$cookieStore', '$localStorage',
                             return;
                         }
                         else if (result.Data && result.Data.Token) {
-                            $cookieStore.put('accessToken', result.Data.Token);
+                            $localStorage.accessToken = result.Data.Token;
                             var userInfo = {
                                 Name: result.Data.Name,
                                 Role: result.Data.Role
