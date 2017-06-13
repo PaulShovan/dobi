@@ -31,6 +31,7 @@
                         return;
                     } else {
                         $scope.Data.Dobi.Photo = files;
+                        $scope.Data.Dobi.Phone = "006" + $scope.Data.Dobi.Phone;
                         $scope.httpLoading = true;
                         httpService.postMultipart(apiConstant.addNewDobi, { Files: files }, $scope.Data.Dobi, "New Dobi Added Successfully", function (response) {
                             if (response.status === 200) {

@@ -1,7 +1,7 @@
 ﻿define(['app', 'http-loader', 'ng-file-upload'], function (app) {
     app = app || angular.module("httpServiceModule", ['cfp.loadingBar', 'ngFileUpload']);
-    app.factory('httpService', ['$http', 'toastr', '$cookieStore', '$localStorage', '$location', 'apiConstant', 'cfpLoadingBar', 'Upload', '$timeout',
-        function ($http, toastr, $cookieStore, $localStorage, $location, apiConstant, cfpLoadingBar, Upload, $timeout) {
+    app.factory('httpService', ['$http', 'toastr', '$localStorage', '$location', 'apiConstant', 'cfpLoadingBar', 'Upload', '$timeout',
+        function ($http, toastr, $localStorage, $location, apiConstant, cfpLoadingBar, Upload, $timeout) {
         "use strict";
         return {
             get: function (api, onResponse) {
@@ -68,7 +68,7 @@
                     .success(function (res) {
                         $http.post(apiConstant.login, $.param({ grant_type: 'password', account_switch: res }), { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
                             .success(function (result) {
-                                $cookieStore.put('accessToken', result.access_token);
+                                $localStorage.accessToken = result.accessToken;
                                 if (onSuccess) {
                                     onSuccess(result);
                                 }

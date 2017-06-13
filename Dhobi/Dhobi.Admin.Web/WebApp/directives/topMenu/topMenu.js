@@ -1,6 +1,6 @@
 ﻿define(['app', 'jquery', 'bootstrap'], function (app, $) {
     app = app || angular.module("topMenuModule", []);
-    app.controller("topMenuController", function ($scope, $localStorage, $cookieStore, roleConstant) {
+    app.controller("topMenuController", function ($scope, $localStorage, roleConstant) {
         "use strict";
         $scope.TopMenuData = {
             TopMenuUrl: '',
@@ -51,14 +51,11 @@
                     $scope.TopMenuData.TopMenuUrl = '/WebApp/directives/topMenu/managerMenu.html';
                 }
             },
-
             Logout: function () {
-                $cookieStore.remove('accessToken');
                 $localStorage.$reset();
                 window.location.href = '/Login';
             }
         };
-
         $scope.TopMenuMethods.SelectTopMenu();
     });
 

@@ -34,6 +34,7 @@
                         $scope.Data.FileErrorMsg = "Please Upload a file";
                         return;
                     } else {
+                        $scope.Data.User.Phone = "006" + $scope.Data.User.Phone;
                         httpService.postMultipart(apiConstant.addNewUser, { Files: files }, $scope.Data.User, "New User Added Successfully", function (response) {
                             if (response.status === 200) {
                                 toastr.success(response.Message, "Success!");

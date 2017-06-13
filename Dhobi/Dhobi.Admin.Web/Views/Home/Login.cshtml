@@ -9,14 +9,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
+    <link href="~/Content/please-wait.css" rel="stylesheet" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Content/plugins/toastr/angular-toastr.css" rel="stylesheet" />
     <link href="~/Content/plugins/ladda/ladda-themeless.min.css" rel="stylesheet" />
     <link href="~/Content/login.css" rel="stylesheet" />
 </head>
 
 <body ng-app="app" ng-controller="loginCtrl">
-    <div class="top-content">
+    <div class="top-content inner">
         <div class="inner-bg">
             <div class="container">
                 <div class="row">
@@ -32,22 +32,23 @@
                     <div class="col-sm-5">
 
                         <div class="form-box">
-                            <form name="loginForm" class="dobi-login-form">
+                            <form name="loginForm" class="dobi-login-form" novalidate>
                                 <div ng-class="{ 'login-err-msg': loginForm.username.$touched && loginForm.username.$invalid }">
                                     <label>Username</label> <br />
-                                    <input type="text" name="username" placeholder="Enter your username" required ng-model="Data.UserName">
+                                    <input type="text" name="username" placeholder="Enter your username" required ng-model="Data.UserName" ng-focus="Methods.FlashErrors($event)">
                                     <div class="help-block" ng-messages="loginForm.username.$error" ng-if="loginForm.username.$touched">
-                                        <p ng-message="required">Username is required.</p>
+                                        <p ng-message="required" ng-bind="Error.UserNameRequired"></p>
                                     </div>
                                 </div>
 
                                 <div class="password-div" ng-class="{ 'login-err-msg': loginForm.password.$touched && loginForm.password.$invalid }">
                                     <label>Password</label> <br />
-                                    <input type="password" name="password" placeholder="XXXXXXXXXXXX" required ng-model="Data.Password" ng-minlength="6" ng-maxlength="64">
+                                    <input type="password" name="password" placeholder="XXXXXXXXXXXX" required ng-model="Data.Password" ng-minlength="6" ng-maxlength="64" ng-focus="Methods.FlashErrors($event)">
                                     <div class="help-block" ng-messages="loginForm.password.$error" ng-if="loginForm.password.$touched">
-                                        <p ng-message="required">Password is required.</p>
-                                        <p ng-message="minlength">Minimum 6 character required.</p>
-                                        <p ng-message="maxlength">Maximum 64 character allowed.</p>
+                                        <p ng-message="required" ng-bind="Error.PasswordRequired"></p>
+                                        <p ng-message="minlength" ng-bind="Error.PasswordMin"></p>
+                                        <p ng-message="maxlength" ng-bind="Error.PasswordMax"></p>
+                                        <p class="m-t-md" ng-if="Error.FromServer && (loginForm.username.$touched || loginForm.password.$touched)" ng-bind="Error.FromServer"></p>
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary login-btn" ng-click="Methods.Login()" ng-disabled="loginForm.$invalid" ladda="loginLoading">Login Now</button>
@@ -58,7 +59,17 @@
                 </div>
             </div>
         </div>
+        <img src="~/Content/images/dobi-bg.jpg" />
     </div>
+
+    <script src="~/Scripts/please-wait.min.js"></script>
+    <script type="text/javascript">
+        window.loading_screen = window.pleaseWait({
+            logo: "../../Content/images/dobi-bg.jpg",
+            backgroundColor: '#E6354F',
+            loadingHtml: "<h1 class='loading-message'>Welcome to Calldobi !</h1> <div class='spinner'> <div class='double-bounce1'></div> <div class='double-bounce2'></div> </div>"
+        });
+    </script>
 
     <script src="~/Scripts/urlConfig.js"></script>
     <script src="~/Scripts/jquery-3.1.1.min.js"></script>
@@ -67,10 +78,12 @@
     <script src="~/WebApp/lib/ngStorage.min.js"></script>
     <script src="~/WebApp/lib/ngMessages.js"></script>
     <script src="~/Scripts/accountDirective.js"></script>
-    <script src="~/WebApp/lib/plugins/toastr/angular-toastr.tpls.js"></script>
     <script src="~/WebApp/lib/plugins/ladda/spin.min.js"></script>
     <script src="~/WebApp/lib/plugins/ladda/ladda.min.js"></script>
     <script src="~/WebApp/lib/plugins/ladda/angular-ladda.js"></script>
     <script src="~/WebApp/controllers/loginController.js"></script>
+    <script>
+        window.loading_screen.finish();
+    </script>
 </body>
 </html>

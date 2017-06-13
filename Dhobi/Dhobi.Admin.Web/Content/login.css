@@ -8,6 +8,13 @@
     background-image: url('images/dobi-bg.jpg');
     background-repeat: repeat;
 }
+body > .inner {
+  display: none;
+}
+
+body.pg-loaded > .inner {
+  display: block;
+}
 
 .inner-bg {
     padding: 270px 0 0;

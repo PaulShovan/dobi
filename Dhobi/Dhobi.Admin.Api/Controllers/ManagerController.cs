@@ -14,6 +14,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Security;
 
 namespace Dhobi.Admin.Api.Controllers
 {
@@ -252,7 +253,7 @@ namespace Dhobi.Admin.Api.Controllers
             {
                 Token = token,
                 Name = loggedInUser.Name,
-                Role = "SuperAdmin"
+                Role = loggedInUser.Roles[0] == "Superadmin" ? "SuperAdmin" : loggedInUser.Roles[0]
             };
             var response = new GenericResponse<ManagerLoginResponse>(true, managerLoginResponse);
             return Ok(response);

@@ -1,4 +1,4 @@
-﻿var app = angular.module("app", ['ngCookies', 'ngStorage', 'ngMessages', 'toastr', 'accountDirectiveModule', 'angular-ladda']);
+﻿var app = angular.module("app", ['ngCookies', 'ngStorage', 'ngMessages', 'accountDirectiveModule', 'angular-ladda']);
 app.config(function(laddaProvider) {
     laddaProvider.setOption({ /* optional */
         style: 'expand-right',
@@ -7,14 +7,22 @@ app.config(function(laddaProvider) {
     });
 });
 
-app.controller("loginCtrl", ['$scope', '$http', '$cookieStore', '$localStorage', 'toastr',
-    function ($scope, $http, $cookieStore, $localStorage, toastr) {
+app.controller("loginCtrl", ['$scope', '$http', '$localStorage',
+    function ($scope, $http, $localStorage) {
         var loginUrl = window.dhobiUrlConfig.baseUrl + '/api/v1/manager/login';
 
         $scope.Data = {
-            UserName: '',
-            Password: ''
+            UserName: "",
+            Password: ""
         },
+        $scope.Error = {
+            UserNameRequired: "Username is required.",
+            PasswordRequired: "Password is required.",
+            PasswordMin: "Minimum 6 character required.",
+            PasswordMax: "Maximum 64 character allowed.",
+            FromServer: ""
+        }
+        
         $scope.Methods = {
             Login: function () {
                 var userCredentials = {
@@ -26,12 +34,12 @@ app.controller("loginCtrl", ['$scope', '$http', '$cookieStore', '$localStorage',
                 $http.post(loginUrl, userCredentials, { headers: { 'Content-Type': 'application/json' } })
                     .success(function (result) {
                         if (!result.ResponseStatus) {
-                            toastr.warning(result.Message);
+                            $scope.Error.FromServer = result.Message;
                             $scope.loginLoading = false;
                             return;
                         }
                         else if (result.Data && result.Data.Token) {
-                            $cookieStore.put('accessToken', result.Data.Token);
+                            $localStorage.accessToken = result.Data.Token;
                             var userInfo = {
                                 Name: result.Data.Name,
                                 Role: result.Data.Role
@@ -41,16 +49,15 @@ app.controller("loginCtrl", ['$scope', '$http', '$cookieStore', '$localStorage',
 
                             $scope.loginLoading = false;
                             window.location.href = '/DobiAdmin';
-                        } else if (result.ResponseStatus) {
-                            $scope.errorMsg = result.Message;
-                            toastr.error(result.Message, "Error!");
-                            $scope.loginLoading = false;
                         }
                     })
                     .error(function (result, httpstatus) {
-                        toastr.error(result.Message, "Error!");
+                        $scope.Error.FromServer = result.Message;
                         $scope.loginLoading = false;
                     });
+            },
+            FlashErrors: function ($event) {
+                $scope.Error.FromServer = "";
             }
         }
     }]);
