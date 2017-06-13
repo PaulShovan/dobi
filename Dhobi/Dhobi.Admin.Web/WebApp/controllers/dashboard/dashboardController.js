@@ -42,17 +42,18 @@
                 $scope.Data.UserInfo = $localStorage.UserInfo;
                 $scope.Data.ViewName = $localStorage.ViewName;
             },
-            SelectedMenu: function () {
-                _.each($scope.Menues, function (menu) {
-                    if ($scope.Data.UserInfo.Role === roleConstant.Superadmin) {
-                        $scope.Data.MenuList.push(menu);
-                    } else if ($scope.Data.UserInfo.Role === roleConstant.Admin) {
-                        
-                    }
-                });
 
+            SelectedMenu: function () {
                 if ($scope.Data.UserInfo.Role === roleConstant.Superadmin) {
-                    $scope.Menues.MenuList = SuperAdminMenues;
+                    _.each($scope.Menues, function(menu) {
+                        $scope.Data.MenuList.push(menu);
+                    });
+                } else if ($scope.Data.UserInfo.Role === roleConstant.Admin) {
+                    _.each($scope.Menues, function (menu) {
+                        $scope.Data.MenuList.push(menu);
+                    });
+                } else if ($scope.Data.UserInfo.Role === roleConstant.Manager) {
+                    $scope.Data.MenuList.push = $scope.Menues.ManagerMenues;
                 }
             }
         };
