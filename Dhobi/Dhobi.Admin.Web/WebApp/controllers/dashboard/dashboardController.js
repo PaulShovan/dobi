@@ -7,7 +7,7 @@
                 Name: "",
                 Role: ""
             },
-            ViewName: ""
+            ViewName: "",
         };
 
         $scope.Methods = {
