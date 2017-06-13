@@ -14,5 +14,6 @@ namespace Dhobi.Repository.Interface
         Task<ManagerBasicInformation> ManagerLogin(LoginViewModel loginModel);
         Task<List<Manager>> GetManager(int skip, int limit);
         Task<int> GetManagerCount();
+        Task<bool> RemoveManager(string managerId);
     }
 }

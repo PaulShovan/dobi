@@ -48,7 +48,7 @@ namespace Dhobi.Admin.Api.Controllers
         }
         [Route("v1/manager")]
         [HttpGet]
-        [Authorize(Roles = "Superadmin")]
+        [Authorize(Roles = "Admin,Superadmin")]
         public async Task<IHttpActionResult> GetManager(int skip = 0, int limit = 10)
         {
             if (skip < 0 || limit < 1)
@@ -64,23 +64,25 @@ namespace Dhobi.Admin.Api.Controllers
             };
             return Ok(new GenericResponse<ManagerListResponse>(true, response));
         }
-        //[Route("v1/manager/{id}")]
-        //[HttpDelete]
-        //[Authorize(Roles = "Superadmin")]
-        //public async Task<IHttpActionResult> RemoveManager(string id)
-        //{
-        //    var managers = await _managerRepository.GetManager(skip, limit);
-        //    var totalManager = await _managerRepository.GetManagerCount();
-        //    var response = new ManagerListResponse
-        //    {
-        //        ManagerList = managers,
-        //        TotalManager = totalManager
-        //    };
-        //    return Ok(new GenericResponse<ManagerListResponse>(true, response));
-        //}
+        [Route("v1/manager/{id}")]
+        [HttpDelete]
+        [Authorize(Roles = "Admin,Superadmin")]
+        public async Task<IHttpActionResult> RemoveManager(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                return Ok(new GenericResponse<string>(false, null, "Invalid manager id."));
+            }
+            var isRemoved = await _managerRepository.RemoveManager(id);
+            if (!isRemoved)
+            {
+                return Ok(new GenericResponse<string>(false, null, "Invalid manager id."));
+            }
+            return Ok(new GenericResponse<string>(true, null, "Manager removed successfully."));
+        }
         [HttpPost]
         [Route("v1/manager")]
-        [Authorize(Roles = "Superadmin")]
+        [Authorize(Roles = "Admin,Superadmin")]
         public async Task<IHttpActionResult> AddManager()
         {
             if (!ModelState.IsValid)
