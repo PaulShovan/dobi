@@ -333,15 +333,22 @@ namespace Dhobi.Admin.Api.Controllers
                     {
                         dobi.Salary = double.Parse(val.ToString().Trim());
                     }
+                    else if(key == "Photo")
+                    {
+                        dobi.Photo = val.ToString().Trim();
+                    }
                 }
             }
-            _storageService = new StorageService();
-            foreach (var file in provider.Files)
+            if(provider.Files != null && provider.Files.Count > 0)
             {
-                var photoUrl = dobi.DobiId + "/profile/" + "profile_pic.png";
-                Stream stream = await file.ReadAsStreamAsync();
-                _storageService.UploadFile("dhobi", photoUrl, stream);
-                dobi.Photo = s3Prefix + photoUrl;
+                _storageService = new StorageService();
+                foreach (var file in provider.Files)
+                {
+                    var photoUrl = dobi.DobiId + "/profile/" + "profile_pic.png";
+                    Stream stream = await file.ReadAsStreamAsync();
+                    _storageService.UploadFile("dhobi", photoUrl, stream);
+                    dobi.Photo = s3Prefix + photoUrl;
+                }
             }
             var response = await _dobiBusiness.UpdateDobi(dobi);
             return Ok(response);

@@ -26,6 +26,10 @@ namespace Dhobi.Repository.Implementation
             options.ReturnDocument = ReturnDocument.After;
             options.Projection = projection;
             var result = await Collection.FindOneAndUpdateAsync(filter, update, options);
+            if(result == null)
+            {
+                return false;
+            }
             return !string.IsNullOrWhiteSpace(result.UserId);
         }
     }

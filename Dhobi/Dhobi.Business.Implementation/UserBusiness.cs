@@ -37,7 +37,7 @@ namespace Dhobi.Business.Implementation
             var smsText = smsTextTemplate.Replace("__CODE__", approvalCode);
             return smsText;
         }
-        private async Task<bool> IsPhoneNumberAvailable(string phoneNumber)
+        public async Task<bool> IsPhoneNumberAvailable(string phoneNumber)
         {
             if (string.IsNullOrWhiteSpace(phoneNumber))
             {
@@ -85,10 +85,6 @@ namespace Dhobi.Business.Implementation
         {
             try
             {
-                if (!await IsPhoneNumberAvailable(userModel.PhoneNumber))
-                {
-                    return null;
-                }
                 var user = new User
                 {
                     UserId = Guid.NewGuid().ToString(),

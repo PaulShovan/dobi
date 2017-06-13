@@ -20,7 +20,9 @@ namespace Dhobi.Repository.Implementation
 
         public async Task<bool> IsEmailAvailable(string email)
         {
-            var result = await Collection.CountAsync(manager => manager.Email == email);
+            var builder = Builders<Manager>.Filter;
+            var filter = builder.Eq(user => user.Status, (int)ManagerStatus.Active) & builder.Eq(manager => manager.Email, email);
+            var result = await Collection.CountAsync(filter);
             if (result > 0)
             {
                 return false;
@@ -30,7 +32,9 @@ namespace Dhobi.Repository.Implementation
 
         public async Task<bool> IsUserNameAvailable(string userName)
         {
-            var result = await Collection.CountAsync(manager => manager.UserName == userName);
+            var builder = Builders<Manager>.Filter;
+            var filter = builder.Eq(user => user.Status, (int)ManagerStatus.Active) & builder.Eq(manager => manager.UserName, userName);
+            var result = await Collection.CountAsync(filter);
             if (result > 0)
             {
                 return false;
@@ -52,6 +56,10 @@ namespace Dhobi.Repository.Implementation
             options.ReturnDocument = ReturnDocument.After;
             options.Projection = projection;
             var result = await Collection.FindOneAndUpdateAsync(filter, update, options);
+            if(result == null)
+            {
+                return false;
+            }
             return !string.IsNullOrWhiteSpace(result.UserId);
         }
         public async Task<List<Manager>> GetManager(int skip, int limit)
@@ -74,7 +82,7 @@ namespace Dhobi.Repository.Implementation
             try
             {
                 var builder = Builders<Manager>.Filter;
-                var filter = builder.Eq(user => user.UserName, loginModel.UserName) & builder.Eq(user => user.Password, loginModel.Password);
+                var filter = builder.Eq(user => user.UserName, loginModel.UserName) & builder.Eq(user => user.Password, loginModel.Password) & builder.Eq(user => user.Status, (int)ManagerStatus.Active);
                 var projection = Builders<Manager>.Projection.Exclude("_id")
                     .Include(u => u.UserName)
                     .Include(u => u.UserId)

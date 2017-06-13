@@ -66,6 +66,11 @@ namespace Dhobi.Api.Controllers
             {
                 return Ok(new ResponseModel<string>(ResponseStatus.BadRequest, null, "Invalid user data."));
             }
+            var isPhoneAvailable = await _userBusiness.IsPhoneNumberAvailable(user.PhoneNumber);
+            if (!isPhoneAvailable)
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.BadRequest, null, "Phone number is not available."));
+            }
             var response = await _userBusiness.AddUser(user);
             if(response == null)
             {
@@ -85,7 +90,7 @@ namespace Dhobi.Api.Controllers
             var response = await _userBusiness.ValidateRegisteredUser(code, userId);
             if (response == null)
             {
-                return Ok(new ResponseModel<string>(ResponseStatus.NotFound,null, "Invalid user."));
+                return Ok(new ResponseModel<string>(ResponseStatus.NotFound, null, "Invalid verification code."));
             }
             var token = _tokenGenerator.GenerateUserToken(response);
             var validatedUser = new ValidatedUserResponse(response.Name, token);
