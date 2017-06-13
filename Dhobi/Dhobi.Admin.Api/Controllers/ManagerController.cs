@@ -255,7 +255,7 @@ namespace Dhobi.Admin.Api.Controllers
             {
                 Token = token,
                 Name = loggedInUser.Name,
-                Role = loggedInUser.Roles[0] == "Superadmin" ? "SuperAdmin" : loggedInUser.Roles[0]
+                Role = loggedInUser.Roles[0]
             };
             var response = new GenericResponse<ManagerLoginResponse>(true, managerLoginResponse);
             return Ok(response);

@@ -43,7 +43,7 @@
         $scope.TopMenuMethods = {
             SelectTopMenu: function () {
                 var role = $localStorage.UserInfo.Role;
-                if (role === roleConstant.SuperAdmin) {
+                if (role === roleConstant.Superadmin) {
                     $scope.TopMenuData.TopMenuUrl = '/WebApp/directives/topMenu/superAdminMenu.html';
                 } else if (role === roleConstant.Admin) {
                     $scope.TopMenuData.TopMenuUrl = '/WebApp/directives/topMenu/adminMenu.html';

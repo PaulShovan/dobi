@@ -4,7 +4,8 @@
         'use strict';
 
         return {
-            SuperAdmin: "SuperAdmin",
+            Superadmin: "Superadmin",
+            Admin: "Admin",
             Manager: 'Manager'
         }
 

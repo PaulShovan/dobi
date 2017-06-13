@@ -69,7 +69,7 @@
                     $location.path('/login');
                 } else {
                     var role = $localStorage.UserInfo.Role;
-                    if (role === app.RoleName.SuperAdmin) {
+                    if (role === app.RoleName.Superadmin) {
                         return;
                     }
                     if (toState.authorization.role.indexOf(role) < 0) {
@@ -101,7 +101,7 @@
                     controllerUrl: 'controllers/dashboard/dashboardController',
                     controller: 'dashboardController',
                     authorization: {
-                        role: [app.RoleName.SuperAdmin, app.RoleName.Manager]
+                        role: [app.RoleName.Superadmin, app.RoleName.Admin, app.RoleName.Manager]
                     }
                 }));
         };
@@ -114,7 +114,7 @@
                     controllerUrl: 'controllers/dobi/dobiAddController',
                     controller: 'dobiAddController',
                     authorization: {
-                        role: [app.RoleName.SuperAdmin]
+                        role: [app.RoleName.Superadmin, app.RoleName.Admin]
                     }
                 }))
                 .state('dobimanage', angularAMD.route({
@@ -123,7 +123,7 @@
                     controllerUrl: 'controllers/dobi/dobiManageController',
                     controller: 'dobiManageController',
                     authorization: {
-                        role: [app.RoleName.SuperAdmin]
+                        role: [app.RoleName.Superadmin, app.RoleName.Admin]
                     }
                 }))
                 .state('useradd', angularAMD.route({
@@ -132,7 +132,7 @@
                     controllerUrl: 'controllers/user/userAddController',
                     controller: 'userAddController',
                     authorization: {
-                        role: [app.RoleName.SuperAdmin]
+                        role: [app.RoleName.Superadmin, app.RoleName.Admin]
                     }
                 }))
                 .state('usermanage', angularAMD.route({
@@ -141,7 +141,7 @@
                     controllerUrl: 'controllers/user/userManageController',
                     controller: 'userManageController',
                     authorization: {
-                        role: [app.RoleName.SuperAdmin]
+                        role: [app.RoleName.Superadmin, app.RoleName.Admin]
                     }
                 }))
                 .state('managepromo', angularAMD.route({
@@ -150,10 +150,9 @@
                     controllerUrl: 'controllers/promo/managePromoController',
                     controller: 'managePromoController',
                     authorization: {
-                        role: [app.RoleName.SuperAdmin]
+                        role: [app.RoleName.Superadmin, app.RoleName.Admin]
                     }
                 }))
-
             ;
         }
 
@@ -165,13 +164,14 @@
                     controllerUrl: 'controllers/orders/orderController',
                     controller: 'orderController',
                     authorization: {
-                        role: [app.RoleName.SuperAdmin, app.RoleName.Manager]
+                        role: [app.RoleName.Superadmin, app.RoleName.Admin, app.RoleName.Manager]
                     }
                 }));
         }
 
         app.RoleName = {
-            SuperAdmin: 'SuperAdmin',
+            Superadmin: 'Superadmin',
+            Admin: 'Admin',
             Manager: 'Manager'
         }
         $("#initialLoader").remove();
