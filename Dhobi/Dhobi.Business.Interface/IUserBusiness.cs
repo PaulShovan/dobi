@@ -15,5 +15,6 @@ namespace Dhobi.Business.Interface
         Task<User> GetUserById(string userId);
         Task<User> UserLogin(string phone, bool isVerificationRequired);
         Task<bool> SendUserSms(User user, SmsType smsType);
+        Task<bool> IsPhoneNumberAvailable(string phoneNumber);
     }
 }
