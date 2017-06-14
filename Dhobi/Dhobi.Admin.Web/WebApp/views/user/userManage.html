@@ -46,8 +46,8 @@
                                         <td>{{user.Roles[0]}}</td>
                                         <td>{{user.Address}}</td>
                                         <td class="text-center">
-                                            <a href="#/dobi/details/{{dobi.DobiId}}" class="m-r-sm"><i class="fa fa-trash fa-2x text-muted"></i></a>
-                                            <a href="#/dobi/edit/{{dobi.DobiId}}" class="m-l-sm"><i class="fa fa-pencil fa-2x text-muted"></i></a>
+                                            <a href="#/user/manage/{{user.UserId}}" class="m-r-sm"><i class="fa fa-trash fa-2x text-muted"></i></a>
+                                            <a ng-click="DeleteUser(user.UserId)" class="m-l-sm" confirm="Do you really want to Delete?" confirm-ok="Yes" confirm-cancel="No" title="Delete"><i class="fa fa-pencil fa-2x text-muted"></i></a>
                                         </td>
                                     </tr>
                                 </tbody>

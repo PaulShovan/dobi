@@ -1,15 +1,9 @@
 ﻿<nav role="navigation" class="navbar navbar-default m-b-none">
     <div class="navbar-header">
-        <!--<button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>-->
         <a href="#" class="navbar-brand"><img src="../../../Content/images/dobi-menu.jpg" /></a>
         <div class="pull-left dobi-title">
             <div class="dobi-name" ng-bind="TopMenuData.User.Name"></div>
-            <div class="dobi-role" ng-bind="TopMenuData.User.Role=='SuperAdmin' ? 'Super Admin' : 'Manager'"></div>
+            <div class="dobi-role" ng-bind="TopMenuData.User.Role=='Superadmin' ? 'Super Admin' : 'Manager'"></div>
         </div>
 
         <div class="pull-right dobi-menu">
@@ -22,39 +16,6 @@
                     <li ng-click="TopMenuMethods.Logout()"> Logout </li>
                 </ul>
             </span>
-
         </div>
     </div>
-
-    <!--<div id="navbarCollapse" class="collapse navbar-collapse navbar-top-links">
-        <ul class="nav navbar-nav">
-            <li ng-if="TopMenuData.ViewName == 'SuperAdmin'" ng-repeat="item in TopMenuData.SuperAdminMenues" ng-class="{active: $root.CURRENTSTATE.indexOf(item.Link)>-1}">
-                <a role="button" ui-sref="{{item.Link}}"><i class="fa {{item.Cls}}"></i> <span class="nav-label">{{item.Title}}</span></a>
-
-                <ul ng-if="item.Submenu.length>0" class="nav nav-second-level collapse in">
-                    <li ng-repeat="submenu in item.Submenu" ui-sref-active="active"><a ui-sref="{{submenu.Link}}">{{submenu.Title}}</a></li>
-                </ul>
-            </li>
-
-            <li ng-if="TopMenuData.ViewName == 'Admin'" ng-repeat="item in TopMenuData.AdminMenues" ng-class="{active: $root.CURRENTSTATE.indexOf(item.Link)>-1}">
-                <a role="button" ui-sref="{{item.Link}}"><i class="fa {{item.Cls}}"></i> <span class="nav-label">{{item.Title}}</span></a>
-
-                <ul ng-if="item.Submenu.length>0" class="nav nav-second-level collapse in">
-                    <li ng-repeat="submenu in item.Submenu" ui-sref-active="active"><a ui-sref="{{submenu.Link}}">{{submenu.Title}}</a></li>
-                </ul>
-            </li>
-
-            <li ng-if="TopMenuData.ViewName == 'Manager'" ng-repeat="item in TopMenuData.ManagerMenues" ng-class="{active: $root.CURRENTSTATE.indexOf(item.Link)>-1}">
-                <a role="button" ui-sref="{{item.Link}}"><i class="fa {{item.Cls}}"></i> <span class="nav-label">{{item.Title}}</span></a>
-
-                <ul ng-if="item.Submenu.length>0" class="nav nav-second-level collapse in">
-                    <li ng-repeat="submenu in item.Submenu" ui-sref-active="active"><a ui-sref="{{submenu.Link}}">{{submenu.Title}}</a></li>
-                </ul>
-            </li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="javascript:void(0)">{{TopMenuData.User.Name}}</a></li>
-            <li><a href="javascript:void(0)" ng-click="TopMenuMethods.Logout()"><i class="fa fa-sign-out"></i> Logout</a></li>
-        </ul>
-    </div>-->
 </nav>

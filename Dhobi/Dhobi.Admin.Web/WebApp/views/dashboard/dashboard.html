@@ -2,30 +2,23 @@
     <div class="col-sm-12">
         <div class="ibox">
             <div class="ibox-content dashboard-wrapper">
-                <div class="col-sm-6" ng-if="Data.ViewName == 'SuperAdmin'">
+                <div class="col-sm-6" ng-if="Data.ViewName == 'Superadmin'">
                     <h1>Admin</h1>
                     <div class="m-t-xl admin-btn">
-                        <button class="btn btn-danger dim btn-large-dim" type="button" ui-sref="dobiadd"><span>Add New Dobi</span></button>
-                        <button class="btn btn-danger dim btn-large-dim" type="button" ui-sref="dobimanage"><span>Manage Dobi</span></button>
-                        <button class="btn btn-danger dim btn-large-dim" type="button" ui-sref="useradd"><span>Add User</span></button>
-                        <button class="btn btn-danger dim btn-large-dim" type="button" ui-sref="usermanage"><span>Manage User</span></button>
-                        <button class="btn btn-danger dim btn-large-dim" type="button" ui-sref="managepromo"><span>Add Promo</span></button>
-                        <button class="btn btn-danger dim btn-large-dim" type="button"><span>Payment</span></button>
+                        <button ng-repeat="menu in Menues.SuperAdminMenues" class="btn btn-danger dim btn-large-dim" type="button" ui-sref="{{menu.State}}" ng-disabled="menu.IsDisabled">
+                            <span>{{menu.Title}}</span>
+                        </button>
                     </div>
-
                 </div>
-                <div class="col-sm-6" ng-if="Data.ViewName == 'SuperAdmin' || Data.ViewName == 'Manager'">
+                <div class="col-sm-6" ng-if="Data.ViewName == 'Superadmin' || Data.ViewName == 'Manager'">
                     <h1>Manager</h1>
                     <div class="m-t-xl admin-btn">
-                        <button class="btn btn-success dim btn-large-dim" type="button" ui-sref="orders"><span>All Orders</span></button>
-                        <button class="btn btn-success dim btn-large-dim" type="button"><span>In Progress</span></button>
-                        <button class="btn btn-success dim btn-large-dim" type="button"><span>Cleaned Items</span></button>
-                        <button class="btn btn-success dim btn-large-dim" type="button"><span>Deliverable Items</span></button>
-                        <button class="btn btn-success dim btn-large-dim" type="button"><span>Delivered</span></button>
+                        <button ng-repeat="menu in Menues.ManagerMenues" class="btn btn-success dim btn-large-dim" type="button" ui-sref="{{menu.State}}" ng-disabled="menu.IsDisabled">
+                            <span>{{menu.Title}}</span>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>

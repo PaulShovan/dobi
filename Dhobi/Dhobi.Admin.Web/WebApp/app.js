@@ -69,7 +69,7 @@
                     $location.path('/login');
                 } else {
                     var role = $localStorage.UserInfo.Role;
-                    if (role === app.RoleName.SuperAdmin) {
+                    if (role === app.RoleName.Superadmin) {
                         return;
                     }
                     if (toState.authorization.role.indexOf(role) < 0) {
@@ -101,7 +101,7 @@
                     controllerUrl: 'controllers/dashboard/dashboardController',
                     controller: 'dashboardController',
                     authorization: {
-                        role: [app.RoleName.SuperAdmin, app.RoleName.Manager]
+                        role: [app.RoleName.Superadmin, app.RoleName.Admin, app.RoleName.Manager]
                     }
                 }));
         };
@@ -111,10 +111,10 @@
                 .state('dobiadd', angularAMD.route({
                     url: '/dobi/add',
                     templateUrl: '/WebApp/views/dobi/dobiAdd.html',
-                    controllerUrl: 'controllers/dobi/dobiAddController',
-                    controller: 'dobiAddController',
+                    controllerUrl: 'controllers/dobi/dobiController',
+                    controller: 'dobiController',
                     authorization: {
-                        role: [app.RoleName.SuperAdmin]
+                        role: [app.RoleName.Superadmin, app.RoleName.Admin]
                     }
                 }))
                 .state('dobimanage', angularAMD.route({
@@ -123,16 +123,26 @@
                     controllerUrl: 'controllers/dobi/dobiManageController',
                     controller: 'dobiManageController',
                     authorization: {
-                        role: [app.RoleName.SuperAdmin]
+                        role: [app.RoleName.Superadmin, app.RoleName.Admin]
                     }
                 }))
+                .state('dobiupdate', angularAMD.route({
+                    url: '/dobi/manage/{id}',
+                    templateUrl: '/WebApp/views/dobi/dobiAdd.html',
+                    controllerUrl: 'controllers/dobi/dobiController',
+                    controller: 'dobiController',
+                    authorization: {
+                        role: [app.RoleName.Superadmin, app.RoleName.Admin]
+                    }
+                }))
+
                 .state('useradd', angularAMD.route({
                     url: '/user/add',
                     templateUrl: '/WebApp/views/user/userAdd.html',
-                    controllerUrl: 'controllers/user/userAddController',
-                    controller: 'userAddController',
+                    controllerUrl: 'controllers/user/userController',
+                    controller: 'userController',
                     authorization: {
-                        role: [app.RoleName.SuperAdmin]
+                        role: [app.RoleName.Superadmin, app.RoleName.Admin]
                     }
                 }))
                 .state('usermanage', angularAMD.route({
@@ -141,19 +151,28 @@
                     controllerUrl: 'controllers/user/userManageController',
                     controller: 'userManageController',
                     authorization: {
-                        role: [app.RoleName.SuperAdmin]
+                        role: [app.RoleName.Superadmin, app.RoleName.Admin]
                     }
                 }))
+                .state('userupdate', angularAMD.route({
+                    url: '/user/manage/{id}',
+                    templateUrl: '/WebApp/views/user/userAdd.html',
+                    controllerUrl: 'controllers/user/userController',
+                    controller: 'userController',
+                    authorization: {
+                        role: [app.RoleName.Superadmin, app.RoleName.Admin]
+                    }
+                }))
+
                 .state('managepromo', angularAMD.route({
                     url: '/promo/manage',
                     templateUrl: '/WebApp/views/promo/managePromo.html',
                     controllerUrl: 'controllers/promo/managePromoController',
                     controller: 'managePromoController',
                     authorization: {
-                        role: [app.RoleName.SuperAdmin]
+                        role: [app.RoleName.Superadmin, app.RoleName.Admin]
                     }
                 }))
-
             ;
         }
 
@@ -165,13 +184,14 @@
                     controllerUrl: 'controllers/orders/orderController',
                     controller: 'orderController',
                     authorization: {
-                        role: [app.RoleName.SuperAdmin, app.RoleName.Manager]
+                        role: [app.RoleName.Superadmin, app.RoleName.Admin, app.RoleName.Manager]
                     }
                 }));
         }
 
         app.RoleName = {
-            SuperAdmin: 'SuperAdmin',
+            Superadmin: 'Superadmin',
+            Admin: 'Admin',
             Manager: 'Manager'
         }
         $("#initialLoader").remove();
