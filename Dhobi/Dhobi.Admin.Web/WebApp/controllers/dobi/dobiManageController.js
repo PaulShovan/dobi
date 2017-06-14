@@ -18,7 +18,7 @@
             },
             GetAllDobi: function (pageNumber) {
                 var skip = (pageNumber-1) * $scope.pageSize;
-                httpService.get(apiConstant.getAllDobi + "?skip=" + skip , function (dobi) {
+                httpService.get(apiConstant.dobi + "?skip=" + skip , function (dobi) {
                     $timeout(function() {
                         $scope.Data.Dobies = dobi.Data.DobiList;
                         $scope.Data.TotalDobies = dobi.Data.TotalDobi;

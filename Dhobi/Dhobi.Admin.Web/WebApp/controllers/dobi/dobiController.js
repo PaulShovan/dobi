@@ -1,6 +1,6 @@
 ﻿define(['app', 'underscore', 'i-check'], function (app, _) {
-    app.controller('dobiAddController', ['$scope', 'apiConstant', 'httpService', '$state', 'toastr',
-        function ($scope, apiConstant, httpService, $state, toastr) {
+    app.controller('dobiController', ['$scope', 'apiConstant', 'httpService', '$state', '$stateParams', 'toastr',
+        function ($scope, apiConstant, httpService, $state, $stateParams, toastr) {
             "use strict";
 
             $scope.Data = {
@@ -18,14 +18,28 @@
                     Salary: "",
                     Photo: []
                 },
-                FileErrorMsg: null
+                FileErrorMsg: null,
+                SaveOrUpdateBtn: "Save"
             };
 
             $scope.Methods = {
                 Init: function () {
-
+                    if ($stateParams.id) {
+                        $scope.Data.SaveOrUpdateBtn = "Update";
+                    }
                 },
-                AddNewDobi: function (files) {
+
+                GetDobiById: function() {
+                    httpService.get(apiConstant.getAllDobi + "?skip=" + skip, function (dobi) {
+                        $timeout(function () {
+                            $scope.Data.Dobies = dobi.Data.DobiList;
+                            $scope.Data.TotalDobies = dobi.Data.TotalDobi;
+                            $scope.Data.ShowingFrom = skip + 1;
+                            $scope.Data.ShowingTo = skip + dobi.Data.DobiList.length;
+                        });
+                    }, true);
+                },
+                AddOrUpdateDobi: function (files) {
                     if (!files || files.length <= 0) {
                         $scope.Data.FileErrorMsg = "Please Upload a file";
                         return;
@@ -33,7 +47,7 @@
                         $scope.Data.Dobi.Photo = files;
                         $scope.Data.Dobi.Phone = "006" + $scope.Data.Dobi.Phone;
                         $scope.httpLoading = true;
-                        httpService.postMultipart(apiConstant.addNewDobi, { Files: files }, $scope.Data.Dobi, "New Dobi Added Successfully", function (response) {
+                        httpService.postMultipart(apiConstant.dobi, { Files: files }, $scope.Data.Dobi, "New Dobi Added Successfully", function (response) {
                             if (response.status === 200) {
                                 toastr.success(response.Message, "Success!");
                                 $scope.httpLoading = false;
@@ -43,6 +57,7 @@
                     }
                     
                 }
+
             };
 
             console.log("Add Dobi Controller");

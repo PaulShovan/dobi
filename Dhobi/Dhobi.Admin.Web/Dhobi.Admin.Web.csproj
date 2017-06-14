@@ -209,10 +209,10 @@
     <Content Include="WebApp\constants\roleConstant.js" />
     <Content Include="WebApp\controllers\dashboard\dashboardController.js" />
     <Content Include="WebApp\controllers\loginController.js" />
-    <Content Include="WebApp\controllers\dobi\dobiAddController.js" />
+    <Content Include="WebApp\controllers\dobi\dobiController.js" />
     <Content Include="WebApp\controllers\dobi\dobiManageController.js" />
     <Content Include="WebApp\controllers\orders\orderController.js" />
-    <Content Include="WebApp\controllers\user\userAddController.js" />
+    <Content Include="WebApp\controllers\user\userController.js" />
     <Content Include="WebApp\controllers\promo\managePromoController.js" />
     <Content Include="WebApp\controllers\user\userManageController.js" />
     <Content Include="WebApp\controllers\viewSwitchController.js" />

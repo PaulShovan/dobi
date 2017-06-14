@@ -54,7 +54,6 @@
         'api-constant': 'services/apiConstant',
 
         //Controllers
-        'dobi-add': 'controllers/superAdmin/dobi/dobiAddController'
     },
 
     // Add angular modules that does not support AMD out of the box, put it in a shim

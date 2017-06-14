@@ -18,7 +18,7 @@
             },
             GetAllUser: function (pageNumber) {
                 var skip = (pageNumber - 1) * $scope.pageSize;
-                httpService.get(apiConstant.getAllUser + "?skip=" + skip, function (user) {
+                httpService.get(apiConstant.user + "?skip=" + skip, function (user) {
                     $timeout(function () {
                         $scope.Data.Users = user.Data.ManagerList;
                         $scope.Data.TotalUsers = user.Data.TotalManager;

@@ -111,8 +111,8 @@
                 .state('dobiadd', angularAMD.route({
                     url: '/dobi/add',
                     templateUrl: '/WebApp/views/dobi/dobiAdd.html',
-                    controllerUrl: 'controllers/dobi/dobiAddController',
-                    controller: 'dobiAddController',
+                    controllerUrl: 'controllers/dobi/dobiController',
+                    controller: 'dobiController',
                     authorization: {
                         role: [app.RoleName.Superadmin, app.RoleName.Admin]
                     }
@@ -126,11 +126,21 @@
                         role: [app.RoleName.Superadmin, app.RoleName.Admin]
                     }
                 }))
+                .state('dobiupdate', angularAMD.route({
+                    url: '/dobi/manage/{id}',
+                    templateUrl: '/WebApp/views/dobi/dobiAdd.html',
+                    controllerUrl: 'controllers/dobi/dobiController',
+                    controller: 'dobiController',
+                    authorization: {
+                        role: [app.RoleName.Superadmin, app.RoleName.Admin]
+                    }
+                }))
+
                 .state('useradd', angularAMD.route({
                     url: '/user/add',
                     templateUrl: '/WebApp/views/user/userAdd.html',
-                    controllerUrl: 'controllers/user/userAddController',
-                    controller: 'userAddController',
+                    controllerUrl: 'controllers/user/userController',
+                    controller: 'userController',
                     authorization: {
                         role: [app.RoleName.Superadmin, app.RoleName.Admin]
                     }
@@ -144,6 +154,16 @@
                         role: [app.RoleName.Superadmin, app.RoleName.Admin]
                     }
                 }))
+                .state('userupdate', angularAMD.route({
+                    url: '/user/manage/{id}',
+                    templateUrl: '/WebApp/views/user/userAdd.html',
+                    controllerUrl: 'controllers/user/userController',
+                    controller: 'userController',
+                    authorization: {
+                        role: [app.RoleName.Superadmin, app.RoleName.Admin]
+                    }
+                }))
+
                 .state('managepromo', angularAMD.route({
                     url: '/promo/manage',
                     templateUrl: '/WebApp/views/promo/managePromo.html',

@@ -1,5 +1,5 @@
 ﻿define(['app', 'underscore', 'i-check'], function (app, _) {
-    app.controller('userAddController', ['$scope', 'apiConstant', 'httpService', '$state', 'toastr',
+    app.controller('userController', ['$scope', 'apiConstant', 'httpService', '$state', 'toastr',
         function ($scope, apiConstant, httpService, $state, toastr) {
             "use strict";
 
@@ -35,13 +35,16 @@
                         return;
                     } else {
                         $scope.Data.User.Phone = "006" + $scope.Data.User.Phone;
-                        httpService.postMultipart(apiConstant.addNewUser, { Files: files }, $scope.Data.User, "New User Added Successfully", function (response) {
+                        httpService.postMultipart(apiConstant.user, { Files: files }, $scope.Data.User, "New User Added Successfully", function (response) {
                             if (response.status === 200) {
                                 toastr.success(response.Message, "Success!");
                                 $state.go('usermanage');
                             }
                         });
                     }
+                },
+                RemoveUser: function (id) {
+                    httpService.post(apiConstant.user, id, "User Deleted Successfully", function(response) {}, false);
                 }
             };
 

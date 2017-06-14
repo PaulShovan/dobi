@@ -8,15 +8,9 @@
         var baseUrl = host + "api/" + version + "/";
         
         return {
-            getAllDobi: baseUrl + "dobi",
-            addNewDobi: baseUrl + "dobi",
-
-            addNewUser: baseUrl + "manager",
-            getAllUser: baseUrl + "manager",
-
-            getAllPromo: baseUrl + "promo",
-            addPromo: baseUrl + "promo",
-            updatePromo: baseUrl + "promo"
+            dobi: baseUrl + "dobi",
+            user: baseUrl + "manager",
+            promo: baseUrl + "promo"
         }
     })());
 });

@@ -32,7 +32,7 @@
                     offers.splice(index, 1);
                 },
                 AddOrUpdatePromo: function () {
-                    var api = apiConstant.addPromo;
+                    var api = apiConstant.promo;
                     var message = "Promo is Created";
 
                     _.each($scope.Data.Offer.Navigations, function(navigation) {
@@ -46,7 +46,7 @@
                     });
                 },
                 GetPromoOffers: function() {
-                    httpService.get(apiConstant.getAllPromo, function (offer) {
+                    httpService.get(apiConstant.promo, function (offer) {
                         $timeout(function () {
                             $scope.Data.Offers = offer.Data.OfferList;
                             $scope.Data.TotalUsers = offer.Data.TotalOffer;
