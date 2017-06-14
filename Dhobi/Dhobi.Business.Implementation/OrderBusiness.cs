@@ -41,7 +41,7 @@ namespace Dhobi.Business.Implementation
                 Amount = promo.Amount
             };
         }
-        public async Task<bool> AddNewOrder(NewOrderViewModel order, User orderedBy, string zone)
+        public async Task<bool> AddNewOrder(NewOrderViewModel order, User orderedBy)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace Dhobi.Business.Implementation
                     ServiceId = newServiceId,
                     OrderBy = orderedBy,
                     Address = order.Address,
-                    Zone = zone,
+                    Zone = order.Zone,
                     Promotion = await GetPromoOffer(),
                     Status = (int)OrderStatus.New,
                     OrderPlacingTime = Utilities.GetPresentDateTime()

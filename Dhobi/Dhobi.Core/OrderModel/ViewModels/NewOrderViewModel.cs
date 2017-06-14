@@ -12,8 +12,7 @@ namespace Dhobi.Core.OrderModel.ViewModels
         [Required]
         public string Address { get; set; }
         [Required]
-        public double Latitude { get; set; }
-        [Required]
-        public double Longitude { get; set; }
+        public string Zone { get; set; }
+
     }
 }

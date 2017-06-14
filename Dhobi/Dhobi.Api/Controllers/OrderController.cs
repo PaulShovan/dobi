@@ -72,12 +72,7 @@ namespace Dhobi.Api.Controllers
             {
                 return BadRequest("Invalid User.");
             }
-            var zone = await _locationService.GetZoneFromAddress(order.Latitude, order.Longitude, order.Address);
-            if(zone == null || string.IsNullOrEmpty(zone))
-            {
-                return Ok(new ResponseModel<string>(ResponseStatus.BadRequest, null, "Service is not available for this address."));
-            }
-            var response = await _orderBusiness.AddNewOrder(order, user, zone);
+            var response = await _orderBusiness.AddNewOrder(order, user);
             if (!response)
             {
                 return Ok(new ResponseModel<string>(ResponseStatus.BadRequest, null, "Order was not processed successfully."));
