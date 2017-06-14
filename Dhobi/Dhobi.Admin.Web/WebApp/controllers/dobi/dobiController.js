@@ -30,14 +30,14 @@
                 },
 
                 GetDobiById: function() {
-                    httpService.get(apiConstant.getAllDobi + "?skip=" + skip, function (dobi) {
-                        $timeout(function () {
-                            $scope.Data.Dobies = dobi.Data.DobiList;
-                            $scope.Data.TotalDobies = dobi.Data.TotalDobi;
-                            $scope.Data.ShowingFrom = skip + 1;
-                            $scope.Data.ShowingTo = skip + dobi.Data.DobiList.length;
-                        });
-                    }, true);
+                    //httpService.get(apiConstant.getAllDobi + "?skip=" + skip, function (dobi) {
+                    //    $timeout(function () {
+                    //        $scope.Data.Dobies = dobi.Data.DobiList;
+                    //        $scope.Data.TotalDobies = dobi.Data.TotalDobi;
+                    //        $scope.Data.ShowingFrom = skip + 1;
+                    //        $scope.Data.ShowingTo = skip + dobi.Data.DobiList.length;
+                    //    });
+                    //}, true);
                 },
                 AddOrUpdateDobi: function (files) {
                     if (!files || files.length <= 0) {

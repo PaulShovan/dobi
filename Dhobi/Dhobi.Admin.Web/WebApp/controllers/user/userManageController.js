@@ -30,6 +30,11 @@
             PageChangeHandler: function (pageNum) {
                 $scope.currentPage = pageNum;
                 $scope.Methods.GetAllUser(pageNum);
+            },
+            RemoveUser: function (id) {
+                httpService.remove(apiConstant.user, id, "User Deleted Successfully", function (response) {
+                    $scope.Methods.GetAllUser($scope.currentPage);
+                }, false);
             }
         };
 

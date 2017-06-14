@@ -42,9 +42,6 @@
                             }
                         });
                     }
-                },
-                RemoveUser: function (id) {
-                    httpService.post(apiConstant.user, id, "User Deleted Successfully", function(response) {}, false);
                 }
             };
 
