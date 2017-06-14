@@ -123,6 +123,22 @@ namespace Dhobi.Admin.Api.Controllers
             };
             return Ok(new GenericResponse<DobiListResponse>(true, response));
         }
+        [Route("v1/dobi")]
+        [HttpGet]
+        [Authorize(Roles = "Admin,Superadmin")]
+        public async Task<IHttpActionResult> GetDobiById(string dobiId)
+        {
+            if (string.IsNullOrWhiteSpace(dobiId))
+            {
+                return BadRequest("Invalid dobi id.");
+            }
+            var dobi = await _dobiRepository.GetDobiById(dobiId);
+            if(dobi == null)
+            {
+                return Ok(new GenericResponse<string>(false, "", "No dobi found"));
+            }
+            return Ok(new GenericResponse<Dobi>(true, dobi));
+        }
         [HttpPost]
         [Route("v1/dobi")]
         [Authorize(Roles = "Admin,Superadmin")]

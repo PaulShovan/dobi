@@ -13,5 +13,6 @@ namespace Dhobi.Core.UserInbox.DbModels
         public string Message;
         public string Time;
         public int Status;
+        public int MessageType;
     }
 }

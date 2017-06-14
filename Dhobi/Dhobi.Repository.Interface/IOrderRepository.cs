@@ -19,5 +19,7 @@ namespace Dhobi.Repository.Interface
         Task<List<Order>> GetOrdersByZone(string zone, int orderStatus);
         Task<Order> GetNewOrderForDobi(string serviceId);
         Task<bool> SetOrderPickupDateTime(long date, string time, string serviceId, DobiBasicInformation dobi);
+        Task<bool> CancelOrder(string serviceId);
+        Task<bool> ConfirmOrder(string serviceId);
     }
 }

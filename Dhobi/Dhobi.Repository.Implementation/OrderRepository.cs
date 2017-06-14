@@ -133,11 +133,61 @@ namespace Dhobi.Repository.Implementation
                 options.ReturnDocument = ReturnDocument.After;
                 options.Projection = projection;
                 var result = await Collection.FindOneAndUpdateAsync(filter, update, options);
+                if(result == null)
+                {
+                    return false;
+                }
                 return !string.IsNullOrWhiteSpace(result.ServiceId);
             }
             catch (Exception ex)
             {
                 throw new Exception("Error setting pickup date time");
+            }
+        }
+
+        public async Task<bool> CancelOrder(string serviceId)
+        {
+            try
+            {
+                var filter = Builders<Order>.Filter.Eq(d => d.ServiceId, serviceId);
+                var update = Builders<Order>.Update.Set(u => u.Status, (int)OrderStatus.Cancelled);
+                var projection = Builders<Order>.Projection.Exclude("_id");
+                var options = new FindOneAndUpdateOptions<Order, Order>();
+                options.ReturnDocument = ReturnDocument.After;
+                options.Projection = projection;
+                var result = await Collection.FindOneAndUpdateAsync(filter, update, options);
+                if(result == null)
+                {
+                    return false;
+                }
+                return !string.IsNullOrWhiteSpace(result.ServiceId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error cancelling order");
+            }
+        }
+
+        public async Task<bool> ConfirmOrder(string serviceId)
+        {
+            try
+            {
+                var filter = Builders<Order>.Filter.Eq(d => d.ServiceId, serviceId);
+                var update = Builders<Order>.Update.Set(u => u.Status, (int)OrderStatus.Confirmed);
+                var projection = Builders<Order>.Projection.Exclude("_id");
+                var options = new FindOneAndUpdateOptions<Order, Order>();
+                options.ReturnDocument = ReturnDocument.After;
+                options.Projection = projection;
+                var result = await Collection.FindOneAndUpdateAsync(filter, update, options);
+                if (result == null)
+                {
+                    return false;
+                }
+                return !string.IsNullOrWhiteSpace(result.ServiceId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error confirming order");
             }
         }
     }

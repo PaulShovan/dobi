@@ -58,7 +58,7 @@ namespace Dhobi.Repository.Implementation
             {
                 var builder = Builders<Dobi>.Filter;
                 var filter = builder.Eq(d => d.DobiId, dobiId);
-                var projection = Builders<Dobi>.Projection.Exclude("_id");
+                var projection = Builders<Dobi>.Projection.Exclude("_id").Exclude(d => d.AddedBy);
                 var result = await Collection.Find(filter).Project<Dobi>(projection).FirstOrDefaultAsync();
                 return result;
             }
