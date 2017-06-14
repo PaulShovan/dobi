@@ -19,7 +19,7 @@
                     Sex: "male",
                     Salary: "",
                     Photo: [],
-                    Roles: "admin"
+                    Roles: "Admin"
                 },
                 FileErrorMsg: null
             };

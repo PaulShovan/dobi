@@ -37,8 +37,6 @@
                 }, false);
             }
         };
-
-        console.log("Manage User Controller");
         $scope.Methods.Init();
     }]);
 

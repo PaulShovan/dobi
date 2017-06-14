@@ -5,6 +5,7 @@
 
             $scope.Data = {
                 Dobi: {
+                    DobiId: "",
                     Name: "",
                     Phone: "",
                     Email: "",
@@ -26,18 +27,16 @@
                 Init: function () {
                     if ($stateParams.id) {
                         $scope.Data.SaveOrUpdateBtn = "Update";
+                        $scope.Methods.GetDobiById($stateParams.id);
                     }
                 },
 
-                GetDobiById: function() {
-                    //httpService.get(apiConstant.getAllDobi + "?skip=" + skip, function (dobi) {
-                    //    $timeout(function () {
-                    //        $scope.Data.Dobies = dobi.Data.DobiList;
-                    //        $scope.Data.TotalDobies = dobi.Data.TotalDobi;
-                    //        $scope.Data.ShowingFrom = skip + 1;
-                    //        $scope.Data.ShowingTo = skip + dobi.Data.DobiList.length;
-                    //    });
-                    //}, true);
+                GetDobiById: function(id) {
+                    httpService.get(apiConstant.dobiById + "/" + id, function (dobi) {
+                        $timeout(function () {
+                            $scope.Data.Dobi = dobi.Data.Dobi;
+                        });
+                    }, true);
                 },
                 AddOrUpdateDobi: function (files) {
                     if (!files || files.length <= 0) {
@@ -47,13 +46,15 @@
                         $scope.Data.Dobi.Photo = files;
                         $scope.Data.Dobi.Phone = "006" + $scope.Data.Dobi.Phone;
                         $scope.httpLoading = true;
-                        httpService.postMultipart(apiConstant.dobi, { Files: files }, $scope.Data.Dobi, "New Dobi Added Successfully", function (response) {
+
+                        var message = $stateParams.id ? "Dobi Updated Successfully." : "New Dobi Added Successfully";
+                        httpService.postMultipart(apiConstant.dobi, { Files: files }, $scope.Data.Dobi, message, function (response) {
                             if (response.status === 200) {
                                 toastr.success(response.Message, "Success!");
                                 $scope.httpLoading = false;
                                 $state.go('dobimanage');
                             }
-                        });
+                        }, false);
                     }
                     
                 }
