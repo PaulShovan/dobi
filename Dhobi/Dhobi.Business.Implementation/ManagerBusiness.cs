@@ -33,11 +33,11 @@ namespace Dhobi.Business.Implementation
             {
                 if(!await IsEmailAvailable(manager.Email))
                 {
-                    return new GenericResponse<string>(false, "Email is not available.");
+                    return new GenericResponse<string>(false, null, "Email is not available.");
                 }
                 if (!await IsUserNameAvailable(manager.UserName))
                 {
-                    return new GenericResponse<string>(false, "Username is not available.");
+                    return new GenericResponse<string>(false, null, "Username is not available.");
                 }
                 manager.UserId = Guid.NewGuid().ToString();
                 manager.Password = _passwordHasher.GetHashedPassword(manager.Password);
@@ -46,7 +46,7 @@ namespace Dhobi.Business.Implementation
                 var response = await _managerRepository.AddManager(manager);
                 if (!response)
                 {
-                    return new GenericResponse<string>(false, "Error adding user");
+                    return new GenericResponse<string>(false, null, "Error adding user");
                 }
                 return new GenericResponse<string>(true, null,"Manager added successfully.");
             }
