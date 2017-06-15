@@ -41,14 +41,14 @@ namespace Dhobi.Business.Implementation
                 }
                 else if (!string.IsNullOrWhiteSpace(dobi.PassportNumber))
                 {
-                    if(await _dobiRepository.IsPassportNumberAvailable(dobi.PassportNumber))
+                    if(!await _dobiRepository.IsPassportNumberAvailable(dobi.PassportNumber))
                     {
                         return new GenericResponse<string>(false, null, "Passport number is not available");
                     }
                 }
                 else if (!string.IsNullOrWhiteSpace(dobi.IcNumber))
                 {
-                    if (await _dobiRepository.IsIcNumberAvailable(dobi.IcNumber))
+                    if (!await _dobiRepository.IsIcNumberAvailable(dobi.IcNumber))
                     {
                         return new GenericResponse<string>(false, null, "IC number is not available");
                     }
