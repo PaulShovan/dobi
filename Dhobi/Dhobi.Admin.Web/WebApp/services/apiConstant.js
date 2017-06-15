@@ -9,6 +9,8 @@
         
         return {
             dobi: baseUrl + "dobi",
+            updateDobi: baseUrl + "dobi/update",
+
             user: baseUrl + "manager",
             promo: baseUrl + "promo"
         }

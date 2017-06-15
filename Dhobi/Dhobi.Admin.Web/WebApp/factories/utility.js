@@ -33,7 +33,40 @@
                 }
                 var convertedData = data.replace(/\r?\n/g, '<br />');
                 return convertedData;
+            },
+            RemoveMalaysiaCC: function (phoneNumber) { // CC means Country Code
+                return phoneNumber.toString().replace(/\D/g, '').substr(3, 10);
+            },
+            AddMalaysiaCC: function(phoneNumber) {
+                var phone = phoneNumber.toString().replace(/\D/g, '');
+                var phoneWithExt = "006" + phone;
+                return phoneWithExt;
+            },
+            ConvertImgToDataURLviaCanvas: function (url, callback, outputFormat) {
+                var img = new Image();
+                img.crossOrigin = 'Anonymous';
+                img.onload = function () {
+                    var canvas = document.createElement('CANVAS');
+                    var ctx = canvas.getContext('2d');
+                    var dataURL;
+                    canvas.height = this.height;
+                    canvas.width = this.width;
+                    ctx.drawImage(this, 0, 0);
+                    dataURL = canvas.toDataURL(outputFormat);
+                    callback(dataURL);
+                    canvas = null;
+                };
+                img.src = url;
+            },
+            ConvertDataURLtoFile: function (dataurl, filename) {
+                var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+                    bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+                while (n--) {
+                    u8arr[n] = bstr.charCodeAt(n);
+                }
+                return new File([u8arr], filename, { type: mime });
             }
+
         };
     });
 
