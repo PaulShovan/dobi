@@ -31,7 +31,11 @@ namespace Dhobi.Business.Implementation
         {
             try
             {
-                if(!await IsEmailAvailable(manager.Email))
+                if (string.IsNullOrWhiteSpace(manager.PassportNumber) && string.IsNullOrWhiteSpace(manager.IcNumber))
+                {
+                    return new GenericResponse<string>(false, null, "Passport or IC number is required");
+                }
+                if (!await IsEmailAvailable(manager.Email))
                 {
                     return new GenericResponse<string>(false, null, "Email is not available.");
                 }
@@ -65,6 +69,44 @@ namespace Dhobi.Business.Implementation
             catch (Exception exception)
             {
                 throw new Exception("Error in manager login" + exception);
+            }
+        }
+
+        public async Task<GenericResponse<string>> UpdateManager(Manager manager)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(manager.PassportNumber) && string.IsNullOrWhiteSpace(manager.IcNumber))
+                {
+                    return new GenericResponse<string>(false, null, "Passport or IC number is required");
+                }
+                var existingManager = await _managerRepository.GetManagerById(manager.UserId);
+                if(existingManager == null)
+                {
+                    return new GenericResponse<string>(false, null, "Manager is not available.");
+                }
+                if ((existingManager.Email != manager.Email) && !await IsEmailAvailable(manager.Email))
+                {
+                    return new GenericResponse<string>(false, null, "Email is not available.");
+                }
+                if ((existingManager.UserName != manager.UserName) && !await IsUserNameAvailable(manager.UserName))
+                {
+                    return new GenericResponse<string>(false, null, "Username is not available.");
+                }
+                if (!string.IsNullOrWhiteSpace(manager.Password))
+                {
+                    manager.Password = _passwordHasher.GetHashedPassword(manager.Password);
+                }
+                var response = await _managerRepository.UpdateManager(manager);
+                if (!response)
+                {
+                    return new GenericResponse<string>(false, null, "Error updating manager");
+                }
+                return new GenericResponse<string>(true, null, "Manager updated successfully.");
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("Error occured" + exception);
             }
         }
     }

@@ -77,6 +77,21 @@ namespace Dhobi.Repository.Implementation
                 throw new Exception("Error getting manager." + ex);
             }
         }
+        public async Task<Manager> GetManagerById(string userId)
+        {
+            try
+            {
+                var builder = Builders<Manager>.Filter;
+                var filter = builder.Eq(user => user.UserId, userId) & builder.Ne(user => user.Status, (int)ManagerStatus.Removed);
+                var projection = Builders<Manager>.Projection.Exclude("_id").Exclude(s => s.AddedBy).Exclude(s => s.Password);
+                var manager = await Collection.Find(filter).Project<Manager>(projection).FirstOrDefaultAsync();
+                return manager;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error getting manager." + ex);
+            }
+        }
         public async Task<ManagerBasicInformation> ManagerLogin(LoginViewModel loginModel)
         {
             try
@@ -96,6 +111,37 @@ namespace Dhobi.Repository.Implementation
             {
                 throw new Exception("Error in login" + ex);
             }
+        }
+
+        public async Task<bool> UpdateManager(Manager manager)
+        {
+            var update = Builders<Manager>.Update.Set(d => d.Name, manager.Name)
+                                                .Set(d => d.Phone, manager.Phone)
+                                                .Set(d => d.Email, manager.Email)
+                                                .Set(d => d.Address, manager.Address)
+                                                .Set(d => d.EmergencyContactNumber, manager.EmergencyContactNumber)
+                                                .Set(d => d.PassportNumber, manager.PassportNumber)
+                                                .Set(d => d.IcNumber, manager.IcNumber)
+                                                .Set(d => d.DrivingLicense, manager.DrivingLicense)
+                                                .Set(d => d.Age, manager.Age)
+                                                .Set(d => d.Sex, manager.Sex)
+                                                .Set(d => d.Roles, manager.Roles)
+                                                .Set(d => d.UserName, manager.UserName)
+                                                .Set(d => d.Password, manager.Password)
+                                                .Set(d => d.Salary, manager.Salary);
+
+            var filter = Builders<Manager>.Filter.Eq(d => d.UserId, manager.UserId);
+            var projection = Builders<Manager>.Projection.Exclude("_id").Exclude(m => m.AddedBy);
+            var options = new FindOneAndUpdateOptions<Manager, Manager>();
+            options.IsUpsert = false;
+            options.ReturnDocument = ReturnDocument.After;
+            options.Projection = projection;
+            var result = await Collection.FindOneAndUpdateAsync(filter, update, options);
+            if(result == null)
+            {
+                return false;
+            }
+            return !string.IsNullOrWhiteSpace(result.UserId);
         }
     }
 }

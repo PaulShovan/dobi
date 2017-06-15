@@ -27,6 +27,10 @@ namespace Dhobi.Business.Implementation
         {
             try
             {
+                if(string.IsNullOrWhiteSpace(dobi.PassportNumber) && string.IsNullOrWhiteSpace(dobi.IcNumber))
+                {
+                    return new GenericResponse<string>(false, null, "Passport or IC number is required");
+                }
                 if (!await _dobiRepository.IsEmailAvailable(dobi.Email))
                 {
                     return new GenericResponse<string>(false, null, "Email is not available");
@@ -35,18 +39,25 @@ namespace Dhobi.Business.Implementation
                 {
                     return new GenericResponse<string>(false, null, "Phone number is not available");
                 }
-                else if (!string.IsNullOrWhiteSpace(dobi.PassportNumber) && !await _dobiRepository.IsPassportNumberAvailable(dobi.PassportNumber))
+                else if (!string.IsNullOrWhiteSpace(dobi.PassportNumber))
                 {
-                    return new GenericResponse<string>(false, null, "Passport number is not available");
+                    if(await _dobiRepository.IsPassportNumberAvailable(dobi.PassportNumber))
+                    {
+                        return new GenericResponse<string>(false, null, "Passport number is not available");
+                    }
                 }
-                else if (!await _dobiRepository.IsIcNumberAvailable(dobi.IcNumber))
+                else if (!string.IsNullOrWhiteSpace(dobi.IcNumber))
                 {
-                    return new GenericResponse<string>(false, null, "IC number is not available");
+                    if (await _dobiRepository.IsIcNumberAvailable(dobi.IcNumber))
+                    {
+                        return new GenericResponse<string>(false, null, "IC number is not available");
+                    }
                 }
                 else if (!string.IsNullOrWhiteSpace(dobi.DrivingLicense) && !await _dobiRepository.IsDrivingLicenseAvailable(dobi.DrivingLicense))
                 {
                     return new GenericResponse<string>(false, null, "Driving license is not available");
                 }
+
                 dobi.JoinDate = (long)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1, 0, 0, 0)).TotalMilliseconds;
                 var response = await _dobiRepository.AddDobi(dobi);
                 if (!response)
@@ -113,6 +124,10 @@ namespace Dhobi.Business.Implementation
         {
             try
             {
+                if (string.IsNullOrWhiteSpace(dobi.PassportNumber) && string.IsNullOrWhiteSpace(dobi.IcNumber))
+                {
+                    return new GenericResponse<string>(false, null, "Passport or IC number is required");
+                }
                 if (string.IsNullOrWhiteSpace(dobi.DobiId))
                 {
                     return new GenericResponse<string>(false, null, "Invalid Dobi.");
@@ -131,13 +146,19 @@ namespace Dhobi.Business.Implementation
                 {
                     return new GenericResponse<string>(false, null, "Phone number is not available");
                 }
-                else if ((existingDobi.PassportNumber != dobi.PassportNumber) && !string.IsNullOrWhiteSpace(dobi.PassportNumber) && !await _dobiRepository.IsPassportNumberAvailable(dobi.PassportNumber))
+                else if ((existingDobi.PassportNumber != dobi.PassportNumber) && !string.IsNullOrWhiteSpace(dobi.PassportNumber))
                 {
-                    return new GenericResponse<string>(false, null, "Passport number is not available");
+                    if(!await _dobiRepository.IsPassportNumberAvailable(dobi.PassportNumber))
+                    {
+                        return new GenericResponse<string>(false, null, "Passport number is not available");
+                    }
                 }
-                else if ((existingDobi.IcNumber != dobi.IcNumber) && !await _dobiRepository.IsIcNumberAvailable(dobi.IcNumber))
+                else if ((existingDobi.IcNumber != dobi.IcNumber) && !string.IsNullOrWhiteSpace(dobi.PassportNumber))
                 {
-                    return new GenericResponse<string>(false, null, "IC number is not available");
+                    if (!await _dobiRepository.IsIcNumberAvailable(dobi.IcNumber))
+                    {
+                        return new GenericResponse<string>(false, null, "IC number is not available");
+                    }
                 }
                 else if ((existingDobi.DrivingLicense != dobi.DrivingLicense) && !string.IsNullOrWhiteSpace(dobi.DrivingLicense) && !await _dobiRepository.IsDrivingLicenseAvailable(dobi.DrivingLicense))
                 {

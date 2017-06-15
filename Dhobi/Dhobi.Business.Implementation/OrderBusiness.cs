@@ -157,5 +157,33 @@ namespace Dhobi.Business.Implementation
                 throw new Exception("Error setting pickup date time" + ex);
             }
         }
+
+        public async Task<List<UserOrderStatusViewModel>> GetUserOrders(string userId, int skip, int limit)
+        {
+            try
+            {
+                var orders = new List<UserOrderStatusViewModel>();
+                var result = await _orderRepository.GetUserOrders(userId, skip, limit);
+                if(result == null)
+                {
+                    return null;
+                }
+                foreach (var order in result)
+                {
+                    orders.Add(new UserOrderStatusViewModel
+                    {
+                        ServiceId = order.ServiceId,
+                        Title = Constants.USER_ORDER_STATUS_TITLE,
+                        Message = string.Format(Constants.USER_ORDER_STATUS_MESSAGE, order.ServiceId),
+                        Status = order.Status
+                    });
+                }
+                return orders;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error getting user orders" + ex);
+            }
+        }
     }
 }

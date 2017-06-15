@@ -208,10 +208,6 @@ namespace Dhobi.Admin.Api.Controllers
                     else if (key == "IcNumber")
                     {
                         dobi.IcNumber = val.ToString().Trim();
-                        if (string.IsNullOrWhiteSpace(dobi.IcNumber))
-                        {
-                            return BadRequest("IC Number Is Required");
-                        }
                     }
                     else if (key == "DrivingLicense")
                     {
@@ -249,8 +245,8 @@ namespace Dhobi.Admin.Api.Controllers
 
 
 
-        [HttpPut]
-        [Route("v1/dobi")]
+        [HttpPost]
+        [Route("v1/dobi/update")]
         [Authorize(Roles = "Admin,Superadmin")]
         public async Task<IHttpActionResult> UpdateDobi()
         {
@@ -263,9 +259,7 @@ namespace Dhobi.Admin.Api.Controllers
             {
                 return BadRequest("Invalid admin token.");
             }
-
             var dobi = new Dobi();
-
             string s3Prefix = ConfigurationManager.AppSettings["S3Prefix"];
             var provider = await Request.Content.ReadAsMultipartAsync(new InMemoryMultipartStreamProvider());
 
@@ -324,10 +318,6 @@ namespace Dhobi.Admin.Api.Controllers
                     else if (key == "IcNumber")
                     {
                         dobi.IcNumber = val.ToString().Trim();
-                        if (string.IsNullOrWhiteSpace(dobi.IcNumber))
-                        {
-                            return BadRequest("IC Number Is Required");
-                        }
                     }
                     else if (key == "DrivingLicense")
                     {

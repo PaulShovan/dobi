@@ -21,5 +21,6 @@ namespace Dhobi.Repository.Interface
         Task<bool> SetOrderPickupDateTime(long date, string time, string serviceId, DobiBasicInformation dobi);
         Task<bool> CancelOrder(string serviceId);
         Task<bool> ConfirmOrder(string serviceId);
+        Task<List<Order>> GetUserOrders(string userId, int skip, int limit);
     }
 }

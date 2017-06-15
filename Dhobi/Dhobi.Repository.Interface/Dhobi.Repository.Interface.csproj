@@ -50,6 +50,7 @@
     <Compile Include="IDobiRepository.cs" />
     <Compile Include="IManagerRepository.cs" />
     <Compile Include="IOrderRepository.cs" />
+    <Compile Include="IOrderServiceRepository.cs" />
     <Compile Include="IPromoOfferRepository.cs" />
     <Compile Include="IUserMessageRepository.cs" />
     <Compile Include="IUserSmsRepository.cs" />

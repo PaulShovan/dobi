@@ -20,11 +20,13 @@ namespace Dhobi.Api.Controllers
     public class OrderController : ApiController
     {
         private IOrderBusiness _orderBusiness;
+        private IOrderServiceBusiness _orderServiceBusiness;
         private TokenGenerator _tokenGenerator;
         private ILocationService _locationService;
-        public OrderController(IOrderBusiness orderBusiness, ILocationService locationService)
+        public OrderController(IOrderBusiness orderBusiness, ILocationService locationService, IOrderServiceBusiness orderServiceBusiness)
         {
             _orderBusiness = orderBusiness;
+            _orderServiceBusiness = orderServiceBusiness;
             _locationService = locationService;
             _tokenGenerator = new TokenGenerator();
         }
@@ -156,6 +158,34 @@ namespace Dhobi.Api.Controllers
             }
             return Ok(new ResponseModel<string>(ResponseStatus.Ok, "", "Order pickup date time set successfully."));
         }
-
+        [HttpGet]
+        [Route("v1/user/orders")]
+        [Authorize]
+        public async Task<IHttpActionResult> GetUserOrders(int skip = 0, int limit = 10)
+        {
+            var user = GetUserInformationFromToken();
+            if (user == null || string.IsNullOrEmpty(user.UserId))
+            {
+                return BadRequest("Invalid User.");
+            }
+            var userOrders = await _orderBusiness.GetUserOrders(user.UserId, skip, limit);
+            if (userOrders == null)
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.NotFound, null, "No order available."));
+            }
+            return Ok(new ResponseModel<List<UserOrderStatusViewModel>>(ResponseStatus.Ok, userOrders, ""));
+        }
+        [HttpGet]
+        [Route("v1/order/services")]
+        [Authorize]
+        public async Task<IHttpActionResult> GetOrderServices()
+        {
+            var orderServices = await _orderServiceBusiness.GetOrderServices();
+            if (orderServices == null)
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.NotFound, null, "No order service."));
+            }
+            return Ok(new ResponseModel<List<string>>(ResponseStatus.Ok, orderServices, ""));
+        }
     }
 }

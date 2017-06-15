@@ -35,7 +35,7 @@ namespace Dhobi.DependencyInjection
             kernel.Bind<IDeviceStausRepository>().To<DeviceStatusRepository>();
             kernel.Bind<IDeviceStatusBusiness>().To<DeviceStatusBusiness>();
             #endregion
-            #region Device
+            #region Order
             kernel.Bind<IOrderRepository>().To<OrderRepository>();
             kernel.Bind<IOrderBusiness>().To<OrderBusiness>();
             #endregion
@@ -49,6 +49,10 @@ namespace Dhobi.DependencyInjection
             #region AvailableLocation
             kernel.Bind<IAvailableLoacationRepository>().To<AvailableLoacationRepository>();
             kernel.Bind<IAvailableLocationBusiness>().To<AvailableLocationBusiness>();
+            #endregion
+            #region OrderService
+            kernel.Bind<IOrderServiceRepository>().To<OrderServiceRepository>();
+            kernel.Bind<IOrderServiceBusiness>().To<OrderServiceBusiness>();
             #endregion
 
         }

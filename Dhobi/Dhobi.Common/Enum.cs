@@ -37,7 +37,8 @@
         Processed = 7,
         Deliverable = 8,
         OnTheWay = 9,
-        Delivered = 10
+        Delivered = 10,
+        Paid = 11
     }
     public enum MessageStatus
     {
@@ -64,5 +65,10 @@
         Active = 1,
         Inactive = 2,
         Removed = 3
+    }
+    public enum ServiceStatus
+    {
+        Active = 1,
+        Removed = 2
     }
 }

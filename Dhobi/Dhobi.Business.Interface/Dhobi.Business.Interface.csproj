@@ -45,6 +45,7 @@
     <Compile Include="IDobiBusiness.cs" />
     <Compile Include="IManagerBusiness.cs" />
     <Compile Include="IOrderBusiness.cs" />
+    <Compile Include="IOrderServiceBusiness.cs" />
     <Compile Include="IPromoOfferBusiness.cs" />
     <Compile Include="IUserBusiness.cs" />
     <Compile Include="IUserMessageBusiness.cs" />

@@ -190,5 +190,29 @@ namespace Dhobi.Repository.Implementation
                 throw new Exception("Error confirming order");
             }
         }
+
+        public async Task<List<Order>> GetUserOrders(string userId, int skip, int limit)
+        {
+            try
+            {
+                var builder = Builders<Order>.Filter;
+                var filter = builder.Eq(order => order.OrderBy.UserId, userId)
+                    & builder.Ne(order => order.Status, (int)OrderStatus.Paid)
+                    & builder.Ne(order => order.Status, (int)OrderStatus.New)
+                    & builder.Ne(order => order.Status, (int)OrderStatus.Acknowledged)
+                    & builder.Ne(order => order.Status, (int)OrderStatus.Confirmed)
+                    & builder.Ne(order => order.Status, (int)OrderStatus.Cancelled)
+                    & builder.Ne(order => order.Status, (int)OrderStatus.Paid);
+                var sortBuilder = Builders<Order>.Sort;
+                var sortOrder = sortBuilder.Ascending(s => s.ServiceId);
+                var projection = Builders<Order>.Projection.Exclude("_id").Exclude(s => s.OrderBy);
+                var orders = await Collection.Find(filter).Project<Order>(projection).Sort(sortOrder).Skip(skip).Limit(limit).ToListAsync();
+                return orders;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error getting orders." + ex);
+            }
+        }
     }
 }

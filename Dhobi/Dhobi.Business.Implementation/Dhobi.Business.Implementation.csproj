@@ -57,6 +57,7 @@
     <Compile Include="DobiBusiness.cs" />
     <Compile Include="ManagerBusiness.cs" />
     <Compile Include="OrderBusiness.cs" />
+    <Compile Include="OrderServiceBusiness.cs" />
     <Compile Include="PromoOfferBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserBusiness.cs" />

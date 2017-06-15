@@ -64,6 +64,7 @@
     <Compile Include="DobiRepository.cs" />
     <Compile Include="ManagerRepository.cs" />
     <Compile Include="OrderRepository.cs" />
+    <Compile Include="OrderServiceRepository.cs" />
     <Compile Include="PromoOfferRepository.cs" />
     <Compile Include="Properties\DbSettings.Designer.cs">
       <AutoGen>True</AutoGen>
