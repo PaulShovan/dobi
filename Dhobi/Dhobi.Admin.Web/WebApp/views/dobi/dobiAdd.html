@@ -106,7 +106,7 @@
                         <div class="form-group">
                             <div ngf-drop ngf-select ng-model="files" class="drop-box"
                                  ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true"
-                                 accept="image/*,application/pdf" ngf-validate="{size: {min: 10, max: '20MB'}}"
+                                 accept="image/*" ngf-validate="{size: {min: 10, max: '2MB'}}"
                                  ngf-pattern="'image/*'">
                                 <span ng-if="!files.length && Data.Dobi.Photo==null"><i class="fa fa-user mid-icon"></i><br>Drag an Image here or<br> browse for an image to upload</span>
                                 <span><img class="animated fadeIn ng-img-preview" ngf-src="!files[0].$error && files[0] || Data.Dobi.Photo"></span>
@@ -119,7 +119,7 @@
                     </div>
 
                     <div class="col-sm-12">
-                        <button type="submit" class="btn btn-success dobi-submit-btn pull-right" ng-click="Methods.AddOrUpdateDobi(files)" ng-disabled="dobiAddForm.$invalid" ladda="httpLoading">{{Data.SaveOrUpdateBtn}}</button>
+                        <button type="submit" class="btn btn-success dobi-submit-btn pull-right" ng-click="Methods.AddOrUpdateDobi()" ng-disabled="dobiAddForm.$invalid" ladda="httpLoading">{{Data.SaveOrUpdateBtn}}</button>
                     </div>    
                 </form>
             </div>

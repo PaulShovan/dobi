@@ -42,6 +42,13 @@
                 var phoneWithExt = "006" + phone;
                 return phoneWithExt;
             },
+            AddParamWithPhotoUrl: function (list) {
+                _.each(list, function (item) {
+                    item.Photo = item.Photo + "?" + (+new Date);
+                });
+                return list;
+            },
+
             ConvertImgToDataURLviaCanvas: function (url, callback, outputFormat) {
                 var img = new Image();
                 img.crossOrigin = 'Anonymous';

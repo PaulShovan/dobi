@@ -1,6 +1,6 @@
 ﻿define(['app', 'underscore', 'i-check'], function (app, _) {
-    app.controller('dobiController', ['$scope', 'apiConstant', 'httpService', '$state', '$stateParams', 'toastr', 'appUtility', 'moment',
-        function ($scope, apiConstant, httpService, $state, $stateParams, toastr, appUtility, moment) {
+    app.controller('dobiController', ['$scope', 'apiConstant', 'httpService', '$state', '$stateParams', 'toastr', 'appUtility',
+        function ($scope, apiConstant, httpService, $state, $stateParams, toastr, appUtility) {
             "use strict";
 
             $scope.files = null;
@@ -51,7 +51,7 @@
                     $scope.httpLoading = true;
 
                     var api = $scope.Data.Dobi.DobiId ? apiConstant.updateDobi : apiConstant.dobi;
-                    var message = $stateParams.id ? "Dobi Updated Successfully." : "New Dobi Added Successfully";
+                    var message = $scope.Data.Dobi.DobiId ? "Dobi Updated Successfully." : "New Dobi Added Successfully";
                     httpService.postMultipart(api, { Files: $scope.files }, $scope.Data.Dobi, message, function (response) {
                         $scope.Data.Dobi.Phone = appUtility.RemoveMalaysiaCC($scope.Data.Dobi.Phone);
                         if (response.status === 200) {
@@ -63,7 +63,6 @@
                 }
             };
 
-            console.log("Add Dobi Controller");
             $scope.Methods.Init();
         }]);
 

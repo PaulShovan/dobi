@@ -12,6 +12,8 @@
             updateDobi: baseUrl + "dobi/update",
 
             user: baseUrl + "manager",
+            updateUser: baseUrl + "manager/update",
+
             promo: baseUrl + "promo"
         }
     })());
