@@ -1,7 +1,7 @@
 ﻿define(['app', 'http-loader', 'ng-file-upload'], function (app) {
     app = app || angular.module("httpServiceModule", ['cfp.loadingBar', 'ngFileUpload']);
-    app.factory('httpService', ['$http', 'toastr', '$localStorage', '$location', 'apiConstant', 'cfpLoadingBar', 'Upload', '$timeout',
-        function ($http, toastr, $localStorage, $location, apiConstant, cfpLoadingBar, Upload, $timeout) {
+    app.factory('httpService', ['$http', 'toastr', '$localStorage', '$location', 'apiConstant', 'cfpLoadingBar', 'Upload', '$timeout', '$rootScope',
+        function ($http, toastr, $localStorage, $location, apiConstant, cfpLoadingBar, Upload, $timeout, $rootScope) {
         "use strict";
         return {
             get: function (api, onResponse) {
@@ -139,6 +139,7 @@
                     $timeout(function () {
                         if (response.data.ResponseStatus === false) {
                             toastr.error(response.data.Message, 'Error!');
+                            $rootScope.httpLoading = false;
                             return;
                         }
                         files.result = response.data;
@@ -146,14 +147,12 @@
                             if (onResponse) {
                                 onResponse(response);
                             }
-                            //toastr.success("Image Uploaded Successfully.", 'Success');
                             cfpLoadingBar.complete();
                         }
                     });
                 }, function (response) {
                     if (response.status !== 200) {
                         response.errorMsg = response.status + ': ' + response.data;
-                        //toastr.error("Failed Uploading Image.", 'Error!');
                         cfpLoadingBar.complete();
                     }
                 }, function (evt) {
