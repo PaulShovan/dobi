@@ -208,14 +208,6 @@ namespace Dhobi.Admin.Api.Controllers
                         }
                         manager.Roles = roles.Split(',').ToList();
                     }
-                    else if (key == "Password")
-                    {
-                        manager.Password = val.ToString().Trim();
-                        if (string.IsNullOrWhiteSpace(manager.Password))
-                        {
-                            return BadRequest("Password is required.");
-                        }
-                    }
                     else if (key == "Photo")
                     {
                         manager.Photo = val.ToString().Trim();

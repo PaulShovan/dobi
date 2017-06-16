@@ -10,27 +10,40 @@
                     <div class="col-sm-12 col-md-4">
                         <div class="form-group" ng-class="{ 'has-error' : userAddForm.fullName.$touched && userAddForm.fullName.$invalid }">
                             <label>Full Name</label>
-                            <input type="text" name="fullName" class="form-control" placeholder="Enter full name" ng-model="Data.User.Name" required autofocus>
+                            <input type="text" name="fullName" class="form-control" placeholder="Enter full name" ng-model="Data.User.Name" required autofocus ng-pattern="/^[0-9a-zA-Z \b]+$/" ng-maxlength="50">
                             <div class="help-block" ng-messages="userAddForm.fullName.$error" ng-if="userAddForm.fullName.$touched">
                                 <p ng-message="required">Full Name is required.</p>
+                                <p ng-message="pattern">No special character is allowed.</p>
+                                <p ng-message="maxlength">Maximum 50 character is allowed.</p>
                             </div>
                         </div>
-
                         <div class="form-group" ng-class="{ 'has-error' : userAddForm.userName.$touched && userAddForm.userName.$invalid }">
                             <label>UserName</label>
-                            <input type="text" name="userName" class="form-control" placeholder="Enter username" ng-model="Data.User.UserName" required>
+                            <input type="text" name="userName" class="form-control" placeholder="Enter username" ng-model="Data.User.UserName" required ng-pattern="/^[a-zA-Z0-9]*$/" ng-trim="false" ng-maxlength="50">
                             <div class="help-block" ng-messages="userAddForm.userName.$error" ng-if="userAddForm.userName.$touched">
                                 <p ng-message="required">UserName is required.</p>
-                            </div>
-                        </div>
-                        <div class="form-group" ng-class="{ 'has-error' : userAddForm.password.$touched && userAddForm.password.$invalid }">
-                            <label>Password</label>
-                            <input type="password" name="password" class="form-control" placeholder="Enter password" ng-model="Data.User.Password" required>
-                            <div class="help-block" ng-messages="userAddForm.password.$error" ng-if="userAddForm.password.$touched">
-                                <p ng-message="required">Password is required.</p>
+                                <p ng-message="maxlength">Maximum 50 character is allowed.</p>
+                                <p ng-message="pattern">No special character or whitespace is allowed</p>
                             </div>
                         </div>
 
+                        <div class="form-group" ng-class="{ 'has-error' : userAddForm.password.$touched && userAddForm.password.$invalid }" ng-if="!Data.IsEditView">
+                            <label>Password</label>
+                            <input type="password" name="password" class="form-control" placeholder="Enter password" ng-model="Data.User.Password" required ng-maxlength="50" ng-minlength="6">
+                            <div class="help-block" ng-messages="userAddForm.password.$error" ng-if="userAddForm.password.$touched">
+                                <p ng-message="required">Password is required.</p>
+                                <p ng-message="minlength">Minimum 6 character is required.</p>
+                                <p ng-message="maxlength">Maximum 50 character is allowed.</p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : userAddForm.confirmPassword.$touched && userAddForm.confirmPassword.$invalid }" ng-if="!Data.IsEditView">
+                            <label>Confirm Password</label>
+                            <input type="password" name="confirmPassword" class="form-control" placeholder="Enter confirm password" ng-model="Data.User.ConfirmPassword" required ng-pattern="{{Data.User.Password}}">
+                            <div class="help-block" ng-messages="userAddForm.confirmPassword.$error" ng-if="userAddForm.confirmPassword.$touched">
+                                <p ng-message="required">Password is required.</p>
+                                <p ng-message="pattern">Password &amp; Confirm Password didn't match</p>
+                            </div>
+                        </div>
                         <div class="form-group" ng-class="{ 'has-error' : userAddForm.phoneNumber.$touched && userAddForm.phoneNumber.$invalid }">
                             <label>Phone Number</label>
                             <div class="input-group phone-number">
@@ -52,14 +65,20 @@
                         </div>
                         <div class="form-group" ng-class="{ 'has-error' : userAddForm.address.$touched && userAddForm.address.$invalid }">
                             <label>Address</label>
-                            <input type="text" name="address" class="form-control" placeholder="Enter address" ng-model="Data.User.Address" required>
+                            <input type="text" name="address" class="form-control" placeholder="Enter address" ng-model="Data.User.Address" required ng-minlength="5" ng-maxlength="200">
                             <div class="help-block" ng-messages="userAddForm.address.$error" ng-if="userAddForm.address.$touched">
                                 <p ng-message="required">Address is required.</p>
+                                <p ng-message="minlength">Minimum 5 character.</p>
+                                <p ng-message="maxlength">Maximum 200 character is allowed.</p>
                             </div>
                         </div>
                         <div class="form-group" ng-class="{ 'has-error' : userAddForm.emergencyContact.$touched && userAddForm.emergencyContact.$invalid }">
                             <label>Emergency Number</label>
-                            <input type="text" name="emergencyContact" class="form-control" placeholder="Enter emergency contact number" ng-model="Data.User.EmergencyContactNumber" required>
+                            <div class="input-group phone-number">
+                                <span class="input-group-addon" ng-class="{ 'has-error' : userAddForm.emergencyContact.$touched && userAddForm.emergencyContact.$invalid }">006</span>
+                                <input type="text" name="emergencyContact" class="form-control" placeholder="Enter emergency contact number" ng-model="Data.TemporaryEmergencyContactNumber" required ng-pattern="/^\d{10}$/" only-digits limit-to="10">
+                            </div>
+
                             <div class="help-block" ng-messages="userAddForm.emergencyContact.$error" ng-if="userAddForm.emergencyContact.$touched">
                                 <p ng-message="required">Emergency Contact is required.</p>
                             </div>
@@ -69,23 +88,26 @@
                     <div class="col-sm-12 col-md-4">
                         <div class="form-group" ng-class="{ 'has-error' : userAddForm.passportNo.$touched && userAddForm.passportNo.$invalid }">
                             <label>Passport Number</label>
-                            <input type="text" name="passportNo" class="form-control" placeholder="Enter Passport number" ng-model="Data.User.PassportNumber" required>
+                            <input type="text" name="passportNo" class="form-control" placeholder="Enter Passport number" ng-model="Data.User.PassportNumber" required ng-pattern="/^[0-9a-zA-Z \b]+$/" ng-maxlength="20">
                             <div class="help-block" ng-messages="userAddForm.passportNo.$error" ng-if="userAddForm.passportNo.$touched">
                                 <p ng-message="required">Passport No. is required.</p>
+                                <p ng-message="pattern">Passport No. is invalid.</p>
+                                <p ng-message="maxlength">Maximum 20 character is allowed.</p>
                             </div>
                         </div>
                         <div class="form-group" ng-class="{ 'has-error' : userAddForm.icNumber.$touched && userAddForm.icNumber.$invalid }">
                             <label>IC Number</label>
-                            <input type="text" name="icNumber" class="form-control" placeholder="Enter IC number" ng-model="Data.User.IcNumber" required>
+                            <input type="text" name="icNumber" class="form-control" placeholder="Enter IC number" ng-model="Data.User.IcNumber" required only-digits>
                             <div class="help-block" ng-messages="userAddForm.icNumber.$error" ng-if="userAddForm.icNumber.$touched">
                                 <p ng-message="required">IC Number is required.</p>
                             </div>
                         </div>
                         <div class="form-group" ng-class="{ 'has-error' : userAddForm.drivingLicense.$touched && userAddForm.drivingLicense.$invalid }">
                             <label>Driving License</label>
-                            <input type="text" name="drivingLicense" class="form-control" placeholder="Enter Driving License number" ng-model="Data.User.DrivingLicense" required>
+                            <input type="text" name="drivingLicense" class="form-control" placeholder="Enter Driving License number" ng-model="Data.User.DrivingLicense" required ng-pattern="/^[0-9a-zA-Z \b]+$/">
                             <div class="help-block" ng-messages="userAddForm.drivingLicense.$error" ng-if="userAddForm.drivingLicense.$touched">
                                 <p ng-message="required">Driving License is required.</p>
+                                <p ng-message="pattern">Driving License is invalid.</p>
                             </div>
                         </div>
                         <div class="form-group" ng-class="{ 'has-error' : userAddForm.age.$touched && userAddForm.age.$invalid }">
@@ -99,10 +121,13 @@
                             <label>Sex</label>
                             <div class="form-group form-inline">
                                 <div class="checkbox-inline i-checks">
-                                    <input type="radio" value="male" name="gender" ng-model="Data.User.Sex" i-check> <i></i> Male
+                                    <label><input type="radio" value="male" name="gender" ng-model="Data.User.Sex" i-check> Male</label>
                                 </div>
                                 <div class="checkbox-inline i-checks">
-                                    <input type="radio" value="female" name="gender" ng-model="Data.User.Sex" i-check> <i></i> Female
+                                    <label><input type="radio" value="female" name="gender" ng-model="Data.User.Sex" i-check> Female</label>
+                                </div>
+                                <div class="checkbox-inline i-checks">
+                                    <label> <input type="radio" value="other" name="gender" ng-model="Data.Dobi.Sex" i-check> Other </label>
                                 </div>
                             </div>
                             <div class="help-block" ng-messages="userAddForm.sex.$error" ng-if="userAddForm.sex.$touched">
@@ -111,7 +136,7 @@
                         </div>
                         <div class="form-group" ng-class="{ 'has-error' : userAddForm.salary.$touched && userAddForm.salary.$invalid }">
                             <label>Monthly Salary (RM)</label>
-                            <input type="text" name="salary" class="form-control" placeholder="Enter Salary" ng-model="Data.User.Salary" required only-digits limit-to="10">
+                            <input type="text" name="salary" class="form-control" placeholder="Enter Salary" ng-model="Data.User.Salary" required two-precision limit-to="10">
                             <div class="help-block" ng-messages="userAddForm.salary.$error" ng-if="userAddForm.salary.$touched">
                                 <p ng-message="required">Salary is required.</p>
                             </div>
@@ -120,10 +145,10 @@
                             <label>Privilege</label>
                             <div class="form-group form-inline">
                                 <div class="checkbox-inline i-checks">
-                                    <input type="radio" value="Admin" name="previlege" ng-model="Data.User.Roles" i-check> <i></i> Admin
+                                    <label><input type="radio" value="Admin" name="previlege" ng-model="Data.User.Roles" i-check> Admin</label>
                                 </div>
                                 <div class="checkbox-inline i-checks">
-                                    <input type="radio" value="Manager" name="previlege" ng-model="Data.User.Roles" i-check> <i></i> Manager
+                                    <label><input type="radio" value="Manager" name="previlege" ng-model="Data.User.Roles" i-check> Manager</label>
                                 </div>
                             </div>
                         </div>
@@ -131,9 +156,9 @@
 
                     <div class="col-sm-12 col-md-4">
                         <div class="form-group">
-                            <div ngf-drop ngf-select ng-model="files" class="drop-box"
+                            <div ngf-drop ngf-select ng-model="files" class="drop-box" name="file"
                                  ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true"
-                                 accept="image/*" ngf-validate="{size: {min: 10, max: '2MB'}}"
+                                 accept="image/jpg,image/png,image/jpeg" ngf-validate="{size: {min: 10, max: '10MB'}}"
                                  ngf-pattern="'image/*'">
                                 <span ng-if="!files && Data.User.Photo.length <=0"><i class="fa fa-user mid-icon"></i><br>Drag an Image here or<br> browse for an image to upload</span>
                                 <span><img class="animated fadeIn ng-img-preview" ngf-src="!files[0].$error && files[0] || Data.User.Photo"></span>
@@ -141,6 +166,8 @@
                             <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
                             <div class="help-block">
                                 <p class="text-error" ng-if="!files.length && Data.FileErrorMsg">{{Data.FileErrorMsg}}</p>
+                                <p class="text-error" ng-if="!files.length && userAddForm.file.$error.maxSize">File too large. Maximum 10 MB</p>
+                                <p class="text-error" ng-if="!files.length && userAddForm.file.$error.pattern">Unsupported file type. (Only Jpg, Png &amp; Jpeg accepted)</p>
                             </div>
                         </div>
                     </div>

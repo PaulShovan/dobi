@@ -7,6 +7,9 @@
     app.directive('iCheck', iCheck);
     app.directive("limitTo", limitTo);
     app.directive("onlyDigits", onlyDigits);
+    app.directive('ngMaxvalue', ngMaxvalue); // need to test
+    app.directive('ngMinvalue', ngMinvalue); // need to test
+    app.directive('twoPrecision', twoPrecision);
 
 
     /*** validateEmail - Directive for Validating email. Usage [ as attr ] [ validate-email ] will validate email type input. */
@@ -123,6 +126,105 @@
                     return undefined;
                 }
                 ctrl.$parsers.push(inputValue);
+            }
+        };
+    };
+
+    /*** ng-minvalue - Directive for checking the minimum value input. Usage on html: [as attr] [ ng-minvalue="5" ] will take 5 as minimum value ***/
+    function ngMinvalue() {
+        return {
+            restrict: 'A',
+            require: 'ngModel',
+            link: function (scope, elem, attr, ctrl) {
+                scope.$watch(attr.ngMin, function () {
+                    ctrl.$setViewValue(ctrl.$viewValue);
+                });
+                var minValidator = function (value) {
+                    var min = scope.$eval(attr.ngMin) || 0;
+                    if (!isEmpty(value) && value < min) {
+                        ctrl.$setValidity('ngMin', false);
+                        return undefined;
+                    } else {
+                        ctrl.$setValidity('ngMin', true);
+                        return value;
+                    }
+                };
+
+                ctrl.$parsers.push(minValidator);
+                ctrl.$formatters.push(minValidator);
+            }
+        };
+    };
+
+    /*** ng-maxvalue - Directive for checking the maximum value input. Usage on html: [as attr] [ ng-maxvalue="100" ] will take 100 as maximum value ***/
+    function ngMaxvalue() {
+        return {
+            restrict: 'A',
+            require: 'ngModel',
+            link: function (scope, elem, attr, ctrl) {
+                scope.$watch(attr.ngMax, function () {
+                    ctrl.$setViewValue(ctrl.$viewValue);
+                });
+                var maxValidator = function (value) {
+                    var max = scope.$eval(attr.ngMax) || Infinity;
+                    if (!isEmpty(value) && value > max) {
+                        ctrl.$setValidity('ngMax', false);
+                        return undefined;
+                    } else {
+                        ctrl.$setValidity('ngMax', true);
+                        return value;
+                    }
+                };
+
+                ctrl.$parsers.push(maxValidator);
+                ctrl.$formatters.push(maxValidator);
+            }
+        };
+    };
+
+    /*** two-precision - Directive for checking 2 precision floating point number. Usage on html: [as attrr] [ two-precision ] will validate 2 precision floating point numbher ***/
+    function twoPrecision() {
+        return {
+            require: '?ngModel',
+            link: function (scope, element, attrs, ngModelCtrl) {
+                if (!ngModelCtrl) {
+                    return;
+                }
+
+                ngModelCtrl.$parsers.push(function (val) {
+                    if (angular.isUndefined(val)) {
+                        var val = '';
+                    }
+
+                    var clean = val.replace(/[^-0-9\.]/g, '');
+                    var negativeCheck = clean.split('-');
+                    var decimalCheck = clean.split('.');
+                    if (!angular.isUndefined(negativeCheck[1])) {
+                        negativeCheck[1] = negativeCheck[1].slice(0, negativeCheck[1].length);
+                        clean = negativeCheck[0] + '-' + negativeCheck[1];
+                        if (negativeCheck[0].length > 0) {
+                            clean = negativeCheck[0];
+                        }
+
+                    }
+
+                    if (!angular.isUndefined(decimalCheck[1])) {
+                        decimalCheck[1] = decimalCheck[1].slice(0, 2);
+                        clean = decimalCheck[0] + '.' + decimalCheck[1];
+                    }
+
+                    if (val !== clean) {
+                        ngModelCtrl.$setViewValue(clean);
+                        ngModelCtrl.$render();
+                    }
+                    return clean;
+                });
+
+                element.bind('keypress', function (event) {
+                    if (event.keyCode === 32) {
+                        event.preventDefault();
+                    }
+                });
             }
         };
     };
