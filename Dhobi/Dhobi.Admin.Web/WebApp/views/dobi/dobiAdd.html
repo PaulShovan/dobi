@@ -9,23 +9,24 @@
                     <div class="col-sm-12 col-md-4">
                         <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.fullName.$touched && dobiAddForm.fullName.$invalid }">
                             <label>Full Name</label>
-                            <input type="text" name="fullName" class="form-control" placeholder="Enter full name" ng-model="Data.Dobi.Name" required autofocus>
+                            <input type="text" name="fullName" class="form-control" placeholder="Enter full name" ng-model="Data.Dobi.Name" required autofocus ng-pattern="/^[0-9a-zA-Z \b]+$/" ng-maxlength="50">
                             <div class="help-block" ng-messages="dobiAddForm.fullName.$error" ng-if="dobiAddForm.fullName.$touched">
                                 <p ng-message="required">Full Name is required.</p>
+                                <p ng-message="pattern">No special character is allowed.</p>
+                                <p ng-message="maxlength">Maximum 50 character is allowed.</p>
                             </div>
                         </div>
                         <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.phoneNumber.$touched && dobiAddForm.phoneNumber.$invalid }">
                             <label>Phone Number</label>
                             <div class="input-group phone-number">
-                                <span class="input-group-addon"ng-class="{ 'has-error' : dobiAddForm.phoneNumber.$touched && dobiAddForm.phoneNumber.$invalid }">006</span>
-                                <input type="text" name="phoneNumber" class="form-control" placeholder="Enter phone number" ng-model="Data.Dobi.Phone" required ng-pattern="/^\d{10}$/" only-digits limit-to="10">
+                                <span class="input-group-addon" ng-class="{ 'has-error' : dobiAddForm.phoneNumber.$touched && dobiAddForm.phoneNumber.$invalid }">006</span>
+                                <input type="text" name="phoneNumber" class="form-control" placeholder="Enter phone number" ng-model="Data.TemporaryPhoneNumber" required ng-pattern="/^\d{10}$/" only-digits limit-to="10">
                             </div>
                             <div class="help-block" ng-messages="dobiAddForm.phoneNumber.$error" ng-if="dobiAddForm.phoneNumber.$touched">
                                 <p ng-message="required">Phone Number is required.</p>
                                 <p ng-message="pattern">Invalid Phone number.</p>
                             </div>
                         </div>
-                        
                         <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.email.$touched && dobiAddForm.email.$invalid }">
                             <label>Email Address</label>
                             <input type="email" name="email" class="form-control" placeholder="Enter email address" ng-model="Data.Dobi.Email" required validate-email>
@@ -36,23 +37,31 @@
                         </div>
                         <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.address.$touched && dobiAddForm.address.$invalid }">
                             <label>Address</label>
-                            <input type="text" name="address" class="form-control" placeholder="Enter address" ng-model="Data.Dobi.Address" required>
+                            <input type="text" name="address" class="form-control" placeholder="Enter address" ng-model="Data.Dobi.Address" ng-minlength="5" ng-maxlength="200" required>
                             <div class="help-block" ng-messages="dobiAddForm.address.$error" ng-if="dobiAddForm.address.$touched">
                                 <p ng-message="required">Address is required.</p>
+                                <p ng-message="minlength">Minimum 5 character.</p>
+                                <p ng-message="maxlength">Maximum 200 character is allowed.</p>
                             </div>
                         </div>
                         <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.emergencyContact.$touched && dobiAddForm.emergencyContact.$invalid }">
                             <label>Emergency Number</label>
-                            <input type="text" name="emergencyContact" class="form-control" placeholder="Enter emergency contact number" ng-model="Data.Dobi.EmergencyContactNumber" required only-digits>
+                            <div class="input-group phone-number">
+                                <span class="input-group-addon" ng-class="{ 'has-error' : dobiAddForm.emergencyContact.$touched && dobiAddForm.emergencyContact.$invalid }">006</span>
+                                <input type="text" name="emergencyContact" class="form-control" placeholder="Enter emergency contact number" ng-model="Data.TemporaryEmergencyNumber" required ng-pattern="/^\d{10}$/" only-digits limit-to="10">
+                            </div>
                             <div class="help-block" ng-messages="dobiAddForm.emergencyContact.$error" ng-if="dobiAddForm.emergencyContact.$touched">
                                 <p ng-message="required">Emergency Contact is required.</p>
+                                <p ng-message="pattern">Invalid Phone number.</p>
                             </div>
                         </div>
                         <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.passportNo.$touched && dobiAddForm.passportNo.$invalid }">
                             <label>Passport Number</label>
-                            <input type="text" name="passportNo" class="form-control" placeholder="Enter passport number" ng-model="Data.Dobi.PassportNumber" required>
+                            <input type="text" name="passportNo" class="form-control" placeholder="Enter passport number" ng-model="Data.Dobi.PassportNumber" required ng-pattern="/^[0-9a-zA-Z \b]+$/" ng-maxlength="20">
                             <div class="help-block" ng-messages="dobiAddForm.passportNo.$error" ng-if="dobiAddForm.passportNo.$touched">
                                 <p ng-message="required">Passport No. is required.</p>
+                                <p ng-message="pattern">Passport No. is invalid.</p>
+                                <p ng-message="maxlength">Maximum 20 character is allowed.</p>
                             </div>
                         </div>
                     </div>
@@ -67,9 +76,10 @@
                         </div>
                         <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.drivingLicense.$touched && dobiAddForm.drivingLicense.$invalid }">
                             <label>Driving License</label>
-                            <input type="text" name="drivingLicense" class="form-control" placeholder="Enter driving license number" ng-model="Data.Dobi.DrivingLicense" required >
+                            <input type="text" name="drivingLicense" class="form-control" placeholder="Enter driving license number" ng-model="Data.Dobi.DrivingLicense" required ng-pattern="/^[0-9a-zA-Z \b]+$/">
                             <div class="help-block" ng-messages="dobiAddForm.drivingLicense.$error" ng-if="dobiAddForm.drivingLicense.$touched">
                                 <p ng-message="required">Driving License is required.</p>
+                                <p ng-message="pattern">Driving License is invalid.</p>
                             </div>
                         </div>
                         <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.age.$touched && dobiAddForm.age.$invalid }">
@@ -83,10 +93,13 @@
                             <!--<input type="text" name="sex" class="form-control" placeholder="Sex" ng-model="Data.Dobi.Sex" required>-->
                             <div class="form-group form-inline">
                                 <div class="checkbox-inline i-checks">
-                                    <label> <input type="radio" value="male" name="gender" ng-model="Data.Dobi.Sex" i-check> <i></i> Male </label>
+                                    <label> <input type="radio" value="male" name="gender" ng-model="Data.Dobi.Sex" i-check> Male </label>
                                 </div>
                                 <div class="checkbox-inline i-checks">
-                                    <label> <input type="radio" value="female" name="gender" ng-model="Data.Dobi.Sex" i-check> <i></i> Female </label>
+                                    <label> <input type="radio" value="female" name="gender" ng-model="Data.Dobi.Sex" i-check> Female </label>
+                                </div>
+                                <div class="checkbox-inline i-checks">
+                                    <label> <input type="radio" value="other" name="gender" ng-model="Data.Dobi.Sex" i-check> Other </label>
                                 </div>
                             </div>
                             <div class="help-block" ng-messages="dobiAddForm.sex.$error" ng-if="dobiAddForm.sex.$touched">
@@ -95,7 +108,7 @@
                         </div>
                         <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.salary.$touched && dobiAddForm.salary.$invalid }">
                             <label>Monthly Salary (RM)</label>
-                            <input type="text" name="salary" class="form-control" placeholder="Enter salary" ng-model="Data.Dobi.Salary" required only-digits limit-to="10">
+                            <input type="text" name="salary" class="form-control" placeholder="Enter salary" ng-model="Data.Dobi.Salary" required two-precision limit-to="12">
                             <div class="help-block" ng-messages="dobiAddForm.salary.$error" ng-if="dobiAddForm.salary.$touched">
                                 <p ng-message="required">Salary is required.</p>
                             </div>
@@ -104,23 +117,25 @@
 
                     <div class="col-sm-12 col-md-4">
                         <div class="form-group">
-                            <div ngf-drop ngf-select ng-model="files" class="drop-box"
+                            <div ngf-drop ngf-select ng-model="files" class="drop-box" name="file"
                                  ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true"
-                                 accept="image/*,application/pdf" ngf-validate="{size: {min: 10, max: '20MB'}}"
+                                 accept="image/jpg,image/png,image/jpeg" ngf-validate="{size: {min: 10, max: '10MB'}}"
                                  ngf-pattern="'image/*'">
-                                <span ng-if="!files.length"><i class="fa fa-user mid-icon"></i><br>Drag an Image here or<br> browse for an image to upload</span>
-                                <span><img class="animated fadeIn ng-img-preview" ngf-src="!files[0].$error && files[0]"></span>
+                                <span ng-if="!files && Data.Dobi.Photo.length<=0"><i class="fa fa-user mid-icon"></i><br>Drag an Image here or<br> browse for an image to upload</span>
+                                <span><img class="animated fadeIn ng-img-preview" ngf-src="!files[0].$error && files[0] || Data.Dobi.Photo"></span>
                             </div>
                             <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
                             <div class="help-block">
                                 <p class="text-error" ng-if="!files.length && Data.FileErrorMsg">{{Data.FileErrorMsg}}</p>
+                                <p class="text-error" ng-if="!files.length && dobiAddForm.file.$error.maxSize">File too large. Maximum 10 MB</p>
+                                <p class="text-error" ng-if="!files.length && dobiAddForm.file.$error.pattern">Unsupported file type. (Only Jpg, Png &amp; Jpeg accepted)</p>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-sm-12">
-                        <button type="submit" class="btn btn-success dobi-submit-btn pull-right" ng-click="Methods.AddOrUpdateDobi(files)" ng-disabled="dobiAddForm.$invalid" ladda="httpLoading">{{Data.SaveOrUpdateBtn}}</button>
-                    </div>    
+                        <button type="submit" class="btn btn-success dobi-submit-btn pull-right" ng-click="Methods.AddOrUpdateDobi()" ng-disabled="dobiAddForm.$invalid" ladda="httpLoading">{{Data.SaveOrUpdateBtn}}</button>
+                    </div>
                 </form>
             </div>
         </div>

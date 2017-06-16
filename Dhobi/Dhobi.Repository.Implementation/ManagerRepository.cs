@@ -128,7 +128,8 @@ namespace Dhobi.Repository.Implementation
                                                 .Set(d => d.Roles, manager.Roles)
                                                 .Set(d => d.UserName, manager.UserName)
                                                 .Set(d => d.Password, manager.Password)
-                                                .Set(d => d.Salary, manager.Salary);
+                                                .Set(d => d.Salary, manager.Salary)
+                                                .Set(d => d.Photo, manager.Photo);
 
             var filter = Builders<Manager>.Filter.Eq(d => d.UserId, manager.UserId);
             var projection = Builders<Manager>.Projection.Exclude("_id").Exclude(m => m.AddedBy);

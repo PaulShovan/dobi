@@ -1,5 +1,5 @@
 ﻿define(['app', 'underscore', 'dir-pagination'], function (app, _) {
-    app.controller('dobiManageController', ['$scope', 'apiConstant', 'httpService', '$timeout', function ($scope, apiConstant, httpService, $timeout) {
+    app.controller('dobiManageController', ['$scope', 'apiConstant', 'httpService', '$timeout', 'appUtility', function ($scope, apiConstant, httpService, $timeout, appUtility) {
         "use strict";
 
         $scope.currentPage = 1;
@@ -22,6 +22,7 @@
                     $timeout(function() {
                         $scope.Data.Dobies = dobi.Data.DobiList;
                         $scope.Data.TotalDobies = dobi.Data.TotalDobi;
+                        appUtility.AddParamWithPhotoUrl($scope.Data.Dobies);
                         $scope.Data.ShowingFrom = skip + 1;
                         $scope.Data.ShowingTo = skip + dobi.Data.DobiList.length;
                     });

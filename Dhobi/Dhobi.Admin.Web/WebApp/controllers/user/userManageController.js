@@ -1,5 +1,5 @@
 ﻿define(['app', 'underscore', 'dir-pagination'], function (app, _) {
-    app.controller('userManageController', ['$scope', 'apiConstant', 'httpService', '$timeout', function ($scope, apiConstant, httpService, $timeout) {
+    app.controller('userManageController', ['$scope', 'apiConstant', 'httpService', 'appUtility', function ($scope, apiConstant, httpService, appUtility) {
         "use strict";
 
         $scope.currentPage = 1;
@@ -19,12 +19,11 @@
             GetAllUser: function (pageNumber) {
                 var skip = (pageNumber - 1) * $scope.pageSize;
                 httpService.get(apiConstant.user + "?skip=" + skip, function (user) {
-                    $timeout(function () {
-                        $scope.Data.Users = user.Data.ManagerList;
-                        $scope.Data.TotalUsers = user.Data.TotalManager;
-                        $scope.Data.ShowingFrom = skip + 1;
-                        $scope.Data.ShowingTo = skip + user.Data.ManagerList.length;
-                    });
+                    $scope.Data.Users = user.Data.ManagerList;
+                    $scope.Data.TotalUsers = user.Data.TotalManager;
+                    appUtility.AddParamWithPhotoUrl($scope.Data.Users);
+                    $scope.Data.ShowingFrom = skip + 1;
+                    $scope.Data.ShowingTo = skip + user.Data.ManagerList.length;
                 }, true);
             },
             PageChangeHandler: function (pageNum) {

@@ -26,7 +26,7 @@
                                         <th>Phone No.</th>
                                         <th>Driving License</th>
                                         <th>Address</th>
-                                        <th>Action</th>
+                                        <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -58,8 +58,8 @@
                 </div>
                 <div class="row m-t-md">
                     <div class="col-sm-12">
-                        <div class="dobi-pi-calc pull-left" ng-if="Data.TotalDobies > 0">Showing {{ Data.ShowingFrom }} - {{ Data.ShowingTo }} of {{Data.TotalDobies}} Dobies </div>
-                        <div class="pull-right">
+                        <div class="dobi-pi-calc pull-left m-l-md" ng-if="Data.TotalDobies > 0">Showing {{ Data.ShowingFrom }} - {{ Data.ShowingTo }} of {{Data.TotalDobies}} Dobies </div>
+                        <div class="pull-right m-r-sm">
                             <dir-pagination-controls boundary-links="true" on-page-change="Methods.PageChangeHandler(newPageNumber)" template-url="WebApp/directives/pager/dirPagination.tpl.html"></dir-pagination-controls>
                         </div>
                     </div>

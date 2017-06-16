@@ -180,6 +180,7 @@
     <Content Include="Content\plugins\toastr\toastr.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\Ubuntu\UFL.txt" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\accountDirective.js" />
@@ -284,6 +285,14 @@
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.woff2" />
     <Content Include="Content\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="fonts\Ubuntu\Ubuntu-Bold.ttf" />
+    <Content Include="fonts\Ubuntu\Ubuntu-BoldItalic.ttf" />
+    <Content Include="fonts\Ubuntu\Ubuntu-Italic.ttf" />
+    <Content Include="fonts\Ubuntu\Ubuntu-Light.ttf" />
+    <Content Include="fonts\Ubuntu\Ubuntu-LightItalic.ttf" />
+    <Content Include="fonts\Ubuntu\Ubuntu-Medium.ttf" />
+    <Content Include="fonts\Ubuntu\Ubuntu-MediumItalic.ttf" />
+    <Content Include="fonts\Ubuntu\Ubuntu-Regular.ttf" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Home\Admin.cshtml" />
     <None Include="Properties\PublishProfiles\dobi-admin-web.pubxml" />

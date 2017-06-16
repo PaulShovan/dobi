@@ -42,14 +42,16 @@
                                 </div>
 
                                 <div class="password-div" ng-class="{ 'login-err-msg': loginForm.password.$touched && loginForm.password.$invalid }">
-                                    <label>Password</label> <br />
+                                    <label>Password</label> <br/>
                                     <input type="password" name="password" placeholder="XXXXXXXXXXXX" required ng-model="Data.Password" ng-minlength="6" ng-maxlength="64" ng-focus="Methods.FlashErrors($event)">
                                     <div class="help-block" ng-messages="loginForm.password.$error" ng-if="loginForm.password.$touched">
                                         <p ng-message="required" ng-bind="Error.PasswordRequired"></p>
                                         <p ng-message="minlength" ng-bind="Error.PasswordMin"></p>
                                         <p ng-message="maxlength" ng-bind="Error.PasswordMax"></p>
-                                        <p class="m-t-md" ng-if="Error.FromServer && (loginForm.username.$touched || loginForm.password.$touched)" ng-bind="Error.FromServer"></p>
                                     </div>
+                                </div>
+                                <div class="help-block">
+                                    <p class="m-t-md" ng-if="Error.FromServer && (loginForm.username.$touched || loginForm.password.$touched)" ng-bind="Error.FromServer"></p>
                                 </div>
                                 <button type="submit" class="btn btn-primary login-btn" ng-click="Methods.Login()" ng-disabled="loginForm.$invalid" ladda="loginLoading">Login Now</button>
                             </form>
