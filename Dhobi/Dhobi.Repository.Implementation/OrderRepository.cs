@@ -119,7 +119,7 @@ namespace Dhobi.Repository.Implementation
             }
         }
 
-        public async Task<bool> SetOrderPickupDateTime(long date, string time, string serviceId, DobiBasicInformation dobi)
+        public async Task<Order> SetOrderPickupDateTime(long date, string time, string serviceId, DobiBasicInformation dobi)
         {
             try
             {
@@ -133,11 +133,7 @@ namespace Dhobi.Repository.Implementation
                 options.ReturnDocument = ReturnDocument.After;
                 options.Projection = projection;
                 var result = await Collection.FindOneAndUpdateAsync(filter, update, options);
-                if(result == null)
-                {
-                    return false;
-                }
-                return !string.IsNullOrWhiteSpace(result.ServiceId);
+                return result;
             }
             catch (Exception ex)
             {

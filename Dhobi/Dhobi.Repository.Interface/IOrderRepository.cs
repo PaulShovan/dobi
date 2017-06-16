@@ -18,7 +18,7 @@ namespace Dhobi.Repository.Interface
         Task<List<BsonDocument>> GetOrdersGroupByZone(int orderStatus);
         Task<List<Order>> GetOrdersByZone(string zone, int orderStatus);
         Task<Order> GetNewOrderForDobi(string serviceId);
-        Task<bool> SetOrderPickupDateTime(long date, string time, string serviceId, DobiBasicInformation dobi);
+        Task<Order> SetOrderPickupDateTime(long date, string time, string serviceId, DobiBasicInformation dobi);
         Task<bool> CancelOrder(string serviceId);
         Task<bool> ConfirmOrder(string serviceId);
         Task<List<Order>> GetUserOrders(string userId, int skip, int limit);

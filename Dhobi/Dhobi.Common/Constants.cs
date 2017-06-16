@@ -10,6 +10,6 @@
         public static string USER_ORDER_STATUS_TITLE = "Order detail";
         public static string USER_ORDER_STATUS_MESSAGE = "Service ID #{0}. See your order status.";
         public static string NEW_ORDER_MESSAGE_TEXT = "Thanks for calling dobi. We have got your request. You will be notified shortly about the pick up time and Dobi detail.";
-        public static string ACK_MESSAGE_TEXT = "We will pick up your order on ";
+        public static string ACK_MESSAGE_TEXT = "Service ID #{0}.";
     }
 }

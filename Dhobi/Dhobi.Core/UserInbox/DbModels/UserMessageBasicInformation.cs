@@ -9,6 +9,7 @@ namespace Dhobi.Core.UserInbox.DbModels
     public class UserMessageBasicInformation
     {
         public string MessageId;
+        public string ServiceId;
         public string Title;
         public string Message;
         public string Time;

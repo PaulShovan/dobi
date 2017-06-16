@@ -57,7 +57,7 @@ namespace Dhobi.Business.Implementation
                     Status = (int)OrderStatus.New,
                     OrderPlacingTime = Utilities.GetPresentDateTime()
                 };
-                var addMessageResponse = await _userMessageBusiness.AddUserMessage(orderedBy.UserId, (int)MessageType.NewOrder);
+                var addMessageResponse = await _userMessageBusiness.AddUserMessage(orderedBy.UserId, (int)MessageType.NewOrder, newServiceId);
                 var addOrderResponse = await _orderRepository.AddNewOrder(newOrder);
                 //TODO Send Notification
                 return addMessageResponse && addOrderResponse;
@@ -150,7 +150,12 @@ namespace Dhobi.Business.Implementation
             {
                 var orderPickupDate = Utilities.GetMillisecondFromDate(order.PickupDate);
                 var result = await _orderRepository.SetOrderPickupDateTime(orderPickupDate, order.PickupTime, order.ServiceId, dobi);
-                return result;
+                if (result == null)
+                {
+                    return false;
+                }
+                var messageSend = await _userMessageBusiness.AddUserMessage(result.OrderBy.UserId, (int)MessageType.OrderAcknowledge, result.ServiceId);
+                return messageSend;
             }
             catch (Exception ex)
             {

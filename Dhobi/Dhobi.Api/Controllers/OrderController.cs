@@ -128,9 +128,13 @@ namespace Dhobi.Api.Controllers
         [HttpGet]
         [Route("v1/order/new")]
         [Authorize]
-        public async Task<IHttpActionResult> GetNewOrderForDobi(string id)
+        public async Task<IHttpActionResult> GetNewOrderForDobi(string serviceId)
         {
-            var order = await _orderBusiness.GetNewOrderForDobi(id);
+            if (string.IsNullOrWhiteSpace(serviceId))
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.BadRequest, null, "Invalid service id"));
+            }
+            var order = await _orderBusiness.GetNewOrderForDobi(serviceId);
             if (order == null)
             {
                 return Ok(new ResponseModel<string>(ResponseStatus.NotFound, null, "No order found."));

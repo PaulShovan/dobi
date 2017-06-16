@@ -18,12 +18,13 @@ namespace Dhobi.Business.Implementation
         {
             _userMessageRepository = userMessageRepository;
         }
-        private UserMessage PrepareNewOrderMessage(string userId)
+        private UserMessage PrepareNewOrderMessage(string userId, string serviceId)
         {
             return new UserMessage
             {
                 MessageId = Guid.NewGuid().ToString(),
                 UserId = userId,
+                ServiceId = serviceId,
                 Title = Constants.NEW_ORDER_MESSAGE_TITLE,
                 Message = Constants.NEW_ORDER_MESSAGE_TEXT,
                 Time = Utilities.GetPresentDateTime(),
@@ -32,16 +33,35 @@ namespace Dhobi.Business.Implementation
                 Type = (int)MessageType.NewOrder
             };
         }
-        public async Task<bool> AddUserMessage(string userId, int messageType)
+        private UserMessage PrepareAcknowledgeOrderMessage(string userId, string serviceId)
+        {
+            return new UserMessage
+            {
+                MessageId = Guid.NewGuid().ToString(),
+                UserId = userId,
+                ServiceId = serviceId,
+                Title = Constants.ACK_MESSAGE_TITLE,
+                Message = string.Format(Constants.ACK_MESSAGE_TEXT, serviceId),
+                Time = Utilities.GetPresentDateTime(),
+                Status = (int)MessageStatus.Unread,
+                IsDelivered = (int)MessageDeliveryStatus.NotDelivered,
+                Type = (int)MessageType.OrderAcknowledge
+            };
+        }
+        public async Task<bool> AddUserMessage(string userId, int messageType, string serviceId)
         {
             try
             {
                 UserMessage message =  null;
                 if(messageType == (int)MessageType.NewOrder)
                 {
-                    message = PrepareNewOrderMessage(userId);
+                    message = PrepareNewOrderMessage(userId, serviceId);
                 }
-                if(message == null)
+                else if (messageType == (int)MessageType.OrderAcknowledge)
+                {
+                    message = PrepareAcknowledgeOrderMessage(userId, serviceId);
+                }
+                if (message == null)
                 {
                     return false;
                 }
