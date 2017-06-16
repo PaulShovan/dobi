@@ -2,7 +2,7 @@
     <div class="col-sm-12">
         <div class="ibox">
             <div class="ibox-content dashboard-wrapper">
-                <div class="col-sm-6" ng-if="Data.ViewName == 'Superadmin'">
+                <div class="col-sm-6" ng-if="Data.ViewName == 'Superadmin' || Data.ViewName == 'Admin'">
                     <h1>Admin</h1>
                     <div class="m-t-xl admin-btn">
                         <button ng-repeat="menu in Menues.SuperAdminMenues" class="btn btn-danger dim btn-large-dim" type="button" ui-sref="{{menu.State}}" ng-disabled="menu.IsDisabled">
@@ -10,7 +10,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="col-sm-6" ng-if="Data.ViewName == 'Superadmin' || Data.ViewName == 'Manager'">
+                <div class="col-sm-6" ng-if="Data.ViewName == 'Superadmin' || Data.ViewName == 'Admin' || Data.ViewName == 'Manager'">
                     <h1>Manager</h1>
                     <div class="m-t-xl admin-btn">
                         <button ng-repeat="menu in Menues.ManagerMenues" class="btn btn-success dim btn-large-dim" type="button" ui-sref="{{menu.State}}" ng-disabled="menu.IsDisabled">

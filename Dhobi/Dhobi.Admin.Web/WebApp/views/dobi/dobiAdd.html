@@ -108,7 +108,7 @@
                                  ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true"
                                  accept="image/*" ngf-validate="{size: {min: 10, max: '2MB'}}"
                                  ngf-pattern="'image/*'">
-                                <span ng-if="!files.length && Data.Dobi.Photo==null"><i class="fa fa-user mid-icon"></i><br>Drag an Image here or<br> browse for an image to upload</span>
+                                <span ng-if="!files && Data.Dobi.Photo.length<=0"><i class="fa fa-user mid-icon"></i><br>Drag an Image here or<br> browse for an image to upload</span>
                                 <span><img class="animated fadeIn ng-img-preview" ngf-src="!files[0].$error && files[0] || Data.Dobi.Photo"></span>
                             </div>
                             <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
