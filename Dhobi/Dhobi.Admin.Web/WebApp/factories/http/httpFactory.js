@@ -30,12 +30,17 @@
                 cfpLoadingBar.start();
                 $http.post(api, data)
                    .success(function (result, status) {
-                       if (!result && status !== 200) {
-                           if (result.Errors && result.Errors.length > 0) {
-                               result.Error = result.Errors.join('\n');
-                           }
-                           toastr.error(result.Error, 'Error!');
+                       if (result.ResponseStatus === false) {
+                           toastr.error(result.Message, 'Error!');
+                           $rootScope.httpLoading = false;
+                           return;
                        }
+                       //if (!result && status !== 200) {
+                       //    if (result.Errors && result.Errors.length > 0) {
+                       //        result.Error = result.Errors.join('\n');
+                       //    }
+                       //    toastr.error(result.Error, 'Error!');
+                       //}
                        else {
                            if (onResponse) {
                                onResponse(result);

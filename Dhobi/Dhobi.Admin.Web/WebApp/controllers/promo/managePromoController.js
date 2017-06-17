@@ -1,7 +1,10 @@
 ﻿define(['app', 'underscore', 'i-check'], function (app, _) {
-    app.controller('managePromoController', ['$scope', 'apiConstant', 'httpService', '$state', 'toastr', 'moment',
-        function ($scope, apiConstant, httpService, $state, toastr, moment) {
+    app.controller('managePromoController', ['$scope', 'apiConstant', 'httpService', '$state', 'toastr', 'moment', '$rootScope',
+        function ($scope, apiConstant, httpService, $state, toastr, moment, $rootScope) {
             "use strict";
+
+
+            $rootScope.httpLoading = false;
 
             var newoffer = function () {
                 return {
@@ -15,9 +18,10 @@
 
             $scope.Data = {
                 Offer: {
-                    Navigations:[]
+                    Navigations: []
                 },
-                MinDate: moment(),
+                MinStartDate: moment(),
+                MinEndDate: moment(),
                 Offers: []
             };
 
@@ -31,18 +35,24 @@
                 RemoveOffer: function (offers, index) {
                     offers.splice(index, 1);
                 },
+                OnStartDateSelected: function() {
+                    //_.each($scope.Data.Offer.Navigations, function(navigation) {
+                    //    $scope.Data.MinEndDate = navigation.StartDate;
+                    //});
+                },
                 AddOrUpdatePromo: function () {
                     var api = apiConstant.promo;
                     var message = "Promo is Created";
 
                     _.each($scope.Data.Offer.Navigations, function(navigation) {
-                        navigation.StartDate = moment().valueOf(navigation.StartDate);
-                        navigation.EndDate = moment().valueOf(navigation.EndDate);
+                        navigation.StartDate = moment(navigation.StartDate).valueOf();
+                        navigation.EndDate = moment(navigation.EndDate).valueOf();
                     });
 
+                    $rootScope.httpLoading = true;
                     var listPromo = $scope.Data.Offer.Navigations;
                     httpService.post(api, listPromo, message, function (response) {
-                        console.log(response);
+                        $rootScope.httpLoading = false;
                     });
                 },
                 GetPromoOffers: function() {

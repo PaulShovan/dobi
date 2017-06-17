@@ -3,8 +3,8 @@
         function ($scope, apiConstant, httpService, $state, $stateParams, toastr, appUtility, $rootScope) {
             "use strict";
 
-            $scope.files = null;
             $rootScope.httpLoading = false;
+            $scope.files = null;
             $scope.Data = {
                 Dobi: {
                     DobiId: "",

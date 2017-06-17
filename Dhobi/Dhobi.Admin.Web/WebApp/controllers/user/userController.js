@@ -3,8 +3,8 @@
         function ($scope, apiConstant, httpService, $state, toastr, appUtility, $stateParams, $rootScope) {
             "use strict";
 
-            $rootScope.files = null;
-            $scope.httpProcessing = false;
+            $rootScope.httpLoading = false;
+            $scope.files = null;
             $scope.Data = {
                 User: {
                     UserId: "",
@@ -61,7 +61,6 @@
                     $scope.Data.User.Phone = appUtility.AddMalaysiaCC($scope.Data.TemporaryPhoneNumber);
                     $scope.Data.User.EmergencyContactNumber = appUtility.AddMalaysiaCC($scope.Data.TemporaryEmergencyContactNumber);
                     $rootScope.httpLoading = true;
-                    $scope.httpProcessing = true;
                     
                     var api = $scope.Data.User.UserId ? apiConstant.updateUser : apiConstant.user;
                     var message = $scope.Data.User.UserId ? "User Updated Successfully." : "New User Added Successfully";
