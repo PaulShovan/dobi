@@ -1,0 +1,6 @@
+﻿### PATTERN
+
+1. "/^\d{10}$/" - 10 digit.
+2. "/^[0-9a-zA-Z \b]+$/" - Alphabet, digit and space allowed.
+3. "/^[a-zA-Z0-9]*$/" - Alphabet, digit but WhiteSpace not allowed.
+4. 
