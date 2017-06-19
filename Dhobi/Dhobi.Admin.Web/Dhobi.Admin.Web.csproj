@@ -206,6 +206,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="WebApp\app.js" />
+    <Content Include="WebApp\config\help-text.txt" />
     <Content Include="WebApp\config\main.js" />
     <Content Include="WebApp\constants\roleConstant.js" />
     <Content Include="WebApp\controllers\dashboard\dashboardController.js" />

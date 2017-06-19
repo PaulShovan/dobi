@@ -1,8 +1,9 @@
 ﻿define(['app', 'underscore', 'i-check'], function (app, _) {
-    app.controller('dobiController', ['$scope', 'apiConstant', 'httpService', '$state', '$stateParams', 'toastr', 'appUtility',
-        function ($scope, apiConstant, httpService, $state, $stateParams, toastr, appUtility) {
+    app.controller('dobiController', ['$scope', 'apiConstant', 'httpService', '$state', '$stateParams', 'toastr', 'appUtility', '$rootScope',
+        function ($scope, apiConstant, httpService, $state, $stateParams, toastr, appUtility, $rootScope) {
             "use strict";
 
+            $rootScope.httpLoading = false;
             $scope.files = null;
             $scope.Data = {
                 Dobi: {
@@ -53,7 +54,7 @@
                     }
                     $scope.Data.Dobi.Phone = appUtility.AddMalaysiaCC($scope.Data.TemporaryPhoneNumber);
                     $scope.Data.Dobi.EmergencyContactNumber = appUtility.AddMalaysiaCC($scope.Data.TemporaryEmergencyNumber);
-                    $scope.httpLoading = true;
+                    $rootScope.httpLoading = true;
 
                     var api = $scope.Data.Dobi.DobiId ? apiConstant.updateDobi : apiConstant.dobi;
                     var message = $scope.Data.Dobi.DobiId ? "Dobi Updated Successfully." : "New Dobi Added Successfully";
@@ -62,9 +63,9 @@
                         $scope.Data.Dobi.EmergencyContactNumber = appUtility.RemoveMalaysiaCC($scope.Data.Dobi.EmergencyContactNumber);
                         if (response.status === 200) {
                             toastr.success(response.Message, "Success!");
-                            $scope.httpLoading = false;
                             $state.go('dobimanage');
                         }
+                        $rootScope.httpLoading = false;
                     }, false);
                 }
             };

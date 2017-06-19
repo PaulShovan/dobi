@@ -306,3 +306,6 @@ body {
         width: 100%;
     }
 }
+#toast-container > div.toast {
+    background-image: none !important;
+}

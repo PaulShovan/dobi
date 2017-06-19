@@ -127,7 +127,6 @@ namespace Dhobi.Repository.Implementation
                                                 .Set(d => d.Sex, manager.Sex)
                                                 .Set(d => d.Roles, manager.Roles)
                                                 .Set(d => d.UserName, manager.UserName)
-                                                .Set(d => d.Password, manager.Password)
                                                 .Set(d => d.Salary, manager.Salary)
                                                 .Set(d => d.Photo, manager.Photo);
 
