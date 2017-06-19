@@ -144,7 +144,7 @@ namespace Dhobi.Business.Implementation
                 throw new Exception("Error getting order" + ex);
             }
         }
-        public async Task<bool> SetOrderPickupDateTime(OrderPickupTimeViewModel order, Dobi dobi)
+        public async Task<bool> SetOrderPickupDateTime(OrderPickupTimeViewModel order, DobiBasicInformation dobi)
         {
             try
             {
@@ -188,6 +188,25 @@ namespace Dhobi.Business.Implementation
             catch (Exception ex)
             {
                 throw new Exception("Error getting user orders" + ex);
+            }
+        }
+
+        public async Task<bool> ConfirmOrder(string serviceId, User user)
+        {
+            try
+            {
+                var confirmOrder = await _orderRepository.ConfirmOrder(serviceId);
+                if (!confirmOrder)
+                {
+                    return false;
+                }
+                var sendUserMessage = await _userMessageBusiness.AddUserMessage(user.UserId, (int)MessageType.ConfirmOrder, serviceId, user.Name);
+                return sendUserMessage;
+                //TO DO Send Dobi Message
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error confirming order" + ex);
             }
         }
     }

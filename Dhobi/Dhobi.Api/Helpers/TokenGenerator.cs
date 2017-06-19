@@ -97,13 +97,13 @@ namespace Dhobi.Api.Helpers
                 throw;
             }
         }
-        public Dobi GetDobiFromToken(string token)
+        public DobiBasicInformation GetDobiFromToken(string token)
         {
             try
             {
                 var tokenOnly = token.Replace("Bearer", "").Trim();
                 var jwtDecoded = JWT.JsonWebToken.Decode(tokenOnly, TextEncodings.Base64Url.Decode(WebConfigurationManager.AppSettings["secret"]));
-                var user = JsonConvert.DeserializeObject<Dobi>(jwtDecoded);
+                var user = JsonConvert.DeserializeObject<DobiBasicInformation>(jwtDecoded);
                 return user;
             }
             catch (Exception)

@@ -53,7 +53,8 @@
     public enum MessageType
     {
         NewOrder = 1,
-        OrderAcknowledge = 2
+        OrderAcknowledge = 2,
+        ConfirmOrder = 3
     }
     public enum LocationStatus
     {

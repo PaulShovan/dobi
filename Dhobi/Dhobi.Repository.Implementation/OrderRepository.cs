@@ -210,5 +210,25 @@ namespace Dhobi.Repository.Implementation
                 throw new Exception("Error getting orders." + ex);
             }
         }
+
+        public async Task<Order> GetOrderAcknowledgeInformation(string serviceId)
+        {
+            try
+            {
+                var builder = Builders<Order>.Filter;
+                var filter = builder.Eq(order => order.ServiceId, serviceId);
+                var projection = Builders<Order>.Projection.Exclude("_id")
+                    .Include(u => u.ServiceId)
+                    .Include(u => u.Dobi)
+                    .Include(u => u.PickUpDate)
+                    .Include(u => u.PickUpTime);
+                var result = await Collection.Find(filter).Project<Order>(projection).FirstOrDefaultAsync();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error getting order" + ex);
+            }
+        }
     }
 }

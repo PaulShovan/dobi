@@ -36,7 +36,7 @@ namespace Dhobi.Repository.Implementation
             var userMessage = new List<UserMessageBasicInformation>();
             var sortBuilder = Builders<UserMessage>.Sort;
             var sortOrder = sortBuilder.Descending(s => s.Time);
-            var projection = Builders<UserMessage>.Projection.Exclude("_id").Exclude(s => s.UserId).Exclude(s => s.IsDelivered).Exclude(s => s.Type);
+            var projection = Builders<UserMessage>.Projection.Exclude("_id").Exclude(s => s.UserId).Exclude(s => s.IsDelivered);
             var messaages = await Collection.Find(d => d.UserId == userId).Project<UserMessage>(projection).Sort(sortOrder).Skip(skip).Limit(limit).ToListAsync();
             if(messaages == null)
             {

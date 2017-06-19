@@ -5,6 +5,7 @@ using Dhobi.Common;
 using Dhobi.Core.Dobi.DbModels;
 using Dhobi.Core.OrderModel.ViewModels;
 using Dhobi.Core.UserModel.DbModels;
+using Dhobi.Repository.Interface;
 using Dhobi.Service.Interface;
 using System;
 using System.Collections.Generic;
@@ -20,15 +21,23 @@ namespace Dhobi.Api.Controllers
     public class OrderController : ApiController
     {
         private IOrderBusiness _orderBusiness;
+        private IPromoOfferBusiness _promoOfferBusiness;
         private IOrderServiceBusiness _orderServiceBusiness;
         private TokenGenerator _tokenGenerator;
         private ILocationService _locationService;
-        public OrderController(IOrderBusiness orderBusiness, ILocationService locationService, IOrderServiceBusiness orderServiceBusiness)
+        private IOrderRepository _orderRepository;
+        public OrderController(IOrderBusiness orderBusiness, 
+            ILocationService locationService, 
+            IOrderServiceBusiness orderServiceBusiness, 
+            IPromoOfferBusiness promoOfferBusiness,
+            IOrderRepository orderRepository)
         {
             _orderBusiness = orderBusiness;
             _orderServiceBusiness = orderServiceBusiness;
             _locationService = locationService;
+            _promoOfferBusiness = promoOfferBusiness;
             _tokenGenerator = new TokenGenerator();
+            _orderRepository = orderRepository;
         }
         private User GetUserInformationFromToken()
         {
@@ -45,7 +54,7 @@ namespace Dhobi.Api.Controllers
             var user = _tokenGenerator.GetUserFromToken(token);
             return user;
         }
-        private Dobi GetDobiInformationFromToken()
+        private DobiBasicInformation GetDobiInformationFromToken()
         {
             IEnumerable<string> values;
             var token = "";
@@ -114,16 +123,28 @@ namespace Dhobi.Api.Controllers
             return Ok(new ResponseModel<OrderByZoneViewModel>(ResponseStatus.Ok, groupedOrders, ""));
         }
         [HttpGet]
-        [Route("v1/order/zones")]
+        [Route("v1/order/home")]
         [Authorize]
-        public async Task<IHttpActionResult> GetAvailableZones()
+        public async Task<IHttpActionResult> GetOrderHomePageInformation()
         {
             var zones = await _locationService.GetAvailableActiveZones();
             if (zones == null)
             {
                 return Ok(new ResponseModel<string>(ResponseStatus.NotFound, null, "No zone available."));
             }
-            return Ok(new ResponseModel<List<string>>(ResponseStatus.Ok, zones, ""));
+            var promoOffer = await _promoOfferBusiness.GetPromoOfferForUser();
+
+            var promo = promoOffer == null ? null : new PromoOfferResponse
+            {
+                PromoText = promoOffer.Text,
+                Amount = promoOffer.Amount
+            };
+            var response = new OrderHomePageResponse
+            {
+                Zones = zones,
+                Promo = promo
+            };
+            return Ok(new ResponseModel<OrderHomePageResponse>(ResponseStatus.Ok, response, ""));
         }
         [HttpGet]
         [Route("v1/order/new")]
@@ -180,6 +201,43 @@ namespace Dhobi.Api.Controllers
             return Ok(new ResponseModel<List<UserOrderStatusViewModel>>(ResponseStatus.Ok, userOrders, ""));
         }
         [HttpGet]
+        [Route("v1/order/cancel")]
+        [Authorize]
+        public async Task<IHttpActionResult> CancelOrder(string serviceId)
+        {
+            if (string.IsNullOrWhiteSpace(serviceId))
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.NotFound, null, "Invalid service."));
+            }
+            var result = await _orderRepository.CancelOrder(serviceId);
+            if (!result)
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.NotFound, null, "Service not found"));
+            }
+            return Ok(new ResponseModel<string>(ResponseStatus.Ok, null, "Order has been cancelled."));
+        }
+        [HttpGet]
+        [Route("v1/order/confirm")]
+        [Authorize]
+        public async Task<IHttpActionResult> ConfirmOrder(string serviceId)
+        {
+            var user = GetUserInformationFromToken();
+            if (user == null || string.IsNullOrEmpty(user.UserId))
+            {
+                return BadRequest("Invalid User.");
+            }
+            if (string.IsNullOrWhiteSpace(serviceId))
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.NotFound, null, "Invalid service."));
+            }
+            var result = await _orderBusiness.ConfirmOrder(serviceId, user);
+            if (!result)
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.NotFound, null, "Service not found"));
+            }
+            return Ok(new ResponseModel<string>(ResponseStatus.Ok, null, "Order has been confirmed."));
+        }
+        [HttpGet]
         [Route("v1/order/services")]
         [Authorize]
         public async Task<IHttpActionResult> GetOrderServices()
@@ -191,5 +249,6 @@ namespace Dhobi.Api.Controllers
             }
             return Ok(new ResponseModel<List<string>>(ResponseStatus.Ok, orderServices, ""));
         }
+
     }
 }

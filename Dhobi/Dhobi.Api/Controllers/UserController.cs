@@ -22,21 +22,18 @@ namespace Dhobi.Api.Controllers
     public class UserController : ApiController
     {
         private IUserBusiness _userBusiness;
-        private IPromoOfferBusiness _promoOfferBusiness;
         private IDeviceStatusBusiness _deviceStatusBusiness;
         private IDeviceStausRepository _deviceStatusRepository;
         private IUserMessageBusiness _userMessageBusiness;
         private IAvailableLocationBusiness _availableLocationBusiness;
         private TokenGenerator _tokenGenerator;
         public UserController(IUserBusiness userBusiness, 
-            IPromoOfferBusiness promoOfferBusiness,
             IDeviceStatusBusiness deviceStatusBusiness,
             IDeviceStausRepository deviceStatusRepository,
             IUserMessageBusiness userMessageBusiness,
             IAvailableLocationBusiness availableLocationBusiness)
         {
             _userBusiness = userBusiness;
-            _promoOfferBusiness = promoOfferBusiness;
             _deviceStatusBusiness = deviceStatusBusiness;
             _deviceStatusRepository = deviceStatusRepository;
             _userMessageBusiness = userMessageBusiness;
@@ -120,23 +117,6 @@ namespace Dhobi.Api.Controllers
             var token = _tokenGenerator.GenerateUserToken(loggedInUser);
             validatedUser = new ValidatedUserResponse(loggedInUser.Name, token, null);
             return Ok(new ResponseModel<ValidatedUserResponse>(ResponseStatus.Ok, validatedUser, ""));
-        }
-        [Route("v1/user/promotion")]
-        [HttpGet]
-        [Authorize]
-        public async Task<IHttpActionResult> GetPromoOffer()
-        {
-            var promoOffer = await _promoOfferBusiness.GetPromoOfferForUser();
-            if(promoOffer == null)
-            {
-                return Ok(new ResponseModel<string>(ResponseStatus.NotFound, null, "No promo offer available"));
-            }
-            var promo = new PromoOfferResponse
-            {
-                PromoText = promoOffer.Text,
-                Amount = promoOffer.Amount
-            };
-            return Ok(new ResponseModel<PromoOfferResponse>(ResponseStatus.Ok, promo, ""));
         }
         [Route("v1/user/availablelocation")]
         [HttpGet]
@@ -226,6 +206,30 @@ namespace Dhobi.Api.Controllers
             var message = await _userMessageBusiness.GetMessageById(id);
             return Ok(new ResponseModel<UserMessageBasicInformation>(ResponseStatus.Ok, message, ""));
         }
+
+        [Authorize]
+        [Route("v1/user/order/acknowledge")]
+        [HttpGet]
+        public async Task<IHttpActionResult> GetOrderAcknowledge(string messageId, string serviceId)
+        {
+            if (string.IsNullOrWhiteSpace(messageId) || string.IsNullOrWhiteSpace(serviceId))
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.BadRequest, null, "Invalid message or service."));
+            }
+            var user = GetUserInformationFromToken();
+            if (user == null || string.IsNullOrWhiteSpace(user.UserId))
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.BadRequest, null, "Invalid user."));
+            }
+            var ack = await _userMessageBusiness.GetOrderAcknowledge(messageId, serviceId);
+            if(ack == null)
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.BadRequest, null, "Service has not been acknowledged yet."));
+            }
+            return Ok(new ResponseModel<UserAcknowledgeMessageViewModel>(ResponseStatus.Ok, ack, ""));
+        }
+
+
         [Authorize]
         [Route("v1/user/validate/resend")]
         [HttpGet]

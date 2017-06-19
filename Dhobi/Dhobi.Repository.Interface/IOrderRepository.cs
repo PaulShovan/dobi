@@ -22,5 +22,6 @@ namespace Dhobi.Repository.Interface
         Task<bool> CancelOrder(string serviceId);
         Task<bool> ConfirmOrder(string serviceId);
         Task<List<Order>> GetUserOrders(string userId, int skip, int limit);
+        Task<Order> GetOrderAcknowledgeInformation(string serviceId);
     }
 }

@@ -14,9 +14,11 @@ namespace Dhobi.Business.Implementation
     public class UserMessageBusiness : IUserMessageBusiness
     {
         private IUserMessageRepository _userMessageRepository;
-        public UserMessageBusiness(IUserMessageRepository userMessageRepository)
+        private IOrderRepository _orderRepository;
+        public UserMessageBusiness(IUserMessageRepository userMessageRepository, IOrderRepository orderRepository)
         {
             _userMessageRepository = userMessageRepository;
+            _orderRepository = orderRepository;
         }
         private UserMessage PrepareNewOrderMessage(string userId, string serviceId)
         {
@@ -48,7 +50,22 @@ namespace Dhobi.Business.Implementation
                 Type = (int)MessageType.OrderAcknowledge
             };
         }
-        public async Task<bool> AddUserMessage(string userId, int messageType, string serviceId)
+        private UserMessage PrepareConfirmOrderMessage(string userId, string serviceId)
+        {
+            return new UserMessage
+            {
+                MessageId = Guid.NewGuid().ToString(),
+                UserId = userId,
+                ServiceId = serviceId,
+                Title = Constants.CONFIRM_ORDER_MESSAGE_TITLE,
+                Message = Constants.CONFIRM_ORDER_MESSAGE_TEXT,
+                Time = Utilities.GetPresentDateTime(),
+                Status = (int)MessageStatus.Unread,
+                IsDelivered = (int)MessageDeliveryStatus.NotDelivered,
+                Type = (int)MessageType.ConfirmOrder
+            };
+        }
+        public async Task<bool> AddUserMessage(string userId, int messageType, string serviceId, string username = "")
         {
             try
             {
@@ -60,6 +77,10 @@ namespace Dhobi.Business.Implementation
                 else if (messageType == (int)MessageType.OrderAcknowledge)
                 {
                     message = PrepareAcknowledgeOrderMessage(userId, serviceId);
+                }
+                else if(messageType == (int)MessageType.ConfirmOrder)
+                {
+                    message = PrepareConfirmOrderMessage(userId, serviceId);
                 }
                 if (message == null)
                 {
@@ -80,9 +101,13 @@ namespace Dhobi.Business.Implementation
                 var userMessage = new List<UserMessageBasicInformation>();
                 var messages = await _userMessageRepository.GetUserMessage(userId, skip, limit);
                 var count = await _userMessageRepository.GetUserMessageCount(userId);
-                if(messages == null || count <= 0 || limit <= 0)
+                if(messages == null || count == 0)
                 {
-                    return null;
+                    return new UserMessageListViewModel
+                    {
+                        PageCount = 0,
+                        Messages = new List<UserMessageBasicInformation>()
+                    };
                 }
                 messages.ForEach(m => userMessage.Add(new UserMessageBasicInformation
                 {
@@ -90,7 +115,9 @@ namespace Dhobi.Business.Implementation
                     MessageId = m.MessageId,
                     Title = m.Title,
                     Time = Utilities.GetFormattedDateFromMillisecond(m.Time),
-                    Status = m.Status
+                    Status = m.Status,
+                    MessageType = m.Type,
+                    ServiceId = m.ServiceId
                 }));
                 return new UserMessageListViewModel {
                     PageCount = (int)Math.Ceiling((double)count / limit),
@@ -124,6 +151,35 @@ namespace Dhobi.Business.Implementation
             catch (Exception ex)
             {
                 throw new Exception("Error getting user messages" + ex);
+            }
+        }
+
+        public async Task<UserAcknowledgeMessageViewModel> GetOrderAcknowledge(string messageId, string serviceId)
+        {
+            try
+            {
+                var order = await _orderRepository.GetOrderAcknowledgeInformation(serviceId);
+                if(order == null || order.Dobi == null)
+                {
+                    return null;
+                }
+                var message = await GetMessageById(messageId);
+                if(message == null)
+                {
+                    return null;
+                }
+                return new UserAcknowledgeMessageViewModel
+                {
+                    ServiceId = order.ServiceId,
+                    DobiId = order.Dobi.DobiId,
+                    DobiName = order.Dobi.Name,
+                    DobiPhoto = order.Dobi.Photo,
+                    Time = Utilities.GetFormattedDateFromMillisecond(order.PickUpDate) + " "+ order.PickUpTime
+                };
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error getting ack");
             }
         }
     }

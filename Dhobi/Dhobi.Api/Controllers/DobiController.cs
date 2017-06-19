@@ -24,7 +24,7 @@ namespace Dhobi.Api.Controllers
             _dobiRepository = dobiRepository;
             _tokenGenerator = new TokenGenerator();
         }
-        private Dobi GetDobiInformationFromToken()
+        private DobiBasicInformation GetDobiInformationFromToken()
         {
             IEnumerable<string> values;
             var token = "";
