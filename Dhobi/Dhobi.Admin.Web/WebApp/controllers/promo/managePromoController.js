@@ -22,7 +22,8 @@
                 },
                 MinStartDate: moment(),
                 MinEndDate: moment(),
-                Offers: []
+                Offers: [],
+                ClickedIndex: null
             };
 
             $scope.Methods = {
@@ -35,16 +36,19 @@
                 RemoveOffer: function (offers, index) {
                     offers.splice(index, 1);
                 },
-                OnStartDateSelected: function() {
-                    //_.each($scope.Data.Offer.Navigations, function(navigation) {
-                    //    $scope.Data.MinEndDate = navigation.StartDate;
-                    //});
+                AssignIndex: function (index) {
+                    $scope.Data.ClickedIndex = index;
+                },
+                OnStartDateSelected: function () {
+                    //@todo NEED TO FIX.
+                    //$scope.Data.Offer.Navigations[$scope.Data.ClickedIndex].MinEndDate = $scope.Data.Offer.Navigations[$scope.Data.ClickedIndex].StartDate;
+                    $scope.Data.Offer.Navigations[$scope.Data.ClickedIndex].EndDate = $scope.Data.Offer.Navigations[$scope.Data.ClickedIndex].StartDate;
                 },
                 AddOrUpdatePromo: function () {
                     var api = apiConstant.promo;
                     var message = "Promo is Created";
 
-                    _.each($scope.Data.Offer.Navigations, function(navigation) {
+                    _.each($scope.Data.Offer.Navigations, function (navigation) {
                         navigation.StartDate = moment(navigation.StartDate).valueOf();
                         navigation.EndDate = moment(navigation.EndDate).valueOf();
                     });
@@ -55,7 +59,7 @@
                         $rootScope.httpLoading = false;
                     });
                 },
-                GetPromoOffers: function() {
+                GetPromoOffers: function () {
                     httpService.get(apiConstant.promo, function (offer) {
                         $timeout(function () {
                             $scope.Data.Offers = offer.Data.OfferList;

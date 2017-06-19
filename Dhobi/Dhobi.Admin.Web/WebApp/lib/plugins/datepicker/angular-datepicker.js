@@ -1,6 +1,4 @@
-﻿//https://github.com/g00fy-/angular-datepicker
-
-(function (global, factory) { 'use strict'; var fnc; fnc = (typeof exports === 'object' && typeof module !== 'undefined') ? module.exports = factory(require('angular'), require('moment')) : (typeof define === 'function' && define.amd) ? define(['angular', 'moment'], factory) : factory(global.angular, global.moment); }(this, function (angular, moment) {
+﻿(function (global, factory) { 'use strict'; var fnc; fnc = (typeof exports === 'object' && typeof module !== 'undefined') ? module.exports = factory(require('angular'), require('moment')) : (typeof define === 'function' && define.amd) ? define(['angular', 'moment'], factory) : factory(global.angular, global.moment); }(this, function (angular, moment) {
     //(function (global, factory) {
     //  'use strict';
     //  var fnc;
@@ -34,7 +32,7 @@
     Module.filter('mFormat', function () {
         return function (m, format, tz) {
             if (!(moment.isMoment(m))) {
-                return moment(m).format(format);
+                return (m) ? moment(m).format(format) : '';
             }
             return tz ? moment.tz(m, tz).format(format) : m.format(format);
         };
@@ -58,8 +56,8 @@
                     scope.view = attrs.view || datePickerConfig.view;
 
                     scope.views = scope.views.slice(
-                        scope.views.indexOf(attrs.maxView || 'year'),
-                        scope.views.indexOf(attrs.minView || 'minutes') + 1
+                      scope.views.indexOf(attrs.maxView || 'year'),
+                      scope.views.indexOf(attrs.minView || 'minutes') + 1
                     );
 
                     if (scope.views.length === 1 || scope.views.indexOf(scope.view) === -1) {
@@ -72,25 +70,25 @@
                 }
 
                 var arrowClick = false,
-                    tz = scope.tz = attrs.timezone,
-                    createMoment = datePickerUtils.createMoment,
-                    eventIsForPicker = datePickerUtils.eventIsForPicker,
-                    step = parseInt(attrs.step || datePickerConfig.step, 10),
-                    partial = !!attrs.partial,
-                    minDate = getDate('minDate'),
-                    maxDate = getDate('maxDate'),
-                    pickerID = element[0].id,
-                    now = scope.now = createMoment(),
-                    selected = scope.date = createMoment(scope.model || now),
-                    autoclose = attrs.autoClose === 'true',
+                  tz = scope.tz = attrs.timezone,
+                  createMoment = datePickerUtils.createMoment,
+                  eventIsForPicker = datePickerUtils.eventIsForPicker,
+                  step = parseInt(attrs.step || datePickerConfig.step, 10),
+                  partial = !!attrs.partial,
+                  minDate = getDate('minDate'),
+                  maxDate = getDate('maxDate'),
+                  pickerID = element[0].id,
+                  now = scope.now = createMoment(),
+                  selected = scope.date = createMoment(scope.model || now),
+                  autoclose = attrs.autoClose === 'true',
                 // Either gets the 1st day from the attributes, or asks moment.js to give it to us as it is localized.
-                    firstDay = attrs.firstDay && attrs.firstDay >= 0 && attrs.firstDay <= 6 ? parseInt(attrs.firstDay, 10) : moment().weekday(0).day(),
-                    setDate,
-                    prepareViewData,
-                    isSame,
-                    clipDate,
-                    isNow,
-                    inValidRange;
+                  firstDay = attrs.firstDay && attrs.firstDay >= 0 && attrs.firstDay <= 6 ? parseInt(attrs.firstDay, 10) : moment().weekday(0).day(),
+                  setDate,
+                  prepareViewData,
+                  isSame,
+                  clipDate,
+                  isNow,
+                  inValidRange;
 
                 datePickerUtils.setParams(tz, firstDay);
 
@@ -205,9 +203,9 @@
 
                 prepareViewData = function () {
                     var view = scope.view,
-                        date = scope.date,
-                        classes = [], classList = '',
-                        i, j;
+                      date = scope.date,
+                      classes = [], classList = '',
+                      i, j;
 
                     datePickerUtils.setParams(tz, firstDay);
 
@@ -233,8 +231,8 @@
                         }
                     } else {
                         var params = datePickerConfig.viewConfig[view],
-                            dates = scope[params[0]],
-                            compareFunc = params[1];
+                          dates = scope[params[0]],
+                          compareFunc = params[1];
 
                         for (i = 0; i < dates.length; i++) {
                             classList = '';
@@ -274,7 +272,6 @@
                     date = clipDate(date);
                     if (date) {
                         scope.date = date;
-                        setDate(date);
                         arrowClick = true;
                         update();
                     }
@@ -387,11 +384,11 @@
         return {
             getVisibleMinutes: function (m, step) {
                 var year = m.year(),
-                    month = m.month(),
-                    day = m.date(),
-                    hour = m.hours(), pushedDate,
-                    offset = m.utcOffset() / 60,
-                    minutes = [], minute;
+                  month = m.month(),
+                  day = m.date(),
+                  hour = m.hours(), pushedDate,
+                  offset = m.utcOffset() / 60,
+                  minutes = [], minute;
 
                 for (minute = 0; minute < 60; minute += step) {
                     pushedDate = createNewDate(year, month, day, hour - offset, minute);
@@ -402,7 +399,7 @@
             getVisibleWeeks: function (m) {
                 m = moment(m);
                 var startYear = m.year(),
-                    startMonth = m.month();
+                  startMonth = m.month();
 
                 //Set date to the first day of the month
                 m.date(1);
@@ -426,15 +423,15 @@
             },
             getVisibleYears: function (d) {
                 var m = moment(d),
-                    year = m.year();
+                  year = m.year();
 
                 m.year(year - (year % 10));
                 year = m.year();
 
                 var offset = m.utcOffset() / 60,
-                    years = [],
-                    pushedDate,
-                    actualOffset;
+                  years = [],
+                  pushedDate,
+                  actualOffset;
 
                 for (var i = 0; i < 12; i++) {
                     pushedDate = createNewDate(year, 0, 1, 0 - offset);
@@ -452,12 +449,12 @@
                 m = m ? m : (tz ? moment.tz(tz).day(firstDay) : moment().day(firstDay));
 
                 var year = m.year(),
-                    month = m.month(),
-                    day = m.date(),
-                    days = [],
-                    pushedDate,
-                    offset = m.utcOffset() / 60,
-                    actualOffset;
+                  month = m.month(),
+                  day = m.date(),
+                  days = [],
+                  pushedDate,
+                  offset = m.utcOffset() / 60,
+                  actualOffset;
 
                 for (var i = 0; i < 7; i++) {
                     pushedDate = createNewDate(year, month, day, 0 - offset, 0, false);
@@ -472,10 +469,10 @@
             },
             getVisibleMonths: function (m) {
                 var year = m.year(),
-                    offset = m.utcOffset() / 60,
-                    months = [],
-                    pushedDate,
-                    actualOffset;
+                  offset = m.utcOffset() / 60,
+                  months = [],
+                  pushedDate,
+                  actualOffset;
 
                 for (var month = 0; month < 12; month++) {
                     pushedDate = createNewDate(year, month, 1, 0 - offset, 0, false);
@@ -489,11 +486,11 @@
             },
             getVisibleHours: function (m) {
                 var year = m.year(),
-                    month = m.month(),
-                    day = m.date(),
-                    hours = [],
-                    hour, pushedDate, actualOffset,
-                    offset = m.utcOffset() / 60;
+                  month = m.month(),
+                  day = m.date(),
+                  hours = [],
+                  hour, pushedDate, actualOffset,
+                  offset = m.utcOffset() / 60;
 
                 for (hour = 0; hour < 24; hour++) {
                     pushedDate = createNewDate(year, month, day, hour - offset, 0, false);
@@ -533,8 +530,8 @@
             },
             scopeSearch: function (scope, name, comparisonFn) {
                 var parentScope = scope,
-                    nameArray = name.split('.'),
-                    target, i, j = nameArray.length;
+                  nameArray = name.split('.'),
+                  target, i, j = nameArray.length;
 
                 do {
                     target = parentScope = parentScope.$parent;
@@ -636,10 +633,10 @@
             },
             link: function (scope, element, attrs) {
                 var dateChange = null,
-                    pickerRangeID = element[0].id,
-                    pickerIDs = [randomName(), randomName()],
-                    createMoment = datePickerUtils.createMoment,
-                    eventIsForPicker = datePickerUtils.eventIsForPicker;
+                  pickerRangeID = element[0].id,
+                  pickerIDs = [randomName(), randomName()],
+                  createMoment = datePickerUtils.createMoment,
+                  eventIsForPicker = datePickerUtils.eventIsForPicker;
 
                 scope.dateChange = function (modelName, newDate) {
                     //Notify user if callback exists.
@@ -687,10 +684,10 @@
                 attrs.onSetDate = 'dateChange';
 
                 var template = '<div><table class="date-range"><tr><td valign="top">' +
-                    getTemplate(attrs, pickerIDs[0], 'start', false, scope.end) +
-                    '</td><td valign="top">' +
-                    getTemplate(attrs, pickerIDs[1], 'end', scope.start, false) +
-                    '</td></tr></table></div>';
+                  getTemplate(attrs, pickerIDs[0], 'start', false, scope.end) +
+                  '</td><td valign="top">' +
+                  getTemplate(attrs, pickerIDs[1], 'end', scope.start, false) +
+                  '</td></tr></table></div>';
 
                 var picker = $compile(template)(scope);
                 element.append(picker);
@@ -714,23 +711,23 @@
     Module.constant('dateTimeConfig', {
         template: function (attrs, id) {
             return '' +
-                '<div ' +
-                (id ? 'id="' + id + '" ' : '') +
-                'date-picker="' + attrs.ngModel + '" ' +
-                (attrs.view ? 'view="' + attrs.view + '" ' : '') +
-                (attrs.maxView ? 'max-view="' + attrs.maxView + '" ' : '') +
-                (attrs.maxDate ? 'max-date="' + attrs.maxDate + '" ' : '') +
-                (attrs.autoClose ? 'auto-close="' + attrs.autoClose + '" ' : '') +
-                (attrs.template ? 'template="' + attrs.template + '" ' : '') +
-                (attrs.minView ? 'min-view="' + attrs.minView + '" ' : '') +
-                (attrs.minDate ? 'min-date="' + attrs.minDate + '" ' : '') +
-                (attrs.partial ? 'partial="' + attrs.partial + '" ' : '') +
-                (attrs.step ? 'step="' + attrs.step + '" ' : '') +
-                (attrs.onSetDate ? 'date-change="' + attrs.onSetDate + '" ' : '') +
-                (attrs.ngModel ? 'ng-model="' + attrs.ngModel + '" ' : '') +
-                (attrs.firstDay ? 'first-day="' + attrs.firstDay + '" ' : '') +
-                (attrs.timezone ? 'timezone="' + attrs.timezone + '" ' : '') +
-                'class="date-picker-date-time"></div>';
+              '<div ' +
+              (id ? 'id="' + id + '" ' : '') +
+              'date-picker="' + attrs.ngModel + '" ' +
+              (attrs.view ? 'view="' + attrs.view + '" ' : '') +
+              (attrs.maxView ? 'max-view="' + attrs.maxView + '" ' : '') +
+              (attrs.maxDate ? 'max-date="' + attrs.maxDate + '" ' : '') +
+              (attrs.autoClose ? 'auto-close="' + attrs.autoClose + '" ' : '') +
+              (attrs.template ? 'template="' + attrs.template + '" ' : '') +
+              (attrs.minView ? 'min-view="' + attrs.minView + '" ' : '') +
+              (attrs.minDate ? 'min-date="' + attrs.minDate + '" ' : '') +
+              (attrs.partial ? 'partial="' + attrs.partial + '" ' : '') +
+              (attrs.step ? 'step="' + attrs.step + '" ' : '') +
+              (attrs.onSetDate ? 'date-change="' + attrs.onSetDate + '" ' : '') +
+              (attrs.ngModel ? 'ng-model="' + attrs.ngModel + '" ' : '') +
+              (attrs.firstDay ? 'first-day="' + attrs.firstDay + '" ' : '') +
+              (attrs.timezone ? 'timezone="' + attrs.timezone + '" ' : '') +
+              'class="date-picker-date-time"></div>';
         },
         format: 'YYYY-MM-DD HH:mm',
         views: ['date', 'year', 'month', 'hours', 'minutes'],
@@ -757,24 +754,24 @@
             scope: true,
             link: function (scope, element, attrs, ngModel) {
                 var format = attrs.format || dateTimeConfig.format,
-                    parentForm = element.inheritedData('$formController'),
-                    views = $parse(attrs.views)(scope) || dateTimeConfig.views.concat(),
-                    view = attrs.view || views[0],
-                    index = views.indexOf(view),
-                    dismiss = attrs.autoClose ? $parse(attrs.autoClose)(scope) : dateTimeConfig.autoClose,
-                    picker = null,
-                    pickerID = element[0].id,
-                    position = attrs.position || dateTimeConfig.position,
-                    container = null,
-                    minDate = null,
-                    minValid = null,
-                    maxDate = null,
-                    maxValid = null,
-                    timezone = attrs.timezone || false,
-                    eventIsForPicker = datePickerUtils.eventIsForPicker,
-                    dateChange = null,
-                    shownOnce = false,
-                    template;
+                  parentForm = element.inheritedData('$formController'),
+                  views = $parse(attrs.views)(scope) || dateTimeConfig.views.concat(),
+                  view = attrs.view || views[0],
+                  index = views.indexOf(view),
+                  dismiss = attrs.autoClose ? $parse(attrs.autoClose)(scope) : dateTimeConfig.autoClose,
+                  picker = null,
+                  pickerID = element[0].id,
+                  position = attrs.position || dateTimeConfig.position,
+                  container = null,
+                  minDate = null,
+                  minValid = null,
+                  maxDate = null,
+                  maxValid = null,
+                  timezone = attrs.timezone || false,
+                  eventIsForPicker = datePickerUtils.eventIsForPicker,
+                  dateChange = null,
+                  shownOnce = false,
+                  template;
 
                 if (index === -1) {
                     views.splice(index, 1);
@@ -790,7 +787,7 @@
                     if (viewValue.length === format.length) {
                         return viewValue;
                     }
-                    return undefined;
+                    return (viewValue.length === 0) ? viewValue : undefined;
                 }
 
                 function setMin(date) {
@@ -918,7 +915,7 @@
                         });
 
                         scope.$on('hidePicker', function () {
-                            element.triggerHandler('blur');
+                            element[0].blur();
                         });
 
                         scope.$on('$destroy', clear);
@@ -950,6 +947,7 @@
                 }
 
                 element.bind('focus', showPicker);
+                element.bind('click', showPicker);
                 element.bind('blur', clear);
                 getTemplate();
             }
@@ -1172,7 +1170,7 @@
             "  </div>\r" +
             "\n" +
             "</div>"
-        );
+          );
 
     }]);
 }));

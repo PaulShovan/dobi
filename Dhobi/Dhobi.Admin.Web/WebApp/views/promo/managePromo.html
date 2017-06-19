@@ -15,7 +15,7 @@
                                 <th>Discount(%)</th>
                                 <th>From</th>
                                 <th>To</th>
-                                <th></th>
+                                <th class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -37,7 +37,7 @@
 
 
 <script type="text/ng-template" id="navation-tpl">
-
+    
     <td>
         <div class="form-group" ng-class="{ 'has-error' : promoForm.promoText.$touched && promoForm.promoText.$invalid }">
             <input type="text" name="promoText" placeholder="Offer Name" class="form-control" ng-model="model.Nav.Text" required autofocus>
@@ -56,13 +56,13 @@
     </td>
     <td>
         <input type="datetime" name="fromDate" class="form-control cursor-pointer white-bg" date-time ng-model="model.Nav.StartDate"
-               view="date" auto-close="true" min-view="date" min-date="Data.MinStartDate" format="ddd, MMM DD, YYYY" date-change="Methods.OnStartDateSelected" required readonly>
+               view="date" auto-close="true" min-view="date" min-date="Data.MinStartDate" format="ddd, MMM DD, YYYY" date-change="Methods.OnStartDateSelected" ng-click="Methods.AssignIndex($index)" required readonly>
     </td>
     <td>
         <input type="datetime" name="toDate" class="form-control cursor-pointer white-bg" date-time ng-model="model.Nav.EndDate"
                view="date" auto-close="true" min-view="date" min-date="Data.MinEndDate" format="ddd, MMM DD, YYYY" required readonly>
     </td>
-    <td>
+    <td class="text-center">
         <a ng-click="Methods.RemoveOffer(model.Navigations, $index)"><i class="fa fa-trash fa-2x text-danger"></i></a>
         <!--<a ng-if="model.Nav.Id" ng-click="Methods.AddOrUpdatePromo()" class="m-l-sm"><i class="fa fa-pencil fa-2x text-muted"></i></a>
         <a ng-if="!model.Nav.Id" ng-click="Methods.AddOrUpdatePromo()" class="m-l-sm"><i class="fa fa-check fa-2x text-muted"></i></a>-->
