@@ -55,7 +55,8 @@ namespace Dhobi.Business.Implementation
                     Zone = order.Zone,
                     Promotion = await GetPromoOffer(),
                     Status = (int)OrderStatus.New,
-                    OrderPlacingTime = Utilities.GetPresentDateTime()
+                    OrderPlacingTime = Utilities.GetPresentDateTime(),
+                    OrderItems = new List<OrderItem>()
                 };
                 var addMessageResponse = await _userMessageBusiness.AddUserMessage(orderedBy.UserId, (int)MessageType.NewOrder, newServiceId);
                 var addOrderResponse = await _orderRepository.AddNewOrder(newOrder);
@@ -163,15 +164,20 @@ namespace Dhobi.Business.Implementation
             }
         }
 
-        public async Task<List<UserOrderStatusViewModel>> GetUserOrders(string userId, int skip, int limit)
+        public async Task<UserOrderStatusResponseModel> GetUserOrders(string userId, int skip, int limit)
         {
             try
             {
                 var orders = new List<UserOrderStatusViewModel>();
                 var result = await _orderRepository.GetUserOrders(userId, skip, limit);
-                if(result == null)
+                var count = await _orderRepository.GetUserOrderCount(userId);
+                if (result == null)
                 {
-                    return null;
+                    return new UserOrderStatusResponseModel
+                    {
+                        PageCount = 0,
+                        Orders = new List<UserOrderStatusViewModel>()
+                    };
                 }
                 foreach (var order in result)
                 {
@@ -183,7 +189,11 @@ namespace Dhobi.Business.Implementation
                         Status = order.Status
                     });
                 }
-                return orders;
+                return new UserOrderStatusResponseModel
+                {
+                    PageCount = (int)Math.Ceiling((double)count / limit),
+                    Orders = orders
+                };
             }
             catch (Exception ex)
             {
@@ -207,6 +217,48 @@ namespace Dhobi.Business.Implementation
             catch (Exception ex)
             {
                 throw new Exception("Error confirming order" + ex);
+            }
+        }
+
+        public async Task<OrderPickupInformationViewModel> PickUpOrder(string serviceId)
+        {
+            try
+            {
+                var order = await _orderRepository.GetOrderForPickUp(serviceId);
+                var promo = await GetPromoOffer();
+                if (order == null)
+                {
+                    return null;
+                }
+                return new OrderPickupInformationViewModel
+                {
+                    ServiceId = order.ServiceId,
+                    UserId = order.OrderBy.UserId,
+                    Name = order.OrderBy.Name,
+                    Address = order.Address,
+                    Phone = order.OrderBy.PhoneNumber,
+                    Time = Utilities.GetFormattedDateFromMillisecond(order.PickUpDate) + " " + order.PickUpTime,
+                    PromoAmount = promo == null ? 0 : promo.Amount
+                };
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error getting order" + ex);
+            }
+        }
+
+        public async Task<bool> SetPickUpOrder(OrderItem items, string serviceId)
+        {
+            try
+            {
+                var promo = await GetPromoOffer();
+                items.OrderItemId = Guid.NewGuid().ToString();
+                items.Promotion = promo == null ? 0 : promo.Amount;
+                return await _orderRepository.SetOrderPickup(items, serviceId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error adding order items" + ex);
             }
         }
     }

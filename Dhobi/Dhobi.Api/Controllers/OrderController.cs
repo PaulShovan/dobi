@@ -3,6 +3,7 @@ using Dhobi.Api.Models;
 using Dhobi.Business.Interface;
 using Dhobi.Common;
 using Dhobi.Core.Dobi.DbModels;
+using Dhobi.Core.OrderModel.DbModels;
 using Dhobi.Core.OrderModel.ViewModels;
 using Dhobi.Core.UserModel.DbModels;
 using Dhobi.Repository.Interface;
@@ -198,7 +199,49 @@ namespace Dhobi.Api.Controllers
             {
                 return Ok(new ResponseModel<string>(ResponseStatus.NotFound, null, "No order available."));
             }
-            return Ok(new ResponseModel<List<UserOrderStatusViewModel>>(ResponseStatus.Ok, userOrders, ""));
+            return Ok(new ResponseModel<UserOrderStatusResponseModel>(ResponseStatus.Ok, userOrders, ""));
+        }
+        [HttpGet]
+        [Route("v1/order/pickup")]
+        [Authorize]
+        public async Task<IHttpActionResult> PickUpOrder(string serviceId)
+        {
+            if (string.IsNullOrWhiteSpace(serviceId))
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.BadRequest, null, "Invalid Order."));
+            }
+            var orderInformation = await _orderBusiness.PickUpOrder(serviceId);
+            if (orderInformation == null)
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.NotFound, null, "Order is not available."));
+            }
+            var services = await _orderServiceBusiness.GetOrderServices();
+            if(services == null)
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.BadRequest, null, "Service is not available."));
+            }
+            var response = new OrderPickupResponse
+            {
+                Services = services,
+                Order = orderInformation
+            };
+            return Ok(new ResponseModel<OrderPickupResponse>(ResponseStatus.Ok, response, ""));
+        }
+        [HttpPost]
+        [Route("v1/order/pickup")]
+        [Authorize]
+        public async Task<IHttpActionResult> SetPickUpOrder(SetOrderPickUpViewModel setOrderItems)
+        {
+            if (setOrderItems == null || string.IsNullOrWhiteSpace(setOrderItems.ServiceId) || setOrderItems.OrderItems == null)
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.BadRequest, null, "Invalid Order Items."));
+            }
+            var response = await _orderBusiness.SetPickUpOrder(setOrderItems.OrderItems, setOrderItems.ServiceId);
+            if (!response)
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.BadRequest, null, "Order items were not set."));
+            }
+            return Ok(new ResponseModel<string>(ResponseStatus.Ok, null, "Order items set successfully."));
         }
         [HttpGet]
         [Route("v1/order/cancel")]

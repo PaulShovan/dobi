@@ -197,8 +197,7 @@ namespace Dhobi.Repository.Implementation
                     & builder.Ne(order => order.Status, (int)OrderStatus.New)
                     & builder.Ne(order => order.Status, (int)OrderStatus.Acknowledged)
                     & builder.Ne(order => order.Status, (int)OrderStatus.Confirmed)
-                    & builder.Ne(order => order.Status, (int)OrderStatus.Cancelled)
-                    & builder.Ne(order => order.Status, (int)OrderStatus.Paid);
+                    & builder.Ne(order => order.Status, (int)OrderStatus.Cancelled);
                 var sortBuilder = Builders<Order>.Sort;
                 var sortOrder = sortBuilder.Ascending(s => s.ServiceId);
                 var projection = Builders<Order>.Projection.Exclude("_id").Exclude(s => s.OrderBy);
@@ -228,6 +227,71 @@ namespace Dhobi.Repository.Implementation
             catch (Exception ex)
             {
                 throw new Exception("Error getting order" + ex);
+            }
+        }
+
+        public async Task<Order> GetOrderForPickUp(string serviceId)
+        {
+            try
+            {
+                var builder = Builders<Order>.Filter;
+                var filter = builder.Eq(order => order.ServiceId, serviceId);
+                var projection = Builders<Order>.Projection.Exclude("_id")
+                    .Include(u => u.ServiceId)
+                    .Include(u => u.OrderBy)
+                    .Include(u => u.Address)
+                    .Include(u => u.PickUpDate)
+                    .Include(u => u.PickUpTime);
+                var result = await Collection.Find(filter).Project<Order>(projection).FirstOrDefaultAsync();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error getting order" + ex);
+            }
+        }
+
+        public async Task<int> GetUserOrderCount(string userId)
+        {
+            try
+            {
+                var builder = Builders<Order>.Filter;
+                var filter = builder.Eq(order => order.OrderBy.UserId, userId)
+                    & builder.Ne(order => order.Status, (int)OrderStatus.Paid)
+                    & builder.Ne(order => order.Status, (int)OrderStatus.New)
+                    & builder.Ne(order => order.Status, (int)OrderStatus.Acknowledged)
+                    & builder.Ne(order => order.Status, (int)OrderStatus.Confirmed)
+                    & builder.Ne(order => order.Status, (int)OrderStatus.Cancelled);
+                var count = await Collection.CountAsync(filter);
+                return (int)count;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error getting orders." + ex);
+            }
+        }
+
+        public async Task<bool> SetOrderPickup(OrderItem items, string serviceId)
+        {
+            try
+            {
+                var filter = Builders<Order>.Filter.Eq(d => d.ServiceId, serviceId);
+                var update = Builders<Order>.Update.AddToSet(u => u.OrderItems, items)
+                    .Set(u => u.Status, (int)OrderStatus.PickedUp);
+                var projection = Builders<Order>.Projection.Exclude("_id");
+                var options = new FindOneAndUpdateOptions<Order, Order>();
+                options.ReturnDocument = ReturnDocument.After;
+                options.Projection = projection;
+                var result = await Collection.FindOneAndUpdateAsync(filter, update, options);
+                if (result == null)
+                {
+                    return false;
+                }
+                return !string.IsNullOrWhiteSpace(result.ServiceId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error confirming order");
             }
         }
     }

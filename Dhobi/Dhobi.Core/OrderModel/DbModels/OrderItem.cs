@@ -14,6 +14,7 @@ namespace Dhobi.Core.OrderModel.DbModels
         public double Weight;
         public string Detergent;
         public decimal TotalCost;
+        public decimal Promotion;
         public string Comment;
     }
 }

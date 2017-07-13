@@ -18,6 +18,8 @@ namespace Dhobi.Business.Interface
         Task<OrderItemViewModel> GetNewOrderForDobi(string serviceId);
         Task<bool> SetOrderPickupDateTime(OrderPickupTimeViewModel order, DobiBasicInformation dobi);
         Task<bool> ConfirmOrder(string serviceId, User user);
-        Task<List<UserOrderStatusViewModel>> GetUserOrders(string userId, int skip, int limit);
+        Task<UserOrderStatusResponseModel> GetUserOrders(string userId, int skip, int limit);
+        Task<OrderPickupInformationViewModel> PickUpOrder(string serviceId);
+        Task<bool> SetPickUpOrder(OrderItem items, string serviceId);
     }
 }

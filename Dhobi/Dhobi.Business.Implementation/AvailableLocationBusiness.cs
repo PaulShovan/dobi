@@ -56,9 +56,9 @@ namespace Dhobi.Business.Implementation
             throw new NotImplementedException();
         }
 
-        public Task<List<Location>> GetLocationByStatus(int status)
+        public async Task<List<Location>> GetLocationByStatus(int status)
         {
-            throw new NotImplementedException();
+            return await _availableLocationRepository.GetAvailableActiveLocations();
         }
     }
 }
