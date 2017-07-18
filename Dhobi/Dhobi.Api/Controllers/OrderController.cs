@@ -293,5 +293,21 @@ namespace Dhobi.Api.Controllers
             return Ok(new ResponseModel<List<string>>(ResponseStatus.Ok, orderServices, ""));
         }
 
+        [HttpGet]
+        [Route("v1/order/summary")]
+        [Authorize]
+        public async Task<IHttpActionResult> GetOrderSummary(string serviceId)
+        {
+            if (string.IsNullOrEmpty(serviceId))
+            {
+                return BadRequest("Invalid Service id.");
+            }
+            var summary = await _orderBusiness.GetOrderSummary(serviceId);
+            if (summary == null)
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.NotFound, null, "No order found."));
+            }
+            return Ok(new ResponseModel<OrderSummaryViewModel>(ResponseStatus.Ok, summary, ""));
+        }
     }
 }

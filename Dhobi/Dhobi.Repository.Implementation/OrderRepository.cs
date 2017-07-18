@@ -294,5 +294,60 @@ namespace Dhobi.Repository.Implementation
                 throw new Exception("Error confirming order");
             }
         }
+
+        public async Task<Order> GetOrderById(string serviceId)
+        {
+            try
+            {
+                var builder = Builders<Order>.Filter;
+                var filter = builder.Eq(order => order.ServiceId, serviceId);
+                var projection = Builders<Order>.Projection.Exclude("_id");
+                var result = await Collection.Find(filter).Project<Order>(projection).FirstOrDefaultAsync();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error getting order" + ex);
+            }
+        }
+
+        public async Task<List<Order>> GetAllOrders(long from, long to, int skip, int limit)
+        {
+            try
+            {
+                var builder = Builders<Order>.Filter;
+                var filter =  builder.Ne(order => order.Status, (int)OrderStatus.Paid)
+                    & builder.Ne(order => order.Status, (int)OrderStatus.New)
+                    & builder.Ne(order => order.Status, (int)OrderStatus.Acknowledged)
+                    & builder.Ne(order => order.Status, (int)OrderStatus.Confirmed)
+                    & builder.Ne(order => order.Status, (int)OrderStatus.Cancelled)
+                    & builder.Gte(order => order.PickUpDate, from)
+                    & builder.Lte(order => order.PickUpDate, to);
+                var sortBuilder = Builders<Order>.Sort;
+                var sortOrder = sortBuilder.Ascending(s => s.ServiceId);
+                var projection = Builders<Order>.Projection.Exclude("_id").Exclude(s => s.Dobi);
+                var orders = await Collection.Find(filter).Project<Order>(projection).Sort(sortOrder).Skip(skip).Limit(limit).ToListAsync();
+                return orders;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error getting orders." + ex);
+            }
+        }
+
+        public async Task<bool> UpdateOrderStatus(List<string> orders, int status)
+        {
+            try
+            {
+                var filter = Builders<Order>.Filter.In(d => d.ServiceId, orders);
+                var update = Builders<Order>.Update.Set(u => u.Status, status);
+                var result = await Collection.UpdateManyAsync(filter, update);
+                return result.IsAcknowledged;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error confirming order");
+            }
+        }
     }
 }

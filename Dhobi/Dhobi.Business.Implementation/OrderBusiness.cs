@@ -261,5 +261,113 @@ namespace Dhobi.Business.Implementation
                 throw new Exception("Error adding order items" + ex);
             }
         }
+
+        
+
+        public async Task<OrderSummaryViewModel> GetOrderSummary(string serviceId)
+        {
+            try
+            {
+                var order = await _orderRepository.GetOrderById(serviceId);
+                if(order == null || order.OrderItems.Count < 1)
+                {
+                    return null;
+                }
+                double totalWeight = 0;
+                decimal totalCost = 0;
+                decimal subTotal = 0;
+                int totalQuantity = 0;
+
+                List<string> services = new List<string>();
+                List<string> detergents = new List<string>();
+                List<Item> items = new List<Item>();
+                foreach (var item in order.OrderItems)
+                {
+                    totalWeight += item.Weight;
+                    totalCost += item.TotalCost;
+                    services.Add(item.OrderTitle);
+                    detergents.Add(item.Detergent);
+                    foreach (var orderItem in item.Items)
+                    {
+                        items.Add(orderItem);
+                        totalQuantity += orderItem.Quantity;
+                        subTotal += orderItem.Price;
+                    }
+                }
+                return new OrderSummaryViewModel
+                {
+                    ServiceId = order.ServiceId,
+                    DobiName = order.Dobi.Name,
+                    Address = order.Address,
+                    PickupTime = Utilities.GetFormattedDateFromMillisecond(order.PickUpDate) + " " + order.PickUpTime,
+                    TotalWeight = totalWeight,
+                    TotalQuantity = totalQuantity,
+                    Services = string.Join(",", services),
+                    Detergents = string.Join(",", detergents),
+                    Items = items,
+                    SubTotal = subTotal,
+                    Promotion = order.Promotion == null ? 0 : order.Promotion.Amount,
+                    Total = totalCost,
+                    OrderStatus = order.Status
+                };
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error getting order summary" + ex);
+            }
+        }
+
+        public async Task<List<OrderListItemViewModel>> GetAllOrders(string date, int skip, int limit)
+        {
+            try
+            {
+                var orderList = new List<OrderListItemViewModel>();
+                long fromDateMilliseconds = Utilities.GetMillisecondFromDate(date);
+                long toDateMilliseconds = fromDateMilliseconds + Constants.MILLISECOND_DAY - 1000;
+                var orders = await _orderRepository.GetAllOrders(fromDateMilliseconds, toDateMilliseconds, skip, limit);
+                if(orders == null)
+                {
+                    return null;
+                }
+                foreach (var order in orders)
+                {
+                    double totalWeight = 0;
+                    decimal totalCost = 0;
+                    int totalQuantity = 0;
+                    List<string> services = new List<string>();
+                    List<string> detergents = new List<string>();
+                    foreach (var item in order.OrderItems)
+                    {
+                        totalWeight += item.Weight;
+                        totalCost += item.TotalCost;
+                        services.Add(item.OrderTitle);
+                        detergents.Add(item.Detergent);
+                        foreach (var orderItem in item.Items)
+                        {
+                            totalQuantity += orderItem.Quantity;
+                        }
+                    }
+                    orderList.Add(new OrderListItemViewModel
+                    {
+                        ServiceId = order.ServiceId,
+                        UserName = order.OrderBy.Name,
+                        Address = order.Address,
+                        PhoneNumber = order.OrderBy.PhoneNumber,
+                        TotalWeight = totalWeight,
+                        TotalQuantity = totalQuantity,
+                        Services = string.Join(",", services),
+                        Detergents = string.Join(",", detergents),
+                        Total = totalCost,
+                        OrderStatus = order.Status
+                    });
+                }
+                return orderList;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

@@ -26,5 +26,8 @@ namespace Dhobi.Repository.Interface
         Task<Order> GetOrderAcknowledgeInformation(string serviceId);
         Task<Order> GetOrderForPickUp(string serviceId);
         Task<bool> SetOrderPickup(OrderItem items, string serviceId);
+        Task<Order> GetOrderById(string serviceId);
+        Task<List<Order>> GetAllOrders(long from, long to, int skip, int limit);
+        Task<bool> UpdateOrderStatus(List<string> orders, int status);
     }
 }

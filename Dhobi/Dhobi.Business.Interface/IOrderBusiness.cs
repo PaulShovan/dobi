@@ -21,5 +21,7 @@ namespace Dhobi.Business.Interface
         Task<UserOrderStatusResponseModel> GetUserOrders(string userId, int skip, int limit);
         Task<OrderPickupInformationViewModel> PickUpOrder(string serviceId);
         Task<bool> SetPickUpOrder(OrderItem items, string serviceId);
+        Task<OrderSummaryViewModel> GetOrderSummary(string serviceId);
+        Task<List<OrderListItemViewModel>> GetAllOrders(string date, int skip, int limit);
     }
 }
