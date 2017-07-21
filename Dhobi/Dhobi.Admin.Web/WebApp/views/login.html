@@ -1,0 +1,47 @@
+﻿<div class="top-content inner">
+    <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-5">
+                    <div class="form-box">
+                        <img src="~/Content/images/login-dobi.jpg" class="img-responsive dobi-image-center" alt="Dobi" />
+                    </div>
+                </div>
+
+                <div class="col-sm-1 middle-border"></div>
+                <div class="col-sm-1"></div>
+
+                <div class="col-sm-5">
+
+                    <div class="form-box">
+                        <form name="loginForm" class="dobi-login-form" novalidate>
+                            <div ng-class="{ 'login-err-msg': loginForm.username.$touched && loginForm.username.$invalid }">
+                                <label>Username</label> <br />
+                                <input type="text" name="username" placeholder="Enter your username" required ng-model="Data.UserName" ng-focus="Methods.FlashErrors($event)">
+                                <div class="help-block" ng-messages="loginForm.username.$error" ng-if="loginForm.username.$touched">
+                                    <p ng-message="required" ng-bind="Error.UserNameRequired"></p>
+                                </div>
+                            </div>
+
+                            <div class="password-div" ng-class="{ 'login-err-msg': loginForm.password.$touched && loginForm.password.$invalid }">
+                                <label>Password</label> <br />
+                                <input type="password" name="password" placeholder="XXXXXXXXXXXX" required ng-model="Data.Password" ng-minlength="6" ng-maxlength="64" ng-focus="Methods.FlashErrors($event)">
+                                <div class="help-block" ng-messages="loginForm.password.$error" ng-if="loginForm.password.$touched">
+                                    <p ng-message="required" ng-bind="Error.PasswordRequired"></p>
+                                    <p ng-message="minlength" ng-bind="Error.PasswordMin"></p>
+                                    <p ng-message="maxlength" ng-bind="Error.PasswordMax"></p>
+                                </div>
+                            </div>
+                            <div class="help-block">
+                                <p class="m-t-md" ng-if="Error.FromServer && (loginForm.username.$touched || loginForm.password.$touched)" ng-bind="Error.FromServer"></p>
+                            </div>
+                            <button type="submit" class="btn btn-primary login-btn" ng-click="Methods.Login()" ng-disabled="loginForm.$invalid" ladda="loginLoading">Login Now</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <img src="~/Content/images/dobi-bg.jpg" />
+</div>

@@ -1,12 +1,34 @@
-﻿<div class="row">
+﻿<link href="../../../../Content/angular-datepicker.css" rel="stylesheet" />
+
+
+<div class="row">
     <div class="col-sm-12">
         <div class="ibox">
             <div class="ibox-content ibox-height">
-                <div class="col-sm-3 m-b-sm">
+                <div class="col-sm-1 m-b-sm">
                     <h2>All Orders</h2>
                 </div>
-                <div class="col-sm-6 m-b-sm">
-                    
+                <div class="col-sm-8 m-b-sm m-t-sm order-table-heading">
+                    <div class="col-sm-3">
+                        <i class="fa fa-sort date-fiter-fa" aria-hidden="true"></i>
+                        <input type="datetime" name="dateFilter" class="form-control cursor-pointer white-bg date-filter" date-time ng-model="Data.SelectedDate"
+                                view="date" auto-close="true" min-view="date" format="ddd, MMM DD, YYYY" date-change="Methods.OnDateSelected" 
+                                required readonly>
+                    </div>
+
+                    <div class="col-sm-9">
+                        <span class="dropdown move-to-btn">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">MOVE TO <i class="fa fa-sort" aria-hidden="true"></i></a>
+                            <ul class="dropdown-menu dropdown-alerts order-move-to">
+                                <li>All Orders</li>
+                                <li>In Progress</li>
+                                <li>Cleaned Items</li>
+                                <li>Deliverable Items</li>
+                                <li>Delivered</li>
+                            </ul>
+                        </span>
+                    </div>
+
                 </div>
                 <div class="col-sm-3 m-b-sm">
                     <div class="input-group">
@@ -21,24 +43,33 @@
                         <div class="table-responsive">
                             <table class="table table-responsive table-striped dobi-table" ng-if="Data.Orders.length > 0">
                                 <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Client Name</th>
-                                        <th>Address</th>
-                                        <th>Phone</th>
-                                        <th>Action</th>
-                                    </tr>
+                                <tr>
+                                    <th></th>
+                                    <th>Service Id</th>
+                                    <th>Client Name</th>
+                                    <th>Phone No.</th>
+                                    <th>Pickup Address</th>
+                                    <th>Service Name</th>
+                                    <th>Weight</th>
+                                    <th>Quantity</th>
+                                    <th>Detergent</th>
+                                    <th>Status</th>
+                                    <th>Cost (RM)</th>
+                                </tr>
                                 </thead>
                                 <tbody>
                                 <tr dir-paginate="order in Data.Orders | filter:q | itemsPerPage: pageSize" current-page="currentPage" total-items="Data.TotalOrders" id="highlight{{$index}}">
-                                    <td></td>
-                                    <td>{{order.ClientName}}</td>
-                                    <td>{{order.ClientAddress}}</td>
-                                    <td>{{order.Phone}}</td>
-                                    <td class="text-center">
-                                        <!--<a class="btn btn-default btn-xs" href="#/dobi/details/{{dobi.DobiId}}">Details</a> |-->
-                                        <a href="#/dobi/edit/{{dobi.DobiId}}"><i class="fa fa-pencil fa-2x text-muted"></i></a>
-                                    </td>
+                                    <td><input type="checkbox" class="i-checks" ng-model="order.ServiceId" name="selectOrder[]" i-check></td>
+                                    <td>{{order.ServiceId}}</td>
+                                    <td>{{order.UserName}}</td>
+                                    <td>{{order.PhoneNumber}}</td>
+                                    <td width="20%">{{order.Address}}</td>
+                                    <td>{{order.Services}}</td>
+                                    <td>{{order.TotalWeight}}</td>
+                                    <td>{{order.TotalQuantity}}</td>
+                                    <td>{{order.Detergents}}</td>
+                                    <td>{{order.OrderStatus}}</td>
+                                    <td>{{order.Total | number : 2}}</td>
                                 </tr>
                                 </tbody>
                             </table>

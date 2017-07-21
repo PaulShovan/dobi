@@ -2,37 +2,44 @@
     font-family: 'Ubuntu-Bold';
     src: url('../fonts/Ubuntu/Ubuntu-Bold.ttf') format('truetype');
 }
+
 @font-face {
     font-family: 'Ubuntu-BoldItalic';
     src: url('../fonts/Ubuntu/Ubuntu-BoldItalic.ttf') format('truetype');
 }
+
 @font-face {
     font-family: 'Ubuntu-Italic';
     src: url('../fonts/Ubuntu/Ubuntu-Italic.ttf') format('truetype');
 }
+
 @font-face {
     font-family: 'Ubuntu-Light';
     src: url('../fonts/Ubuntu/Ubuntu-Light.ttf') format('truetype');
 }
+
 @font-face {
     font-family: 'Ubuntu-LightItalic';
     src: url('../fonts/Ubuntu/Ubuntu-LightItalic.ttf') format('truetype');
 }
+
 @font-face {
     font-family: 'Ubuntu-Medium';
     src: url('../fonts/Ubuntu/Ubuntu-Medium.ttf') format('truetype');
 }
+
 @font-face {
     font-family: 'Ubuntu-MediumItalic';
     src: url('../fonts/Ubuntu/Ubuntu-MediumItalic.ttf') format('truetype');
 }
+
 @font-face {
     font-family: 'Ubuntu-Regular';
     src: url('../fonts/Ubuntu/Ubuntu-Regular.ttf') format('truetype');
 }
 
 body {
-  font-family: 'Ubuntu', Fallback, sans-serif;
+    font-family: 'Ubuntu', Fallback, sans-serif;
 }
 
 .wrapper-content {
@@ -155,6 +162,7 @@ body {
     margin-bottom: 15px !important;
     padding: 6px 12px 6px 0;
 }
+
 .dobi-add-form .form-group, .dobi-add-form .input-group {
     margin-bottom: 30px;
 }
@@ -185,6 +193,7 @@ body {
     .dobi-add-form .phone-number input {
         width: 84%;
     }
+
     .dobi-add-form .phone-number .has-error {
         border-bottom-color: #ed5565 !important;
     }
@@ -277,8 +286,48 @@ body {
     }
 /** End : Logout **/
 
+/** Start Order **/
+.order-table-heading {
+    font-size: 14px;
+    font-weight: 600
+}
+.move-to-btn {
+    margin-left: 20px;
+}
+.order-move-to {
+    border: 1px solid;
+    font-size: 14px;
+}
 
+    .order-move-to li {
+        padding: 5px 10px;
+        cursor: pointer;
+    }
 
+        .order-move-to li:hover, .order-move-to li:focus {
+            background-color: #d8d8d8;
+            border-radius: 15px;
+            border: none;
+            font-weight: 600;
+            color: #2470B7;
+        }
+
+.date-filter {
+    width: 50%;
+    height: 25px;
+    background-color: #ffffff !important;
+    color: #337ab7;
+    font-weight: 600;
+    border: none
+}
+.date-fiter-fa {
+    float: right;
+    margin-right: 37%;
+    line-height: 1.9;
+    font-weight: 600;
+    color: #337ab7;
+}
+/** End Order **/
 
 
 @media (min-width: 768px) and (max-width: 1024px) {
@@ -306,6 +355,7 @@ body {
         width: 100%;
     }
 }
+
 #toast-container > div.toast {
     background-image: none !important;
 }
