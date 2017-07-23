@@ -14,7 +14,9 @@
             user: baseUrl + "manager",
             updateUser: baseUrl + "manager/update",
 
-            promo: baseUrl + "promo"
+            promo: baseUrl + "promo",
+
+            orders: baseUrl + "orders"
         }
     })());
 });
