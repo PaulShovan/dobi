@@ -6,6 +6,6 @@
         public string DeviceId;
         public string UserId;
         public int Status;
-        public string Platform;
+        public int DeviceOs;
     }
 }

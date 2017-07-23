@@ -49,6 +49,7 @@
     <Compile Include="IDeviceStausRepository.cs" />
     <Compile Include="IDobiRepository.cs" />
     <Compile Include="IManagerRepository.cs" />
+    <Compile Include="INotificationRepository.cs" />
     <Compile Include="IOrderRepository.cs" />
     <Compile Include="IOrderServiceRepository.cs" />
     <Compile Include="IPromoOfferRepository.cs" />

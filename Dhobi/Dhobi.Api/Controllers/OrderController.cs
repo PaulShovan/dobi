@@ -309,5 +309,22 @@ namespace Dhobi.Api.Controllers
             }
             return Ok(new ResponseModel<OrderSummaryViewModel>(ResponseStatus.Ok, summary, ""));
         }
+
+        [HttpPost]
+        [Route("v1/order/setaspaid")]
+        [Authorize]
+        public async Task<IHttpActionResult> UpdateOrderAsPaid(PayOrderViewModel order)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Invalid order data.");
+            }
+            var ack = await _orderRepository.UpdateOrderAsPaid(order.Amount, order.ServiceId);
+            if (!ack)
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.BadRequest, null, "Requested order was not found."));
+            }
+            return Ok(new ResponseModel<string>(ResponseStatus.Ok, "", "Order successfully set as paid."));
+        }
     }
 }

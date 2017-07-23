@@ -215,6 +215,7 @@
     <Compile Include="Helpers\TokenGenerator.cs" />
     <Compile Include="Models\OrderHomePageResponse.cs" />
     <Compile Include="Models\OrderPickupResponse.cs" />
+    <Compile Include="Models\PayOrderViewModel.cs" />
     <Compile Include="Models\PromoOfferResponse.cs" />
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\SetOrderPickUpViewModel.cs" />

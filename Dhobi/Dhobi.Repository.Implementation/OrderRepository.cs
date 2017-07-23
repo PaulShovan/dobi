@@ -164,7 +164,7 @@ namespace Dhobi.Repository.Implementation
             }
         }
 
-        public async Task<bool> ConfirmOrder(string serviceId)
+        public async Task<Order> ConfirmOrder(string serviceId)
         {
             try
             {
@@ -175,11 +175,7 @@ namespace Dhobi.Repository.Implementation
                 options.ReturnDocument = ReturnDocument.After;
                 options.Projection = projection;
                 var result = await Collection.FindOneAndUpdateAsync(filter, update, options);
-                if (result == null)
-                {
-                    return false;
-                }
-                return !string.IsNullOrWhiteSpace(result.ServiceId);
+                return result;
             }
             catch (Exception ex)
             {
@@ -347,6 +343,22 @@ namespace Dhobi.Repository.Implementation
             catch (Exception ex)
             {
                 throw new Exception("Error confirming order");
+            }
+        }
+
+        public async Task<bool> UpdateOrderAsPaid(decimal amount, string serviceId)
+        {
+            try
+            {
+                var filter = Builders<Order>.Filter.Eq(d => d.ServiceId, serviceId);
+                var update = Builders<Order>.Update.Set(u => u.Status, (int)OrderStatus.Paid)
+                                                   .Set(u => u.GrandTotal, amount);
+                var result = await Collection.UpdateOneAsync(filter, update);
+                return result.IsAcknowledged;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error updating order");
             }
         }
     }

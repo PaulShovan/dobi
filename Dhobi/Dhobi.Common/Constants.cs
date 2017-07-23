@@ -14,5 +14,8 @@
         public static string NEW_ORDER_MESSAGE_TEXT = "Thanks for calling dobi. We have got your request. You will be notified shortly about the pick up time and Dobi detail.";
         public static string ACK_MESSAGE_TEXT = "Service ID #{0}.";
         public static long MILLISECOND_DAY = 86400000;
+        public static string CONFIRM_ORDER_DOBI_MESSAGE_TITLE = "{0} Accepted";
+        public static string CONFIRM_ORDER_DOBI_MESSAGE_TEXT = "Service ID #{0} has accepted.";
+
     }
 }

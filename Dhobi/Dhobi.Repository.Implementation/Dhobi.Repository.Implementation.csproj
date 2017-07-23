@@ -63,6 +63,7 @@
     <Compile Include="DeviceStatusRepository.cs" />
     <Compile Include="DobiRepository.cs" />
     <Compile Include="ManagerRepository.cs" />
+    <Compile Include="NotificationRepository.cs" />
     <Compile Include="OrderRepository.cs" />
     <Compile Include="OrderServiceRepository.cs" />
     <Compile Include="PromoOfferRepository.cs" />

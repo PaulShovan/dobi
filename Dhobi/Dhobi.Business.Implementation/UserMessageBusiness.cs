@@ -65,7 +65,22 @@ namespace Dhobi.Business.Implementation
                 Type = (int)MessageType.ConfirmOrder
             };
         }
-        public async Task<bool> AddUserMessage(string userId, int messageType, string serviceId, string username = "")
+        private UserMessage PrepareConfirmDobiOrderMessage(string userId, string serviceId, string customerName)
+        {
+            return new UserMessage
+            {
+                MessageId = Guid.NewGuid().ToString(),
+                UserId = userId,
+                ServiceId = serviceId,
+                Title = string.Format(Constants.CONFIRM_ORDER_DOBI_MESSAGE_TITLE, customerName),
+                Message = string.Format(Constants.CONFIRM_ORDER_DOBI_MESSAGE_TEXT, serviceId),
+                Time = Utilities.GetPresentDateTime(),
+                Status = (int)MessageStatus.Unread,
+                IsDelivered = (int)MessageDeliveryStatus.NotDelivered,
+                Type = (int)MessageType.ConfirmOrderDobi
+            };
+        }
+        public async Task<string> AddUserMessage(string userId, int messageType, string serviceId, string username = "")
         {
             try
             {
@@ -82,11 +97,20 @@ namespace Dhobi.Business.Implementation
                 {
                     message = PrepareConfirmOrderMessage(userId, serviceId);
                 }
+                else if (messageType == (int)MessageType.ConfirmOrderDobi)
+                {
+                    message = PrepareConfirmOrderMessage(userId, serviceId);
+                }
                 if (message == null)
                 {
-                    return false;
+                    return null;
                 }
-                return await _userMessageRepository.AddUserMessage(message);
+                var ack = await _userMessageRepository.AddUserMessage(message);
+                if (!ack)
+                {
+                    return null;
+                }
+                return message.MessageId;
             }
             catch (Exception ex)
             {

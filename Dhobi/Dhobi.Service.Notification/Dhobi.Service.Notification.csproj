@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EC8DE6A5-A871-4CF2-BF50-97E36235E3B2}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{4A408785-1506-4DBB-8940-CFD0836FD01F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Dhobi.Service.Implementation</RootNamespace>
-    <AssemblyName>Dhobi.Service.Implementation</AssemblyName>
+    <RootNamespace>Dhobi.Service.Notification</RootNamespace>
+    <AssemblyName>Dhobi.Service.Notification</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -30,36 +33,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Common.Logging, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.3.3.1\lib\net40\Common.Logging.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="PushSharp.Amazon, Version=4.0.10.0, Culture=neutral, PublicKeyToken=cf74b75eab2c0170, processorArchitecture=MSIL">
-      <HintPath>..\packages\PushSharp.4.0.10\lib\net45\PushSharp.Amazon.dll</HintPath>
+    <Reference Include="Common.Logging.Core, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.Core.3.3.1\lib\net40\Common.Logging.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="PushSharp.Apple, Version=4.0.10.0, Culture=neutral, PublicKeyToken=cf74b75eab2c0170, processorArchitecture=MSIL">
-      <HintPath>..\packages\PushSharp.4.0.10\lib\net45\PushSharp.Apple.dll</HintPath>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="PushSharp.Blackberry, Version=4.0.10.0, Culture=neutral, PublicKeyToken=cf74b75eab2c0170, processorArchitecture=MSIL">
-      <HintPath>..\packages\PushSharp.4.0.10\lib\net45\PushSharp.Blackberry.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="PushSharp.Core, Version=4.0.10.0, Culture=neutral, PublicKeyToken=cf74b75eab2c0170, processorArchitecture=MSIL">
-      <HintPath>..\packages\PushSharp.4.0.10\lib\net45\PushSharp.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="PushSharp.Firefox, Version=4.0.10.0, Culture=neutral, PublicKeyToken=cf74b75eab2c0170, processorArchitecture=MSIL">
-      <HintPath>..\packages\PushSharp.4.0.10\lib\net45\PushSharp.Firefox.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="PushSharp.Google, Version=4.0.10.0, Culture=neutral, PublicKeyToken=cf74b75eab2c0170, processorArchitecture=MSIL">
-      <HintPath>..\packages\PushSharp.4.0.10\lib\net45\PushSharp.Google.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="PushSharp.Windows, Version=4.0.10.0, Culture=neutral, PublicKeyToken=cf74b75eab2c0170, processorArchitecture=MSIL">
-      <HintPath>..\packages\PushSharp.4.0.10\lib\net45\PushSharp.Windows.dll</HintPath>
+    <Reference Include="Quartz, Version=2.5.0.0, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Quartz.2.5.0\lib\net40\Quartz.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -69,33 +56,49 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LocationService.cs" />
-    <Compile Include="NotificationService.cs" />
+    <Compile Include="NotificationScheduler.cs" />
+    <Compile Include="SendNotification.cs" />
+    <Compile Include="Service1.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Service1.Designer.cs">
+      <DependentUpon>Service1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dhobi.Common\Dhobi.Common.csproj">
-      <Project>{b559768e-27b5-47c0-ae30-0f113b02ceaf}</Project>
-      <Name>Dhobi.Common</Name>
-    </ProjectReference>
+    <None Include="App.config" />
+    <None Include="job_scheduling_data_2_0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Dhobi.Core\Dhobi.Core.csproj">
       <Project>{404c3fcf-1350-4e7b-a072-b840b0dcdeb6}</Project>
       <Name>Dhobi.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dhobi.DependencyInjection\Dhobi.DependencyInjection.csproj">
+      <Project>{4f411ba4-9cce-4454-90ff-40c08062a1ca}</Project>
+      <Name>Dhobi.DependencyInjection</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dhobi.Repository.Implementation\Dhobi.Repository.Implementation.csproj">
+      <Project>{5A152FE4-CE9A-4F9F-87F8-A00B08C3BB8A}</Project>
+      <Name>Dhobi.Repository.Implementation</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dhobi.Repository.Interface\Dhobi.Repository.Interface.csproj">
       <Project>{f3bbc6e3-9a99-451c-9b93-8c0a5458e3e1}</Project>
       <Name>Dhobi.Repository.Interface</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dhobi.Service.Interface\Dhobi.Service.Interface.csproj">
-      <Project>{085a72cd-4638-45f6-affa-def8164f2239}</Project>
+      <Project>{085A72CD-4638-45F6-AFFA-DEF8164F2239}</Project>
       <Name>Dhobi.Service.Interface</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

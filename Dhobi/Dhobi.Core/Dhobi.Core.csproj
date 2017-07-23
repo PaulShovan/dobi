@@ -52,6 +52,8 @@
     <Compile Include="Manager\DbModels\ManagerBasicInformation.cs" />
     <Compile Include="Manager\ViewModels\LoginViewModel.cs" />
     <Compile Include="Manager\ViewModels\ManagerViewModel.cs" />
+    <Compile Include="Notification\DbModels\Notification.cs" />
+    <Compile Include="Notification\ViewModels\NotificationBasicInformation.cs" />
     <Compile Include="OrderModel\DbModels\Item.cs" />
     <Compile Include="OrderModel\DbModels\Order.cs" />
     <Compile Include="OrderModel\DbModels\OrderItem.cs" />

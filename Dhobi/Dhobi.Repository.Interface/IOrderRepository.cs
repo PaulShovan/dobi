@@ -20,7 +20,7 @@ namespace Dhobi.Repository.Interface
         Task<Order> GetNewOrderForDobi(string serviceId);
         Task<Order> SetOrderPickupDateTime(long date, string time, string serviceId, DobiBasicInformation dobi);
         Task<bool> CancelOrder(string serviceId);
-        Task<bool> ConfirmOrder(string serviceId);
+        Task<Order> ConfirmOrder(string serviceId);
         Task<List<Order>> GetUserOrders(string userId, int skip, int limit);
         Task<int> GetUserOrderCount(string userId);
         Task<Order> GetOrderAcknowledgeInformation(string serviceId);
@@ -29,5 +29,6 @@ namespace Dhobi.Repository.Interface
         Task<Order> GetOrderById(string serviceId);
         Task<List<Order>> GetAllOrders(long from, long to, int skip, int limit);
         Task<bool> UpdateOrderStatus(List<string> orders, int status);
+        Task<bool> UpdateOrderAsPaid(decimal amount, string serviceId);
     }
 }

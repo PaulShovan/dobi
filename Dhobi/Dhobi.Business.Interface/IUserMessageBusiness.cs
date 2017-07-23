@@ -10,7 +10,7 @@ namespace Dhobi.Business.Interface
 {
     public interface IUserMessageBusiness
     {
-        Task<bool> AddUserMessage(string userId, int messageType, string serviceId, string username = "");
+        Task<string> AddUserMessage(string userId, int messageType, string serviceId, string username = "");
         Task<UserMessageListViewModel> GetUserMessage(string userId, int skip, int limit);
         Task<UserMessageBasicInformation> GetMessageById(string messageId);
         Task<UserAcknowledgeMessageViewModel> GetOrderAcknowledge(string messageId, string serviceId);

@@ -54,7 +54,8 @@
     {
         NewOrder = 1,
         OrderAcknowledge = 2,
-        ConfirmOrder = 3
+        ConfirmOrder = 3,
+        ConfirmOrderDobi = 4
     }
     public enum LocationStatus
     {
@@ -71,5 +72,22 @@
     {
         Active = 1,
         Removed = 2
+    }
+    public enum DeviceOs
+    {
+        Android = 1,
+        Ios = 2
+    }
+    public enum NotificationType
+    {
+        SetOrderPickupTime = 1,
+        AcceptOrderPickupRequest = 2,
+        ConfirmOrder = 3,
+        AddNewOrder = 4
+    }
+    public enum NotificationStatus
+    {
+        NotSent = 1,
+        Sent = 2
     }
 }

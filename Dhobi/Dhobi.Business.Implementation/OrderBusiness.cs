@@ -13,6 +13,7 @@ using Dhobi.Core.PromoOffer.ViewModels;
 using Dhobi.Common;
 using MongoDB.Bson.Serialization;
 using Dhobi.Core.Dobi.DbModels;
+using Dhobi.Core.Notification.DbModels;
 
 namespace Dhobi.Business.Implementation
 {
@@ -22,11 +23,16 @@ namespace Dhobi.Business.Implementation
         private IOrderRepository _orderRepository;
         private IPromoOfferBusiness _promoBusiness;
         private IUserMessageBusiness _userMessageBusiness;
-        public OrderBusiness(IOrderRepository orderRepository, IPromoOfferBusiness promoOfferBusiness, IUserMessageBusiness userMessageBusiness)
+        private INotificationRepository _notificationRepository;
+        public OrderBusiness(IOrderRepository orderRepository, 
+            IPromoOfferBusiness promoOfferBusiness, 
+            IUserMessageBusiness userMessageBusiness,
+            INotificationRepository notificationRepository)
         {
             _orderRepository = orderRepository;
             _promoBusiness = promoOfferBusiness;
             _userMessageBusiness = userMessageBusiness;
+            _notificationRepository = notificationRepository;
         }
         private async Task<PromoOfferBasicInformation> GetPromoOffer()
         {
@@ -60,8 +66,25 @@ namespace Dhobi.Business.Implementation
                 };
                 var addMessageResponse = await _userMessageBusiness.AddUserMessage(orderedBy.UserId, (int)MessageType.NewOrder, newServiceId);
                 var addOrderResponse = await _orderRepository.AddNewOrder(newOrder);
-                //TODO Send Notification
-                return addMessageResponse && addOrderResponse;
+                if(addMessageResponse == null && !addOrderResponse)
+                {
+                    return false;
+                }
+                var notification = new Notification
+                {
+                    Type = (int)NotificationType.AddNewOrder,
+                    MessageId = addMessageResponse,
+                    Title = Constants.NEW_ORDER_MESSAGE_TITLE,
+                    Text = string.Format(Constants.ACK_MESSAGE_TEXT, newServiceId),
+                    SenderUserName = orderedBy.Name,
+                    SenderUserId = orderedBy.UserId,
+                    ReceiverUserName = orderedBy.Name,
+                    ReceiverUserId = orderedBy.UserId,
+                    Status = (int)NotificationStatus.NotSent,
+                    NotificationId = Guid.NewGuid().ToString()
+                };
+                var notificationAdd = await _notificationRepository.AddNotification(notification);
+                return notificationAdd;
             }
             catch (Exception ex)
             {
@@ -156,7 +179,25 @@ namespace Dhobi.Business.Implementation
                     return false;
                 }
                 var messageSend = await _userMessageBusiness.AddUserMessage(result.OrderBy.UserId, (int)MessageType.OrderAcknowledge, result.ServiceId);
-                return messageSend;
+                if (messageSend == null)
+                {
+                    return false;
+                }
+                var notification = new Notification
+                {
+                    Type = (int)NotificationType.SetOrderPickupTime,
+                    MessageId = messageSend,
+                    Title = Constants.ACK_MESSAGE_TITLE,
+                    Text = string.Format(Constants.ACK_MESSAGE_TEXT, order.ServiceId),
+                    SenderUserName = dobi.Name,
+                    SenderUserId = dobi.DobiId,
+                    ReceiverUserName = result.OrderBy.Name,
+                    ReceiverUserId = result.OrderBy.UserId,
+                    Status = (int)NotificationStatus.NotSent,
+                    NotificationId = Guid.NewGuid().ToString()
+                };
+                var notificationAdd = await _notificationRepository.AddNotification(notification);
+                return notificationAdd;
             }
             catch (Exception ex)
             {
@@ -206,13 +247,35 @@ namespace Dhobi.Business.Implementation
             try
             {
                 var confirmOrder = await _orderRepository.ConfirmOrder(serviceId);
-                if (!confirmOrder)
+                if (confirmOrder == null)
                 {
                     return false;
                 }
                 var sendUserMessage = await _userMessageBusiness.AddUserMessage(user.UserId, (int)MessageType.ConfirmOrder, serviceId, user.Name);
-                return sendUserMessage;
-                //TO DO Send Dobi Message
+                if(sendUserMessage == null)
+                {
+                    return false;
+                }
+                var sendDobiMessage = await _userMessageBusiness.AddUserMessage(confirmOrder.Dobi.DobiId, (int)MessageType.ConfirmOrderDobi, serviceId, user.Name);
+                if(sendDobiMessage == null)
+                {
+                    return false;
+                }
+                var notification = new Notification
+                {
+                    Type = (int)NotificationType.ConfirmOrder,
+                    MessageId = sendDobiMessage,
+                    Title = string.Format(Constants.CONFIRM_ORDER_DOBI_MESSAGE_TITLE, user.Name),
+                    Text = string.Format(Constants.CONFIRM_ORDER_DOBI_MESSAGE_TEXT, serviceId),
+                    SenderUserName = user.Name,
+                    SenderUserId = user.UserId,
+                    ReceiverUserName = confirmOrder.Dobi.Name,
+                    ReceiverUserId = confirmOrder.Dobi.DobiId,
+                    Status = (int)NotificationStatus.NotSent,
+                    NotificationId = Guid.NewGuid().ToString()
+                };
+                var notificationAdd = await _notificationRepository.AddNotification(notification);
+                return notificationAdd;
             }
             catch (Exception ex)
             {

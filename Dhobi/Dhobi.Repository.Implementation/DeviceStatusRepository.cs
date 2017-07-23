@@ -1,4 +1,5 @@
-﻿using Dhobi.Core.Device.DbModels;
+﻿using Dhobi.Common;
+using Dhobi.Core.Device.DbModels;
 using Dhobi.Repository.Implementation.Base;
 using Dhobi.Repository.Interface;
 using MongoDB.Driver;
@@ -22,7 +23,7 @@ namespace Dhobi.Repository.Implementation
                 var update = Builders<DeviceStatus>.Update.Set(u => u.Status, status.Status)
                     .Set(u => u.DeviceId, status.DeviceId)
                     .SetOnInsert(u => u.AppId, status.AppId)
-                    .SetOnInsert(u => u.Platform, status.Platform);
+                    .SetOnInsert(u => u.DeviceOs, status.DeviceOs);
                 var projection = Builders<DeviceStatus>.Projection.Exclude("_id");
                 var options = new FindOneAndUpdateOptions<DeviceStatus, DeviceStatus>();
                 options.IsUpsert = true;
@@ -42,7 +43,7 @@ namespace Dhobi.Repository.Implementation
             try
             {
                 var projection = Builders<DeviceStatus>.Projection.Exclude("_id");
-                var statuses = await Collection.Find(status => status.UserId == userId).Project<DeviceStatus>(projection).ToListAsync();
+                var statuses = await Collection.Find(status => status.UserId == userId & status.Status == (int)DeviceOnlineStatus.Active).Project<DeviceStatus>(projection).ToListAsync();
                 return statuses;
             }
             catch (Exception ex)
@@ -57,7 +58,7 @@ namespace Dhobi.Repository.Implementation
             {
                 var filter1 = Builders<DeviceStatus>.Filter.Eq(d => d.UserId, status.UserId);
                 var filter2 = Builders<DeviceStatus>.Filter.Eq(d => d.AppId, status.AppId);
-                var filter3 = Builders<DeviceStatus>.Filter.Eq(d => d.Platform, status.Platform);
+                var filter3 = Builders<DeviceStatus>.Filter.Eq(d => d.DeviceOs, status.DeviceOs);
                 var filter = Builders<DeviceStatus>.Filter.And(filter1, filter2, filter3);
                 var result = await Collection.DeleteOneAsync(filter);
                 return result.IsAcknowledged;
