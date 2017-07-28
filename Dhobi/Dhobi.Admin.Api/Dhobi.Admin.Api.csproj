@@ -250,10 +250,6 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dhobi.Api\Dhobi.Api.csproj">
-      <Project>{60107832-E491-4E89-B889-E1D595BD3C31}</Project>
-      <Name>Dhobi.Api</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Dhobi.Business.Interface\Dhobi.Business.Interface.csproj">
       <Project>{71CA52CF-C47B-4852-B111-879D27312DE8}</Project>
       <Name>Dhobi.Business.Interface</Name>

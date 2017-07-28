@@ -20,11 +20,11 @@
                         <span class="dropdown move-to-btn">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">MOVE TO <i class="fa fa-sort" aria-hidden="true"></i></a>
                             <ul class="dropdown-menu dropdown-alerts order-move-to">
-                                <li>All Orders</li>
-                                <li>In Progress</li>
-                                <li>Cleaned Items</li>
-                                <li>Deliverable Items</li>
-                                <li>Delivered</li>
+                                <li ng-click="Methods.UpdateOrderStatus()">All Orders</li>
+                                <li ng-click="Methods.UpdateOrderStatus(6)">In Progress</li>
+                                <li ng-click="Methods.UpdateOrderStatus()">Cleaned Items</li>
+                                <li ng-click="Methods.UpdateOrderStatus(8)">Deliverable Items</li>
+                                <li ng-click="Methods.UpdateOrderStatus(10)">Delivered</li>
                             </ul>
                         </span>
                     </div>
@@ -59,7 +59,7 @@
                                 </thead>
                                 <tbody>
                                 <tr dir-paginate="order in Data.Orders | filter:q | itemsPerPage: pageSize" current-page="currentPage" total-items="Data.TotalOrders" id="highlight{{$index}}">
-                                    <td><input type="checkbox" class="i-checks" ng-model="order.ServiceId" name="selectOrder[]" i-check></td>
+                                    <td><input type="checkbox" class="i-checks" ng-model="$index" name="selectOrder[{{$index}}]" ng-click="Methods.OnCheckboxClicked(order.ServiceId, $index)"></td>
                                     <td>{{order.ServiceId}}</td>
                                     <td>{{order.UserName}}</td>
                                     <td>{{order.PhoneNumber}}</td>

@@ -16,7 +16,8 @@
 
             promo: baseUrl + "promo",
 
-            orders: baseUrl + "orders"
+            orders: baseUrl + "orders",
+            updateOrderStatus: baseUrl + "orders/update"
         }
     })());
 });
