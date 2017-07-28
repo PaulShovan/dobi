@@ -12,19 +12,17 @@
                     <div class="col-sm-3">
                         <i class="fa fa-sort date-fiter-fa" aria-hidden="true"></i>
                         <input type="datetime" name="dateFilter" class="form-control cursor-pointer white-bg date-filter" date-time ng-model="Data.SelectedDate"
-                                view="date" auto-close="true" min-view="date" format="ddd, MMM DD, YYYY" date-change="Methods.OnDateSelected" 
-                                required readonly>
+                               view="date" auto-close="true" min-view="date" format="ddd, MMM DD, YYYY" date-change="Methods.OnDateSelected" required readonly>
                     </div>
 
                     <div class="col-sm-9">
                         <span class="dropdown move-to-btn">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">MOVE TO <i class="fa fa-sort" aria-hidden="true"></i></a>
                             <ul class="dropdown-menu dropdown-alerts order-move-to">
-                                <li ng-click="Methods.UpdateOrderStatus()">All Orders</li>
-                                <li ng-click="Methods.UpdateOrderStatus(6)">In Progress</li>
-                                <li ng-click="Methods.UpdateOrderStatus()">Cleaned Items</li>
-                                <li ng-click="Methods.UpdateOrderStatus(8)">Deliverable Items</li>
-                                <li ng-click="Methods.UpdateOrderStatus(10)">Delivered</li>
+                                <li ng-click="Methods.UpdateOrderStatus(Data.UpdateOrderStatus.InProgress, 'In Progress')">In Progress</li>
+                                <li ng-click="Methods.UpdateOrderStatus(Data.UpdateOrderStatus.Processed, 'Cleaned Items')">Cleaned Items</li>
+                                <li ng-click="Methods.UpdateOrderStatus(Data.UpdateOrderStatus.Deliverable, 'Deliverable Items')">Deliverable Items</li>
+                                <li ng-click="Methods.UpdateOrderStatus(Data.UpdateOrderStatus.Delivered, 'Delivered')">Delivered</li>
                             </ul>
                         </span>
                     </div>
@@ -59,7 +57,7 @@
                                 </thead>
                                 <tbody>
                                 <tr dir-paginate="order in Data.Orders | filter:q | itemsPerPage: pageSize" current-page="currentPage" total-items="Data.TotalOrders" id="highlight{{$index}}">
-                                    <td><input type="checkbox" class="i-checks" ng-model="$index" name="selectOrder[{{$index}}]" ng-click="Methods.OnCheckboxClicked(order.ServiceId, $index)"></td>
+                                    <td><input type="checkbox" class="i-checks" icheck-checkbox ng-model="Data.SelectedOrders[order.ServiceId]"></td>
                                     <td>{{order.ServiceId}}</td>
                                     <td>{{order.UserName}}</td>
                                     <td>{{order.PhoneNumber}}</td>

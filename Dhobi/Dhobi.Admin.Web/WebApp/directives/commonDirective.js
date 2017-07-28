@@ -11,6 +11,7 @@
     app.directive('ngMinvalue', ngMinvalue); // need to test
     app.directive('twoPrecision', twoPrecision);
     app.directive('ageLimit', ageLimit);
+    app.directive('icheckCheckbox', icheckCheckbox);
 
 
     /*** validateEmail - Directive for Validating email. Usage [ as attr ] [ validate-email ] will validate email type input. */
@@ -93,6 +94,48 @@
             }
         };
     };
+
+
+    function icheckCheckbox ($timeout, $parse) {
+        return {
+            restrict: 'A',
+            require: '?ngModel',
+            link: function (scope, element, attr, ngModel) {
+                $timeout(function () {
+                    var value = attr.value;
+
+                    function update(checked) {
+                        if (attr.type === 'radio') {
+                            ngModel.$setViewValue(value);
+                        } else {
+                            ngModel.$setViewValue(checked);
+                        }
+                    }
+
+                    $(element).iCheck({
+                        checkboxClass: attr.checkboxClass || 'icheckbox_square-green',
+                        radioClass: attr.radioClass || 'iradio_square-green'
+                    }).on('ifChanged', function (e) {
+                        scope.$apply(function () {
+                            update(e.target.checked);
+                        });
+                    });
+
+                    scope.$watch(attr.ngChecked, function (checked) {
+                        if (typeof checked === 'undefined') checked = !!ngModel.$viewValue;
+                        update(checked)
+                    }, true);
+
+                    scope.$watch(attr.ngModel, function (model) {
+                        $(element).iCheck('update');
+                    }, true);
+
+                })
+            }
+        }
+    };
+
+
 
     /*** limit-to - Directive for input limit. Usage on html: [as attr]  [ limit-to="5" ] will take only 5 characters on that input. */
     function limitTo() {
