@@ -4,6 +4,7 @@ using Dhobi.Business.Interface;
 using Dhobi.Common;
 using Dhobi.Core.Dobi.DbModels;
 using Dhobi.Core.Dobi.ViewModels;
+using Dhobi.Core.UserInbox.ViewModels;
 using Dhobi.Repository.Interface;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,11 +18,13 @@ namespace Dhobi.Api.Controllers
     {
         private IDobiBusiness _dobiBusiness;
         private IDobiRepository _dobiRepository;
+        private IUserMessageBusiness _userMessageBusiness;
         private TokenGenerator _tokenGenerator;
-        public DobiController(IDobiBusiness dobiBusiness, IDobiRepository dobiRepository)
+        public DobiController(IDobiBusiness dobiBusiness, IDobiRepository dobiRepository, IUserMessageBusiness userMessageBusiness)
         {
             _dobiBusiness = dobiBusiness;
             _dobiRepository = dobiRepository;
+            _userMessageBusiness = userMessageBusiness;
             _tokenGenerator = new TokenGenerator();
         }
         private DobiBasicInformation GetDobiInformationFromToken()
@@ -72,6 +75,19 @@ namespace Dhobi.Api.Controllers
                 return Ok(new ResponseModel<string>(ResponseStatus.NotFound, null, "Dobi Not found"));
             }
             return Ok(new ResponseModel<DobiHomePageResponse>(ResponseStatus.Ok, response, ""));
+        }
+        [Authorize]
+        [Route("v1/dobi/message")]
+        [HttpGet]
+        public async Task<IHttpActionResult> GetDobiMessage(int skip = 0, int limit = 10)
+        {
+            var user = GetDobiInformationFromToken();
+            if (user == null || string.IsNullOrWhiteSpace(user.DobiId))
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.BadRequest, null, "Invalid user."));
+            }
+            var messages = await _userMessageBusiness.GetUserMessage(user.DobiId, skip, limit);
+            return Ok(new ResponseModel<UserMessageListViewModel>(ResponseStatus.Ok, messages, ""));
         }
     }
 }

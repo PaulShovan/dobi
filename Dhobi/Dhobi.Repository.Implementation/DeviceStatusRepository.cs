@@ -21,7 +21,7 @@ namespace Dhobi.Repository.Implementation
                 var filter2 = Builders<DeviceStatus>.Filter.Eq(d => d.AppId, status.AppId);
                 var filter = Builders<DeviceStatus>.Filter.And(filter1, filter2);
                 var update = Builders<DeviceStatus>.Update.Set(u => u.Status, status.Status)
-                    .Set(u => u.DeviceId, status.DeviceId)
+                    .Set(u => u.RegistrationId, status.RegistrationId)
                     .SetOnInsert(u => u.AppId, status.AppId)
                     .SetOnInsert(u => u.DeviceOs, status.DeviceOs);
                 var projection = Builders<DeviceStatus>.Projection.Exclude("_id");
@@ -30,7 +30,7 @@ namespace Dhobi.Repository.Implementation
                 options.Projection = projection;
                 options.ReturnDocument = ReturnDocument.After;
                 var result = await Collection.FindOneAndUpdateAsync(filter, update, options);
-                return !string.IsNullOrWhiteSpace(result.AppId);
+                return !string.IsNullOrWhiteSpace(result.UserId);
             }
             catch (Exception e)
             {

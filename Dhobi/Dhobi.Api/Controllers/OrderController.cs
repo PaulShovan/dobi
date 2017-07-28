@@ -2,6 +2,7 @@
 using Dhobi.Api.Models;
 using Dhobi.Business.Interface;
 using Dhobi.Common;
+using Dhobi.Core.Device.DbModels;
 using Dhobi.Core.Dobi.DbModels;
 using Dhobi.Core.OrderModel.DbModels;
 using Dhobi.Core.OrderModel.ViewModels;
@@ -27,11 +28,13 @@ namespace Dhobi.Api.Controllers
         private TokenGenerator _tokenGenerator;
         private ILocationService _locationService;
         private IOrderRepository _orderRepository;
+        private IDeviceStatusBusiness _deviceStatusBusiness;
         public OrderController(IOrderBusiness orderBusiness, 
             ILocationService locationService, 
             IOrderServiceBusiness orderServiceBusiness, 
             IPromoOfferBusiness promoOfferBusiness,
-            IOrderRepository orderRepository)
+            IOrderRepository orderRepository,
+            IDeviceStatusBusiness deviceStatusBusiness)
         {
             _orderBusiness = orderBusiness;
             _orderServiceBusiness = orderServiceBusiness;
@@ -39,6 +42,7 @@ namespace Dhobi.Api.Controllers
             _promoOfferBusiness = promoOfferBusiness;
             _tokenGenerator = new TokenGenerator();
             _orderRepository = orderRepository;
+            _deviceStatusBusiness = deviceStatusBusiness;
         }
         private User GetUserInformationFromToken()
         {
@@ -123,11 +127,49 @@ namespace Dhobi.Api.Controllers
             }
             return Ok(new ResponseModel<OrderByZoneViewModel>(ResponseStatus.Ok, groupedOrders, ""));
         }
+
         [HttpGet]
         [Route("v1/order/home")]
         [Authorize]
         public async Task<IHttpActionResult> GetOrderHomePageInformation()
         {
+            var zones = await _locationService.GetAvailableActiveZones();
+            if (zones == null)
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.NotFound, null, "No zone available."));
+            }
+            var promoOffer = await _promoOfferBusiness.GetPromoOfferForUser();
+
+            var promo = promoOffer == null ? null : new PromoOfferResponse
+            {
+                PromoText = promoOffer.Text,
+                Amount = promoOffer.Amount
+            };
+            var response = new OrderHomePageResponse
+            {
+                Zones = zones,
+                Promo = promo
+            };
+            return Ok(new ResponseModel<OrderHomePageResponse>(ResponseStatus.Ok, response, ""));
+        }
+
+        [HttpPost]
+        [Route("v1/order/home")]
+        [Authorize]
+        public async Task<IHttpActionResult> GetOrderHomePageInformationWithDevice(DeviceStatus status)
+        {
+            if (string.IsNullOrWhiteSpace(status.RegistrationId))
+            {
+                return BadRequest("Invalid data.");
+            }
+            var user = GetUserInformationFromToken();
+            if (string.IsNullOrEmpty(user.UserId))
+            {
+                return BadRequest("Invalid User.");
+            }
+            status.UserId = user.UserId;
+            var registerAck = await _deviceStatusBusiness.RegisterDevice(status);
+
             var zones = await _locationService.GetAvailableActiveZones();
             if (zones == null)
             {

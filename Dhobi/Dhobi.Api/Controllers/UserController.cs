@@ -136,7 +136,7 @@ namespace Dhobi.Api.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> RegisterDevice(DeviceStatus status)
         {
-            if (string.IsNullOrWhiteSpace(status.DeviceId))
+            if (string.IsNullOrWhiteSpace(status.RegistrationId))
             {
                 return BadRequest("Invalid data.");
             }

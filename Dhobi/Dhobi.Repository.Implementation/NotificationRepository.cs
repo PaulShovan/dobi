@@ -1,4 +1,5 @@
-﻿using Dhobi.Core.Notification.DbModels;
+﻿using Dhobi.Common;
+using Dhobi.Core.Notification.DbModels;
 using Dhobi.Repository.Implementation.Base;
 using Dhobi.Repository.Interface;
 using MongoDB.Driver;
@@ -31,7 +32,7 @@ namespace Dhobi.Repository.Implementation
             var sortBuilder = Builders<Notification>.Sort;
             var sortOrder = sortBuilder.Descending(s => s.Time);
             var projection = Builders<Notification>.Projection.Exclude("_id");
-            var notifications = await Collection.Find(d => d.ReceiverUserId != "").Project<Notification>(projection).Sort(sortOrder).ToListAsync();
+            var notifications = await Collection.Find(d => d.Status == (int)NotificationStatus.NotSent).Project<Notification>(projection).Sort(sortOrder).ToListAsync();
             if (notifications == null)
             {
                 return null;

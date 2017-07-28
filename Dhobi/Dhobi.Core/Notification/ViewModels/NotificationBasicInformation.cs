@@ -9,8 +9,8 @@ namespace Dhobi.Core.Notification.ViewModels
     public class NotificationBasicInformation
     {
         public int Type;
-        public string Text;
-        public string Title;
+        public string message;
+        public string title;
         public string MessageId;
     }
 }

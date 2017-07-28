@@ -99,7 +99,7 @@ namespace Dhobi.Business.Implementation
                 }
                 else if (messageType == (int)MessageType.ConfirmOrderDobi)
                 {
-                    message = PrepareConfirmOrderMessage(userId, serviceId);
+                    message = PrepareConfirmDobiOrderMessage(userId, serviceId, username);
                 }
                 if (message == null)
                 {

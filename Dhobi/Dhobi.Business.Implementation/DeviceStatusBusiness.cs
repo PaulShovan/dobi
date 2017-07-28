@@ -25,7 +25,7 @@ namespace Dhobi.Business.Implementation
                 var devices = await _deviceStatusRepository.GetDeviceStatus(userId);
                 foreach (var device in devices)
                 {
-                    deviceIds.Add(device.DeviceId);
+                    deviceIds.Add(device.RegistrationId);
                 }
                 return deviceIds;
             }

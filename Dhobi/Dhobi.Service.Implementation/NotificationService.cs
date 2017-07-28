@@ -31,7 +31,7 @@ namespace Dhobi.Service.Implementation
         }
         private void ConfigureGcmBroker()
         {
-            var config = new GcmConfiguration("GCM-SENDER-ID", "AUTH-TOKEN", null);
+            var config = new GcmConfiguration("AAAALXxcjZI:APA91bHQkzx9W8-zk_Vgmn-N6SaE96HlmYBsaGi4UBxymlnLnbqwM5TwbdnbBpp9aIOs6Fzfjf9-oz18IWe0gS46L3oWX2A4IweuhO1wnLlGLS0domuKJov7nfZifmT_OCZJo7Ir3mif");
             config.GcmUrl = "https://fcm.googleapis.com/fcm/send";
             _gcmBroker = new GcmServiceBroker(config);
             _gcmBroker.OnNotificationFailed += NotificationFailed;
@@ -48,20 +48,25 @@ namespace Dhobi.Service.Implementation
         {
             try
             {
+                ConfigureGcmBroker();
                 _gcmBroker.Start();
-
                 _gcmBroker.QueueNotification(new GcmNotification
                 {
+                    //RegistrationIds = new List<string> {
+                    //    "fWeAbdnDzxw:APA91bHGQjLneuTiXRPQZiQXDpBlCn7yegWn2AYfBO7jUdy3PqVM48GgEDTKm4-aa5Lq07sljW_oziOHbUiJJofBswV_rbPtqXiYdKPEY3Fn0g1haQpQvrD9qIdK3H9_1NZkpYw8iyWM"
+                    //},
+                    //Data = JObject.Parse("{ \"title\" : \"title\", \"message\" : \"message\"}")
                     RegistrationIds = devices,
                     Data = JObject.Parse(payload)
                 });
 
-                _gcmBroker.Stop();
+                //_gcmBroker.Stop();
                 return true;
             }
             catch (Exception ex)
             {
-                throw new Exception("Error sending notification.");
+                //throw new Exception("Error sending notification.");
+                return false;
             }
             
         }
@@ -94,17 +99,18 @@ namespace Dhobi.Service.Implementation
             try
             {
                 var ack = false;
+                var updated = false;
                 var devices = await _deviceStausRepository.GetDeviceStatus(notification.ReceiverUserId);
                 if (devices == null || devices.Count < 1)
                 {
                     return false;
                 }
-                var androidDevices = devices.FindAll(d => d.DeviceOs == (int)DeviceOs.Android).Select(s => s.DeviceId).ToList();
-                var iosDevices = devices.FindAll(d => d.DeviceOs == (int)DeviceOs.Ios).Select(s => s.DeviceId).ToList();
+                var androidDevices = devices.FindAll(d => d.DeviceOs == (int)DeviceOs.Android).Select(s => s.RegistrationId).ToList();
+                var iosDevices = devices.FindAll(d => d.DeviceOs == (int)DeviceOs.Ios).Select(s => s.RegistrationId).ToList();
                 var payloadToSend = JsonConvert.SerializeObject(new NotificationBasicInformation {
                     Type = notification.Type,
-                    Text = notification.Text,
-                    Title = notification.Title,
+                    message = notification.Text,
+                    title = notification.Title,
                     MessageId = notification.MessageId
                 });
                 if(androidDevices != null && androidDevices.Count > 0)
@@ -117,9 +123,9 @@ namespace Dhobi.Service.Implementation
                 }
                 if (ack)
                 {
-                    var updated = await _notificationRepository.UpdateNotificationStatus(notification.NotificationId, (int)NotificationStatus.Sent);
+                    updated = await _notificationRepository.UpdateNotificationStatus(notification.NotificationId, (int)NotificationStatus.Sent);
                 }
-                return true;
+                return updated;
             }
             catch (Exception ex)
             {
@@ -138,6 +144,10 @@ namespace Dhobi.Service.Implementation
                 foreach (var notification in notifications)
                 {
                     var sendAck = await SendNotificationToDevice(notification);
+                    if (sendAck)
+                    {
+                        _gcmBroker.Stop();
+                    }
                 }
                 return true;
             }
