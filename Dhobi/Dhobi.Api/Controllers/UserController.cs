@@ -6,6 +6,7 @@ using Dhobi.Core;
 using Dhobi.Core.AvailableLoacation;
 using Dhobi.Core.AvailableLoacation.DbModels;
 using Dhobi.Core.Device.DbModels;
+using Dhobi.Core.Location.DbModels;
 using Dhobi.Core.UserInbox.DbModels;
 using Dhobi.Core.UserInbox.ViewModels;
 using Dhobi.Core.UserModel.DbModels;
@@ -26,18 +27,24 @@ namespace Dhobi.Api.Controllers
         private IDeviceStausRepository _deviceStatusRepository;
         private IUserMessageBusiness _userMessageBusiness;
         private IAvailableLocationBusiness _availableLocationBusiness;
+        private IUserLocationBusiness _userLocationBusiness;
+        private IUserLocationRepository _userLocationRepository;
         private TokenGenerator _tokenGenerator;
         public UserController(IUserBusiness userBusiness, 
             IDeviceStatusBusiness deviceStatusBusiness,
             IDeviceStausRepository deviceStatusRepository,
             IUserMessageBusiness userMessageBusiness,
-            IAvailableLocationBusiness availableLocationBusiness)
+            IAvailableLocationBusiness availableLocationBusiness,
+            IUserLocationBusiness userLocationBusiness,
+            IUserLocationRepository userLocationRepository)
         {
             _userBusiness = userBusiness;
             _deviceStatusBusiness = deviceStatusBusiness;
             _deviceStatusRepository = deviceStatusRepository;
             _userMessageBusiness = userMessageBusiness;
             _availableLocationBusiness = availableLocationBusiness;
+            _userLocationBusiness = userLocationBusiness;
+            _userLocationRepository = userLocationRepository;
             _tokenGenerator = new TokenGenerator();
         }
         private User GetUserInformationFromToken()
@@ -95,21 +102,21 @@ namespace Dhobi.Api.Controllers
         }
 
         [Route("v1/user/login")]
-        [HttpGet]
+        [HttpPost]
         [AllowAnonymous]
-        public async Task<IHttpActionResult> Login(string phone, bool isVerificationRequired = false)
+        public async Task<IHttpActionResult> Login(LoginViewModel login)
         {
-            if (string.IsNullOrWhiteSpace(phone))
+            if (!ModelState.IsValid)
             {
                 return BadRequest("Invalid login data");
             }
-            var loggedInUser = await _userBusiness.UserLogin(phone, isVerificationRequired);
+            var loggedInUser = await _userBusiness.UserLogin(login.Phone, login.IsVerificationRequired);
             if (loggedInUser == null || string.IsNullOrWhiteSpace(loggedInUser.UserId))
             {
                 return Ok(new ResponseModel<string>(ResponseStatus.NotFound, null, "User Not found"));
             }
             ValidatedUserResponse validatedUser = null;
-            if (isVerificationRequired)
+            if (login.IsVerificationRequired)
             {
                 validatedUser = new ValidatedUserResponse(loggedInUser.Name, null, loggedInUser.UserId);
                 return Ok(new ResponseModel<ValidatedUserResponse>(ResponseStatus.Ok, validatedUser, ""));
@@ -146,6 +153,7 @@ namespace Dhobi.Api.Controllers
                 return BadRequest("Invalid User.");
             }
             status.UserId = user.UserId;
+            status.Application = (int)Application.DobiUser;
             var registerAck = await _deviceStatusBusiness.RegisterDevice(status);
             if (!registerAck)
             {
@@ -246,6 +254,41 @@ namespace Dhobi.Api.Controllers
                 return Ok(new ResponseModel<string>(ResponseStatus.BadRequest, "Error sending message", ""));
             }
             return Ok(new ResponseModel<string>(ResponseStatus.Ok, "Message has been sent", ""));
+        }
+        [Authorize]
+        [Route("v1/user/location")]
+        [HttpPost]
+        public async Task<IHttpActionResult> AddLocation(UserLocation location)
+        {
+            var user = GetUserInformationFromToken();
+            if (user == null || string.IsNullOrWhiteSpace(user.UserId))
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.BadRequest, null, "Invalid user."));
+            }
+            else if (!_userLocationBusiness.ValidateUserLocation(location))
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.BadRequest, null, "Invalid location data."));
+            }
+            location.UserId = user.UserId;
+            var success = await _userLocationRepository.AddLocation(location);
+            if (!success)
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.BadRequest, null, "Error adding user location"));
+            }
+            return Ok(new ResponseModel<string>(ResponseStatus.Ok, "Location added successfully.", "Location added successfully."));
+        }
+        [Authorize]
+        [Route("v1/user/location")]
+        [HttpGet]
+        public async Task<IHttpActionResult> GetLocation()
+        {
+            var user = GetUserInformationFromToken();
+            if (user == null || string.IsNullOrWhiteSpace(user.UserId))
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.BadRequest, null, "Invalid user."));
+            }
+            var locations = await _userLocationRepository.GetUserLocation(user.UserId);
+            return Ok(new ResponseModel<List<UserLocation>>(ResponseStatus.Ok, locations, ""));
         }
     }
 }

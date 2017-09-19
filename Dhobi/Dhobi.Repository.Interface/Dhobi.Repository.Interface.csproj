@@ -53,6 +53,7 @@
     <Compile Include="IOrderRepository.cs" />
     <Compile Include="IOrderServiceRepository.cs" />
     <Compile Include="IPromoOfferRepository.cs" />
+    <Compile Include="IUserLocationRepository.cs" />
     <Compile Include="IUserMessageRepository.cs" />
     <Compile Include="IUserSmsRepository.cs" />
     <Compile Include="IUserRepository.cs" />

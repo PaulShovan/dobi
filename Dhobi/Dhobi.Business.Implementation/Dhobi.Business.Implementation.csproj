@@ -61,6 +61,7 @@
     <Compile Include="PromoOfferBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserBusiness.cs" />
+    <Compile Include="UserLocationBusiness.cs" />
     <Compile Include="UserMessageBusiness.cs" />
   </ItemGroup>
   <ItemGroup>

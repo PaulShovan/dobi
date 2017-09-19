@@ -58,6 +58,10 @@ namespace Dhobi.DependencyInjection
             kernel.Bind<INotificationRepository>().To<NotificationRepository>();
             kernel.Bind<INotificationService>().To<NotificationService>();
             #endregion
+            #region UserLocation
+            kernel.Bind<IUserLocationRepository>().To<UserLocationRepository>();
+            kernel.Bind<IUserLocationBusiness>().To<UserLocationBusiness>();
+            #endregion
 
         }
     }

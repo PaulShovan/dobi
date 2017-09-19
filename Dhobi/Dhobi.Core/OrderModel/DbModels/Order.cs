@@ -10,6 +10,8 @@ namespace Dhobi.Core.OrderModel.DbModels
         public string ServiceId;
         public int Status;
         public string Address;
+        public double Lat;
+        public double Lon;
         public string PickUpTime;
         public long PickUpDate;
         public User OrderBy;

@@ -39,7 +39,7 @@ namespace Dhobi.Service.Implementation
         }
         private void ConfigureApnsBroker()
         {
-            var config = new ApnsConfiguration(ApnsConfiguration.ApnsServerEnvironment.Sandbox,"push-cert.p12", "push-cert-pwd");
+            var config = new ApnsConfiguration(ApnsConfiguration.ApnsServerEnvironment.Sandbox, "E:\\KAZ-Source\\Dhobi\\Dhobi\\Dhobi.Service.Implementation\\calldobi-user-dev-cer.p12", "123456");
             _apnsBroker = new ApnsServiceBroker(config);
             _apnsBroker.OnNotificationFailed += NotificationFailedApns;
             _apnsBroker.OnNotificationSucceeded += NotificationSent;
@@ -74,6 +74,7 @@ namespace Dhobi.Service.Implementation
         {
             try
             {
+                ConfigureApnsBroker();
                 _apnsBroker.Start();
 
                 foreach (var deviceToken in devices)
@@ -81,11 +82,9 @@ namespace Dhobi.Service.Implementation
                     _apnsBroker.QueueNotification(new ApnsNotification
                     {
                         DeviceToken = deviceToken,
-                        Payload = JObject.Parse(payload)
+                        Payload = JObject.Parse("{\"aps\":{\"alert\":\"Hi!I'm a notification!\",\"badge\":7}}")
                     });
                 }
-
-                _apnsBroker.Stop();
                 return true;
             }
             catch (Exception ex)
@@ -147,6 +146,7 @@ namespace Dhobi.Service.Implementation
                     if (sendAck)
                     {
                         _gcmBroker.Stop();
+                        _apnsBroker.Stop();
                     }
                 }
                 return true;

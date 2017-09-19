@@ -48,6 +48,7 @@
     <Compile Include="Dobi\ViewModels\DobiHomePageResponse.cs" />
     <Compile Include="Dobi\ViewModels\DobiViewModel.cs" />
     <Compile Include="GenericResponse.cs" />
+    <Compile Include="Location\DbModels\UserLocation.cs" />
     <Compile Include="Manager\DbModels\Manager.cs" />
     <Compile Include="Manager\DbModels\ManagerBasicInformation.cs" />
     <Compile Include="Manager\ViewModels\LoginViewModel.cs" />

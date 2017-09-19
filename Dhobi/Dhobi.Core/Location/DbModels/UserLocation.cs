@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dhobi.Core.OrderModel.ViewModels
+namespace Dhobi.Core.Location.DbModels
 {
-    public class OrderItemViewModel
+    public class UserLocation
     {
-        public string ServiceId;
+        public string UserId;
+        public string Title;
         public string Address;
-        public string Name;
-        public int Status;
         public double Lat;
         public double Lon;
     }

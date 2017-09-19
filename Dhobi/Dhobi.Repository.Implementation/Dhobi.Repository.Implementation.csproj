@@ -73,6 +73,7 @@
       <DependentUpon>DbSettings.settings</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserLocationRepository.cs" />
     <Compile Include="UserSmsRepository.cs" />
     <Compile Include="UserMessageRepository.cs" />
     <Compile Include="UserRepository.cs" />

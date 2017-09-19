@@ -22,7 +22,7 @@ namespace Dhobi.Service.Notification
                 //System.Diagnostics.Debugger.Launch();
                 JobDataMap dataMap = context.JobDetail.JobDataMap;
                 INotificationService service = (INotificationService)dataMap.Get("service");
-                //System.Diagnostics.Debugger.Launch();
+                System.Diagnostics.Debugger.Launch();
                 service.SendNotification();
                 //using (StreamWriter writer =
                 //new StreamWriter("D:\\log.txt", true))

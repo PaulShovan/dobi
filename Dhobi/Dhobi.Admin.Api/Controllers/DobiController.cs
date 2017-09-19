@@ -236,7 +236,7 @@ namespace Dhobi.Admin.Api.Controllers
             {
                 var photoUrl = dobi.DobiId + "/profile/" + "profile_pic.png";
                 Stream stream = await file.ReadAsStreamAsync();
-                _storageService.UploadFile("dhobi", photoUrl, stream);
+                _storageService.UploadFile("dhobi-bucket", photoUrl, stream);
                 dobi.Photo = s3Prefix + photoUrl;
             }
             var response = await _dobiBusiness.AddDobi(dobi);
@@ -352,7 +352,7 @@ namespace Dhobi.Admin.Api.Controllers
                 {
                     var photoUrl = dobi.DobiId + "/profile/" + "profile_pic.png";
                     Stream stream = await file.ReadAsStreamAsync();
-                    _storageService.UploadFile("dhobi", photoUrl, stream);
+                    _storageService.UploadFile("dhobi-bucket", photoUrl, stream);
                     dobi.Photo = s3Prefix + photoUrl;
                 }
             }

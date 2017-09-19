@@ -2,6 +2,7 @@
 using Dhobi.Api.Models;
 using Dhobi.Business.Interface;
 using Dhobi.Common;
+using Dhobi.Core.Device.DbModels;
 using Dhobi.Core.Dobi.DbModels;
 using Dhobi.Core.Dobi.ViewModels;
 using Dhobi.Core.UserInbox.ViewModels;
@@ -19,12 +20,17 @@ namespace Dhobi.Api.Controllers
         private IDobiBusiness _dobiBusiness;
         private IDobiRepository _dobiRepository;
         private IUserMessageBusiness _userMessageBusiness;
+        private IDeviceStatusBusiness _deviceStatusBusiness;
         private TokenGenerator _tokenGenerator;
-        public DobiController(IDobiBusiness dobiBusiness, IDobiRepository dobiRepository, IUserMessageBusiness userMessageBusiness)
+        public DobiController(IDobiBusiness dobiBusiness, 
+            IDobiRepository dobiRepository,
+            IDeviceStatusBusiness deviceStatusBusiness,
+            IUserMessageBusiness userMessageBusiness)
         {
             _dobiBusiness = dobiBusiness;
             _dobiRepository = dobiRepository;
             _userMessageBusiness = userMessageBusiness;
+            _deviceStatusBusiness = deviceStatusBusiness;
             _tokenGenerator = new TokenGenerator();
         }
         private DobiBasicInformation GetDobiInformationFromToken()
@@ -43,21 +49,44 @@ namespace Dhobi.Api.Controllers
             return dobi;
         }
         [Route("v1/dobi/login")]
-        [HttpGet]
+        [HttpPost]
         [AllowAnonymous]
-        public async Task<IHttpActionResult> Login(string phone)
+        public async Task<IHttpActionResult> Login(LoginViewModel login)
         {
-            if (string.IsNullOrWhiteSpace(phone))
+            if (!ModelState.IsValid)
             {
                 return BadRequest("Invalid login data");
             }
-            var loggedInDobi = await _dobiRepository.DobiLogin(phone);
+            var loggedInDobi = await _dobiRepository.DobiLogin(login.Phone);
             if (loggedInDobi == null || string.IsNullOrWhiteSpace(loggedInDobi.DobiId))
             {
                 return Ok(new ResponseModel<string>(ResponseStatus.NotFound, null, "Dobi Not found"));
             }
             var token = _tokenGenerator.GenerateDobiToken(loggedInDobi);
             return Ok(new ResponseModel<string>(ResponseStatus.Ok, token, ""));
+        }
+        [Authorize]
+        [Route("v1/dobi/device/add")]
+        [HttpPost]
+        public async Task<IHttpActionResult> RegisterDevice(DeviceStatus status)
+        {
+            if (string.IsNullOrWhiteSpace(status.RegistrationId))
+            {
+                return BadRequest("Invalid data.");
+            }
+            var user = GetDobiInformationFromToken();
+            if (string.IsNullOrEmpty(user.DobiId))
+            {
+                return BadRequest("Invalid User.");
+            }
+            status.UserId = user.DobiId;
+            status.Application = (int)Application.DobiAgent;
+            var registerAck = await _deviceStatusBusiness.RegisterDevice(status);
+            if (!registerAck)
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.BadRequest, "Device could not be added.", ""));
+            }
+            return Ok(new ResponseModel<string>(ResponseStatus.Ok, "Device added successfully.", ""));
         }
         [Route("v1/dobi/home")]
         [HttpGet]

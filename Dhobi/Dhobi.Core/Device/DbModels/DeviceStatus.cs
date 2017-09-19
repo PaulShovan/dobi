@@ -7,5 +7,6 @@
         public string UserId;
         public int Status;
         public int DeviceOs;
+        public int Application;
     }
 }

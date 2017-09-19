@@ -90,4 +90,9 @@
         NotSent = 1,
         Sent = 2
     }
+    public enum Application
+    {
+        DobiUser = 1,
+        DobiAgent = 2
+    }
 }

@@ -58,6 +58,8 @@ namespace Dhobi.Business.Implementation
                     ServiceId = newServiceId,
                     OrderBy = orderedBy,
                     Address = order.Address,
+                    Lat = order.Lat,
+                    Lon = order.Lon,
                     Zone = order.Zone,
                     Promotion = await GetPromoOffer(),
                     Status = (int)OrderStatus.New,
@@ -121,7 +123,9 @@ namespace Dhobi.Business.Implementation
                     Status = order.Status,
                     Name = order.OrderBy.Name,
                     Address = order.Address,
-                    ServiceId = order.ServiceId
+                    ServiceId = order.ServiceId,
+                    Lat = order.Lat,
+                    Lon = order.Lon
                 });
             }
             return orderItems;
@@ -160,7 +164,9 @@ namespace Dhobi.Business.Implementation
                     ServiceId = order.ServiceId,
                     Address = order.Address,
                     Name = order.OrderBy.Name,
-                    Status = order.Status
+                    Status = order.Status,
+                    Lat = order.Lat,
+                    Lon = order.Lon
                 };
             }
             catch (Exception ex)

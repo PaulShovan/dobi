@@ -67,7 +67,9 @@ namespace Dhobi.Repository.Implementation
                     .Include(u => u.ServiceId)
                     .Include(u => u.Address)
                     .Include(u => u.OrderBy)
-                    .Include(u => u.Status);
+                    .Include(u => u.Status)
+                    .Include(u => u.Lat)
+                    .Include(u => u.Lon);
                 var result = await Collection.Find(filter).Project<Order>(projection).ToListAsync();
                 return result;
             }
@@ -86,7 +88,9 @@ namespace Dhobi.Repository.Implementation
                     .Include(u => u.ServiceId)
                     .Include(u => u.Address)
                     .Include(u => u.OrderBy)
-                    .Include(u => u.Status);
+                    .Include(u => u.Status)
+                    .Include(u => u.Lat)
+                    .Include(u => u.Lon);
                 var result = await Collection.Find(filter).Project<Order>(projection).FirstOrDefaultAsync();
                 return result;
             }
@@ -106,10 +110,12 @@ namespace Dhobi.Repository.Implementation
                     { "Zone", "$_id"},
                     {"Orders", "$Orders"},
                     {"Count", "$Count"},
+                    {"Lat", "$Lat"},
+                    {"Lon", "$Lon"},
                     { "_id", 0}
                 };
                 var result = await Collection.Aggregate().Match(filter).Group(new BsonDocument { { "_id", "$Zone" }, { "Orders", new BsonDocument("$push", new BsonDocument { {"Address", "$Address"},
-                               {"Status", "$Status"},{"Name", "$OrderBy.Name"}, {"ServiceId", "$ServiceId"}}) }, {"Count", new BsonDocument("$sum", 1)} }).Project<BsonDocument>(projectionDefinition).ToListAsync();
+                               {"Status", "$Status"},{"Name", "$OrderBy.Name"}, {"Lat", "$Lat"}, {"Lon", "$Lon"}, {"ServiceId", "$ServiceId"}}) }, {"Count", new BsonDocument("$sum", 1)} }).Project<BsonDocument>(projectionDefinition).ToListAsync();
                 return result;
             }
             catch (Exception ex)

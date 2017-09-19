@@ -213,6 +213,7 @@
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Helpers\TokenGenerator.cs" />
+    <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\OrderHomePageResponse.cs" />
     <Compile Include="Models\OrderPickupResponse.cs" />
     <Compile Include="Models\PayOrderViewModel.cs" />
