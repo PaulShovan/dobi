@@ -104,13 +104,13 @@ namespace Dhobi.Api.Controllers
         [HttpGet]
         [Route("v1/order/groups")]
         [Authorize]
-        public async Task<IHttpActionResult> GetOrdersGroupByZone(int status = 1)
+        public async Task<IHttpActionResult> GetOrdersGroupByZone(int status = 1, string serviceId="")
         {
             if(status < 0)
             {
                 return BadRequest("Invalid Order Status.");
             }
-            var groupedOrders = await _orderBusiness.GetOrdersGroupByZone(status);
+            var groupedOrders = await _orderBusiness.GetOrdersGroupByZone(status, serviceId);
             if(groupedOrders == null)
             {
                 return Ok(new ResponseModel<string>(ResponseStatus.NotFound, null, "No order available."));

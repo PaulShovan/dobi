@@ -1,4 +1,5 @@
 ﻿using Dhobi.DependencyInjection;
+using Dhobi.Service.Implementation;
 using Dhobi.Service.Interface;
 using Ninject;
 using Quartz;
@@ -16,14 +17,14 @@ namespace Dhobi.Service.Notification
         public void Start()
         {
             //System.Diagnostics.Debugger.Launch();
-            var notificationService = DependencyResolver.Kernel.Get<INotificationService>();
+            var notificationService = DependencyResolver.Kernel.Get<NotificationService>();
             IScheduler scheduler = StdSchedulerFactory.GetDefaultScheduler();
             scheduler.Start();
 
             IJobDetail job = JobBuilder.Create<SendNotification>().Build();
             job.JobDataMap["service"] = notificationService;
             ITrigger trigger = TriggerBuilder.Create()
-                   .WithSimpleSchedule(a => a.WithIntervalInSeconds(10).RepeatForever())
+                   .WithSimpleSchedule(a => a.WithIntervalInSeconds(15).RepeatForever())
                    .Build();
 
             scheduler.ScheduleJob(job, trigger);

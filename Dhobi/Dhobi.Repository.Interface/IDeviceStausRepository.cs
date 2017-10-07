@@ -8,6 +8,7 @@ namespace Dhobi.Repository.Interface
     {
         Task<bool> AddDeviceStatus(DeviceStatus status);
         Task<bool> RemoveDeviceStatus(DeviceStatus status);
+        Task<List<DeviceStatus>> GetDeviceStatus(string userId, int deviceOs);
         Task<List<DeviceStatus>> GetDeviceStatus(string userId);
     }
 }

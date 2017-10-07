@@ -94,12 +94,12 @@ namespace Dhobi.Business.Implementation
             }
         }
 
-        public async Task<List<OrderByZoneViewModel>> GetOrdersGroupByZone(int orderStatus)
+        public async Task<List<OrderByZoneViewModel>> GetOrdersGroupByZone(int orderStatus, string serviceIdString)
         {
             try
             {
                 var orders = new List<OrderByZoneViewModel>();
-                var bsonOrders = await _orderRepository.GetOrdersGroupByZone(orderStatus);
+                var bsonOrders = await _orderRepository.GetOrdersGroupByZone(orderStatus, serviceIdString);
                 foreach (var order in bsonOrders)
                 {
                     var deserializedOrder = BsonSerializer.Deserialize<OrderByZoneViewModel>(order);

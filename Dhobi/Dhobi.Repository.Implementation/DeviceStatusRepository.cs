@@ -52,6 +52,20 @@ namespace Dhobi.Repository.Implementation
             }
         }
 
+        public async Task<List<DeviceStatus>> GetDeviceStatus(string userId, int deviceOs)
+        {
+            try
+            {
+                var projection = Builders<DeviceStatus>.Projection.Exclude("_id");
+                var statuses = await Collection.Find(status => status.UserId == userId & status.Status == (int)DeviceOnlineStatus.Active & status.DeviceOs == deviceOs).Project<DeviceStatus>(projection).ToListAsync();
+                return statuses;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error getting device status" + ex);
+            }
+        }
+
         public async Task<bool> RemoveDeviceStatus(DeviceStatus status)
         {
             try

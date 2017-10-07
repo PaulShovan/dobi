@@ -48,8 +48,6 @@ namespace Dhobi.Service.Implementation
         {
             try
             {
-                ConfigureGcmBroker();
-                _gcmBroker.Start();
                 _gcmBroker.QueueNotification(new GcmNotification
                 {
                     //RegistrationIds = new List<string> {
@@ -59,8 +57,6 @@ namespace Dhobi.Service.Implementation
                     RegistrationIds = devices,
                     Data = JObject.Parse(payload)
                 });
-
-                //_gcmBroker.Stop();
                 return true;
             }
             catch (Exception ex)
@@ -74,15 +70,13 @@ namespace Dhobi.Service.Implementation
         {
             try
             {
-                ConfigureApnsBroker();
-                _apnsBroker.Start();
-
                 foreach (var deviceToken in devices)
                 {
                     _apnsBroker.QueueNotification(new ApnsNotification
                     {
                         DeviceToken = deviceToken,
-                        Payload = JObject.Parse("{\"aps\":{\"alert\":\"Hi!I'm a notification!\",\"badge\":7}}")
+
+                        Payload = JObject.Parse(payload)
                     });
                 }
                 return true;
@@ -91,45 +85,44 @@ namespace Dhobi.Service.Implementation
             {
                 throw new Exception("Error sending notification.");
             }
-
         }
-        private async Task<bool> SendNotificationToDevice(Notification notification)
+        private async Task<bool> SendNotificationToAndroidDevice(Notification notification)
         {
-            try
+            var devices = await _deviceStausRepository.GetDeviceStatus(notification.ReceiverUserId, (int)DeviceOs.Android);
+            if (devices == null || devices.Count < 1)
             {
-                var ack = false;
-                var updated = false;
-                var devices = await _deviceStausRepository.GetDeviceStatus(notification.ReceiverUserId);
-                if (devices == null || devices.Count < 1)
-                {
-                    return false;
-                }
-                var androidDevices = devices.FindAll(d => d.DeviceOs == (int)DeviceOs.Android).Select(s => s.RegistrationId).ToList();
-                var iosDevices = devices.FindAll(d => d.DeviceOs == (int)DeviceOs.Ios).Select(s => s.RegistrationId).ToList();
-                var payloadToSend = JsonConvert.SerializeObject(new NotificationBasicInformation {
-                    Type = notification.Type,
-                    message = notification.Text,
-                    title = notification.Title,
-                    MessageId = notification.MessageId
-                });
-                if(androidDevices != null && androidDevices.Count > 0)
-                {
-                    ack = SendAndroidNotification(androidDevices, payloadToSend);
-                }
-                if (iosDevices != null && iosDevices.Count > 0)
-                {
-                    ack = SendIosNotification(iosDevices, payloadToSend);
-                }
-                if (ack)
-                {
-                    updated = await _notificationRepository.UpdateNotificationStatus(notification.NotificationId, (int)NotificationStatus.Sent);
-                }
-                return updated;
+                return false;
             }
-            catch (Exception ex)
+            var payloadToSend = JsonConvert.SerializeObject(new NotificationBasicInformation
             {
-                throw new Exception("Error sending notification."+ex);
+                Type = notification.Type,
+                message = notification.Text,
+                title = notification.Title,
+                MessageId = notification.MessageId
+            });
+            ConfigureGcmBroker();
+            _gcmBroker.Start();
+            SendAndroidNotification(devices.Select(s => s.RegistrationId).ToList(), payloadToSend);
+            var updated = await _notificationRepository.UpdateNotificationStatus(notification.NotificationId, (int)NotificationStatus.Sent);
+            _gcmBroker.Stop();
+            return true;
+        }
+        private async Task<bool> SendNotificationToIosDevice(Notification notification)
+        {
+            var devices = await _deviceStausRepository.GetDeviceStatus(notification.ReceiverUserId, (int)DeviceOs.Ios);
+            if (devices == null || devices.Count < 1)
+            {
+                return false;
             }
+            var payloadToSend = "{\"aps\":{\"alert\":\"" + notification.Text +
+                                                "\",\"badge\":\"" + 1 + "\",\"sound\":\"noti.aiff\"}}";
+            
+            ConfigureApnsBroker();
+            _apnsBroker.Start();
+            SendIosNotification(devices.Select(s => s.RegistrationId).ToList(), payloadToSend);
+            var updated = await _notificationRepository.UpdateNotificationStatus(notification.NotificationId, (int)NotificationStatus.Sent);
+            _apnsBroker.Stop();
+            return true;
         }
         public async Task<bool> SendNotification()
         {
@@ -142,11 +135,10 @@ namespace Dhobi.Service.Implementation
                 }
                 foreach (var notification in notifications)
                 {
-                    var sendAck = await SendNotificationToDevice(notification);
-                    if (sendAck)
+                    var ack = await SendNotificationToAndroidDevice(notification);
+                    if (!ack)
                     {
-                        _gcmBroker.Stop();
-                        _apnsBroker.Stop();
+                        await SendNotificationToIosDevice(notification);
                     }
                 }
                 return true;

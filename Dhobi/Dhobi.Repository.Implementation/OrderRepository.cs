@@ -100,12 +100,18 @@ namespace Dhobi.Repository.Implementation
             }
         }
 
-        public async Task<List<BsonDocument>> GetOrdersGroupByZone(int orderStatus)
+        public async Task<List<BsonDocument>> GetOrdersGroupByZone(int orderStatus, string serviceIdString)
         {
             try
             {
                 var builder = Builders<Order>.Filter;
                 var filter = builder.Eq(o => o.Status, orderStatus);
+                if (!string.IsNullOrWhiteSpace(serviceIdString))
+                {
+                    var regexFilter = ".*" + serviceIdString + ".*";
+                    var bsonRegex = new BsonRegularExpression(regexFilter, "i");
+                    filter = builder.Eq(o => o.Status, orderStatus) & builder.Regex(x => x.ServiceId, bsonRegex);
+                }
                 var projectionDefinition = new BsonDocument{
                     { "Zone", "$_id"},
                     {"Orders", "$Orders"},

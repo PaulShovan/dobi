@@ -13,7 +13,7 @@ namespace Dhobi.Business.Interface
     public interface IOrderBusiness
     {
         Task<bool> AddNewOrder(NewOrderViewModel order, User orderedBy);
-        Task<List<OrderByZoneViewModel>> GetOrdersGroupByZone(int orderStatus);
+        Task<List<OrderByZoneViewModel>> GetOrdersGroupByZone(int orderStatus, string serviceIdString);
         Task<OrderByZoneViewModel> GetOrdersByZone(string zone, int orderStatus);
         Task<OrderItemViewModel> GetNewOrderForDobi(string serviceId);
         Task<bool> SetOrderPickupDateTime(OrderPickupTimeViewModel order, DobiBasicInformation dobi);
