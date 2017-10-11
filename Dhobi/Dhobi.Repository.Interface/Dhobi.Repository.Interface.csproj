@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Base\IRepository.cs" />
     <Compile Include="IAvailableLoacationRepository.cs" />
+    <Compile Include="IDetergentRepository.cs" />
     <Compile Include="IDeviceStausRepository.cs" />
     <Compile Include="IDobiRepository.cs" />
     <Compile Include="IManagerRepository.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="IOrderRepository.cs" />
     <Compile Include="IOrderServiceRepository.cs" />
     <Compile Include="IPromoOfferRepository.cs" />
+    <Compile Include="IServiceItemRepository.cs" />
     <Compile Include="IUserLocationRepository.cs" />
     <Compile Include="IUserMessageRepository.cs" />
     <Compile Include="IUserSmsRepository.cs" />

@@ -60,6 +60,7 @@
     <Compile Include="AvailableLoacationRepository.cs" />
     <Compile Include="Base\DhobiContext.cs" />
     <Compile Include="Base\Repository.cs" />
+    <Compile Include="DetergentRepository.cs" />
     <Compile Include="DeviceStatusRepository.cs" />
     <Compile Include="DobiRepository.cs" />
     <Compile Include="ManagerRepository.cs" />
@@ -73,6 +74,7 @@
       <DependentUpon>DbSettings.settings</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceItemRepository.cs" />
     <Compile Include="UserLocationRepository.cs" />
     <Compile Include="UserSmsRepository.cs" />
     <Compile Include="UserMessageRepository.cs" />

@@ -7,15 +7,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dhobi.Core.OrderModel.DbModels;
+using Dhobi.Core.OrderModel.ViewModels;
 
 namespace Dhobi.Business.Implementation
 {
     public class OrderServiceBusiness : IOrderServiceBusiness
     {
         private IOrderServiceRepository _orderServiceRepository;
-        public OrderServiceBusiness(IOrderServiceRepository orderServiceRepository)
+        private IServiceItemRepository _serviceItemRepository;
+        private IDetergentRepository _detergentRepository;
+        public OrderServiceBusiness(IOrderServiceRepository orderServiceRepository,
+            IServiceItemRepository serviceItemRepository,
+            IDetergentRepository detergentRepository)
         {
             _orderServiceRepository = orderServiceRepository;
+            _serviceItemRepository = serviceItemRepository;
+            _detergentRepository = detergentRepository;
         }
         public async Task<bool> AddService(List<string> orderServices)
         {
@@ -58,6 +66,61 @@ namespace Dhobi.Business.Implementation
             catch (Exception ex)
             {
                 throw new Exception("Error getting order service"+ex);
+            }
+        }
+
+        public async Task<bool> AddServiceItems(List<ServiceItem> items)
+        {
+            try
+            {
+                return await _serviceItemRepository.AddNewServiceItems(items);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public async Task<bool> AddDetergents(List<string> detergents)
+        {
+            try
+            {
+                var items = new List<Detergent>();
+                foreach (var item in detergents)
+                {
+                    items.Add(new Detergent
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        Name = item
+                    });
+                }
+                return await _detergentRepository.AddNewDetergents(items);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public async Task<ServiceItemViewModel> GetServiceItems()
+        {
+            try
+            {
+                var serviceItems = await _serviceItemRepository.GetServiceItems();
+                var detergents = await _detergentRepository.GetDetergents();
+                if(serviceItems == null && detergents == null)
+                {
+                    return new ServiceItemViewModel();
+                }
+                return new ServiceItemViewModel
+                {
+                    Cloths = serviceItems,
+                    Detergents = detergents.Select(i => i.Name).ToList()
+                };
+            }
+            catch (Exception ex)
+            {
+                throw;
             }
         }
     }

@@ -120,13 +120,13 @@ namespace Dhobi.Api.Controllers
         [HttpGet]
         [Route("v1/order/groups/zone")]
         [Authorize]
-        public async Task<IHttpActionResult> GetOrdersByZone(string zone, int status = 1)
+        public async Task<IHttpActionResult> GetOrdersByZone(string zone, int status = 1, string serviceId = "")
         {
             if (status < 0 || string.IsNullOrWhiteSpace(zone))
             {
                 return BadRequest("Invalid order status or zone.");
             }
-            var groupedOrders = await _orderBusiness.GetOrdersByZone(zone, status);
+            var groupedOrders = await _orderBusiness.GetOrdersByZone(zone, status, serviceId);
             if (groupedOrders == null)
             {
                 return Ok(new ResponseModel<string>(ResponseStatus.NotFound, null, "No order available."));
@@ -340,6 +340,18 @@ namespace Dhobi.Api.Controllers
             }
             return Ok(new ResponseModel<List<string>>(ResponseStatus.Ok, orderServices, ""));
         }
+        [HttpGet]
+        [Route("v1/order/services/items")]
+        [Authorize]
+        public async Task<IHttpActionResult> GetOrderServiceItems()
+        {
+            var orderServices = await _orderServiceBusiness.GetServiceItems();
+            if (orderServices == null)
+            {
+                return Ok(new ResponseModel<string>(ResponseStatus.NotFound, null, "No order service items."));
+            }
+            return Ok(new ResponseModel<ServiceItemViewModel>(ResponseStatus.Ok, orderServices, ""));
+        }
 
         [HttpGet]
         [Route("v1/order/summary")]
@@ -374,5 +386,6 @@ namespace Dhobi.Api.Controllers
             }
             return Ok(new ResponseModel<string>(ResponseStatus.Ok, "", "Order successfully set as paid."));
         }
+
     }
 }

@@ -62,6 +62,12 @@ namespace Dhobi.DependencyInjection
             kernel.Bind<IUserLocationRepository>().To<UserLocationRepository>();
             kernel.Bind<IUserLocationBusiness>().To<UserLocationBusiness>();
             #endregion
+            #region ServiceItems
+            kernel.Bind<IServiceItemRepository>().To<ServiceItemRepository>();
+            #endregion
+            #region Detergents
+            kernel.Bind<IDetergentRepository>().To<DetergentRepository>();
+            #endregion
 
         }
     }

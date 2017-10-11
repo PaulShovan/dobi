@@ -122,6 +122,7 @@ namespace Dhobi.Business.Implementation
                 {
                     Status = order.Status,
                     Name = order.OrderBy.Name,
+                    PhoneNumber = order.OrderBy.PhoneNumber,
                     Address = order.Address,
                     ServiceId = order.ServiceId,
                     Lat = order.Lat,
@@ -130,11 +131,11 @@ namespace Dhobi.Business.Implementation
             }
             return orderItems;
         }
-        public async Task<OrderByZoneViewModel> GetOrdersByZone(string zone, int orderStatus)
+        public async Task<OrderByZoneViewModel> GetOrdersByZone(string zone, int orderStatus, string serviceIdString)
         {
             try
             {
-                var orders = await _orderRepository.GetOrdersByZone(zone, orderStatus);
+                var orders = await _orderRepository.GetOrdersByZone(zone, orderStatus, serviceIdString);
                 if(orders == null || orders.Count <= 0)
                 {
                     return null;

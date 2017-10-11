@@ -55,9 +55,11 @@
     <Compile Include="Manager\ViewModels\ManagerViewModel.cs" />
     <Compile Include="Notification\DbModels\Notification.cs" />
     <Compile Include="Notification\ViewModels\NotificationBasicInformation.cs" />
+    <Compile Include="OrderModel\DbModels\Detergent.cs" />
     <Compile Include="OrderModel\DbModels\Item.cs" />
     <Compile Include="OrderModel\DbModels\Order.cs" />
     <Compile Include="OrderModel\DbModels\OrderItem.cs" />
+    <Compile Include="OrderModel\DbModels\ServiceItem.cs" />
     <Compile Include="OrderModel\ViewModels\NewOrderViewModel.cs" />
     <Compile Include="OrderModel\ViewModels\OrderByZoneViewModel.cs" />
     <Compile Include="OrderModel\ViewModels\OrderItemViewModel.cs" />
@@ -65,6 +67,7 @@
     <Compile Include="OrderModel\ViewModels\OrderPickupInformationViewModel.cs" />
     <Compile Include="OrderModel\ViewModels\OrderPickupTimeViewModel.cs" />
     <Compile Include="OrderModel\ViewModels\OrderSummaryViewModel.cs" />
+    <Compile Include="OrderModel\ViewModels\ServiceItemViewModel.cs" />
     <Compile Include="OrderModel\ViewModels\UserOrderStatusResponseModel.cs" />
     <Compile Include="OrderModel\ViewModels\UserOrderStatusViewModel.cs" />
     <Compile Include="OrderService\DbModels\OrderService.cs" />

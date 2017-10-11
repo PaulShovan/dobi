@@ -11,6 +11,7 @@ namespace Dhobi.Core.OrderModel.ViewModels
         public string ServiceId;
         public string Address;
         public string Name;
+        public string PhoneNumber;
         public int Status;
         public double Lat;
         public double Lon;

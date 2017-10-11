@@ -1,6 +1,7 @@
 ﻿using Dhobi.Admin.Api.Models;
 using Dhobi.Business.Interface;
 using Dhobi.Core;
+using Dhobi.Core.OrderModel.DbModels;
 using Dhobi.Core.OrderModel.ViewModels;
 using Dhobi.Repository.Interface;
 using System;
@@ -35,6 +36,30 @@ namespace Dhobi.Admin.Api.Controllers
                 return BadRequest("Invalid service data.");
             }
             var response = await _orderServiceBusiness.AddService(services);
+            return Ok(response);
+        }
+        [HttpPost]
+        [Route("v1/order/service/item")]
+        [Authorize]
+        public async Task<IHttpActionResult> AddOrderServiceItems(List<ServiceItem> items)
+        {
+            if (items == null)
+            {
+                return BadRequest("Invalid service data.");
+            }
+            var response = await _orderServiceBusiness.AddServiceItems(items);
+            return Ok(response);
+        }
+        [HttpPost]
+        [Route("v1/order/service/detergent")]
+        [Authorize]
+        public async Task<IHttpActionResult> AddOrderServiceItems(List<string> detergents)
+        {
+            if (detergents == null)
+            {
+                return BadRequest("Invalid service data.");
+            }
+            var response = await _orderServiceBusiness.AddDetergents(detergents);
             return Ok(response);
         }
         [HttpGet]

@@ -14,7 +14,7 @@ namespace Dhobi.Business.Interface
     {
         Task<bool> AddNewOrder(NewOrderViewModel order, User orderedBy);
         Task<List<OrderByZoneViewModel>> GetOrdersGroupByZone(int orderStatus, string serviceIdString);
-        Task<OrderByZoneViewModel> GetOrdersByZone(string zone, int orderStatus);
+        Task<OrderByZoneViewModel> GetOrdersByZone(string zone, int orderStatus, string serviceIdString);
         Task<OrderItemViewModel> GetNewOrderForDobi(string serviceId);
         Task<bool> SetOrderPickupDateTime(OrderPickupTimeViewModel order, DobiBasicInformation dobi);
         Task<bool> ConfirmOrder(string serviceId, User user);

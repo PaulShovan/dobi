@@ -57,12 +57,18 @@ namespace Dhobi.Repository.Implementation
             }
         }
 
-        public async Task<List<Order>> GetOrdersByZone(string zone, int orderStatus)
+        public async Task<List<Order>> GetOrdersByZone(string zone, int orderStatus, string serviceIdString)
         {
             try
             {
                 var builder = Builders<Order>.Filter;
                 var filter = builder.Eq(order => order.Zone, zone) & builder.Eq(order => order.Status, orderStatus);
+                if (!string.IsNullOrWhiteSpace(serviceIdString))
+                {
+                    var regexFilter = ".*" + serviceIdString + ".*";
+                    var bsonRegex = new BsonRegularExpression(regexFilter, "i");
+                    filter = builder.Eq(order => order.Zone, zone) & builder.Eq(order => order.Status, orderStatus) & builder.Regex(x => x.ServiceId, bsonRegex);
+                }
                 var projection = Builders<Order>.Projection.Exclude("_id")
                     .Include(u => u.ServiceId)
                     .Include(u => u.Address)
@@ -121,7 +127,7 @@ namespace Dhobi.Repository.Implementation
                     { "_id", 0}
                 };
                 var result = await Collection.Aggregate().Match(filter).Group(new BsonDocument { { "_id", "$Zone" }, { "Orders", new BsonDocument("$push", new BsonDocument { {"Address", "$Address"},
-                               {"Status", "$Status"},{"Name", "$OrderBy.Name"}, {"Lat", "$Lat"}, {"Lon", "$Lon"}, {"ServiceId", "$ServiceId"}}) }, {"Count", new BsonDocument("$sum", 1)} }).Project<BsonDocument>(projectionDefinition).ToListAsync();
+                               {"Status", "$Status"},{"Name", "$OrderBy.Name"},{"PhoneNumber", "$OrderBy.PhoneNumber"}, {"Lat", "$Lat"}, {"Lon", "$Lon"}, {"ServiceId", "$ServiceId"}}) }, {"Count", new BsonDocument("$sum", 1)} }).Project<BsonDocument>(projectionDefinition).ToListAsync();
                 return result;
             }
             catch (Exception ex)
