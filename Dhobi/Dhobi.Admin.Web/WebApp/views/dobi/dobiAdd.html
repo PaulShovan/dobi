@@ -19,8 +19,8 @@
                         <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.phoneNumber.$touched && dobiAddForm.phoneNumber.$invalid }">
                             <label>Phone Number</label>
                             <div class="input-group phone-number">
-                                <span class="input-group-addon" ng-class="{ 'has-error' : dobiAddForm.phoneNumber.$touched && dobiAddForm.phoneNumber.$invalid }">006</span>
-                                <input type="text" name="phoneNumber" class="form-control" placeholder="Enter phone number" ng-model="Data.TemporaryPhoneNumber" required ng-pattern="/^\d{10}$/" only-digits limit-to="10">
+                                <span class="input-group-addon" ng-class="{ 'has-error' : dobiAddForm.phoneNumber.$touched && dobiAddForm.phoneNumber.$invalid }">+60</span>
+                                <input type="text" name="phoneNumber" class="form-control" placeholder="Enter phone number" ng-model="Data.TemporaryPhoneNumber" required ng-pattern="/^\d{9}$/" only-digits limit-to="9">
                             </div>
                             <div class="help-block" ng-messages="dobiAddForm.phoneNumber.$error" ng-if="dobiAddForm.phoneNumber.$touched">
                                 <p ng-message="required">Phone Number is required.</p>
@@ -47,8 +47,8 @@
                         <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.emergencyContact.$touched && dobiAddForm.emergencyContact.$invalid }">
                             <label>Emergency Number</label>
                             <div class="input-group phone-number">
-                                <span class="input-group-addon" ng-class="{ 'has-error' : dobiAddForm.emergencyContact.$touched && dobiAddForm.emergencyContact.$invalid }">006</span>
-                                <input type="text" name="emergencyContact" class="form-control" placeholder="Enter emergency contact number" ng-model="Data.TemporaryEmergencyNumber" required ng-pattern="/^\d{10}$/" only-digits limit-to="10">
+                                <span class="input-group-addon" ng-class="{ 'has-error' : dobiAddForm.emergencyContact.$touched && dobiAddForm.emergencyContact.$invalid }">+60</span>
+                                <input type="text" name="emergencyContact" class="form-control" placeholder="Enter emergency contact number" ng-model="Data.TemporaryEmergencyNumber" required ng-pattern="/^\d{9}$/" only-digits limit-to="9">
                             </div>
                             <div class="help-block" ng-messages="dobiAddForm.emergencyContact.$error" ng-if="dobiAddForm.emergencyContact.$touched">
                                 <p ng-message="required">Emergency Contact is required.</p>

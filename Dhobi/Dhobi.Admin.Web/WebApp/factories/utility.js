@@ -35,11 +35,11 @@
                 return convertedData;
             },
             RemoveMalaysiaCC: function (phoneNumber) { // CC means Country Code
-                return phoneNumber.toString().replace(/\D/g, '').substr(3, 10);
+                return phoneNumber.toString().replace(/\D/g, '').substr(2, 9);
             },
             AddMalaysiaCC: function(phoneNumber) {
                 var phone = phoneNumber.toString().replace(/\D/g, '');
-                var phoneWithExt = "006" + phone;
+                var phoneWithExt = "+60" + phone;
                 return phoneWithExt;
             },
             AddParamWithPhotoUrl: function (list) {
