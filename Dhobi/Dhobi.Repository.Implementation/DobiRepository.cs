@@ -41,7 +41,7 @@ namespace Dhobi.Repository.Implementation
             try
             {
                 var sortBuilder = Builders<Dobi>.Sort;
-                var sortOrder = sortBuilder.Ascending(s => s.JoinDate);
+                var sortOrder = sortBuilder.Descending(s => s.JoinDate);
                 var projection = Builders<Dobi>.Projection.Exclude("_id").Exclude(s => s.AddedBy);
                 var dobi = await Collection.Find(d => d.DobiId != "").Project<Dobi>(projection).Sort(sortOrder).Skip(skip).Limit(limit).ToListAsync();
                 return dobi;
