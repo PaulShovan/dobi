@@ -67,7 +67,7 @@ namespace Dhobi.Repository.Implementation
             try
             {
                 var sortBuilder = Builders<Manager>.Sort;
-                var sortOrder = sortBuilder.Ascending(s => s.JoinDate);
+                var sortOrder = sortBuilder.Descending(s => s.JoinDate);
                 var projection = Builders<Manager>.Projection.Exclude("_id").Exclude(s => s.AddedBy);
                 var managers = await Collection.Find(d => d.Status != (int)ManagerStatus.Removed).Project<Manager>(projection).Sort(sortOrder).Skip(skip).Limit(limit).ToListAsync();
                 return managers;

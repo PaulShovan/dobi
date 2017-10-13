@@ -78,10 +78,11 @@
                         </div>
                         <div class="form-group" ng-class="{ 'has-error' : dobiAddForm.drivingLicense.$touched && dobiAddForm.drivingLicense.$invalid }">
                             <label>Driving License</label>
-                            <input type="text" name="drivingLicense" class="form-control" placeholder="Enter driving license number" ng-model="Data.Dobi.DrivingLicense" required ng-pattern="/^[0-9a-zA-Z \b]+$/" ng-maxlength="20">
+                            <!--<input type="text" name="drivingLicense" class="form-control" placeholder="Enter driving license number" ng-model="Data.Dobi.DrivingLicense" required ng-pattern="/^[0-9a-zA-Z \b]+$/" ng-maxlength="20">-->
+                            <input type="text" name="drivingLicense" class="form-control" placeholder="Enter driving license number" ng-model="Data.Dobi.DrivingLicense" ng-maxlength="20">
                             <div class="help-block" ng-messages="dobiAddForm.drivingLicense.$error" ng-if="dobiAddForm.drivingLicense.$touched">
-                                <p ng-message="required">Driving License is required.</p>
-                                <p ng-message="pattern">Driving License is invalid.</p>
+                                <!--<p ng-message="required">Driving License is required.</p>
+                                <p ng-message="pattern">Driving License is invalid.</p>-->
                                 <p ng-message="maxlength">Maximum 20 character is allowed.</p>
                             </div>
                         </div>
